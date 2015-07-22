@@ -30,6 +30,7 @@ public class ImageActivity extends Activity {
 
 	private ImageView backBtn; // 回退按钮
 	private ImageView downLoadBtn; // 下载按钮
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
