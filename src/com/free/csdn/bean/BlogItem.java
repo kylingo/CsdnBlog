@@ -1,21 +1,36 @@
 package com.free.csdn.bean;
 
+import com.lidroid.xutils.db.annotation.Column;
+
 /**
  * 博客实体类
  * 
  * @author wwj_748
  * @date 2014/8/9
  */
-public class BlogItem {
+public class BlogItem extends BaseEntity{
+	@Column(column = "title")
 	private String title; // 标题
+	
+	@Column(column = "link")
 	private String link; // 文章链接
-	private int id; // id
+	
+	@Column(column = "date")
 	private String date; // 博客发布时间
+	
+	@Column(column = "imgLink")
 	private String imgLink; // 图片链接
+	
+	@Column(column = "content")
 	private String content; // 文章内容
+	
+	@Column(column = "msg")
 	private String msg; // 消息
+	
+	@Column(column = "type")
 	private int type; // 博客分类
 
+	@Column(column = "viewTime")
 	private String viewTime;
 
 	public String getTitle() {
@@ -32,14 +47,6 @@ public class BlogItem {
 
 	public void setLink(String link) {
 		this.link = link;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getDate() {

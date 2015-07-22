@@ -1,12 +1,27 @@
 package com.free.csdn.bean;
 
-public class Blog {
+import com.lidroid.xutils.db.annotation.Column;
+
+public class Blog extends BaseEntity{
+	@Column(column = "title")
 	private String title;
+	
+	@Column(column = "content")
 	private String content;
+	
+	@Column(column = "summary")
 	private String summary;
+	
+	@Column(column = "imgLink")
 	private String imgLink;
+	
+	@Column(column = "link")
 	private String link;
+	
+	@Column(column = "state")
 	private int state;
+	
+	@Column(column = "commentCount")
 	private String commentCount;
 
 	public String getTitle() {

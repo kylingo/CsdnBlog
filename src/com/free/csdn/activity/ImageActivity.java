@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.free.csdn.R;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.HttpUtil;
+import com.free.csdn.util.ImageLoaderUtils;
 import com.polites.android.GestureImageView;
 
 /**
@@ -63,11 +64,9 @@ public class ImageActivity extends Activity {
 			public void onClick(View v) {
 				imageView.setDrawingCacheEnabled(true);
 				if (FileUtil.writeSDCard(url, imageView.getDrawingCache())) {
-					Toast.makeText(getApplicationContext(), "保存成功",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_SHORT).show();
 				} else {
-					Toast.makeText(getApplicationContext(), "保存失败",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "保存失败", Toast.LENGTH_SHORT).show();
 				}
 				imageView.setDrawingCacheEnabled(false);
 			}
@@ -86,12 +85,12 @@ public class ImageActivity extends Activity {
 		@Override
 		protected void onPostExecute(Bitmap result) {
 			if (result == null) {
-				Toast.makeText(ImageActivity.this, "网络信号不佳", Toast.LENGTH_LONG)
-						.show();
+				Toast.makeText(ImageActivity.this, "网络信号不佳", Toast.LENGTH_LONG).show();
+				ImageLoaderUtils.displayImg(url, imageView);
 			} else {
 				imageView.setImageBitmap(result);
-				progressBar.setVisibility(View.GONE);
 			}
+			progressBar.setVisibility(View.GONE);
 			super.onPostExecute(result);
 		}
 

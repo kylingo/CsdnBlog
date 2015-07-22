@@ -17,7 +17,9 @@ import android.widget.TextView;
 import com.free.csdn.R;
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
+import com.free.csdn.util.DisplayUtil;
 import com.free.csdn.util.FileUtil;
+import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,7 +38,6 @@ public class BlogDetailAdapter extends BaseAdapter {
 
 	private SpannableStringBuilder htmlSpannable;
 	private ImageLoader imageLoader = ImageLoader.getInstance();
-	private DisplayImageOptions options;
 
 	public BlogDetailAdapter(Context context) {
 		super();
@@ -89,36 +90,28 @@ public class BlogDetailAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			switch (item.getState()) {
 			case Constants.DEF_BLOG_ITEM_TYPE.TITLE:// 显示标题
-				convertView = layoutInflater.inflate(
-						R.layout.article_detail_title_item, null);
+				convertView = layoutInflater.inflate(R.layout.article_detail_title_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.SUMMARY: // 摘要
-				convertView = layoutInflater.inflate(
-						R.layout.article_detail_summary_item, null);
+				convertView = layoutInflater.inflate(R.layout.article_detail_summary_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.CONTENT: // 内容
-				convertView = layoutInflater.inflate(
-						R.layout.article_detail_item, null);
+				convertView = layoutInflater.inflate(R.layout.article_detail_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 图片
-				convertView = layoutInflater.inflate(
-						R.layout.article_detail_img_item, null);
-				holder.image = (ImageView) convertView
-						.findViewById(R.id.imageView);
+				convertView = layoutInflater.inflate(R.layout.article_detail_img_item, null);
+				holder.image = (ImageView) convertView.findViewById(R.id.imageView);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE: // 加粗标题
-				convertView = layoutInflater.inflate(
-						R.layout.article_detail_bold_title_item, null);
+				convertView = layoutInflater.inflate(R.layout.article_detail_bold_title_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.CODE: // 代码
-				convertView = layoutInflater.inflate(
-						R.layout.article_detail_code_item, null);
-				holder.code = (WebView) convertView
-						.findViewById(R.id.code_view);
+				convertView = layoutInflater.inflate(R.layout.article_detail_code_item, null);
+				holder.code = (WebView) convertView.findViewById(R.id.code_view);
 				// holder.code.getSettings().setUseWideViewPort(true);
 				// holder.code.getSettings().setJavaScriptEnabled(true);
 				// holder.code.getSettings().setSupportZoom(true);
@@ -136,8 +129,7 @@ public class BlogDetailAdapter extends BaseAdapter {
 		if (null != item) {
 			switch (item.getState()) {
 			case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 图片，异步加载
-				imageLoader.displayImage(item.getContent(), holder.image,
-						options);
+				ImageLoaderUtils.displayImg(item.getContent(), holder.image);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.CODE: // 代码，格式显示
 
@@ -154,13 +146,11 @@ public class BlogDetailAdapter extends BaseAdapter {
 
 				// holder.code.loadUrl("file:///android_asset/code.html");
 
-				holder.code.loadDataWithBaseURL("file:///android_asset/", html,
-						"text/html", "utf-8", null);
+				holder.code.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", null);
 
 				break;
 			default:
-				holder.content.setText(Html.fromHtml(item.getContent(), null,
-						new MyTagHandler()));
+				holder.content.setText(Html.fromHtml(item.getContent(), null, new MyTagHandler()));
 				break;
 			}
 		}

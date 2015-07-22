@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -15,11 +18,23 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.logging.MemoryHandler;
+
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.app.Constants;
+import com.free.csdn.bean.Blog;
+import com.free.csdn.bean.BlogItem;
+import com.free.csdn.util.ACache;
+import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.LogUtil;
+import com.free.csdn.util.MD5;
+import com.lidroid.xutils.DbUtils;
+import com.lidroid.xutils.exception.DbException;
 
 /**
  * 博客详细内容界面
@@ -39,6 +54,10 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 
 	public static String url;
 	private String filename;
+	private DbUtils db;
+	private static final int MSG_RELOAD_DATA = 1000;
+
+	private boolean isPreload = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +68,7 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 		init();
 		initComponent();
 
-		// 执行异步加载
+		mHandler.sendEmptyMessage(MSG_RELOAD_DATA);
 		new MainTask().execute(url, Constants.DEF_TASK_TYPE.FIRST);
 	}
 
@@ -59,6 +78,15 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 		url = getIntent().getExtras().getString("blogLink");
 		filename = url.substring(url.lastIndexOf("/") + 1);
 		System.out.println("filename--->" + filename);
+
+		String urlMD5 = "url-md5";
+		try {
+			urlMD5 = MD5.getMD5(url);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this) + "/BlogDetail", urlMD5);
 	}
 
 	// 初始化组件
@@ -103,15 +131,12 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// 获取点击列表项的状态
-				int state = blogDetailAdapter.getList().get(position - 1)
-						.getState();
+				int state = blogDetailAdapter.getList().get(position - 1).getState();
 				switch (state) {
 				case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 点击的是图片
-					String url = blogDetailAdapter.getList().get(position - 1)
-							.getImgLink();
+					String url = blogDetailAdapter.getList().get(position - 1).getImgLink();
 					Intent i = new Intent();
 					i.setClass(BlogDetailActivity.this, ImageActivity.class);
 					i.putExtra("url", url);
@@ -132,6 +157,12 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 	private class MainTask extends AsyncTask<String, Void, Integer> {
 
 		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+		}
+
+		@Override
 		protected Integer doInBackground(String... params) {
 			String temp = HttpUtil.httpGet(params[0]);
 			if (temp == null) {
@@ -141,7 +172,18 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 					return Constants.DEF_RESULT_CODE.ERROR;
 				}
 			}
-			blogDetailAdapter.addList(JsoupUtil.getContent(url, temp));
+			List<Blog> blogList = JsoupUtil.getContent(url, temp);
+			blogDetailAdapter.setList(blogList);
+
+			// 缓存数据
+			try {
+				db.deleteAll(Blog.class);
+				db.saveAll(blogList);
+			} catch (DbException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			if (params[1].equals(Constants.DEF_TASK_TYPE.FIRST)) {
 				return Constants.DEF_RESULT_CODE.REFRESH;
 			}
@@ -151,9 +193,10 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 		@Override
 		protected void onPostExecute(Integer result) {
 			if (result == Constants.DEF_RESULT_CODE.FIRST) {
-				Toast.makeText(getApplicationContext(), "网络信号不佳",
-						Toast.LENGTH_LONG).show();
-				reLoadImageView.setVisibility(View.VISIBLE);
+				Toast.makeText(getApplicationContext(), "网络信号不佳", Toast.LENGTH_LONG).show();
+				if (!isPreload) {
+					reLoadImageView.setVisibility(View.VISIBLE);
+				}
 			} else if (result == Constants.DEF_RESULT_CODE.ERROR) {
 				listView.stopLoadMore();
 			} else if (result == Constants.DEF_RESULT_CODE.REFRESH) {
@@ -162,6 +205,7 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 				blogDetailAdapter.notifyDataSetChanged();
 				listView.stopLoadMore();
 			}
+
 			progressBar.setVisibility(View.INVISIBLE);
 			super.onPostExecute(result);
 		}
@@ -176,5 +220,35 @@ public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
 			listView.stopLoadMore(" -- THE END --");
 		}
 	}
+
+	// 预加载数据
+	private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			switch (msg.what) {
+			case MSG_RELOAD_DATA:
+				// 执行异步加载
+				try {
+					List<Blog> blogList = db.findAll(Blog.class);
+					if (blogList != null) {
+						progressBar.setVisibility(View.INVISIBLE);
+						blogDetailAdapter.setList(blogList);
+						blogDetailAdapter.notifyDataSetChanged();
+						isPreload = true;
+					}
+				} catch (DbException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				break;
+
+			default:
+				break;
+			}
+			super.handleMessage(msg);
+		}
+	};
 
 }
