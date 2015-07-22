@@ -6,5 +6,10 @@ package com.free.csdn.interfaces;
  */
 
 public abstract interface DialogListener {
+	
+	/**
+	 * 确定
+	 * @param result
+	 */
 	public abstract void confirm(String result);
 }
