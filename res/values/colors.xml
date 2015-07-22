@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="main_color">#019587</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#5D5D5D</color>
+    <color name="coffee">#622f1b</color>
+    <color name="wangyibg">#f0f0f0</color>
+    <color name="wangyibg2">#E0E0E0</color>
+    <color name="light_blue">#5CACEE</color>
+    <color name="black2">#80000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparentblack">#88000000</color>
+    
+    <color name="list_decs_color">#848B84</color>
+    <color name="list_divider_color">#DBDBDB</color>
+
+</resources>
