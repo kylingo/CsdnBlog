@@ -1,5 +1,6 @@
 package com.free.csdn.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ import com.polites.android.GestureImageView;
  * @author wwj_748
  * 
  */
+@SuppressLint("NewApi")
 public class ImageActivity extends Activity {
 
 	private String url; // 图片地址
@@ -30,7 +32,6 @@ public class ImageActivity extends Activity {
 
 	private ImageView backBtn; // 回退按钮
 	private ImageView downLoadBtn; // 下载按钮
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
