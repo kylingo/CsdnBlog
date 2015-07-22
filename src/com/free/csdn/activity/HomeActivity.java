@@ -37,7 +37,7 @@ import com.free.csdn.util.ToastUtil;
  *
  */
 @SuppressLint("HandlerLeak")
-public class MainActivity extends BaseActivity implements OnItemClickListener,
+public class HomeActivity extends BaseActivity implements OnItemClickListener,
 		OnClickListener {
 
 	private ListView listView;
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener,
 		// TODO Auto-generated method stub
 		Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
 
-		Intent intent = new Intent(MainActivity.this, BlogListActivity.class);
+		Intent intent = new Intent(HomeActivity.this, BlogListActivity.class);
 		intent.putExtra("blogger", blogger);
 		startActivity(intent);
 	}
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener,
 
 							newUserId = result;
 							progressdialog = ProgressDialog.show(
-									MainActivity.this, null, "正在添加博客信息，请稍候...");
+									HomeActivity.this, null, "正在添加博客信息，请稍候...");
 							new Thread(new Runnable() {
 								@Override
 								public void run() {
@@ -149,7 +149,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener,
 			progressdialog.dismiss();
 		}
 
-		ToastUtil.showCenterToast(MainActivity.this, "博客ID添加成功！");
+		ToastUtil.showCenterToast(HomeActivity.this, "博客ID添加成功！");
 	}
 
 	private Handler mHandler = new Handler() {
@@ -162,7 +162,7 @@ public class MainActivity extends BaseActivity implements OnItemClickListener,
 				break;
 
 			case MSG_ADD_FAILURE:
-				ToastUtil.showCenterToast(MainActivity.this, "ID不存在，添加失败！");
+				ToastUtil.showCenterToast(HomeActivity.this, "ID不存在，添加失败！");
 				break;
 
 			default:
