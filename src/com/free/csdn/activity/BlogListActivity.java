@@ -15,6 +15,7 @@ import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.URLUtil;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
+import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
 
 import android.content.Intent;
@@ -52,7 +53,7 @@ public class BlogListActivity extends BaseActivity
 	private DbUtils db;
 
 	// 预加载数据
-	private static final int MSG_RELOAD_DATA = 1000;
+	private static final int MSG_PRELOAD_DATA = 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +96,7 @@ public class BlogListActivity extends BaseActivity
 		mListView.setOnItemClickListener(this);
 
 		// 先预加载数据，再请求最新数据
-		mHandler.sendEmptyMessage(MSG_RELOAD_DATA);
+		mHandler.sendEmptyMessage(MSG_PRELOAD_DATA);
 		mListView.startRefresh();
 		mListView.setRefreshTime(DateUtil.getDate());
 	}
@@ -178,7 +179,7 @@ public class BlogListActivity extends BaseActivity
 				BlogItem blogItem = list.get(i);
 				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("link", "=", blogItem.getLink()));
 				if (findItem != null) {
-					db.update(blogItem);
+					db.update(blogItem, WhereBuilder.b("link", "=", blogItem.getLink()));
 				} else {
 					db.save(blogItem);
 				}
@@ -194,9 +195,10 @@ public class BlogListActivity extends BaseActivity
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
-			case MSG_RELOAD_DATA:
+			case MSG_PRELOAD_DATA:
 				try {
-					List<BlogItem> list = db.findAll(BlogItem.class);
+					List<BlogItem> list = db
+							.findAll(Selector.from(BlogItem.class).where("id", "between", new String[] { "1", "20" }));
 					if (list != null) {
 						mAdapter.setList(list);
 						mAdapter.notifyDataSetChanged();
