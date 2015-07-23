@@ -25,8 +25,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.IXListViewRefreshListener;
@@ -40,7 +42,7 @@ import me.maxwin.view.XListView;
  *
  */
 public class BlogListActivity extends BaseActivity
-		implements OnItemClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;// 列表适配器
@@ -73,6 +75,8 @@ public class BlogListActivity extends BaseActivity
 	private void initView() {
 		mListView = (XListView) findViewById(R.id.listView_blog);
 		tvUserId = (TextView) findViewById(R.id.tv_userid);
+		ImageView backBtn = (ImageView) findViewById(R.id.backBtn);
+		backBtn.setOnClickListener(this);
 
 		if (blogger != null) {
 			String title = blogger.getTitle();
@@ -99,6 +103,19 @@ public class BlogListActivity extends BaseActivity
 		mHandler.sendEmptyMessage(MSG_PRELOAD_DATA);
 		mListView.startRefresh();
 		mListView.setRefreshTime(DateUtil.getDate());
+	}
+
+	@Override
+	public void onClick(View view) {
+		// TODO Auto-generated method stub
+		switch (view.getId()) {
+		case R.id.backBtn:
+			finish();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	/**
@@ -215,4 +232,5 @@ public class BlogListActivity extends BaseActivity
 			super.handleMessage(msg);
 		}
 	};
+
 }

@@ -42,7 +42,7 @@ import com.lidroid.xutils.exception.DbException;
  * @author wwj_748
  * @date 2014/8/10
  */
-public class BlogDetailActivity extends Activity implements IXListViewLoadMore {
+public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMore {
 	private XListView listView; // 列表控件
 	private BlogDetailAdapter blogDetailAdapter; // 内容适配器
 

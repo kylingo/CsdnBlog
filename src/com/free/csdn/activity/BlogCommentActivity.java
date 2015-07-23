@@ -36,7 +36,7 @@ import com.free.csdn.util.URLUtil;
  * @author wwj_748
  * 
  */
-public class BlogCommentActivity extends Activity implements
+public class BlogCommentActivity extends BaseActivity implements
 		IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView listView;

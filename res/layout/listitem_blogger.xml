@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/listitem_blogger_height"
     android:orientation="horizontal"
-    android:padding="7dip" >
+    android:padding="5dip" >
 
     <com.free.csdn.view.CircleImageView
         android:id="@+id/imv_blogger"

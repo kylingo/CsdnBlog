@@ -24,7 +24,7 @@ import com.polites.android.GestureImageView;
  * 
  */
 @SuppressLint("NewApi")
-public class ImageActivity extends Activity {
+public class ImageActivity extends BaseActivity {
 
 	private String url; // 图片地址
 

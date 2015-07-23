@@ -220,19 +220,20 @@ public class HomeActivity extends BaseActivity
 
 		ToastUtil.showCenterToast(HomeActivity.this, "博客ID添加成功！");
 	}
-	
+
 	/**
 	 * 删除博主
+	 * 
 	 * @param blogger
 	 */
-	private void deleleBlogger(Blogger blogger){
+	private void deleleBlogger(Blogger blogger) {
 		String userId = blogger.getUserId();
 		bloggerDB.delete(userId);
-		
+
 		bloggerList = bloggerDB.SelectAllBlogger();
 		adapter.setList(bloggerList);
 		adapter.notifyDataSetChanged();
-		
+
 		ToastUtil.showCenterToast(HomeActivity.this, "博客删除成功！");
 	}
 
@@ -246,7 +247,7 @@ public class HomeActivity extends BaseActivity
 				break;
 
 			case MSG_ADD_FAILURE:
-				if (progressdialog.isShowing()) {
+				if (progressdialog != null && progressdialog.isShowing()) {
 					progressdialog.dismiss();
 				}
 				ToastUtil.showCenterToast(HomeActivity.this, "ID不存在，添加失败！");
