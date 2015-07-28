@@ -30,7 +30,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 	public static final String TAG = "CrashHandler";
 
 	// Crash文件保存在SD卡中的路径
-	private static final String CRASH_FILE_DIRECTORY = "FreeCsdn";
+	private static final String CRASH_FILE_DIRECTORY = "/crash/FreeCsdn/";
 
 	// 系统默认的UncaughtException处理类
 	private Thread.UncaughtExceptionHandler mDefaultHandler;

@@ -26,8 +26,12 @@ public class MainApp extends Application {
 	private void init() {
 		// TODO Auto-generated method stub
 		initImageLoader();
+		initCrashHandler();
 	}
 
+	/**
+	 * 初始化ImageLoader
+	 */
 	private void initImageLoader() {
 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 				this).threadPriority(Thread.NORM_PRIORITY - 2)
@@ -40,5 +44,14 @@ public class MainApp extends Application {
 
 		ImageLoader.getInstance().init(config);
 		L.writeLogs(true);
+	}
+	
+	/**
+	 * 初始化CrashHandler
+	 */
+	private void initCrashHandler() {
+		CrashHandler crashHandler = CrashHandler.getInstance();
+		crashHandler.init(this);
+		Thread.currentThread().setUncaughtExceptionHandler(crashHandler);
 	}
 }
