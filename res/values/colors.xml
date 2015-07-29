@@ -15,5 +15,6 @@
     
     <color name="list_decs_color">#848B84</color>
     <color name="list_divider_color">#DBDBDB</color>
+    <color name="bg_blue">#388E8E</color> 
 
 </resources>

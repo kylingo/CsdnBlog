@@ -1,7 +1,6 @@
 package com.free.csdn.util;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.widget.Toast;
 
 public class ToastUtil {
@@ -15,14 +14,13 @@ public class ToastUtil {
 	 * @param message
 	 */
 
-	public static final void showCenterToast(final Context ctx,
+	public static final void showToast(final Context ctx,
 			final String message) {
 		if (mToast != null) {
 			mToast.cancel();
 			mToast = null;
 		}
 		mToast = Toast.makeText(ctx, message, Toast.LENGTH_SHORT);
-		mToast.setGravity(Gravity.CENTER, 0, 0);
 		mToast.show();
 	}
 

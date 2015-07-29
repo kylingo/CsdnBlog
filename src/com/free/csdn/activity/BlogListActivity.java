@@ -41,8 +41,9 @@ import me.maxwin.view.XListView;
  * @data 2015年7月8日下午9:20:20
  *
  */
-public class BlogListActivity extends BaseActivity
-		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogListActivity extends BaseActivity implements
+		OnItemClickListener, OnClickListener, IXListViewRefreshListener,
+		IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;// 列表适配器
@@ -69,7 +70,8 @@ public class BlogListActivity extends BaseActivity
 	private void initData() {
 		blogger = (Blogger) getIntent().getSerializableExtra("blogger");
 		userId = blogger.getUserId();
-		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this) + "/BlogList", userId + "_blog");
+		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this)
+				+ "/BlogList", userId + "_blog");
 	}
 
 	private void initView() {
@@ -93,16 +95,14 @@ public class BlogListActivity extends BaseActivity
 	 */
 	private void initListView() {
 		mAdapter = new BlogListAdapter(this);
-		mListView.setAdapter(mAdapter);// 设置适配器
 		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
-		mListView.setPullLoadEnable(this);// 设置可上拉加载
+		mListView.NotRefreshAtBegin();
+		mListView.setAdapter(mAdapter);// 设置适配器
 		// 设置列表项点击事件
 		mListView.setOnItemClickListener(this);
 
 		// 先预加载数据，再请求最新数据
 		mHandler.sendEmptyMessage(MSG_PRELOAD_DATA);
-		mListView.startRefresh();
-		mListView.setRefreshTime(DateUtil.getDate());
 	}
 
 	@Override
@@ -122,7 +122,8 @@ public class BlogListActivity extends BaseActivity
 	 * ListView点击事件
 	 */
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		// TODO Auto-generated method stub
 		// // 获得博客列表项
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
@@ -167,17 +168,20 @@ public class BlogListActivity extends BaseActivity
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<BlogItem> list = JsoupUtil.getBlogItemList(0, resultString);
+				List<BlogItem> list = JsoupUtil
+						.getBlogItemList(0, resultString);
 				if (page == 1) {
 					mAdapter.setList(list);
 				} else {
 					mAdapter.addList(list);
 				}
 				mAdapter.notifyDataSetChanged();
+				mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
 
 				saveDB(list);
 			} else {
-				ToastUtil.showCenterToast(BlogListActivity.this, "未能获取最新数据");
+				ToastUtil.showToast(BlogListActivity.this, "未能获取最新数据");
+				mListView.disablePullLoad();
 			}
 
 			mListView.stopRefresh(DateUtil.getDate());
@@ -194,9 +198,11 @@ public class BlogListActivity extends BaseActivity
 		try {
 			for (int i = 0; i < list.size(); i++) {
 				BlogItem blogItem = list.get(i);
-				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("link", "=", blogItem.getLink()));
+				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class)
+						.where("link", "=", blogItem.getLink()));
 				if (findItem != null) {
-					db.update(blogItem, WhereBuilder.b("link", "=", blogItem.getLink()));
+					db.update(blogItem,
+							WhereBuilder.b("link", "=", blogItem.getLink()));
 				} else {
 					db.save(blogItem);
 				}
@@ -214,12 +220,19 @@ public class BlogListActivity extends BaseActivity
 			switch (msg.what) {
 			case MSG_PRELOAD_DATA:
 				try {
-					List<BlogItem> list = db
-							.findAll(Selector.from(BlogItem.class).where("id", "between", new String[] { "1", "20" }));
+					List<BlogItem> list = db.findAll(Selector.from(
+							BlogItem.class).where("id", "between",
+							new String[] { "1", "20" }));
 					if (list != null) {
 						mAdapter.setList(list);
 						mAdapter.notifyDataSetChanged();
+						mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
+					} else {
+						// 不请求最新数据，让用户自己刷新或者加载
+						requestData(page);
+						mListView.disablePullLoad();
 					}
+
 				} catch (DbException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

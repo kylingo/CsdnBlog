@@ -218,7 +218,7 @@ public class HomeActivity extends BaseActivity
 			progressdialog.dismiss();
 		}
 
-		ToastUtil.showCenterToast(HomeActivity.this, "博客ID添加成功！");
+		ToastUtil.showToast(HomeActivity.this, "博客ID添加成功！");
 	}
 
 	/**
@@ -234,7 +234,7 @@ public class HomeActivity extends BaseActivity
 		adapter.setList(bloggerList);
 		adapter.notifyDataSetChanged();
 
-		ToastUtil.showCenterToast(HomeActivity.this, "博客删除成功！");
+		ToastUtil.showToast(HomeActivity.this, "博客删除成功！");
 	}
 
 	private Handler mHandler = new Handler() {
@@ -250,7 +250,7 @@ public class HomeActivity extends BaseActivity
 				if (progressdialog != null && progressdialog.isShowing()) {
 					progressdialog.dismiss();
 				}
-				ToastUtil.showCenterToast(HomeActivity.this, "ID不存在，添加失败！");
+				ToastUtil.showToast(HomeActivity.this, "ID不存在，添加失败！");
 				break;
 
 			default:
