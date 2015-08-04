@@ -2,10 +2,16 @@ package com.free.csdn.activity;
 
 import java.util.List;
 
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
-import android.app.Activity;
+import com.free.csdn.R;
+import com.free.csdn.adapter.CommentAdapter;
+import com.free.csdn.app.Constants;
+import com.free.csdn.bean.Comment;
+import com.free.csdn.bean.Page;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.HttpUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.URLUtil;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -17,16 +23,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.free.csdn.R;
-import com.free.csdn.adapter.CommentAdapter;
-import com.free.csdn.app.Constants;
-import com.free.csdn.bean.Comment;
-import com.free.csdn.bean.Page;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.HttpUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.URLUtil;
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 
 /**
  * 2014/8/13

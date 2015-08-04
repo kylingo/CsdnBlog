@@ -1,7 +1,12 @@
 package com.free.csdn.activity;
 
+import com.free.csdn.R;
+import com.free.csdn.util.FileUtil;
+import com.free.csdn.util.HttpUtil;
+import com.free.csdn.util.ImageLoaderUtils;
+import com.polites.android.GestureImageView;
+
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,12 +15,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.free.csdn.R;
-import com.free.csdn.util.FileUtil;
-import com.free.csdn.util.HttpUtil;
-import com.free.csdn.util.ImageLoaderUtils;
-import com.polites.android.GestureImageView;
 
 /**
  * 2014/8/13 显示图片的界面
