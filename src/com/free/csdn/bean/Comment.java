@@ -6,7 +6,7 @@ package com.free.csdn.bean;
  * @author wwj_748
  * 
  */
-public class Comment {
+public class Comment extends BaseEntity{
 	private String articleId; // 文章id
 	private String blogId; // 博客id
 	private String commentId; // 评论id

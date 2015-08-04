@@ -1,7 +1,5 @@
 ﻿package com.free.csdn.activity;
 
-import java.net.CacheRequest;
-
 import com.free.csdn.R;
 import com.free.csdn.util.ACache;
 import com.free.csdn.util.VersionUtil;
@@ -17,10 +15,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class SplashActivity extends Activity {
-	TextView logo_text, logo_name;
-	RelativeLayout splash_id;
+	TextView tvVersion, tvLogoName;
+	RelativeLayout rvSplash;
 	ACache mCache;
-	ImageView iv_main_left_head;
+	ImageView ivLogo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +32,23 @@ public class SplashActivity extends Activity {
 	 * 初始化
 	 */
 	private void initView() {
-		iv_main_left_head = (ImageView) findViewById(R.id.iv_main_left_head);
-		logo_name = (TextView) findViewById(R.id.logo_name);
-		logo_text = (TextView) findViewById(R.id.logo_text);
-		splash_id = (RelativeLayout) findViewById(R.id.splash_id);
+		ivLogo = (ImageView) findViewById(R.id.iv_logo);
+		tvLogoName = (TextView) findViewById(R.id.tv_logo_name);
+		tvVersion = (TextView) findViewById(R.id.tv_version);
+		rvSplash = (RelativeLayout) findViewById(R.id.rl_splash);
 		mCache = ACache.get(this);
 		String name = mCache.getAsString("name");
 		try {
-			iv_main_left_head.setImageResource(R.drawable.ic_launcher);
-
+			ivLogo.setImageResource(R.drawable.ic_launcher);
 			if (!name.equals("")) {
-				logo_name.setText(name + ",欢迎回来");
+				tvLogoName.setText(name + ",欢迎回来");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
 		String str = VersionUtil.getVersionName(this);
-		logo_text.setText("当前版本号：" + str);
+		tvVersion.setText("当前版本：V" + str);
 	}
 
 	/**
@@ -59,14 +56,14 @@ public class SplashActivity extends Activity {
 	 */
 	private void startAnimation() {
 
-		AlphaAnimation aa = new AlphaAnimation(0.4f, 1.0f);
+		AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
 		aa.setDuration(3000);
-		splash_id.startAnimation(aa);
+		rvSplash.startAnimation(aa);
 		aa.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationEnd(Animation arg0) {
-				Intent it = new Intent(SplashActivity.this, HomeActivity.class);
-				startActivity(it);
+				Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+				startActivity(intent);
 				finish();
 			}
 

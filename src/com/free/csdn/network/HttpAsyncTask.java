@@ -1,8 +1,16 @@
-package com.free.csdn.util;
+package com.free.csdn.network;
+
+import com.free.csdn.util.HttpUtil;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
+/**
+ * Http请求
+ * 
+ * @author Frank
+ *
+ */
 public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
 	public HttpAsyncTask(Context context) {

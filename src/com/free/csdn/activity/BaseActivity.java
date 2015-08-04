@@ -1,6 +1,7 @@
 package com.free.csdn.activity;
 
 import android.app.Activity;
+import android.os.Bundle;
 
 /**
  * @author tangqi
@@ -8,5 +9,9 @@ import android.app.Activity;
  */
 
 public class BaseActivity extends Activity {
-	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 }

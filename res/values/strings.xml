@@ -9,5 +9,6 @@
     
     <string name="blog_title">我的博客</string>
     <string name="blog_desc">专注Android</string>
+    <string name="android_blog">Android博客</string>
 
 </resources>

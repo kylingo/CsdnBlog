@@ -21,12 +21,12 @@
         android:divider="@drawable/base_list_divider_drawable" />
 
     <ProgressBar
-        android:id="@+id/newsContentPro"
+        android:id="@+id/pb_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/progressbar_large"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/reLoadImage"

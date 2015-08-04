@@ -100,6 +100,8 @@ public class JsoupUtil {
 		// 获取文档内容
 		Document doc = Jsoup.parse(str);
 
+		// 这里可以优化，取出所有details的元素即可，不用区分这么细
+
 		// 获取class="details"的元素
 		Element detail = doc.getElementsByClass("details").get(0);
 		detail.select("script").remove(); // 删除每个匹配元素的DOM。
