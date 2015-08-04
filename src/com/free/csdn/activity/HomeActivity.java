@@ -3,6 +3,23 @@ package com.free.csdn.activity;
 import java.util.HashMap;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ImageView;
+
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
@@ -20,22 +37,7 @@ import com.free.csdn.util.DisplayUtil;
 import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
-
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 主页
@@ -78,7 +80,19 @@ public class HomeActivity extends BaseActivity
 		listView.setOnMenuItemClickListener(this);
 		listView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
 		listView.setMenuCreator(creator);
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				ToastUtil.showToast(HomeActivity.this, "onItemLongClick："+position);
+				return true;
+			}
+		});
 		imvAdd.setOnClickListener(this);
+		
+		UmengUpdateAgent.update(this);
 	}
 
 	@Override

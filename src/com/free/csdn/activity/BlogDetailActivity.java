@@ -1,14 +1,14 @@
 package com.free.csdn.activity;
 
+import java.util.List;
+
 import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.XListView;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -18,20 +18,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.logging.MemoryHandler;
-
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
-import com.free.csdn.bean.BlogItem;
-import com.free.csdn.util.ACache;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.LogUtil;
 import com.free.csdn.util.MD5;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;

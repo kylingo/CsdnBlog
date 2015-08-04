@@ -1,8 +1,21 @@
 package com.free.csdn.activity;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.CommentAdapter;
@@ -21,20 +34,6 @@ import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
-
 /**
  * 2014/8/13
  * 
@@ -43,7 +42,8 @@ import me.maxwin.view.XListView;
  * @author wwj_748
  * 
  */
-public class BlogCommentActivity extends BaseActivity implements IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogCommentActivity extends BaseActivity implements
+		IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private CommentAdapter mAdapter;
@@ -72,7 +72,8 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 		filename = getIntent().getExtras().getString("filename"); // 获得文件名
 		mAdapter = new CommentAdapter(this);
 
-		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this) + "/CommentList", filename + "_comment");
+		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this)
+				+ "/CommentList", filename + "_comment");
 	}
 
 	private void initComponent() {
@@ -143,7 +144,8 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<Comment> list = JsoupUtil.getBlogCommentList(resultString, page, pageSize);
+				List<Comment> list = JsoupUtil.getBlogCommentList(resultString,
+						page, pageSize);
 				CommentComparator comparator = new CommentComparator();
 				Collections.sort(list, comparator);
 				if (page == 1) {
@@ -173,22 +175,32 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 	 * 
 	 * @param list
 	 */
-	private void saveDB(List<Comment> list) {
-		try {
-			for (int i = 0; i < list.size(); i++) {
-				Comment commentItem = list.get(i);
-				Comment findItem = db
-						.findFirst(Selector.from(Comment.class).where("commentId", "=", commentItem.getCommentId()));
-				if (findItem != null) {
-					db.update(commentItem, WhereBuilder.b("commentId", "=", commentItem.getCommentId()));
-				} else {
-					db.save(commentItem);
+	private void saveDB(final List<Comment> list) {
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					for (int i = 0; i < list.size(); i++) {
+						Comment commentItem = list.get(i);
+						Comment findItem = db.findFirst(Selector.from(
+								Comment.class).where("commentId", "=",
+								commentItem.getCommentId()));
+						if (findItem != null) {
+							db.update(commentItem, WhereBuilder.b("commentId",
+									"=", commentItem.getCommentId()));
+						} else {
+							db.save(commentItem);
+						}
+					}
+				} catch (DbException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		}).start();
+
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -200,8 +212,9 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 			case Constants.MSG_PRELOAD_DATA:
 				try {
 					mListView.setRefreshTime(DateUtil.getDate()); // 设置刷新时间
-					List<Comment> list = db
-							.findAll(Selector.from(Comment.class).where("id", "between", new String[] { "1", "20" }));
+					List<Comment> list = db.findAll(Selector
+							.from(Comment.class).where("id", "between",
+									new String[] { "1", "20" }));
 					if (list != null) {
 						mAdapter.setList(list);
 						mAdapter.notifyDataSetChanged();

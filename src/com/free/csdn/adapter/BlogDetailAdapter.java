@@ -17,11 +17,9 @@ import android.widget.TextView;
 import com.free.csdn.R;
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
-import com.free.csdn.util.DisplayUtil;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**

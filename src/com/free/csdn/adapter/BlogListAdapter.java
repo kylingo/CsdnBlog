@@ -14,10 +14,6 @@ import android.widget.TextView;
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.util.ImageLoaderUtils;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 /**
  * 博客列表适配器

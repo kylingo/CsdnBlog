@@ -31,6 +31,22 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/yayun0516";
 		array[5] = "android";
 		bloggerDB.insertDB(array);
+		
+		array[0] = "gao_chun";
+		array[1] = "高纯";
+		array[2] = "一 大 坨 代 码 ！";
+		array[3] = "http://avatar.csdn.net/8/1/E/1_gao_chun.jpg";
+		array[4] = "http://blog.csdn.net/gao_chun";
+		array[5] = "android";
+		bloggerDB.insertDB(array);
+		
+		array[0] = "jiangwei0910410003";
+		array[1] = "姜维";
+		array[2] = "jiangwei0910410003的专栏";
+		array[3] = "http://avatar.csdn.net/7/1/0/1_jiangwei0910410003.jpg";
+		array[4] = "http://blog.csdn.net/jiangwei0910410003";
+		array[5] = "android";
+		bloggerDB.insertDB(array);
 
 		array[0] = "songjinshi";
 		array[1] = "宋金时";
@@ -128,14 +144,6 @@ public class BloggerManager {
 		array[5] = "android";
 		bloggerDB.insertDB(array);
 
-		array[0] = "gao_chun";
-		array[1] = "高纯";
-		array[2] = "一 大 坨 代 码 ！";
-		array[3] = "http://avatar.csdn.net/8/1/E/1_gao_chun.jpg";
-		array[4] = "http://blog.csdn.net/gao_chun";
-		array[5] = "android";
-		bloggerDB.insertDB(array);
-
 		array[0] = "hjd_love_zzt";
 		array[1] = "黄俊东";
 		array[2] = "为中华民族软件产业之崛起而埋首敲代码。在这里，为中华民族的崛起贡献自己的全部力量·······";
@@ -205,14 +213,6 @@ public class BloggerManager {
 		array[2] = "优秀是一种习惯 认真是一种方式";
 		array[3] = "http://avatar.csdn.net/D/1/4/1_wangjinyu501.jpg";
 		array[4] = "http://blog.csdn.net/wangjinyu501";
-		array[5] = "android";
-		bloggerDB.insertDB(array);
-
-		array[0] = "jiangwei0910410003";
-		array[1] = "姜维";
-		array[2] = "jiangwei0910410003的专栏";
-		array[3] = "http://avatar.csdn.net/7/1/0/1_jiangwei0910410003.jpg";
-		array[4] = "http://blog.csdn.net/jiangwei0910410003";
 		array[5] = "android";
 		bloggerDB.insertDB(array);
 

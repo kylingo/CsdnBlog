@@ -18,6 +18,7 @@ import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,8 +44,9 @@ import me.maxwin.view.XListView;
  * @data 2015年7月8日下午9:20:20
  *
  */
-public class BlogListActivity extends BaseActivity
-		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogListActivity extends BaseActivity implements
+		OnItemClickListener, OnClickListener, IXListViewRefreshListener,
+		IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;// 列表适配器
@@ -69,7 +71,8 @@ public class BlogListActivity extends BaseActivity
 	private void initData() {
 		blogger = (Blogger) getIntent().getSerializableExtra("blogger");
 		userId = blogger.getUserId();
-		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this) + "/BlogList", userId + "_blog");
+		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this)
+				+ "/BlogList", userId + "_blog");
 	}
 
 	private void initView() {
@@ -121,7 +124,8 @@ public class BlogListActivity extends BaseActivity
 	 * ListView点击事件
 	 */
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		// TODO Auto-generated method stub
 		// // 获得博客列表项
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
@@ -166,7 +170,8 @@ public class BlogListActivity extends BaseActivity
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<BlogItem> list = JsoupUtil.getBlogItemList(0, resultString);
+				List<BlogItem> list = JsoupUtil
+						.getBlogItemList(0, resultString);
 				if (page == 1) {
 					mAdapter.setList(list);
 				} else {
@@ -192,21 +197,35 @@ public class BlogListActivity extends BaseActivity
 	 * 
 	 * @param list
 	 */
-	private void saveDB(List<BlogItem> list) {
-		try {
-			for (int i = 0; i < list.size(); i++) {
-				BlogItem blogItem = list.get(i);
-				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("link", "=", blogItem.getLink()));
-				if (findItem != null) {
-					db.update(blogItem, WhereBuilder.b("link", "=", blogItem.getLink()));
-				} else {
-					db.save(blogItem);
+	private void saveDB(final List<BlogItem> list) {
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					for (int i = 0; i < list.size(); i++) {
+						BlogItem blogItem = list.get(i);
+						BlogItem findItem = db.findFirst(Selector.from(
+								BlogItem.class).where("link", "=",
+								blogItem.getLink()));
+						if (findItem != null) {
+							db.update(
+									blogItem,
+									WhereBuilder.b("link", "=",
+											blogItem.getLink()));
+						} else {
+							db.save(blogItem);
+						}
+					}
+				} catch (DbException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		}).start();
+		;
+
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -217,8 +236,9 @@ public class BlogListActivity extends BaseActivity
 			switch (msg.what) {
 			case Constants.MSG_PRELOAD_DATA:
 				try {
-					List<BlogItem> list = db
-							.findAll(Selector.from(BlogItem.class).where("id", "between", new String[] { "1", "20" }));
+					List<BlogItem> list = db.findAll(Selector.from(
+							BlogItem.class).where("id", "between",
+							new String[] { "1", "20" }));
 					if (list != null) {
 						mAdapter.setList(list);
 						mAdapter.notifyDataSetChanged();
