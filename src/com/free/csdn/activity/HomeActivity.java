@@ -21,10 +21,8 @@ import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
 
-import android.R.anim;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -32,6 +30,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -59,6 +58,7 @@ public class HomeActivity extends BaseActivity
 	private ProgressDialog progressdialog;
 	private static final int MSG_ADD_SUCCESS = 1000;
 	private static final int MSG_ADD_FAILURE = 1001;
+	private long exitTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -261,5 +261,20 @@ public class HomeActivity extends BaseActivity
 		}
 
 	};
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+			if ((System.currentTimeMillis() - exitTime) > 2000) {
+				ToastUtil.showToast(this, "再按一次退出程序");
+				exitTime = System.currentTimeMillis();
+			} else {
+				System.exit(0);
+				finish();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
 }

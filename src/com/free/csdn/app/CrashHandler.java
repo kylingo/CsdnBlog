@@ -4,15 +4,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.lang.reflect.Field;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -112,7 +111,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		collectDeviceInfo(mContext);
 		// 保存日志文件
 		saveCrashInfo2File(ex);
-		Log.e(TAG, "PPKJ==", ex);
+		Log.e(TAG, "Router==", ex);
 
 		return true;
 	}
@@ -175,10 +174,9 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		sb.append(result);
 
 		try {
-			long timestamp = System.currentTimeMillis();
 			String time = formatter.format(new Date());
 
-			String fileName = "crash-" + time + "-" + timestamp + ".txt";
+			String fileName = "crash-" + time + ".txt";
 			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 				String path = Environment.getExternalStorageDirectory() + CRASH_FILE_DIRECTORY;
 				File dir = new File(path);
