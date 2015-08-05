@@ -2,6 +2,24 @@ package com.free.csdn.activity;
 
 import java.util.List;
 
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogListAdapter;
 import com.free.csdn.app.Constants;
@@ -18,24 +36,6 @@ import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
 
 /**
  * 博客列表
@@ -236,9 +236,18 @@ public class BlogListActivity extends BaseActivity implements
 			switch (msg.what) {
 			case Constants.MSG_PRELOAD_DATA:
 				try {
+
 					List<BlogItem> list = db.findAll(Selector.from(
-							BlogItem.class).where("id", "between",
-							new String[] { "1", "20" }));
+							BlogItem.class).where("isTop", "=", 1));
+					List<BlogItem> normalList = db.findAll(Selector
+							.from(BlogItem.class).orderBy("date", true)
+							.limit(20));
+					if (list != null) {
+						list.addAll(normalList);
+					} else {
+						list = normalList;
+					}
+	
 					if (list != null) {
 						mAdapter.setList(list);
 						mAdapter.notifyDataSetChanged();

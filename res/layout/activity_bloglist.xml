@@ -17,9 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:padding="10dip"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"
-            android:background="@drawable/back_btn" />
+            android:src="@drawable/back_white"
+            android:background="@drawable/selector_btn_header" />
 
         <ImageView
             android:layout_width="wrap_content"

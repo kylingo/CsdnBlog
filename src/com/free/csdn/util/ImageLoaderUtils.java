@@ -15,9 +15,9 @@ public class ImageLoaderUtils {
 	 * 不缓存
 	 */
 	static DisplayImageOptions noCacheOptions = new DisplayImageOptions.Builder()
-	// .showImageOnLoading(R.drawable.moren) // 设置图片在下载期间显示的图片
-	// .showImageForEmptyUri(R.drawable.moren)// 设置图片Uri为空或是错误的时候显示的图片
-	// .showImageOnFail(R.drawable.moren) // 设置图片加载/解码过程中错误时候显示的图片
+	// .showImageOnLoading(R.drawable.csdn) // 设置图片在下载期间显示的图片
+	// .showImageForEmptyUri(R.drawable.csdn)// 设置图片Uri为空或是错误的时候显示的图片
+	// .showImageOnFail(R.drawable.csdn) // 设置图片加载/解码过程中错误时候显示的图片
 			.cacheInMemory(false)// 设置下载的图片是否缓存在内存中
 			.cacheOnDisk(false)// 设置下载的图片是否缓存在SD卡中
 			.imageScaleType(ImageScaleType.IN_SAMPLE_INT)// 设置图片以如何的编码方式显示
@@ -28,9 +28,9 @@ public class ImageLoaderUtils {
 	 * 缓存
 	 */
 	static DisplayImageOptions cacheOptions = new DisplayImageOptions.Builder()
-	// .showImageOnLoading(R.drawable.moren) // 设置图片在下载期间显示的图片
-	// .showImageForEmptyUri(R.drawable.moren)// 设置图片Uri为空或是错误的时候显示的图片
-	// .showImageOnFail(R.drawable.moren) // 设置图片加载/解码过程中错误时候显示的图片
+	// .showImageOnLoading(R.drawable.csdn) // 设置图片在下载期间显示的图片
+	// .showImageForEmptyUri(R.drawable.csdn)// 设置图片Uri为空或是错误的时候显示的图片
+	// .showImageOnFail(R.drawable.csdn) // 设置图片加载/解码过程中错误时候显示的图片
 			.cacheInMemory(true)// 设置下载的图片是否缓存在内存中
 			.cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
 			.imageScaleType(ImageScaleType.IN_SAMPLE_INT)// 设置图片以如何的编码方式显示
@@ -41,9 +41,9 @@ public class ImageLoaderUtils {
 	 * 只缓存Memory
 	 */
 	static DisplayImageOptions fileOptions = new DisplayImageOptions.Builder()
-	// .showImageOnLoading(R.drawable.moren) // 设置图片在下载期间显示的图片
-	// .showImageForEmptyUri(R.drawable.moren)// 设置图片Uri为空或是错误的时候显示的图片
-	// .showImageOnFail(R.drawable.moren) // 设置图片加载/解码过程中错误时候显示的图片
+	// .showImageOnLoading(R.drawable.csdn) // 设置图片在下载期间显示的图片
+	// .showImageForEmptyUri(R.drawable.csdn)// 设置图片Uri为空或是错误的时候显示的图片
+	// .showImageOnFail(R.drawable.csdn) // 设置图片加载/解码过程中错误时候显示的图片
 			.cacheInMemory(true)// 设置下载的图片是否缓存在内存中
 			.cacheOnDisk(false)// 设置下载的图片是否缓存在SD卡中
 			.imageScaleType(ImageScaleType.IN_SAMPLE_INT)// 设置图片以如何的编码方式显示
@@ -51,7 +51,7 @@ public class ImageLoaderUtils {
 			.build();// 构建完成
 
 	/**
-	 * 加载图片（不缓存）
+	 * 加载图片（缓存）
 	 * 
 	 * @param url
 	 * @param container

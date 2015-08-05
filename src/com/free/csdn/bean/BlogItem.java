@@ -32,6 +32,9 @@ public class BlogItem extends BaseEntity{
 
 	@Column(column = "viewTime")
 	private String viewTime;
+	
+	@Column(column = "isTop")
+	private int topFlag;// 
 
 	public String getTitle() {
 		return title;
@@ -95,6 +98,14 @@ public class BlogItem extends BaseEntity{
 
 	public void setViewTime(String viewTime) {
 		this.viewTime = viewTime;
+	}
+
+	public int getTopFlag() {
+		return topFlag;
+	}
+
+	public void setTopFlag(int topFlag) {
+		this.topFlag = topFlag;
 	}
 
 }
