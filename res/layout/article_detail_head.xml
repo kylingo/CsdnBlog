@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/biz_news_detaila_action_bar_bg"
+    android:background="@color/main_color"
     android:orientation="horizontal" >
 
     <ImageView
@@ -12,7 +12,9 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:background="@drawable/back_btn" />
+        android:background="@drawable/selector_btn_header"
+        android:padding="10dip"
+        android:src="@drawable/back_white" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -23,15 +25,15 @@
     <TextView
         android:id="@+id/headTV"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="4dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text=""
+        android:gravity="center"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="21sp"
-        android:textStyle="bold" >
-    </TextView>
+        android:text="@string/blog_detail"
+        android:textSize="@dimen/title_size" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -41,11 +43,19 @@
         android:visibility="gone" />
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/base_action_bar_back_divider" />
+
+    <ImageView
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/comment_btn" />
+        android:background="@drawable/selector_btn_header"
+        android:padding="15dip"
+        android:src="@drawable/up_white" />
     <!--
          <ImageButton
 	    android:id="@+id/personCenter"

@@ -132,6 +132,7 @@ public class BlogListActivity extends BaseActivity implements
 		Intent i = new Intent();
 		i.setClass(BlogListActivity.this, BlogDetailActivity.class);
 		i.putExtra("blogLink", item.getLink());
+		i.putExtra("title", item.getTitle());
 		startActivity(i);
 		// 动画过渡
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);

@@ -155,7 +155,7 @@ public class BlogCommentActivity extends BaseActivity implements
 				}
 				mAdapter.notifyDataSetChanged();
 				mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
-				commentTV.setText("共有评论：" + list.size() + "条");
+				commentTV.setText(list.size() + "条");
 				saveDB(list);
 
 			} else {
@@ -220,7 +220,7 @@ public class BlogCommentActivity extends BaseActivity implements
 						mAdapter.notifyDataSetChanged();
 						mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
 						mListView.setRefreshTime(DateUtil.getDate());
-						commentTV.setText("共有评论：" + list.size() + "条");
+						commentTV.setText(list.size() + "条");
 					} else {
 						// 不请求最新数据，让用户自己刷新或者加载
 						pbLoading.setVisibility(View.VISIBLE);
