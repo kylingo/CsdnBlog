@@ -2,6 +2,7 @@ package com.free.csdn.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,6 +12,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import android.util.Log;
 
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
@@ -225,6 +228,40 @@ public class JsoupUtil {
 		}
 
 		return list;
+	}
+
+	/**
+	 * 扒取传入url地址的博客详细内容
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static String getContent(String paramString) {
+		Element localElement1 = Jsoup.parse(paramString)
+				.getElementsByClass("details").get(0);
+		localElement1.select("script").remove();
+		if (localElement1.getElementById("digg") != null) {
+			Log.i("CSNDBlog_JsoupUtil",
+					"null != detail.getElementById(digg), detail.getElementById(digg).remove()");
+			localElement1.getElementById("digg").remove();
+		}
+		if (localElement1.getElementsByClass("tag2box") != null) {
+			Log.i("CSNDBlog_JsoupUtil",
+					"null != detail.getElementsByClass(tag2box), detail.getElementsByClass(tag2box).remove()");
+			localElement1.getElementsByClass("tag2box").remove();
+		}
+		localElement1.getElementsByClass("article_manage").remove();
+		localElement1.getElementsByTag("h1").tagName("h2");
+		Iterator localIterator = localElement1.select("pre[name=code]")
+				.iterator();
+		while (true) {
+			if (!localIterator.hasNext())
+				return localElement1.toString();
+			Element localElement2 = (Element) localIterator.next();
+			localElement2.attr("class", "brush: java; gutter: false;");
+			Log.i("CSNDBlog_JsoupUtil",
+					"codeNode.text()" + localElement2.text());
+		}
 	}
 
 	public static HashMap<String, String> getBloggerItem(String paramString) {

@@ -12,8 +12,8 @@
         <include layout="@layout/article_detail_head" />
     </RelativeLayout>
 
-    <me.maxwin.view.XListView
-        android:id="@+id/listview"
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/head"

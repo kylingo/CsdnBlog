@@ -130,7 +130,7 @@ public class BlogListActivity extends BaseActivity implements
 		// // 获得博客列表项
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
 		Intent i = new Intent();
-		i.setClass(BlogListActivity.this, BlogDetailActivity.class);
+		i.setClass(BlogListActivity.this, BlogContentActivity.class);
 		i.putExtra("blogLink", item.getLink());
 		i.putExtra("title", item.getTitle());
 		startActivity(i);
