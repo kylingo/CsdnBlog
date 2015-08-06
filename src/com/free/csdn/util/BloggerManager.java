@@ -24,6 +24,22 @@ public class BloggerManager {
 			return;
 
 		String[] array = new String[6];
+		array[0] = "wwj_748";
+		array[1] = "巫文杰";
+		array[2] = "一个人走到任何境地全都是因为自己。";
+		array[3] = "http://avatar.csdn.net/C/C/8/1_wwj_748.jpg";
+		array[4] = "http://blog.csdn.net/wwj_748";
+		array[5] = "android";
+		bloggerDB.insertDB(array);
+
+		array[0] = "lmj623565791";
+		array[1] = "张鸿洋";
+		array[2] = "生命不息，奋斗不止，万事起于忽微，量变引起质变";
+		array[3] = "http://avatar.csdn.net/F/F/5/1_lmj623565791.jpg";
+		array[4] = "http://blog.csdn.net/lmj623565791";
+		array[5] = "android";
+		bloggerDB.insertDB(array);
+
 		array[0] = "yayun0516";
 		array[1] = "张亚运";
 		array[2] = "Technology changes life，Code writes everything.（小研快毕业，求引荐工作！谢谢）";
@@ -31,7 +47,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/yayun0516";
 		array[5] = "android";
 		bloggerDB.insertDB(array);
-		
+
 		array[0] = "gao_chun";
 		array[1] = "高纯";
 		array[2] = "一 大 坨 代 码 ！";
@@ -39,7 +55,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/gao_chun";
 		array[5] = "android";
 		bloggerDB.insertDB(array);
-		
+
 		array[0] = "jiangwei0910410003";
 		array[1] = "姜维";
 		array[2] = "jiangwei0910410003的专栏";
@@ -61,14 +77,6 @@ public class BloggerManager {
 		array[2] = "做一个好设计，写一手好程序，经营一个好产品。";
 		array[3] = "http://avatar.csdn.net/7/8/A/1_lincyang.jpg";
 		array[4] = "http://blog.csdn.net/lincyang";
-		array[5] = "android";
-		bloggerDB.insertDB(array);
-
-		array[0] = "wwj_748";
-		array[1] = "巫文杰";
-		array[2] = "一个人走到任何境地全都是因为自己。";
-		array[3] = "http://avatar.csdn.net/C/C/8/1_wwj_748.jpg";
-		array[4] = "http://blog.csdn.net/wwj_748";
 		array[5] = "android";
 		bloggerDB.insertDB(array);
 
@@ -109,14 +117,6 @@ public class BloggerManager {
 		array[2] = "每当你在感叹，如果有这样一个东西就好了的时候，请注意，其实这是你的机会";
 		array[3] = "http://avatar.csdn.net/8/B/B/1_sinyu890807.jpg";
 		array[4] = "http://blog.csdn.net/guolin_blog";
-		array[5] = "android";
-		bloggerDB.insertDB(array);
-
-		array[0] = "lmj623565791";
-		array[1] = "张鸿洋";
-		array[2] = "生命不息，奋斗不止，万事起于忽微，量变引起质变";
-		array[3] = "http://avatar.csdn.net/F/F/5/1_lmj623565791.jpg";
-		array[4] = "http://blog.csdn.net/lmj623565791";
 		array[5] = "android";
 		bloggerDB.insertDB(array);
 
@@ -320,7 +320,7 @@ public class BloggerManager {
 		array[5] = "android";
 		bloggerDB.insertDB(array);
 
-		array[0] = "eboot123";
+		array[0] = "reboot123";
 		array[1] = "刘贤";
 		array[2] = "第一：走自己的路；第二：不要八卦别人的做法；第三：把愤怒压到明天再发。";
 		array[3] = "http://avatar.csdn.net/B/1/6/1_liuxian13183.jpg";
@@ -424,13 +424,13 @@ public class BloggerManager {
 		array[5] = "android";
 		bloggerDB.insertDB(array);
 
-		// array[0] = "zouxy09";
-		// array[1] = "zouxy09的专栏";
-		// array[2] = "悲喜枯荣如是本无分别，当来则来，当去则去，随心，随性，随缘！-zouxy09@qq.com";
-		// array[3] = "http://avatar.csdn.net/9/0/6/1_zouxy09.jpg";
-		// array[4] = "http://blog.csdn.net/zouxy09";
-		// array[5] = "android";
-		// bloggerDB.insertDB(array);
+		array[0] = "zouxy09";
+		array[1] = "zouxy09的专栏";
+		array[2] = "悲喜枯荣如是本无分别，当来则来，当去则去，随心，随性，随缘！-zouxy09@qq.com";
+		array[3] = "http://avatar.csdn.net/9/0/6/1_zouxy09.jpg";
+		array[4] = "http://blog.csdn.net/zouxy09";
+		array[5] = "android";
+		bloggerDB.insertDB(array);
 
 		array[0] = "changemyself";
 		array[1] = "心有灵犀鬼才心";
@@ -440,28 +440,28 @@ public class BloggerManager {
 		array[5] = "android";
 		bloggerDB.insertDB(array);
 
-		// array[0] = "ctthuangcheng";
-		// array[1] = "ctthuangcheng";
-		// array[2] = "自学成才。。。。加油！";
-		// array[3] = "http://avatar.csdn.net/8/9/6/1_ctthunagchneg.jpg";
-		// array[4] = "http://blog.csdn.net/ctthuangcheng";
-		// array[5] = "android";
-		// bloggerDB.insertDB(array);
-		//
-		// array[0] = "Luoshengyang";
-		// array[1] = "老罗的Android之旅";
-		// array[2] = "爱生活，爱Android";
-		// array[3] = "http://avatar.csdn.net/5/6/E/1_luoshengyang.jpg";
-		// array[4] = "http://blog.csdn.net/Luoshengyang";
-		// array[5] = "android";
-		// bloggerDB.insertDB(array);
-		//
-		// array[0] = "fansy1990";
-		// array[1] = "fansy1990的专栏";
-		// array[2] = "一日一积累";
-		// array[3] = "http://avatar.csdn.net/A/8/A/1_fansy1990.jpg";
-		// array[4] = "http://blog.csdn.net/fansy1990";
-		// array[5] = "android";
+		array[0] = "ctthuangcheng";
+		array[1] = "ctthuangcheng";
+		array[2] = "自学成才。。。。加油！";
+		array[3] = "http://avatar.csdn.net/8/9/6/1_ctthunagchneg.jpg";
+		array[4] = "http://blog.csdn.net/ctthuangcheng";
+		array[5] = "android";
+		bloggerDB.insertDB(array);
+
+		array[0] = "Luoshengyang";
+		array[1] = "老罗的Android之旅";
+		array[2] = "爱生活，爱Android";
+		array[3] = "http://avatar.csdn.net/5/6/E/1_luoshengyang.jpg";
+		array[4] = "http://blog.csdn.net/Luoshengyang";
+		array[5] = "android";
+		bloggerDB.insertDB(array);
+
+		array[0] = "fansy1990";
+		array[1] = "fansy1990的专栏";
+		array[2] = "一日一积累";
+		array[3] = "http://avatar.csdn.net/A/8/A/1_fansy1990.jpg";
+		array[4] = "http://blog.csdn.net/fansy1990";
+		array[5] = "android";
 		bloggerDB.insertDB(array);
 		SharedPreferences.Editor localEditor = localSharedPreferences.edit();
 		localEditor.putBoolean("isfirst", false);
