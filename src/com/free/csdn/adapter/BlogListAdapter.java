@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.free.csdn.R;
+import com.free.csdn.app.Constants.BLOG_ICO_TYPE;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.util.ImageLoaderUtils;
 
@@ -30,7 +31,7 @@ public class BlogListAdapter extends BaseAdapter {
 	public BlogListAdapter(Context context) {
 		super();
 		this.context = context;
-		layoutInflater = LayoutInflater.from(context);
+		layoutInflater = LayoutInflater.from(this.context);
 		list = new ArrayList<BlogItem>();
 
 	}
@@ -91,7 +92,7 @@ public class BlogListAdapter extends BaseAdapter {
 		if (null != item) {
 			// 显示标题内容
 			holder.title.setText(item.getTitle());
-			holder.content.setText(item.getContent());
+			holder.content.setText("\b\b\b\b\b\b\b" + item.getContent());
 			holder.date.setText(item.getDate());
 			if (item.getImgLink() != null) {
 				holder.img.setVisibility(View.VISIBLE);
@@ -100,6 +101,17 @@ public class BlogListAdapter extends BaseAdapter {
 			} else {
 				//
 				holder.img.setVisibility(View.VISIBLE);
+
+				String icoType = item.getIcoType();
+				if (BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL.equals(icoType)) {
+					holder.img.setImageResource(R.drawable.ic_original);
+				} else if (BLOG_ICO_TYPE.BLOG_TYPE_REPOST.equals(icoType)) {
+					holder.img.setImageResource(R.drawable.ic_repost);
+				} else if (BLOG_ICO_TYPE.BLOG_TYPE_TRANSLATED.equals(icoType)) {
+					holder.img.setImageResource(R.drawable.ic_translate);
+				} else {
+					holder.img.setImageResource(R.drawable.ic_original);
+				}
 			}
 		}
 

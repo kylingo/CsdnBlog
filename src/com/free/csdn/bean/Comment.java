@@ -7,6 +7,9 @@ package com.free.csdn.bean;
  * 
  */
 public class Comment extends BaseEntity{
+	
+	private static final long serialVersionUID = -5378134161928918526L;
+	
 	private String articleId; // 文章id
 	private String blogId; // 博客id
 	private String commentId; // 评论id

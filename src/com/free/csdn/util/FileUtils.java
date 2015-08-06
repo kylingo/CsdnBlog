@@ -1,7 +1,6 @@
 package com.free.csdn.util;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.StatFs;
-import android.os.storage.StorageManager;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 

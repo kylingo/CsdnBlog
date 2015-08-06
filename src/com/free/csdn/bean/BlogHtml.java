@@ -11,6 +11,8 @@ import com.lidroid.xutils.db.annotation.Column;
 
 public class BlogHtml extends BaseEntity {
 
+	private static final long serialVersionUID = -590113455366277508L;
+
 	@Column(column = "url")
 	private String url;// 地址
 

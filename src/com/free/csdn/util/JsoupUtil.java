@@ -13,7 +13,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.TextureView;
 
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
@@ -66,6 +68,9 @@ public class JsoupUtil {
 		for (Element blogItem : blogList) {
 			BlogItem item = new BlogItem();
 			String title = blogItem.select("h1").text(); // 得到标题
+
+			String icoType = blogItem.getElementsByClass("ico").get(0)
+					.className();
 			if (title.contains("置顶")) {
 				item.setTopFlag(1);
 			}
@@ -87,6 +92,7 @@ public class JsoupUtil {
 			item.setDate(date);
 			item.setLink(link);
 			item.setType(blogType);
+			item.setIcoType(icoType);
 
 			// 没有图片
 			item.setImgLink(null);
@@ -237,6 +243,9 @@ public class JsoupUtil {
 	 * @return
 	 */
 	public static String getContent(String paramString) {
+		if (TextUtils.isEmpty(paramString)) {
+			return null;
+		}
 		Element localElement1 = Jsoup.parse(paramString)
 				.getElementsByClass("details").get(0);
 		localElement1.select("script").remove();

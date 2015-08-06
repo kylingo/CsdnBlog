@@ -7,10 +7,12 @@ import org.jsoup.nodes.Element;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -22,11 +24,12 @@ import android.widget.ProgressBar;
 
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogHtml;
+import com.free.csdn.db.DbManager;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.MD5;
+import com.free.csdn.util.ToastUtil;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -50,7 +53,6 @@ public class BlogContentActivity extends BaseActivity implements
 	public static String url;
 	public String urlMD5 = "url-md5";
 	private String filename;
-	private DbUtils db;
 	private static final int MSG_RELOAD_DATA = 1000;
 
 	@Override
@@ -72,14 +74,6 @@ public class BlogContentActivity extends BaseActivity implements
 		filename = url.substring(url.lastIndexOf("/") + 1);
 		System.out.println("filename--->" + filename);
 
-		try {
-			urlMD5 = MD5.getMD5(url);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this)
-				+ "/BlogDetail", urlMD5);
 	}
 
 	// 初始化组件
@@ -92,7 +86,7 @@ public class BlogContentActivity extends BaseActivity implements
 			public void onClick(View view) {
 				reLoadImageView.setVisibility(View.INVISIBLE);
 				progressBar.setVisibility(View.VISIBLE);
-				requestData();
+				requestData(url);
 			}
 		});
 
@@ -118,6 +112,10 @@ public class BlogContentActivity extends BaseActivity implements
 			}
 		});
 
+		initWebView();
+	}
+
+	private void initWebView() {
 		webView = (WebView) findViewById(R.id.webview);
 		webView.setWebViewClient(new MyWebViewClient());
 		webView.getSettings().setJavaScriptEnabled(true);
@@ -126,14 +124,30 @@ public class BlogContentActivity extends BaseActivity implements
 				FileUtil.getExternalCacheDir(this) + "/WebView");
 		webView.getSettings().setAppCacheEnabled(true);
 		webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+	}
 
+	/**
+	 * 处理WebView返回
+	 * 
+	 * @param keyCode
+	 * @param event
+	 * @return
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
+		// webView.goBack();// WEBVIEW返回前一个页面
+		// return true;
+		// }
+		return super.onKeyDown(keyCode, event);
 	}
 
 	/**
 	 * 加载数据
 	 */
-	private void requestData() {
+	private void requestData(String url) {
 		// TODO Auto-generated method stub
+		progressBar.setVisibility(View.VISIBLE);
 		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(this);
 		httpAsyncTask.execute(url);
 		httpAsyncTask.setOnCompleteListener(this);
@@ -163,6 +177,7 @@ public class BlogContentActivity extends BaseActivity implements
 		} else {
 			progressBar.setVisibility(View.GONE);
 			reLoadImageView.setVisibility(View.VISIBLE);
+			ToastUtil.showToast(this, "暂无最新数据");
 		}
 	}
 
@@ -180,6 +195,7 @@ public class BlogContentActivity extends BaseActivity implements
 		blogHtml.setHtml(html);
 		blogHtml.setReserve("");
 		try {
+			DbUtils db = DbManager.getBlogContentDb(this, url);
 			BlogHtml findItem = db.findFirst(Selector.from(BlogHtml.class)
 					.where("url", "=", blogHtml.getUrl()));
 			if (findItem != null) {
@@ -201,6 +217,9 @@ public class BlogContentActivity extends BaseActivity implements
 	 * @return
 	 */
 	private String adjustPicSize(String paramString) {
+		if (TextUtils.isEmpty(paramString)) {
+			return null;
+		}
 		Element localElement = Jsoup.parse(paramString)
 				.getElementsByClass("details").get(0);
 		Iterator<?> localIterator = localElement.getElementsByTag("img")
@@ -213,6 +232,22 @@ public class BlogContentActivity extends BaseActivity implements
 		}
 	}
 
+	private void getData(String url) {
+		try {
+			DbUtils db = DbManager.getBlogContentDb(this, url);
+			BlogHtml blogHtml = db.findFirst(Selector.from(BlogHtml.class)
+					.where("url", "=", url));
+			if (blogHtml != null) {
+				loadHtml(blogHtml.getHtml());
+			} else {
+				requestData(url);
+			}
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	// 预加载数据
 	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
@@ -221,17 +256,7 @@ public class BlogContentActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case MSG_RELOAD_DATA:
-				try {
-					BlogHtml blogHtml = db.findFirst(BlogHtml.class);
-					if (blogHtml != null) {
-						loadHtml(blogHtml.getHtml());
-					} else {
-						requestData();
-					}
-				} catch (DbException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				getData(url);
 				break;
 
 			default:
@@ -251,6 +276,12 @@ public class BlogContentActivity extends BaseActivity implements
 
 		MyWebViewClient() {
 
+		}
+
+		@Override
+		public void onPageStarted(WebView view, String url, Bitmap favicon) {
+			// TODO Auto-generated method stub
+			super.onPageStarted(view, url, favicon);
 		}
 
 		public void onPageFinished(WebView paramWebView, String paramString) {
@@ -302,7 +333,14 @@ public class BlogContentActivity extends BaseActivity implements
 			// }
 			// i = 0;
 			// }
-			return false;
+			//
+			if ((paramString
+					.matches("http://blog.csdn.net/(\\w+)/article/details/(\\d+)"))) {
+				url = paramString;
+				getData(paramString);
+				return false;
+			}
+			return true;
 		}
 	}
 

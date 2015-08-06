@@ -1,5 +1,6 @@
 package com.free.csdn.app;
 
+
 /**
  * 常量类
  * 
@@ -17,6 +18,15 @@ public class Constants {
 	 * 预加载数据--消息类型
 	 */
 	public static final int MSG_PRELOAD_DATA = 1000;
+
+	/**
+	 * 博客类型
+	 */
+	public class BLOG_ICO_TYPE {
+		public static final String BLOG_TYPE_REPOST = "ico ico_type_Repost";
+		public static final String BLOG_TYPE_ORIGINAL = "ico_type_Original";
+		public static final String BLOG_TYPE_TRANSLATED = "ico ico_type_Translated";
+	}
 
 	/**
 	 * 博客每一项的类型

@@ -35,7 +35,6 @@ public class CommentAdapter extends BaseAdapter {
 	private Context context;
 	private List<Comment> list;
 
-	private SpannableStringBuilder htmlSpannable;
 
 	private ImageLoader imageLoader = ImageLoader.getInstance();
 	private DisplayImageOptions options;
@@ -44,18 +43,9 @@ public class CommentAdapter extends BaseAdapter {
 
 	public CommentAdapter(Context c) {
 		super();
-		layoutInflater = (LayoutInflater) LayoutInflater.from(c);
+		this.context = c;
+		layoutInflater = (LayoutInflater) LayoutInflater.from(this.context);
 		list = new ArrayList<Comment>();
-
-		imageLoader.init(ImageLoaderConfiguration.createDefault(c));
-		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.csdn)
-				.showImageForEmptyUri(R.drawable.csdn)
-				.showImageOnFail(R.drawable.csdn)
-				.cacheInMemory().cacheOnDisc()
-				.imageScaleType(ImageScaleType.EXACTLY)
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.displayer(new FadeInBitmapDisplayer(300)).build();
 	}
 
 	public void setList(List<Comment> list) {
@@ -102,8 +92,7 @@ public class CommentAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			switch (item.getType()) {
 			case Constants.DEF_COMMENT_TYPE.PARENT: // 父项
-				convertView = layoutInflater.inflate(R.layout.comment_item,
-						null);
+				convertView = layoutInflater.inflate(R.layout.comment_item,null);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.content = (TextView) convertView
 						.findViewById(R.id.content);

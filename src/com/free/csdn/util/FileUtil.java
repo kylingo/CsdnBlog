@@ -10,7 +10,6 @@ import java.nio.charset.Charset;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Environment;
 
 /**
  * 文件工具类

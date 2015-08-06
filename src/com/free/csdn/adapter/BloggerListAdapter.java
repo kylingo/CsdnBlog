@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.free.csdn.R;
-import com.free.csdn.bean.Blog;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.view.CircleImageView;

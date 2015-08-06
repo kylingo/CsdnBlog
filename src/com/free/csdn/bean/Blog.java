@@ -3,6 +3,8 @@ package com.free.csdn.bean;
 import com.lidroid.xutils.db.annotation.Column;
 
 public class Blog extends BaseEntity{
+	private static final long serialVersionUID = -8366599113596257949L;
+
 	@Column(column = "title")
 	private String title;
 	

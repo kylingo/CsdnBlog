@@ -1,9 +1,9 @@
 package com.free.csdn.activity;
 
 import java.util.List;
-
 import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.XListView;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.app.Constants;
@@ -215,6 +214,7 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 	}
 
 	// 预加载数据
+	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {

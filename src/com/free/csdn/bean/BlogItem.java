@@ -9,6 +9,9 @@ import com.lidroid.xutils.db.annotation.Column;
  * @date 2014/8/9
  */
 public class BlogItem extends BaseEntity{
+	
+	private static final long serialVersionUID = 3348273811892710379L;
+
 	@Column(column = "title")
 	private String title; // 标题
 	
@@ -35,6 +38,12 @@ public class BlogItem extends BaseEntity{
 	
 	@Column(column = "isTop")
 	private int topFlag;// 
+	
+	@Column(column = "icoType")
+	private String icoType;
+		
+	@Column(column = "reserve")
+	private String reserve;
 
 	public String getTitle() {
 		return title;
@@ -106,6 +115,22 @@ public class BlogItem extends BaseEntity{
 
 	public void setTopFlag(int topFlag) {
 		this.topFlag = topFlag;
+	}
+
+	public String getIcoType() {
+		return icoType;
+	}
+
+	public void setIcoType(String icoType) {
+		this.icoType = icoType;
+	}
+
+	public String getReserve() {
+		return reserve;
+	}
+
+	public void setReserve(String reserve) {
+		this.reserve = reserve;
 	}
 
 }

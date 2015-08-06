@@ -8,7 +8,6 @@ package com.free.csdn.bean;
  */
 public class Page {
 	private int page = 1; // 记录页面数
-	private int contentMutiPages; // 
 	public boolean contentFirstPage = true; // 内容第一页
 
 	// 设置开始页面

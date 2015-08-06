@@ -184,7 +184,6 @@ public class BlogListActivity extends BaseActivity implements
 				saveDB(list);
 			} else {
 				ToastUtil.showToast(BlogListActivity.this, "未能获取最新数据");
-				mListView.disablePullLoad();
 			}
 
 			pbLoading.setVisibility(View.GONE);

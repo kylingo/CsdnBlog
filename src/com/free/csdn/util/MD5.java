@@ -1,7 +1,6 @@
 package com.free.csdn.util;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * 对外提供getMD5(String)方法
