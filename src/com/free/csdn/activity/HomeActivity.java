@@ -3,6 +3,9 @@ package com.free.csdn.activity;
 import java.util.HashMap;
 import java.util.List;
 
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,6 +36,7 @@ import com.free.csdn.dialog.AddBloggerDialog;
 import com.free.csdn.interfaces.DialogListener;
 import com.free.csdn.util.BloggerDB;
 import com.free.csdn.util.BloggerManager;
+import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.DisplayUtil;
 import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;
@@ -48,9 +52,9 @@ import com.umeng.update.UmengUpdateAgent;
  */
 @SuppressLint("HandlerLeak")
 public class HomeActivity extends BaseActivity
-		implements OnItemClickListener, OnClickListener, OnMenuItemClickListener {
+		implements OnItemClickListener,OnItemLongClickListener ,OnClickListener,IXListViewRefreshListener, IXListViewLoadMore{
 
-	private SwipeMenuListView listView;
+	private XListView mListView;
 	private List<Blogger> bloggerList;
 	private BloggerListAdapter adapter;
 	private BloggerDB bloggerDB;
@@ -67,31 +71,30 @@ public class HomeActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		listView = (SwipeMenuListView) findViewById(R.id.listView);
 		ImageView imvAdd = (ImageView) findViewById(R.id.imvAdd);
+		imvAdd.setOnClickListener(this);
 
 		bloggerDB = new BloggerDB(this);
 		BloggerManager.init(this, bloggerDB);
 		bloggerList = bloggerDB.SelectAllBlogger();
 
+		mListView = (XListView) findViewById(R.id.listView);
 		adapter = new BloggerListAdapter(this, bloggerList);
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(this);
-		listView.setOnMenuItemClickListener(this);
-		listView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-		listView.setMenuCreator(creator);
-		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				ToastUtil.showToast(HomeActivity.this, "onItemLongClick："+position);
-				return true;
-			}
-		});
-		imvAdd.setOnClickListener(this);
+		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
+		mListView.setPullLoadEnable(this);// 设置可上拉加载
+		mListView.NotRefreshAtBegin();
+		mListView.setRefreshTime(DateUtil.getDate());
+		mListView.setAdapter(adapter);
+		mListView.setOnItemClickListener(this);
+		mListView.setOnItemLongClickListener(this);
 		
+		initUmengUpdate();
+	}
+
+	/**
+	 * 友盟自动更新 
+	 */
+	private void initUmengUpdate() {
 		UmengUpdateAgent.update(this);
 	}
 
@@ -104,61 +107,13 @@ public class HomeActivity extends BaseActivity
 		intent.putExtra("blogger", blogger);
 		startActivity(intent);
 	}
-
-	/**
-	 * 添加左右滑动图标
-	 */
-	SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-		@Override
-		public void create(SwipeMenu menu) {
-			// create "open" item
-			// SwipeMenuItem openItem = new SwipeMenuItem(
-			// getApplicationContext());
-			// // set item background
-			// openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-			// 0xCE)));
-			// // set item width
-			// openItem.setWidth(DisplayUtil.dp2px(HomeActivity.this,90));
-			// // set item title
-			// openItem.setTitle("Open");
-			// // set item title fontsize
-			// openItem.setTitleSize(18);
-			// // set item title font color
-			// openItem.setTitleColor(Color.WHITE);
-			// // add to menu
-			// menu.addMenuItem(openItem);
-
-			// create "delete" item
-			SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
-			// set item background
-			deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
-			// set item width
-			deleteItem.setWidth(DisplayUtil.dp2px(HomeActivity.this, 90));
-			// set a icon
-			deleteItem.setIcon(R.drawable.ic_delete);
-			// add to menu
-			menu.addMenuItem(deleteItem);
-		}
-	};
-
-	/**
-	 * 左右滑块点击事件
-	 */
+	
 	@Override
-	public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
 		// TODO Auto-generated method stub
-		switch (index) {
-		case 0:
-			// ToastUtil.showCenterToast(this, "0");
-			Blogger blogger = bloggerList.get(position);
-			deleleBlogger(blogger);
-			break;
-
-		default:
-			break;
-		}
-		return false;
+		ToastUtil.showToast(HomeActivity.this, "onItemLongClick："+position);
+		return true;
 	}
 
 	@Override
@@ -290,5 +245,33 @@ public class HomeActivity extends BaseActivity
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
+	@Override
+	public void onLoadMore() {
+		// TODO Auto-generated method stub
+		new Handler().postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mListView.stopLoadMore();
+			}
+		}, 1000);
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		new Handler().postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mListView.stopRefresh(DateUtil.getDate());
+			}
+		}, 1000);
+	}
+
+
 
 }

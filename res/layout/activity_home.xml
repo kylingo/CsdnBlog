@@ -32,7 +32,7 @@
             android:src="@drawable/ic_action_new_light" />
     </RelativeLayout>
 
-    <com.baoyz.swipemenulistview.SwipeMenuListView
+    <me.maxwin.view.XListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
