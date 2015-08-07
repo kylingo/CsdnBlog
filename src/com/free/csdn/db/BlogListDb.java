@@ -1,17 +1,30 @@
 package com.free.csdn.db;
 
-import com.lidroid.xutils.DbUtils;
+import java.util.List;
+
+import com.free.csdn.bean.BlogItem;
 
 /**
+ * 博客列表-数据库定义
+ * 
  * @author tangqi
- * @data 2015年8月7日下午10:39:22
+ * @data 2015年8月7日下午11:19:46
  */
 
-public class BlogListDb {
+public interface BlogListDb {
 
-	DbUtils dbUtils;
+	/**
+	 * 保存博客列表
+	 * 
+	 * @param list
+	 */
+	public void saveBlogList(List<BlogItem> list);
 
-	public BlogListDb() {
-		// TODO Auto-generated constructor stub
-	}
+	/**
+	 * 查找博客列表
+	 * 
+	 * @param page
+	 * @return
+	 */
+	public List<BlogItem> findBlogList(int page);
 }

@@ -22,6 +22,8 @@ import com.free.csdn.adapter.CommentAdapter;
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Comment;
 import com.free.csdn.bean.CommentComparator;
+import com.free.csdn.db.BlogCommentDb;
+import com.free.csdn.db.BlogCommentDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
 import com.free.csdn.util.DateUtil;
@@ -54,9 +56,9 @@ public class BlogCommentActivity extends BaseActivity implements
 
 	private HttpAsyncTask mAsyncTask;
 	private String filename;
-	private DbUtils db;
 	private int page = 1;
 	private int pageSize = 20;
+	private BlogCommentDb blogCommentDb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +74,7 @@ public class BlogCommentActivity extends BaseActivity implements
 		filename = getIntent().getExtras().getString("filename"); // 获得文件名
 		mAdapter = new CommentAdapter(this);
 
-		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this)
-				+ "/CommentList", filename + "_comment");
+		blogCommentDb = new BlogCommentDbImpl(this, filename);
 	}
 
 	private void initComponent() {
@@ -181,23 +182,7 @@ public class BlogCommentActivity extends BaseActivity implements
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				try {
-					for (int i = 0; i < list.size(); i++) {
-						Comment commentItem = list.get(i);
-						Comment findItem = db.findFirst(Selector.from(
-								Comment.class).where("commentId", "=",
-								commentItem.getCommentId()));
-						if (findItem != null) {
-							db.update(commentItem, WhereBuilder.b("commentId",
-									"=", commentItem.getCommentId()));
-						} else {
-							db.save(commentItem);
-						}
-					}
-				} catch (DbException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				blogCommentDb.saveCommentList(list);
 			}
 		}).start();
 
@@ -210,27 +195,20 @@ public class BlogCommentActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case Constants.MSG_PRELOAD_DATA:
-				try {
-					mListView.setRefreshTime(DateUtil.getDate()); // 设置刷新时间
-					List<Comment> list = db.findAll(Selector
-							.from(Comment.class).where("id", "between",
-									new String[] { "1", "20" }));
-					if (list != null) {
-						mAdapter.setList(list);
-						mAdapter.notifyDataSetChanged();
-						mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
-						mListView.setRefreshTime(DateUtil.getDate());
-						commentTV.setText(list.size() + "条");
-					} else {
-						// 不请求最新数据，让用户自己刷新或者加载
-						pbLoading.setVisibility(View.VISIBLE);
-						requestData(page);
-						mListView.disablePullLoad();
-					}
+				mListView.setRefreshTime(DateUtil.getDate()); // 设置刷新时间
+				List<Comment> list = blogCommentDb.getCommentList(page);
 
-				} catch (DbException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (list != null) {
+					mAdapter.setList(list);
+					mAdapter.notifyDataSetChanged();
+					mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
+					mListView.setRefreshTime(DateUtil.getDate());
+					commentTV.setText(list.size() + "条");
+				} else {
+					// 不请求最新数据，让用户自己刷新或者加载
+					pbLoading.setVisibility(View.VISIBLE);
+					requestData(page);
+					mListView.disablePullLoad();
 				}
 				break;
 

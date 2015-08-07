@@ -24,15 +24,13 @@ import android.widget.ProgressBar;
 
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.db.DbManager;
+import com.free.csdn.db.BlogContentDb;
+import com.free.csdn.db.BlogContentDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
-import com.lidroid.xutils.DbUtils;
-import com.lidroid.xutils.db.sqlite.Selector;
-import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
 
 /**
@@ -194,20 +192,9 @@ public class BlogContentActivity extends BaseActivity implements
 		blogHtml.setUrl(url);
 		blogHtml.setHtml(html);
 		blogHtml.setReserve("");
-		try {
-			DbUtils db = DbManager.getBlogContentDb(this, url);
-			BlogHtml findItem = db.findFirst(Selector.from(BlogHtml.class)
-					.where("url", "=", blogHtml.getUrl()));
-			if (findItem != null) {
-				db.update(blogHtml,
-						WhereBuilder.b("url", "=", blogHtml.getUrl()));
-			} else {
-				db.save(blogHtml);
-			}
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		BlogContentDb blogContentDb = new BlogContentDbImpl(this, url);
+		blogContentDb.saveBlogContent(blogHtml);
 	}
 
 	/**
@@ -233,18 +220,12 @@ public class BlogContentActivity extends BaseActivity implements
 	}
 
 	private void getData(String url) {
-		try {
-			DbUtils db = DbManager.getBlogContentDb(this, url);
-			BlogHtml blogHtml = db.findFirst(Selector.from(BlogHtml.class)
-					.where("url", "=", url));
-			if (blogHtml != null) {
-				loadHtml(blogHtml.getHtml());
-			} else {
-				requestData(url);
-			}
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		BlogContentDb blogContentDb = new BlogContentDbImpl(this, url);
+		BlogHtml blogHtml = blogContentDb.getBlogContent(url);
+		if (blogHtml != null) {
+			loadHtml(blogHtml.getHtml());
+		} else {
+			requestData(url);
 		}
 	}
 

@@ -1,0 +1,28 @@
+package com.free.csdn.db;
+
+import com.free.csdn.bean.BlogHtml;
+
+/**
+ * 博客内容数据库
+ * 
+ * @author tangqi
+ * @data 2015年8月7日下午11:47:16
+ */
+
+public interface BlogContentDb {
+
+	/**
+	 * 保存博客内容
+	 * 
+	 * @param blogHtml
+	 */
+	public void saveBlogContent(BlogHtml blogHtml);
+
+	/**
+	 * 获取博客内容
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public BlogHtml getBlogContent(String url);
+}
