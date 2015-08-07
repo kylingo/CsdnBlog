@@ -30,6 +30,8 @@ import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.LogUtil;
+import com.free.csdn.util.NetUtil;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.URLUtil;
 import com.lidroid.xutils.DbUtils;
@@ -143,7 +145,11 @@ public class BlogListActivity extends BaseActivity implements
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
 		page++;
-		requestData(page);
+		if (NetUtil.isNetAvailable(this)) {
+			requestData(page);
+		} else {
+			mHandler.sendEmptyMessage(Constants.MSG_PRELOAD_DATA);
+		}
 	}
 
 	@Override
@@ -241,18 +247,19 @@ public class BlogListActivity extends BaseActivity implements
 							BlogItem.class).where("isTop", "=", 1));
 					List<BlogItem> normalList = db.findAll(Selector
 							.from(BlogItem.class).orderBy("date", true)
-							.limit(20));
+							.limit(page * 20));
 					if (list != null) {
 						list.addAll(normalList);
 					} else {
 						list = normalList;
 					}
-	
+
 					if (list != null) {
 						mAdapter.setList(list);
 						mAdapter.notifyDataSetChanged();
 						mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
 						mListView.setRefreshTime(DateUtil.getDate());
+						mListView.stopLoadMore();
 					} else {
 						// 不请求最新数据，让用户自己刷新或者加载
 						pbLoading.setVisibility(View.VISIBLE);
