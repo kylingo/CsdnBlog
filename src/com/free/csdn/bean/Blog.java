@@ -25,6 +25,9 @@ public class Blog extends BaseEntity{
 	
 	@Column(column = "commentCount")
 	private String commentCount;
+	
+	@Column(column = "reserve")
+	private String reserve;
 
 	public String getTitle() {
 		return title;
