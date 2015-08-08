@@ -2,8 +2,6 @@ package com.free.csdn.db;
 
 import java.util.List;
 
-import android.app.DownloadManager.Query;
-
 import com.free.csdn.bean.Blogger;
 
 /**

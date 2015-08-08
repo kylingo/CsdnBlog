@@ -33,10 +33,12 @@ import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
-import com.free.csdn.view.AddBloggerDialog;
 import com.free.csdn.view.BaseDialog.OnConfirmListener;
+import com.free.csdn.view.BaseDialog.OnDeleteListener;
+import com.free.csdn.view.BaseDialog.OnStickListener;
+import com.free.csdn.view.BloggerAddDialog;
+import com.free.csdn.view.BloggerOperationDialog;
 import com.free.csdn.view.LoadingDialog;
-import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 主页
@@ -110,9 +112,27 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 		// TODO Auto-generated method stub
-		ToastUtil.show(HomeActivity.this, "onItemLongClick：" + position);
+		BloggerOperationDialog dialog = new BloggerOperationDialog(this);
+		dialog.setOnDeleteListener(new OnDeleteListener() {
+
+			@Override
+			public void onDelete(String result) {
+				// TODO Auto-generated method stub
+				deleleBlogger(mBloggerList.get(position - 1));
+			}
+		});
+
+		dialog.setOnStickListener(new OnStickListener() {
+
+			@Override
+			public void onStick(String result) {
+				// TODO Auto-generated method stub
+				stickBlogger(mBloggerList.get(position - 1));
+			}
+		});
+		dialog.show();
 		return true;
 	}
 
@@ -136,7 +156,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	 * 显示添加Dialog
 	 */
 	private void showCenterAddDialog() {
-		AddBloggerDialog dialog = new AddBloggerDialog(this, new OnConfirmListener() {
+		BloggerAddDialog dialog = new BloggerAddDialog(this, new OnConfirmListener() {
 
 			@Override
 			public void onConfirm(String result) {
@@ -204,7 +224,24 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
-		ToastUtil.show(HomeActivity.this, "博客ID添加成功！");
+		ToastUtil.show(HomeActivity.this, "博客ID添加成功");
+	}
+
+	/**
+	 * 置顶博主
+	 * 
+	 * @param blogger
+	 */
+	private void stickBlogger(Blogger blogger) {
+		blogger.setIsNew(1);
+		blogger.setUpdateTime(System.currentTimeMillis());
+		db.insert(blogger);
+
+		mBloggerList = db.queryAll(type);
+		mAdapter.setList(mBloggerList);
+		mAdapter.notifyDataSetChanged();
+
+		ToastUtil.show(HomeActivity.this, "博客置顶成功");
 	}
 
 	/**
@@ -219,7 +256,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
-		ToastUtil.show(HomeActivity.this, "博客删除成功！");
+		ToastUtil.show(HomeActivity.this, "博客删除成功");
 	}
 
 	private Handler mHandler = new Handler() {
@@ -237,15 +274,15 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 				break;
 
 			case MSG_ADD_FAILURE:
-				ToastUtil.show(HomeActivity.this, "博客ID不存在，添加失败！");
+				ToastUtil.show(HomeActivity.this, "博客ID不存在，添加失败");
 				break;
 
 			case MSG_ADD_EMPTY:
-				ToastUtil.show(HomeActivity.this, "博客ID为空！");
+				ToastUtil.show(HomeActivity.this, "博客ID为空");
 				break;
 
 			case MSG_ADD_REPEAT:
-				ToastUtil.show(HomeActivity.this, "博客ID重复添加！");
+				ToastUtil.show(HomeActivity.this, "博客ID重复添加");
 				break;
 
 			case MSG_ADD_BLOG:

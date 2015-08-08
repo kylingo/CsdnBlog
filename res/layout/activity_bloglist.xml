@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.free.csdn.activity.HomeActivity" >
 
     <RelativeLayout
@@ -47,8 +48,8 @@
         android:layout_below="@+id/rl_head"
         android:cacheColorHint="#00000000"
         android:divider="@color/list_divider_color"
-        android:dividerHeight="1dip"
-        android:listSelector="@android:color/transparent" />
+        android:dividerHeight="0.5dip"
+        android:listSelector="@drawable/selector_text_bg_white" />
 
     <ProgressBar
         android:id="@+id/pb_loading"

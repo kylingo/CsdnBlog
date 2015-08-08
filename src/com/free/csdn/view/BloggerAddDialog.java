@@ -16,28 +16,23 @@ import com.free.csdn.util.KeyBoardUtils;
  * 添加博主对话框
  */
 
-public class AddBloggerDialog extends BaseDialog implements OnClickListener {
+public class BloggerAddDialog extends BaseDialog implements OnClickListener {
 
 	private Context mContext;
 	private EditText mUserIdView;
 	private TextView mConfirmView;
 	private OnConfirmListener mOnConfirmListener;
 
-	// 构造方法
-	public AddBloggerDialog(Context context, OnConfirmListener onConfirmListener) {
+	
+	public BloggerAddDialog(Context context, OnConfirmListener onConfirmListener) {
 		super(context, R.style.Theme_Light_FullScreenDialogAct);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.mContext = context;
 		this.mOnConfirmListener = onConfirmListener;
 
-		// 绑定Layout
-		this.setContentView(R.layout.dialog_add_blogger);
-		// 初始化控件
+		setContentView(R.layout.dialog_blogger_add);
 		mUserIdView = (EditText) this.findViewById(R.id.et_userid);
 		mConfirmView = (TextView) this.findViewById(R.id.btn_confirm);
-
 		mConfirmView.setOnClickListener(this);
-
 	}
 
 	@Override

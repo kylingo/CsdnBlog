@@ -26,7 +26,7 @@ public class LoadingDialog extends ProgressDialog {
 		// TODO Auto-generated constructor stub
 		super(context, R.style.Theme_Light_LoadingDialog);
 
-		this.mContext=context;
+		this.mContext = context;
 		this.mMessage = message;
 	}
 
@@ -44,11 +44,11 @@ public class LoadingDialog extends ProgressDialog {
 	 * 显示在底部
 	 */
 	public void show() {
-		WindowManager windowManager = ((Activity)mContext).getWindowManager();
+		WindowManager windowManager = ((Activity) mContext).getWindowManager();
 		Display display = windowManager.getDefaultDisplay();
-		
+
 		WindowManager.LayoutParams lp = getWindow().getAttributes();
-		lp.width = (int)(display.getWidth()*0.5);
+		lp.width = (int) (display.getWidth() * 0.8);
 		getWindow().setAttributes(lp);
 		super.show();
 	}

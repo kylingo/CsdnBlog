@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -29,8 +29,8 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
-    
-      <style name="Theme.Light.LoadingDialog" parent="@style/BaseDialog">
+
+    <style name="Theme.Light.LoadingDialog" parent="@style/BaseDialog">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -39,6 +39,16 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
+    </style>
+
+    <style name="TextView_Dialog_Blogger_Operation" parent="android:Widget.TextView">
+        <item name="android:background">@drawable/selector_text_bg_white</item>
+        <item name="android:paddingBottom">15dip</item>
+        <item name="android:paddingLeft">25dip</item>
+        <item name="android:paddingRight">25dip</item>
+        <item name="android:paddingTop">15dip</item>
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>

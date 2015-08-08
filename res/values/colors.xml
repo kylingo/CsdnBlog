@@ -5,7 +5,7 @@
 	<color name="white">#FFFFFF</color>
 	<color name="black">#000000</color>
 	<color name="gray">#5D5D5D</color>
-	<color name="line">#D9D9D9</color><!-- 线条颜色 -->
+	<color name="line">#D9D9D9</color><!-- 微信线条颜色 -->
 	<color name="coffee">#622f1b</color>
 	<color name="wangyibg">#f0f0f0</color>
 	<color name="wangyibg2">#E0E0E0</color>
@@ -15,8 +15,9 @@
 	<color name="transparentblack">#88000000</color>
 	<color name="transparent_half">#A0000000</color>
 
-	<color name="list_decs_color">#848B84</color>
-	<color name="list_divider_color">#DBDBDB</color>
+	<color name="list_decs_color">#999999</color>
+	<color name="list_divider_color">#D9D9D9</color>
 	<color name="blue_deep">#4A708B</color>
+	<color name="black_text">#353535</color><!-- 微信黑色字 -->
 
 </resources>

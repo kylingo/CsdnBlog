@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/listitem_blogger_height"
-    android:orientation="horizontal"
-    android:padding="5dip" >
+    android:orientation="horizontal" 
+    android:padding="8dip">
 
     <com.free.csdn.view.CircleImageView
         android:id="@+id/imv_blogger"
@@ -25,14 +25,14 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="@string/blog_title"
-            android:textColor="@color/black"
+            android:textColor="@color/black_text"
             android:textSize="@dimen/title_size" />
 
         <TextView
             android:id="@+id/tv_blog_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="2"
+            android:singleLine="true"
             android:text="@string/blog_desc"
             android:textColor="@color/list_decs_color"
             android:textSize="@dimen/desc_size" />

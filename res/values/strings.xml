@@ -8,7 +8,7 @@
     <string name="empty"></string>
     
     <string name="blog_title">Cocos2d-x 3.2示例UserDefaultTest（用户默认配置）</string>
-    <string name="blog_desc">专注Android</string>
+    <string name="blog_desc">本篇博客介绍Cocos2d-x 3.2示例中的UserDefaulstTest,我们在开发中可能需要用到一些默认配置，一般会以xml形式保存。Cocos2d-x为我们提供了UserDefault类来实现这样的需求。</string>
     <string name="android_blog">Android博客</string>
     <string name="comment_list">评论</string>
     <string name="blog_detail">博客详情</string>
@@ -22,5 +22,8 @@
     <string name="toast_message">消息提醒</string>
     <string name="hint_input_blog_id">请输入您要添加的博客ID</string>
     <string name="notice">提示</string>
+    <string name="blogger_delete">删除博主</string>
+    <string name="blogger_stick">置顶博主</string>
+    <string name="cache_operation">取消操作</string>
 
 </resources>

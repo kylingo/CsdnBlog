@@ -36,5 +36,21 @@ public class BaseDialog extends Dialog {
 
 		public abstract void onCancle(String result);
 	}
+	
+	/**
+	 * 监听删除
+	 */
+	public abstract interface OnDeleteListener {
+
+		public abstract void onDelete(String result);
+	}
+
+	/**
+	 * 监听置顶
+	 */
+	public abstract interface OnStickListener {
+
+		public abstract void onStick(String result);
+	}
 
 }
