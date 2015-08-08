@@ -15,10 +15,12 @@
     <string name="blog_read_times">1</string>
     <string name="blog_create_date">2014-08-08 17:54|141人阅读</string>
     <string name="blog_description">本篇博客介绍Cocos2d-x 3.2示例中的UserDefaulstTest,我们在开发中可能需要用到一些默认配置，一般会以xml形式保存。Cocos2d-x为我们提供了UserDefault类来实现这样的需求。</string>
-    <string name="input_blog_id">请输入要添加的博客ID</string>
+    <string name="input_blog_id">添加博客ID</string>
     <string name="confirm">确定</string>
     <string name="add_blog_notice">例如：博客地址为“http://blog.csdn.net/abc”，那么“abc”就是您的博客ID。</string>
     <string name="loading">正在加载...</string>
     <string name="toast_message">消息提醒</string>
+    <string name="hint_input_blog_id">请输入您要添加的博客ID</string>
+    <string name="notice">提示</string>
 
 </resources>

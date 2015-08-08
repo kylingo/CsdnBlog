@@ -491,6 +491,6 @@ public class BloggerManager {
 		array[5] = BloggerDb.TYPE_ANDROID;
 		insertBlogger(bloggerDb, blogger, array);
 
-		SpfUtils.put(context, "isfirst", false);
+		SpfUtils.put(context, "isFirst", false);
 	}
 }
