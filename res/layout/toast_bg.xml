@@ -5,14 +5,17 @@
     android:background="@drawable/shap_rect_bg_toast"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="20dip" >
+    android:paddingBottom="10dip"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip"
+    android:paddingTop="10dip" >
 
     <TextView
         android:id="@+id/tv_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/toast_message"
-        android:textColor="@color/line"
-        android:textSize="16sp" />
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
 </LinearLayout>

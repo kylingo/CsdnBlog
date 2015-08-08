@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.free.csdn.R;
+import com.free.csdn.util.KeyBoardUtils;
 
 /**
  * 添加博主对话框
@@ -17,23 +18,25 @@ import com.free.csdn.R;
 
 public class AddBloggerDialog extends BaseDialog implements OnClickListener {
 
-	private EditText et_userid;
-	private TextView btn_confirm;
+	private Context mContext;
+	private EditText mUserIdView;
+	private TextView mConfirmView;
 	private OnConfirmListener mOnConfirmListener;
 
 	// 构造方法
 	public AddBloggerDialog(Context context, OnConfirmListener onConfirmListener) {
 		super(context, R.style.Theme_Light_FullScreenDialogAct);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.mContext = context;
 		this.mOnConfirmListener = onConfirmListener;
 
 		// 绑定Layout
 		this.setContentView(R.layout.dialog_add_blogger);
 		// 初始化控件
-		et_userid = (EditText) this.findViewById(R.id.et_userid);
-		btn_confirm = (TextView) this.findViewById(R.id.btn_confirm);
+		mUserIdView = (EditText) this.findViewById(R.id.et_userid);
+		mConfirmView = (TextView) this.findViewById(R.id.btn_confirm);
 
-		btn_confirm.setOnClickListener(this);
+		mConfirmView.setOnClickListener(this);
 
 	}
 
@@ -41,7 +44,8 @@ public class AddBloggerDialog extends BaseDialog implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
-			mOnConfirmListener.onConfirm(String.valueOf(et_userid.getText()));
+			mOnConfirmListener.onConfirm(String.valueOf(mUserIdView.getText()));
+			KeyBoardUtils.closeKeybord(mUserIdView, mContext);
 			dismiss();
 			break;
 

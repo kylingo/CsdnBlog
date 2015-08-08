@@ -61,6 +61,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	private static final int MSG_ADD_FAILURE = 1001;
 	private static final int MSG_ADD_REPEAT = 1002;
 	private static final int MSG_ADD_EMPTY = 1003;
+	private static final int MSG_ADD_BLOG = 1004;
 	private long exitTime;
 	private String type = BloggerDb.TYPE_ANDROID;
 
@@ -138,7 +139,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		AddBloggerDialog dialog = new AddBloggerDialog(this, new OnConfirmListener() {
 
 			@Override
-			public void onConfirm(final String result) {
+			public void onConfirm(String result) {
 				// TODO Auto-generated method stub
 				if (TextUtils.isEmpty(result)) {
 					mHandler.sendEmptyMessage(MSG_ADD_EMPTY);
@@ -152,26 +153,36 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 
 				newUserId = result;
 				progressdialog = new LoadingDialog(HomeActivity.this, "正在添加博客...");
+				progressdialog.setCancelable(false);
 				progressdialog.show();
-
-				HttpAsyncTask httpAsyncTask = new HttpAsyncTask(HomeActivity.this);
-				httpAsyncTask.execute(Constants.CSDN_BASE_URL + result);
-				httpAsyncTask.setOnCompleteListener(new OnResponseListener() {
-					@Override
-					public void onResponse(String resultString) {
-						// TODO Auto-generated method stub
-						if (TextUtils.isEmpty(resultString)) {
-							mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
-						} else {
-							bloggerItem = JsoupUtil.getBloggerItem(resultString);
-							mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
-						}
-					}
-				});
+				mHandler.sendEmptyMessageDelayed(MSG_ADD_BLOG, 1000);
 			}
+
 		});
 
 		dialog.show();
+	}
+
+	/**
+	 * 请求博主数据
+	 * 
+	 * @param result
+	 */
+	private void requestData(String result) {
+		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(HomeActivity.this);
+		httpAsyncTask.execute(Constants.CSDN_BASE_URL + result);
+		httpAsyncTask.setOnCompleteListener(new OnResponseListener() {
+			@Override
+			public void onResponse(String resultString) {
+				// TODO Auto-generated method stub
+				if (TextUtils.isEmpty(resultString)) {
+					mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
+				} else {
+					bloggerItem = JsoupUtil.getBloggerItem(resultString);
+					mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
+				}
+			}
+		});
 	}
 
 	/**
@@ -235,6 +246,10 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 
 			case MSG_ADD_REPEAT:
 				ToastUtil.show(HomeActivity.this, "博客ID重复添加！");
+				break;
+
+			case MSG_ADD_BLOG:
+				requestData(newUserId);
 				break;
 
 			default:

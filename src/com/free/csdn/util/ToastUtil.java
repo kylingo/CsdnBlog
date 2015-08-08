@@ -35,10 +35,10 @@ public class ToastUtil {
 		mToast.setView(view);
 
 		mMessageView.setText(message);
-		mToast.setGravity(Gravity.CENTER, 0, 0);
+		// mToast.setGravity(Gravity.CENTER, 0, 0);
 		mToast.show();
 	}
-	
+
 	/**
 	 * Toast显示消息(底部)
 	 * 
@@ -61,6 +61,5 @@ public class ToastUtil {
 		mToast.setGravity(Gravity.BOTTOM, 0, 100);
 		mToast.show();
 	}
-
 
 }

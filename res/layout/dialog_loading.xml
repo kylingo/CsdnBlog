@@ -16,7 +16,7 @@
         android:id="@+id/tv_loading_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
+        android:layout_marginLeft="10dip"
         android:text="@string/loading"
         android:textColor="@color/line"
         android:textSize="16sp" />
