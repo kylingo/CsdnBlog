@@ -1,11 +1,12 @@
-package com.free.csdn.db;
+package com.free.csdn.db.impl;
 
 import java.util.List;
 
 import android.content.Context;
 
 import com.free.csdn.bean.BlogItem;
-import com.free.csdn.util.FileUtil;
+import com.free.csdn.db.BlogListDb;
+import com.free.csdn.db.CacheManager;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -18,14 +19,14 @@ import com.lidroid.xutils.exception.DbException;
  * @data 2015年8月7日下午10:39:22
  */
 
-public class BlogListDbImpl implements BlogListDb{
+public class BlogListDbImpl implements BlogListDb {
 
 	private DbUtils db;
 
 	public BlogListDbImpl(Context context, String userId) {
 		// TODO Auto-generated constructor stub
-		db = DbUtils.create(context, FileUtil.getExternalCacheDir(context)
-				+ "/BlogList", userId + "_blog");
+		db = DbUtils.create(context, CacheManager.getBlogListDbPath(context),
+				userId + "_blog");
 	}
 
 	/**
@@ -65,7 +66,7 @@ public class BlogListDbImpl implements BlogListDb{
 					1));
 			List<BlogItem> normalList = db.findAll(Selector
 					.from(BlogItem.class).orderBy("date", true)
-					.limit(page * 20));
+					.where("isTop", "!=", 1).limit(page * 20));
 			if (list != null) {
 				list.addAll(normalList);
 			} else {

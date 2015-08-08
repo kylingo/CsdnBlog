@@ -1,4 +1,6 @@
-package com.free.csdn.util;
+package com.free.csdn.db;
+
+import com.free.csdn.util.BloggerDB;
 
 import android.content.Context;
 import android.content.SharedPreferences;

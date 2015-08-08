@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Environment;
 
 /**
  * 文件工具类
@@ -18,7 +19,8 @@ import android.graphics.Bitmap;
  */
 public class FileUtil {
 	// 文件保存路径
-	public static String filePath = android.os.Environment.getExternalStorageDirectory() + "/WWJBlog";
+	public static String filePath = android.os.Environment
+			.getExternalStorageDirectory() + "/WWJBlog";
 
 	public static String getFileName(String str) {
 		// 去除url中的符号作为文件名返回
@@ -42,7 +44,8 @@ public class FileUtil {
 				file.mkdirs();
 			}
 
-			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/" + filename);
+			FileOutputStream fileOutputStream = new FileOutputStream(filePath
+					+ "/" + filename);
 			byte[] buffer = new byte[512];
 			int count = 0;
 			while ((count = inputStream.read(buffer)) > 0) {
@@ -66,7 +69,8 @@ public class FileUtil {
 			}
 			InputStream is = bitmap2InputStream(bmp);
 
-			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/" + getFileName(fileName));
+			FileOutputStream fileOutputStream = new FileOutputStream(filePath
+					+ "/" + getFileName(fileName));
 			byte[] buffer = new byte[512];
 			int count = 0;
 			while ((count = is.read(buffer)) > 0) {
@@ -128,13 +132,31 @@ public class FileUtil {
 	}
 
 	/**
+	 * SD卡是否可用
+	 * 
+	 * @return
+	 */
+	public static boolean getSdAvailable() {
+		return Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment
+				.getExternalStorageState())
+				|| Environment.MEDIA_MOUNTED.equals(Environment
+						.getExternalStorageState());
+	}
+
+	/**
 	 * 获取缓存目录
 	 * 
 	 * @param context
 	 * @return
 	 */
 	public static String getExternalCacheDir(Context context) {
-		String path = context.getExternalCacheDir().getAbsolutePath();
+		String path = null;
+		if (getSdAvailable()) {
+			path = context.getExternalCacheDir().getAbsolutePath();
+		} else {
+			path = context.getCacheDir().getAbsolutePath();
+		}
 		return path;
 	}
+
 }

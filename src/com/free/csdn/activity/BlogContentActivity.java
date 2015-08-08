@@ -25,10 +25,9 @@ import android.widget.ProgressBar;
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogHtml;
 import com.free.csdn.db.BlogContentDb;
-import com.free.csdn.db.BlogContentDbImpl;
+import com.free.csdn.db.impl.BlogContentDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
-import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
 
@@ -117,9 +116,12 @@ public class BlogContentActivity extends BaseActivity implements
 		webView.setWebViewClient(new MyWebViewClient());
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setDefaultTextEncodingName("utf-8");
-		webView.getSettings().setAppCachePath(
-				FileUtil.getExternalCacheDir(this) + "/WebView");
 		webView.getSettings().setAppCacheEnabled(true);
+		webView.getSettings().setDatabaseEnabled(true);
+
+		// LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
+		// LOAD_DEFAULT: 根据cache-control决定是否从网络上取数据。
+		// 总结：根据以上两种模式，建议缓存策略为，判断是否有网络，有的话，使用LOAD_DEFAULT，无网络时，使用LOAD_CACHE_ELSE_NETWORK。
 		webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 	}
 

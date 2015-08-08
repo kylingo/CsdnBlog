@@ -1,9 +1,10 @@
-package com.free.csdn.db;
+package com.free.csdn.db.impl;
 
 import android.content.Context;
 
 import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.util.FileUtil;
+import com.free.csdn.db.BlogContentDb;
+import com.free.csdn.db.CacheManager;
 import com.free.csdn.util.MD5;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -30,8 +31,8 @@ public class BlogContentDbImpl implements BlogContentDb {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		db = DbUtils.create(context, FileUtil.getExternalCacheDir(context)
-				+ "/BlogDetail", urlMD5);
+		db = DbUtils.create(context,
+				CacheManager.getBlogContentDbPath(context), urlMD5);
 	}
 
 	public void saveBlogContent(BlogHtml blogHtml) {

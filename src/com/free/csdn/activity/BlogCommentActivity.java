@@ -23,7 +23,7 @@ import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Comment;
 import com.free.csdn.bean.CommentComparator;
 import com.free.csdn.db.BlogCommentDb;
-import com.free.csdn.db.BlogCommentDbImpl;
+import com.free.csdn.db.impl.BlogCommentDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
 import com.free.csdn.util.DateUtil;

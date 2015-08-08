@@ -19,6 +19,7 @@ public class Blogger extends BaseEntity {
 	private String title;
 	private String type;
 	private String userId;
+	private String reserve;
 
 	public String getDescription() {
 		return description;
@@ -66,6 +67,14 @@ public class Blogger extends BaseEntity {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getReserve() {
+		return reserve;
+	}
+
+	public void setReserve(String reserve) {
+		this.reserve = reserve;
 	}
 
 }

@@ -1,5 +1,10 @@
 package com.free.csdn.app;
 
+import java.io.File;
+
+import android.app.Application;
+
+import com.free.csdn.db.CacheManager;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -7,15 +12,15 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.L;
 
-import android.app.Application;
-
 /**
+ * 应用Application类
+ * 
  * @author tangqi
  * @data 2015年7月8日下午11:47:10
  */
 
 public class MyApplication extends Application {
-	
+
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -45,7 +50,7 @@ public class MyApplication extends Application {
 		ImageLoader.getInstance().init(config);
 		L.writeLogs(true);
 	}
-	
+
 	/**
 	 * 初始化CrashHandler
 	 */
@@ -54,4 +59,17 @@ public class MyApplication extends Application {
 		crashHandler.init(this);
 		Thread.currentThread().setUncaughtExceptionHandler(crashHandler);
 	}
+
+	@Override
+	public File getCacheDir() {
+		// TODO Auto-generated method stub
+		return new File(CacheManager.getAppCachePath(this));
+	}
+
+	@Override
+	public File getDatabasePath(String name) {
+		// TODO Auto-generated method stub
+		return new File(CacheManager.getAppDatabasePath(this));
+	}
+
 }

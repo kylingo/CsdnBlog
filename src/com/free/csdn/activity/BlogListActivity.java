@@ -26,7 +26,7 @@ import com.free.csdn.app.Constants;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.db.BlogListDb;
-import com.free.csdn.db.BlogListDbImpl;
+import com.free.csdn.db.impl.BlogListDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
 import com.free.csdn.util.DateUtil;

@@ -1,15 +1,16 @@
-package com.free.csdn.db;
+package com.free.csdn.db.impl;
 
 import java.util.List;
 
+import android.content.Context;
+
 import com.free.csdn.bean.Comment;
-import com.free.csdn.util.FileUtil;
+import com.free.csdn.db.BlogCommentDb;
+import com.free.csdn.db.CacheManager;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
-
-import android.content.Context;
 
 /**
  * 博客评论数据库-实现
@@ -24,8 +25,8 @@ public class BlogCommentDbImpl implements BlogCommentDb {
 
 	public BlogCommentDbImpl(Context context, String filename) {
 		// TODO Auto-generated method stub
-		db = DbUtils.create(context, FileUtil.getExternalCacheDir(context)
-				+ "/CommentList", filename + "_comment");
+		db = DbUtils.create(context, CacheManager.getCommentDbPath(context),
+				filename + "_comment");
 	}
 
 	public void saveCommentList(List<Comment> list) {
