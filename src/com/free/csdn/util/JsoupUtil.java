@@ -15,12 +15,11 @@ import org.jsoup.select.Elements;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.TextureView;
 
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
 import com.free.csdn.bean.BlogItem;
-import com.free.csdn.bean.Blogger;
+import com.free.csdn.bean.BloggerDetail;
 import com.free.csdn.bean.Comment;
 
 /**
@@ -261,7 +260,7 @@ public class JsoupUtil {
 		}
 		localElement1.getElementsByClass("article_manage").remove();
 		localElement1.getElementsByTag("h1").tagName("h2");
-		Iterator localIterator = localElement1.select("pre[name=code]")
+		Iterator<?> localIterator = localElement1.select("pre[name=code]")
 				.iterator();
 		while (true) {
 			if (!localIterator.hasNext())
@@ -439,7 +438,7 @@ public class JsoupUtil {
 	 * @param str
 	 * @return
 	 */
-	public static Blogger getBloggerInfo(String str) {
+	public static BloggerDetail getBloggerInfo(String str) {
 
 		if (str == null) {
 			return null;
@@ -474,11 +473,12 @@ public class JsoupUtil {
 		}
 		statistics = sb2.toString();
 
-		Blogger blogger = new Blogger();
-		// blogger.setUserface(userfaceLink);
-		// blogger.setUsername(username);
-		// blogger.setRank(rankStr);
-		// blogger.setStatistics(statistics);
+		BloggerDetail blogger = new BloggerDetail();
+		
+		 blogger.setUserface(userfaceLink);
+		 blogger.setUsername(username);
+		 blogger.setRank(rankStr);
+		 blogger.setStatistics(statistics);
 
 		return blogger;
 	}

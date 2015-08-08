@@ -2,26 +2,20 @@ package com.free.csdn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.text.Html;
-import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.free.csdn.R;
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Comment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 /**
  * 评论列表适配器
@@ -85,6 +79,7 @@ public class CommentAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Comment item = list.get(position); // 获取评论项
@@ -97,8 +92,8 @@ public class CommentAdapter extends BaseAdapter {
 				holder.content = (TextView) convertView
 						.findViewById(R.id.content);
 				holder.date = (TextView) convertView.findViewById(R.id.date);
-				holder.reply = (TextView) convertView
-						.findViewById(R.id.replyCount);
+				// holder.reply = (TextView) convertView
+				// .findViewById(R.id.replyCount);
 				holder.userface = (ImageView) convertView.findViewById(R.id.userface);
 				
 				break;
@@ -161,11 +156,11 @@ public class CommentAdapter extends BaseAdapter {
 	}
 
 	private class ViewHolder {
-		TextView id;
+//		TextView id;
 		TextView date;
 		TextView name;
 		TextView content;
 		ImageView userface;
-		TextView reply;
+//		TextView reply;
 	}
 }

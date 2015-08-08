@@ -2,8 +2,6 @@ package com.free.csdn.db;
 
 import java.util.List;
 
-import android.R.integer;
-
 import com.free.csdn.bean.Comment;
 
 /**
@@ -15,7 +13,18 @@ import com.free.csdn.bean.Comment;
 
 public interface BlogCommentDb {
 
+	/**
+	 * 保存博客评论列表
+	 * 
+	 * @param list
+	 */
 	public void saveCommentList(List<Comment> list);
 
+	/**
+	 * 获取博客评论列表
+	 * 
+	 * @param page
+	 * @return
+	 */
 	public List<Comment> getCommentList(int page);
 }

@@ -1,13 +1,13 @@
 package com.free.csdn.util;
 
 import java.io.File;
+import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.os.StatFs;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -24,7 +24,7 @@ public class FileUtils {
 			String filename = f.getName();
 			int i = filename.lastIndexOf('.');
 			if (i > 0 && i < filename.length() - 1) {
-				return filename.substring(i + 1).toLowerCase();
+				return filename.substring(i + 1).toLowerCase(Locale.getDefault());
 			}
 		}
 		return null;
@@ -58,7 +58,7 @@ public class FileUtils {
 		if (!TextUtils.isEmpty(url)) {
 			int i = url.lastIndexOf('.');
 			if (i > 0 && i < url.length() - 1) {
-				return url.substring(i + 1).toLowerCase();
+				return url.substring(i + 1).toLowerCase(Locale.getDefault());
 			}
 		}
 		return "";
@@ -98,19 +98,6 @@ public class FileUtils {
 			fileSize = String.format("%.1f", size / GB) + " GB";
 
 		return fileSize;
-	}
-
-	/** 显示SD卡剩余空间 */
-	public static String showFileAvailable() {
-		String result = "";
-		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-			StatFs sf = new StatFs(Environment.getExternalStorageDirectory().getPath());
-			long blockSize = sf.getBlockSize();
-			long blockCount = sf.getBlockCount();
-			long availCount = sf.getAvailableBlocks();
-			return formatSize(availCount * blockSize) + " / " + formatSize(blockSize * blockCount);
-		}
-		return result;
 	}
 
 	/** 如果不存在就创建 */

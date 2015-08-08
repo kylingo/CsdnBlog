@@ -1,6 +1,7 @@
 package com.free.csdn.activity;
 
 import java.util.List;
+
 import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.XListView;
 import android.annotation.SuppressLint;
@@ -17,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.app.Constants;
@@ -34,6 +36,8 @@ import com.lidroid.xutils.exception.DbException;
  * @author wwj_748
  * @date 2014/8/10
  */
+
+@Deprecated
 public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMore {
 	private XListView listView; // 列表控件
 	private BlogDetailAdapter blogDetailAdapter; // 内容适配器

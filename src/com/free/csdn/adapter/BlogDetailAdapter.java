@@ -2,10 +2,9 @@ package com.free.csdn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
-import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +12,12 @@ import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.free.csdn.R;
 import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 博客内容适配器
@@ -28,14 +25,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author wwj_748
  * @date 2014/8/10
  */
+
+@Deprecated
 public class BlogDetailAdapter extends BaseAdapter {
 	private ViewHolder holder;
 	private LayoutInflater layoutInflater;
 	private Context context;
 	private List<Blog> list;
-
-	private SpannableStringBuilder htmlSpannable;
-	private ImageLoader imageLoader = ImageLoader.getInstance();
 
 	public BlogDetailAdapter(Context context) {
 		super();
@@ -81,6 +77,7 @@ public class BlogDetailAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Blog item = list.get(position);
@@ -88,28 +85,36 @@ public class BlogDetailAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			switch (item.getState()) {
 			case Constants.DEF_BLOG_ITEM_TYPE.TITLE:// 显示标题
-				convertView = layoutInflater.inflate(R.layout.article_detail_title_item, null);
+				convertView = layoutInflater.inflate(
+						R.layout.article_detail_title_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.SUMMARY: // 摘要
-				convertView = layoutInflater.inflate(R.layout.article_detail_summary_item, null);
+				convertView = layoutInflater.inflate(
+						R.layout.article_detail_summary_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.CONTENT: // 内容
-				convertView = layoutInflater.inflate(R.layout.article_detail_item, null);
+				convertView = layoutInflater.inflate(
+						R.layout.article_detail_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 图片
-				convertView = layoutInflater.inflate(R.layout.article_detail_img_item, null);
-				holder.image = (ImageView) convertView.findViewById(R.id.imageView);
+				convertView = layoutInflater.inflate(
+						R.layout.article_detail_img_item, null);
+				holder.image = (ImageView) convertView
+						.findViewById(R.id.imageView);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE: // 加粗标题
-				convertView = layoutInflater.inflate(R.layout.article_detail_bold_title_item, null);
+				convertView = layoutInflater.inflate(
+						R.layout.article_detail_bold_title_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
 			case Constants.DEF_BLOG_ITEM_TYPE.CODE: // 代码
-				convertView = layoutInflater.inflate(R.layout.article_detail_code_item, null);
-				holder.code = (WebView) convertView.findViewById(R.id.code_view);
+				convertView = layoutInflater.inflate(
+						R.layout.article_detail_code_item, null);
+				holder.code = (WebView) convertView
+						.findViewById(R.id.code_view);
 				// holder.code.getSettings().setUseWideViewPort(true);
 				// holder.code.getSettings().setJavaScriptEnabled(true);
 				// holder.code.getSettings().setSupportZoom(true);
@@ -144,11 +149,13 @@ public class BlogDetailAdapter extends BaseAdapter {
 
 				// holder.code.loadUrl("file:///android_asset/code.html");
 
-				holder.code.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", null);
+				holder.code.loadDataWithBaseURL("file:///android_asset/", html,
+						"text/html", "utf-8", null);
 
 				break;
 			default:
-				holder.content.setText(Html.fromHtml(item.getContent(), null, new MyTagHandler()));
+				holder.content.setText(Html.fromHtml(item.getContent(), null,
+						new MyTagHandler()));
 				break;
 			}
 		}
@@ -190,9 +197,9 @@ public class BlogDetailAdapter extends BaseAdapter {
 	}
 
 	private class ViewHolder {
-		TextView id;
-		TextView date;
-		TextView title;
+		// TextView id;
+		// TextView date;
+		// TextView title;
 		TextView content;
 		ImageView image;
 		WebView code;

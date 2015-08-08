@@ -14,7 +14,7 @@ import android.app.Application;
  * @data 2015年7月8日下午11:47:10
  */
 
-public class MainApp extends Application {
+public class MyApplication extends Application {
 	
 	@Override
 	public void onCreate() {

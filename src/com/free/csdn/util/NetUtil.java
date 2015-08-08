@@ -8,23 +8,20 @@ import java.util.List;
 
 import org.apache.http.conn.util.InetAddressUtils;
 
-import android.app.PendingIntent;
-import android.app.PendingIntent.CanceledException;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.provider.Settings.Secure;
 import android.telephony.NeighboringCellInfo;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+@SuppressLint("DefaultLocale")
 public class NetUtil {
 	private static final String TAG = "MobileUtils";
 	public static final String DEFAULT_WIFI_ADDRESS = "00-00-00-00-00-00";
@@ -47,7 +44,6 @@ public class NetUtil {
 		String[] type = new String[2];
 		type[0] = "Unknown";
 		type[1] = "Unknown";
-		// �鿴Ȩ��
 		if (pContext.getPackageManager().checkPermission(
 				"android.permission.ACCESS_NETWORK_STATE",
 				pContext.getPackageName()) == PackageManager.PERMISSION_GRANTED) {
@@ -268,61 +264,6 @@ public class NetUtil {
 		TelephonyManager ts = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		return ts.getSubscriberId();
-	}
-
-	/**
-	 * gps是否�?��
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public static boolean isGPSEnable(Context context) {
-		/*
-		 * 用Setting.System来读取也可以，只是这是更旧的用法 String str =
-		 * Settings.System.getString(getContentResolver(),
-		 * Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-		 */
-		String str = Secure.getString(context.getContentResolver(),
-				Secure.LOCATION_PROVIDERS_ALLOWED);
-		Log.v("GPS", str);
-		if (str != null) {
-			return str.contains("gps");
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * 如果gps是开�?��就关�?如果是关�?��就打�? private static final int BUTTON_WIFI = 0;
-	 * private static final int BUTTON_BRIGHTNESS = 1; private static final int
-	 * BUTTON_SYNC = 2; private static final int BUTTON_GPS = 3; private static
-	 * final int BUTTON_BLUETOOTH = 4;
-	 * 
-	 * @param contex
-	 */
-	public static void toggleGPS(Context contex) {
-		Intent gpsIntent = new Intent();
-		gpsIntent.setClassName("com.android.settings",
-				"com.android.settings.widget.SettingsAppWidgetProvider");
-		gpsIntent.addCategory("android.intent.category.ALTERNATIVE");
-		gpsIntent.setData(Uri.parse("custom:3"));
-		try {
-			PendingIntent.getBroadcast(contex, 0, gpsIntent, 0).send();
-		} catch (CanceledException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public boolean isOpenGps(Context contex) {
-		LocationManager manager = (LocationManager) contex
-				.getSystemService(Context.LOCATION_SERVICE);
-		return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-	}
-
-	public static void closeGps(Context contex) {
-		if (isGPSEnable(contex)) {
-			toggleGPS(contex);
-		}
 	}
 
 	/**
