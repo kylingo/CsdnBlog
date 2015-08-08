@@ -16,11 +16,11 @@ import org.jsoup.select.Elements;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.BloggerDetail;
 import com.free.csdn.bean.Comment;
+import com.free.csdn.constant.Constants;
 
 /**
  * 

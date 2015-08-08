@@ -22,9 +22,9 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogListAdapter;
-import com.free.csdn.app.Constants;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
+import com.free.csdn.constant.Constants;
 import com.free.csdn.db.BlogListDb;
 import com.free.csdn.db.impl.BlogListDbImpl;
 import com.free.csdn.network.HttpAsyncTask;

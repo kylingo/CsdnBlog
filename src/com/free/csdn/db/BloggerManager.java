@@ -1,7 +1,6 @@
 package com.free.csdn.db;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.util.SpfUtils;
@@ -12,6 +11,33 @@ import com.free.csdn.util.SpfUtils;
  */
 
 public class BloggerManager {
+
+	/**
+	 * 执行插入数据库操作
+	 * 
+	 * @param bloggerDb
+	 * @param blogger
+	 * @param array
+	 */
+	private static void insertBlogger(BloggerDb bloggerDb, Blogger blogger,
+			String[] array) {
+		if (array == null || array.length < 6 || blogger == null
+				|| bloggerDb == null) {
+			return;
+		}
+
+		blogger.setUserId(array[0]);
+		blogger.setTitle(array[1]);
+		blogger.setDescription(array[2]);
+		blogger.setImgUrl(array[3]);
+		blogger.setLink(array[4]);
+		blogger.setType(array[5]);
+		blogger.setIsNew(0);
+		blogger.setCategory(BloggerDb.CATEGORY_MOBILE);
+		blogger.setUpdateTime(System.currentTimeMillis());
+
+		bloggerDb.insert(blogger);
+	}
 
 	/**
 	 * 初始化博主信息
@@ -467,25 +493,4 @@ public class BloggerManager {
 
 		SpfUtils.put(context, "isfirst", false);
 	}
-
-	private static void insertBlogger(BloggerDb bloggerDb, Blogger blogger,
-			String[] array) {
-		if (array == null || array.length < 6 || blogger == null
-				|| bloggerDb == null) {
-			return;
-		}
-
-		blogger.setUserId(array[0]);
-		blogger.setTitle(array[1]);
-		blogger.setDescription(array[2]);
-		blogger.setImgUrl(array[3]);
-		blogger.setLink(array[4]);
-		blogger.setType(array[5]);
-		blogger.setIsNew(0);
-		blogger.setCategory(BloggerDb.CATEGORY_MOBILE);
-		blogger.setUpdateTime(System.currentTimeMillis());
-
-		bloggerDb.insert(blogger);
-	}
-
 }

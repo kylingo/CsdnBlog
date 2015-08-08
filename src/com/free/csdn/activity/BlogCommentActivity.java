@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.CommentAdapter;
-import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Comment;
 import com.free.csdn.bean.CommentComparator;
+import com.free.csdn.constant.Constants;
 import com.free.csdn.db.BlogCommentDb;
 import com.free.csdn.db.impl.BlogCommentDbImpl;
 import com.free.csdn.network.HttpAsyncTask;

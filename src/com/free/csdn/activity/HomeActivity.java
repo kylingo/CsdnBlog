@@ -23,17 +23,17 @@ import android.widget.ImageView;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.BloggerListAdapter;
-import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blogger;
+import com.free.csdn.constant.Constants;
 import com.free.csdn.db.BloggerDb;
 import com.free.csdn.db.BloggerManager;
 import com.free.csdn.db.impl.BloggerDbImpl;
-import com.free.csdn.dialog.AddBloggerDialog;
-import com.free.csdn.dialog.DialogListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
+import com.free.csdn.view.AddBloggerDialog;
+import com.free.csdn.view.BaseDialog.OnConfirmListener;
 import com.umeng.update.UmengUpdateAgent;
 
 /**
@@ -44,9 +44,8 @@ import com.umeng.update.UmengUpdateAgent;
  *
  */
 @SuppressLint("HandlerLeak")
-public class HomeActivity extends BaseActivity implements OnItemClickListener,
-		OnItemLongClickListener, OnClickListener, IXListViewRefreshListener,
-		IXListViewLoadMore {
+public class HomeActivity extends BaseActivity implements OnItemClickListener, OnItemLongClickListener,
+		OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private List<Blogger> mBloggerList;
@@ -96,8 +95,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener,
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
 
@@ -107,8 +105,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener,
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view,
-			int position, long id) {
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		ToastUtil.showToast(HomeActivity.this, "onItemLongClick：" + position);
 		return true;
@@ -134,38 +131,34 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener,
 	 * 显示添加Dialog
 	 */
 	private void showAddDialog() {
-		AddBloggerDialog dialog = new AddBloggerDialog(this,
-				new DialogListener() {
+		AddBloggerDialog dialog = new AddBloggerDialog(this, new OnConfirmListener() {
 
+			@Override
+			public void onConfirm(String result) {
+				// TODO Auto-generated method stub
+				if (TextUtils.isEmpty(result)) {
+					mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
+					return;
+				}
+
+				newUserId = result;
+				progressdialog = ProgressDialog.show(HomeActivity.this, null, "正在添加博客信息，请稍候...");
+				new Thread(new Runnable() {
 					@Override
-					public void confirm(String result) {
-						// TODO Auto-generated method stub
-						if (TextUtils.isEmpty(result)) {
+					public void run() {
+						String htmlData = HttpUtil.httpGet(Constants.CSDN_BASE_URL + newUserId);
+						if (TextUtils.isEmpty(htmlData)) {
 							mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
-							return;
+						} else {
+							bloggerItem = JsoupUtil.getBloggerItem(htmlData);
+							mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
 						}
 
-						newUserId = result;
-						progressdialog = ProgressDialog.show(HomeActivity.this,
-								null, "正在添加博客信息，请稍候...");
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								String htmlData = HttpUtil
-										.httpGet(Constants.CSDN_BASE_URL
-												+ newUserId);
-								if (TextUtils.isEmpty(htmlData)) {
-									mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
-								} else {
-									bloggerItem = JsoupUtil
-											.getBloggerItem(htmlData);
-									mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
-								}
-
-							}
-						}).start();
 					}
-				});
+				}).start();
+			}
+		});
+
 		dialog.show();
 	}
 
@@ -237,8 +230,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener,
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK
-				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 			if ((System.currentTimeMillis() - exitTime) > 2000) {
 				ToastUtil.showToast(this, "再按一次退出程序");
 				exitTime = System.currentTimeMillis();

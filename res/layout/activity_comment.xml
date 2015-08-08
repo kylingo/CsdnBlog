@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <include layout="@layout/comment_head" />
+        <include layout="@layout/include_comment_head" />
     </RelativeLayout>
 
     <me.maxwin.view.XListView

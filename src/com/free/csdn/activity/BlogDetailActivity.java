@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogDetailAdapter;
-import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
+import com.free.csdn.constant.Constants;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;

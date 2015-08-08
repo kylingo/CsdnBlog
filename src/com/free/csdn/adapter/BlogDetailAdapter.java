@@ -2,6 +2,7 @@ package com.free.csdn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
@@ -12,9 +13,10 @@ import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.free.csdn.R;
-import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Blog;
+import com.free.csdn.constant.Constants;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;

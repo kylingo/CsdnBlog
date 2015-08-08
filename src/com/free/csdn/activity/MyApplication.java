@@ -1,10 +1,11 @@
-package com.free.csdn.app;
+package com.free.csdn.activity;
 
 import java.io.File;
 
 import android.app.Application;
 
 import com.free.csdn.db.CacheManager;
+import com.free.csdn.util.CrashHandler;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;

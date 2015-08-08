@@ -2,6 +2,7 @@ package com.free.csdn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.Html;
@@ -11,9 +12,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.free.csdn.R;
-import com.free.csdn.app.Constants;
 import com.free.csdn.bean.Comment;
+import com.free.csdn.constant.Constants;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -87,7 +89,7 @@ public class CommentAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			switch (item.getType()) {
 			case Constants.DEF_COMMENT_TYPE.PARENT: // 父项
-				convertView = layoutInflater.inflate(R.layout.comment_item,null);
+				convertView = layoutInflater.inflate(R.layout.listitem_comment,null);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.content = (TextView) convertView
 						.findViewById(R.id.content);
@@ -99,7 +101,7 @@ public class CommentAdapter extends BaseAdapter {
 				break;
 			case Constants.DEF_COMMENT_TYPE.CHILD: // 子项
 				convertView = layoutInflater.inflate(
-						R.layout.comment_child_item, null);
+						R.layout.listitem_comment_child, null);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.content = (TextView) convertView
 						.findViewById(R.id.content);

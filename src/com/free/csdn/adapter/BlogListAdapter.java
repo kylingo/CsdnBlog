@@ -2,6 +2,7 @@ package com.free.csdn.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,9 +11,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.free.csdn.R;
-import com.free.csdn.app.Constants.BLOG_ICO_TYPE;
 import com.free.csdn.bean.BlogItem;
+import com.free.csdn.constant.Constants.BLOG_ICO_TYPE;
 import com.free.csdn.util.ImageLoaderUtils;
 
 /**

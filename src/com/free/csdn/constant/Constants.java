@@ -1,4 +1,4 @@
-package com.free.csdn.app;
+package com.free.csdn.constant;
 
 
 /**
