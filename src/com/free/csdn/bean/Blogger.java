@@ -1,5 +1,7 @@
 package com.free.csdn.bean;
 
+import com.lidroid.xutils.db.annotation.Column;
+
 /**
  * 博主描述--列表
  * 
@@ -8,17 +10,67 @@ package com.free.csdn.bean;
  */
 
 public class Blogger extends BaseEntity {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 6569781303855823679L;
 
-	private String description;
-	private String imgUrl;
-	private String link;
-	private String title;
-	private String type;
+	/**
+	 * 博主ID
+	 */
+	@Column(column = "userId")
 	private String userId;
+
+	/**
+	 * 博主名字
+	 */
+	@Column(column = "title")
+	private String title;
+
+	/**
+	 * 博主描述
+	 */
+	@Column(column = "description")
+	private String description;
+
+	/**
+	 * 博主头像地址
+	 */
+	@Column(column = "imgUrl")
+	private String imgUrl;
+
+	/**
+	 * 博主博客链接
+	 */
+	@Column(column = "link")
+	private String link;
+
+	/**
+	 * 博主类型（小分类）
+	 */
+	@Column(column = "type")
+	private String type;
+
+	/**
+	 * 博主类别（大分类）
+	 */
+	@Column(column = "category")
+	private String category;
+
+	/**
+	 * 是否最新添加
+	 */
+	@Column(column = "isNew")
+	private int isNew;
+
+	/**
+	 * 博主更新时间
+	 */
+	@Column(column = "updateTime")
+	private long updateTime;
+
+	/**
+	 * 保留字段
+	 */
+	@Column(column = "reserve")
 	private String reserve;
 
 	public String getDescription() {
@@ -75,6 +127,30 @@ public class Blogger extends BaseEntity {
 
 	public void setReserve(String reserve) {
 		this.reserve = reserve;
+	}
+
+	public int getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(int isNew) {
+		this.isNew = isNew;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public long getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
 	}
 
 }

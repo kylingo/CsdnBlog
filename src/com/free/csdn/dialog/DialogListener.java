@@ -1,4 +1,4 @@
-package com.free.csdn.interfaces;
+package com.free.csdn.dialog;
 
 /**
  * @author tangqi

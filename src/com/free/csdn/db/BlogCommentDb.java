@@ -18,7 +18,7 @@ public interface BlogCommentDb {
 	 * 
 	 * @param list
 	 */
-	public void saveCommentList(List<Comment> list);
+	public void insert(List<Comment> list);
 
 	/**
 	 * 获取博客评论列表
@@ -26,5 +26,5 @@ public interface BlogCommentDb {
 	 * @param page
 	 * @return
 	 */
-	public List<Comment> getCommentList(int page);
+	public List<Comment> query(int page);
 }

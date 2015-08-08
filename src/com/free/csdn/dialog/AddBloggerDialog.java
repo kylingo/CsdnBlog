@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.free.csdn.R;
-import com.free.csdn.interfaces.DialogListener;
 
 /**
  *修改用户密码

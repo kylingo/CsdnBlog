@@ -204,7 +204,7 @@ public class BlogListActivity extends BaseActivity implements
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				blogListDb.saveBlogList(list);
+				blogListDb.insert(list);
 			}
 		}).start();
 
@@ -217,7 +217,7 @@ public class BlogListActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case Constants.MSG_PRELOAD_DATA:
-				List<BlogItem> list = blogListDb.findBlogList(page);
+				List<BlogItem> list = blogListDb.query(page);
 
 				if (list != null) {
 					mAdapter.setList(list);

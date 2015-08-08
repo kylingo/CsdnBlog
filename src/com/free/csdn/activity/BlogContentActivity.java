@@ -195,7 +195,7 @@ public class BlogContentActivity extends BaseActivity implements
 		blogHtml.setReserve("");
 
 		BlogContentDb blogContentDb = new BlogContentDbImpl(this, url);
-		blogContentDb.saveBlogContent(blogHtml);
+		blogContentDb.insert(blogHtml);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class BlogContentActivity extends BaseActivity implements
 
 	private void getData(String url) {
 		BlogContentDb blogContentDb = new BlogContentDbImpl(this, url);
-		BlogHtml blogHtml = blogContentDb.getBlogContent(url);
+		BlogHtml blogHtml = blogContentDb.query(url);
 		if (blogHtml != null) {
 			loadHtml(blogHtml.getHtml());
 		} else {

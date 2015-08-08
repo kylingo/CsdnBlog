@@ -29,12 +29,7 @@ public class BlogListDbImpl implements BlogListDb {
 				userId + "_blog");
 	}
 
-	/**
-	 * 保存博客列表
-	 * 
-	 * @param list
-	 */
-	public void saveBlogList(List<BlogItem> list) {
+	public void insert(List<BlogItem> list) {
 		try {
 			for (int i = 0; i < list.size(); i++) {
 				BlogItem blogItem = list.get(i);
@@ -53,20 +48,16 @@ public class BlogListDbImpl implements BlogListDb {
 		}
 	}
 
-	/**
-	 * 查询博客列表
-	 * 
-	 * @param page
-	 * @return
-	 */
-	public List<BlogItem> findBlogList(int page) {
+	public List<BlogItem> query(int page) {
 		List<BlogItem> list = null;
 		try {
 			list = db.findAll(Selector.from(BlogItem.class).where("isTop", "=",
 					1));
+
+			// 加上这句，可把置顶的文章在后面的地方不显示
 			List<BlogItem> normalList = db.findAll(Selector
-					.from(BlogItem.class).orderBy("date", true)
-					.where("isTop", "!=", 1).limit(page * 20));
+					.from(BlogItem.class).where("isTop", "!=", 1)
+					.orderBy("date", true).limit(page * 20));
 			if (list != null) {
 				list.addAll(normalList);
 			} else {

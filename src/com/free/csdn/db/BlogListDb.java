@@ -18,7 +18,7 @@ public interface BlogListDb {
 	 * 
 	 * @param list
 	 */
-	public void saveBlogList(List<BlogItem> list);
+	public void insert(List<BlogItem> list);
 
 	/**
 	 * 查找博客列表
@@ -26,5 +26,5 @@ public interface BlogListDb {
 	 * @param page
 	 * @return
 	 */
-	public List<BlogItem> findBlogList(int page);
+	public List<BlogItem> query(int page);
 }

@@ -177,7 +177,7 @@ public class BlogCommentActivity extends BaseActivity implements
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				blogCommentDb.saveCommentList(list);
+				blogCommentDb.insert(list);
 			}
 		}).start();
 
@@ -191,7 +191,7 @@ public class BlogCommentActivity extends BaseActivity implements
 			switch (msg.what) {
 			case Constants.MSG_PRELOAD_DATA:
 				mListView.setRefreshTime(DateUtil.getDate()); // 设置刷新时间
-				List<Comment> list = blogCommentDb.getCommentList(page);
+				List<Comment> list = blogCommentDb.query(page);
 
 				if (list != null) {
 					mAdapter.setList(list);

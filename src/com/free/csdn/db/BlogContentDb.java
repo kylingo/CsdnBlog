@@ -16,7 +16,7 @@ public interface BlogContentDb {
 	 * 
 	 * @param blogHtml
 	 */
-	public void saveBlogContent(BlogHtml blogHtml);
+	public void insert(BlogHtml blogHtml);
 
 	/**
 	 * 获取博客内容
@@ -24,5 +24,5 @@ public interface BlogContentDb {
 	 * @param url
 	 * @return
 	 */
-	public BlogHtml getBlogContent(String url);
+	public BlogHtml query(String url);
 }

@@ -16,7 +16,18 @@ import com.free.csdn.util.FileUtil;
 public class CacheManager {
 
 	/**
-	 * 获取博客列表数据目录
+	 * 获取博主数据库目录
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getBloggerDbPath(Context context) {
+		return FileUtil.getExternalCacheDir(context) + File.separator
+				+ "Blogger";
+	}
+
+	/**
+	 * 获取博客列表数据库目录
 	 * 
 	 * @param context
 	 * @return

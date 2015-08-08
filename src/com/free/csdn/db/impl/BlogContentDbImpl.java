@@ -35,7 +35,7 @@ public class BlogContentDbImpl implements BlogContentDb {
 				CacheManager.getBlogContentDbPath(context), urlMD5);
 	}
 
-	public void saveBlogContent(BlogHtml blogHtml) {
+	public void insert(BlogHtml blogHtml) {
 		BlogHtml findItem;
 		try {
 			findItem = db.findFirst(Selector.from(BlogHtml.class).where("url",
@@ -55,7 +55,7 @@ public class BlogContentDbImpl implements BlogContentDb {
 		return;
 	}
 
-	public BlogHtml getBlogContent(String url) {
+	public BlogHtml query(String url) {
 		BlogHtml blogHtml = null;
 		try {
 			blogHtml = db.findFirst(Selector.from(BlogHtml.class).where("url",

@@ -29,7 +29,7 @@ public class BlogCommentDbImpl implements BlogCommentDb {
 				filename + "_comment");
 	}
 
-	public void saveCommentList(List<Comment> list) {
+	public void insert(List<Comment> list) {
 		try {
 			for (int i = 0; i < list.size(); i++) {
 				Comment commentItem = list.get(i);
@@ -50,7 +50,7 @@ public class BlogCommentDbImpl implements BlogCommentDb {
 		}
 	}
 
-	public List<Comment> getCommentList(int page) {
+	public List<Comment> query(int page) {
 		try {
 			List<Comment> list = db.findAll(Selector.from(Comment.class).limit(
 					20 * page));
