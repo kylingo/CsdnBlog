@@ -17,11 +17,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:padding="10dip"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="0dp"
-            android:src="@drawable/back_white"
-            android:background="@drawable/selector_btn_header" />
+            android:background="@drawable/selector_btn_header"
+            android:padding="10dip"
+            android:src="@drawable/back_white" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -57,5 +57,14 @@
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/progressbar_large"
         android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/reLoadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:src="@drawable/base_empty_view"
+        android:visibility="invisible" />
 
 </RelativeLayout>

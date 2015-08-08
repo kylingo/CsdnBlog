@@ -27,7 +27,7 @@ import com.free.csdn.bean.BlogHtml;
 import com.free.csdn.db.BlogContentDb;
 import com.free.csdn.db.impl.BlogContentDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
+import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
 
@@ -39,7 +39,7 @@ import com.free.csdn.util.ToastUtil;
  */
 @SuppressLint("SetJavaScriptEnabled")
 public class BlogContentActivity extends BaseActivity implements
-		OnCompleteListener {
+		OnResponseListener {
 	private WebView webView = null;
 	private ProgressBar progressBar; // 进度条
 	private ImageView reLoadImageView; // 重新加载的图片
@@ -156,7 +156,7 @@ public class BlogContentActivity extends BaseActivity implements
 	 * 数据请求完成
 	 */
 	@Override
-	public void onComplete(String resultString) {
+	public void onResponse(String resultString) {
 		// TODO Auto-generated method stub
 		String html = adjustPicSize(JsoupUtil.getContent(resultString));
 		loadHtml(html);
@@ -176,7 +176,7 @@ public class BlogContentActivity extends BaseActivity implements
 		} else {
 			progressBar.setVisibility(View.GONE);
 			reLoadImageView.setVisibility(View.VISIBLE);
-			ToastUtil.showToast(this, "暂无最新数据");
+			ToastUtil.show(this, "网络已断开");
 		}
 	}
 

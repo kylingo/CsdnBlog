@@ -111,7 +111,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		collectDeviceInfo(mContext);
 		// 保存日志文件
 		saveCrashInfo2File(ex);
-		Log.e(TAG, "Router==", ex);
+		Log.e(TAG, "Crash==", ex);
 
 		return true;
 	}

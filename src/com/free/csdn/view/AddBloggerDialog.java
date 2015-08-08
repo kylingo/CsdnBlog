@@ -6,18 +6,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.free.csdn.R;
 
 /**
- * 修改用户密码
+ * 添加博主对话框
  */
+
 public class AddBloggerDialog extends BaseDialog implements OnClickListener {
 
 	private EditText et_userid;
-	private Button btn_confirm;
+	private TextView btn_confirm;
 	private OnConfirmListener mOnConfirmListener;
 
 	// 构造方法
@@ -30,7 +31,7 @@ public class AddBloggerDialog extends BaseDialog implements OnClickListener {
 		this.setContentView(R.layout.dialog_add_blogger);
 		// 初始化控件
 		et_userid = (EditText) this.findViewById(R.id.et_userid);
-		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
+		btn_confirm = (TextView) this.findViewById(R.id.btn_confirm);
 
 		btn_confirm.setOnClickListener(this);
 

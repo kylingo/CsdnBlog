@@ -1,9 +1,9 @@
 package com.free.csdn.network;
 
-import com.free.csdn.util.HttpUtil;
-
 import android.content.Context;
 import android.os.AsyncTask;
+
+import com.free.csdn.util.HttpUtil;
 
 /**
  * Http请求
@@ -14,9 +14,10 @@ import android.os.AsyncTask;
 public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
 	public HttpAsyncTask(Context context) {
+		
 	}
 
-	private OnCompleteListener onCompleteListener;
+	private OnResponseListener onResponseListener;
 
 	@Override
 	protected void onPreExecute() {
@@ -35,24 +36,24 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
-		if (null != onCompleteListener) {
+		if (null != onResponseListener) {
 			if (null == result) {
-				onCompleteListener.onComplete(null);
+				onResponseListener.onResponse(null);
 			} else {
-				onCompleteListener.onComplete(result);
+				onResponseListener.onResponse(result);
 			}
 		}
 	}
 
-	public interface OnCompleteListener {
-		public void onComplete(String resultString);
+	public interface OnResponseListener {
+		public void onResponse(String resultString);
 	}
 
-	public OnCompleteListener getOnCompleteListener() {
-		return onCompleteListener;
+	public OnResponseListener getResponseListener() {
+		return onResponseListener;
 	}
 
-	public void setOnCompleteListener(OnCompleteListener onCompleteListener) {
-		this.onCompleteListener = onCompleteListener;
+	public void setOnCompleteListener(OnResponseListener onResponseListener) {
+		this.onResponseListener = onResponseListener;
 	}
 }

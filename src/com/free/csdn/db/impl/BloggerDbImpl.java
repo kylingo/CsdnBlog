@@ -26,17 +26,14 @@ public class BloggerDbImpl implements BloggerDb {
 	private DbUtils db;
 
 	public BloggerDbImpl(Context context) {
-		db = DbUtils.create(context, CacheManager.getBloggerDbPath(context),
-				"Blogger");
+		db = DbUtils.create(context, CacheManager.getBloggerDbPath(context), "Blogger");
 	}
 
 	public void insert(Blogger blogger) {
 		try {
-			Blogger findItem = db.findFirst(Selector.from(Blogger.class).where(
-					"userId", "=", blogger.getUserId()));
+			Blogger findItem = db.findFirst(Selector.from(Blogger.class).where("userId", "=", blogger.getUserId()));
 			if (findItem != null) {
-				db.update(blogger,
-						WhereBuilder.b("userId", "=", blogger.getUserId()));
+				db.update(blogger, WhereBuilder.b("userId", "=", blogger.getUserId()));
 			} else {
 				db.save(blogger);
 			}
@@ -50,11 +47,10 @@ public class BloggerDbImpl implements BloggerDb {
 		try {
 			for (int i = 0; i < list.size(); i++) {
 				Blogger blogger = list.get(i);
-				BlogItem findItem = db.findFirst(Selector.from(Blogger.class)
-						.where("userId", "=", blogger.getUserId()));
+				BlogItem findItem = db
+						.findFirst(Selector.from(Blogger.class).where("userId", "=", blogger.getUserId()));
 				if (findItem != null) {
-					db.update(blogger,
-							WhereBuilder.b("userId", "=", blogger.getUserId()));
+					db.update(blogger, WhereBuilder.b("userId", "=", blogger.getUserId()));
 				} else {
 					db.save(blogger);
 				}
@@ -66,11 +62,20 @@ public class BloggerDbImpl implements BloggerDb {
 		}
 	}
 
+	public Blogger query(String userId) {
+		try {
+			return db.findFirst(Selector.from(Blogger.class).where("userId", "=", userId));
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public List<Blogger> queryAll() {
 		try {
 			// 最新的排最前面
-			List<Blogger> list = db.findAll(Selector.from(Blogger.class)
-					.orderBy("isNew", true));
+			List<Blogger> list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true));
 			return list;
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
@@ -84,13 +89,9 @@ public class BloggerDbImpl implements BloggerDb {
 		try {
 			// 最新的排最前面
 			List<Blogger> list = new ArrayList<Blogger>();
-			List<Blogger> newlist = db
-					.findAll(Selector.from(Blogger.class)
-							.where("type", "=", type)
-							.where(WhereBuilder.b("isNew", "=", 1))
-							.orderBy("updateTime", true));
-			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class)
-					.where("type", "=", type)
+			List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where("type", "=", type)
+					.where(WhereBuilder.b("isNew", "=", 1)).orderBy("updateTime", true));
+			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where("type", "=", type)
 					.where(WhereBuilder.b("isNew", "=", 0)));
 			list.addAll(newlist);
 			list.addAll(oldlist);
@@ -106,8 +107,7 @@ public class BloggerDbImpl implements BloggerDb {
 	public List<Blogger> query(String type, int pageIndex, int pageSize) {
 		List<Blogger> list = null;
 		try {
-			list = db.findAll(Selector.from(BlogItem.class)
-					.where("type", "=", type).orderBy("isNew", true)
+			list = db.findAll(Selector.from(BlogItem.class).where("type", "=", type).orderBy("isNew", true)
 					.limit(pageSize).offset(pageIndex * pageSize));
 			return list;
 		} catch (DbException e) {

@@ -28,12 +28,14 @@ import com.free.csdn.constant.Constants;
 import com.free.csdn.db.BloggerDb;
 import com.free.csdn.db.BloggerManager;
 import com.free.csdn.db.impl.BloggerDbImpl;
+import com.free.csdn.network.HttpAsyncTask;
+import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.view.AddBloggerDialog;
 import com.free.csdn.view.BaseDialog.OnConfirmListener;
+import com.free.csdn.view.LoadingDialog;
 import com.umeng.update.UmengUpdateAgent;
 
 /**
@@ -57,6 +59,8 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	private String newUserId = null;
 	private static final int MSG_ADD_SUCCESS = 1000;
 	private static final int MSG_ADD_FAILURE = 1001;
+	private static final int MSG_ADD_REPEAT = 1002;
+	private static final int MSG_ADD_EMPTY = 1003;
 	private long exitTime;
 	private String type = BloggerDb.TYPE_ANDROID;
 
@@ -91,7 +95,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	 * 友盟自动更新
 	 */
 	private void initUmengUpdate() {
-		UmengUpdateAgent.update(this);
+		// UmengUpdateAgent.update(this);
 	}
 
 	@Override
@@ -107,7 +111,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		ToastUtil.showToast(HomeActivity.this, "onItemLongClick：" + position);
+		ToastUtil.show(HomeActivity.this, "onItemLongClick：" + position);
 		return true;
 	}
 
@@ -118,7 +122,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 
 		// 增加博主
 		case R.id.imvAdd:
-			showAddDialog();
+			showCenterAddDialog();
 			break;
 
 		default:
@@ -130,32 +134,40 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	/**
 	 * 显示添加Dialog
 	 */
-	private void showAddDialog() {
+	private void showCenterAddDialog() {
 		AddBloggerDialog dialog = new AddBloggerDialog(this, new OnConfirmListener() {
 
 			@Override
-			public void onConfirm(String result) {
+			public void onConfirm(final String result) {
 				// TODO Auto-generated method stub
 				if (TextUtils.isEmpty(result)) {
-					mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
+					mHandler.sendEmptyMessage(MSG_ADD_EMPTY);
+					return;
+				}
+
+				if (db.query(result) != null) {
+					mHandler.sendEmptyMessage(MSG_ADD_REPEAT);
 					return;
 				}
 
 				newUserId = result;
-				progressdialog = ProgressDialog.show(HomeActivity.this, null, "正在添加博客信息，请稍候...");
-				new Thread(new Runnable() {
+				progressdialog = new LoadingDialog(HomeActivity.this, "正在添加博客...");
+				progressdialog.show();
+
+				HttpAsyncTask httpAsyncTask = new HttpAsyncTask(HomeActivity.this);
+				httpAsyncTask.execute(Constants.CSDN_BASE_URL + result);
+				httpAsyncTask.setOnCompleteListener(new OnResponseListener() {
 					@Override
-					public void run() {
-						String htmlData = HttpUtil.httpGet(Constants.CSDN_BASE_URL + newUserId);
-						if (TextUtils.isEmpty(htmlData)) {
+					public void onResponse(String resultString) {
+						// TODO Auto-generated method stub
+						if (TextUtils.isEmpty(resultString)) {
 							mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
 						} else {
-							bloggerItem = JsoupUtil.getBloggerItem(htmlData);
+							bloggerItem = JsoupUtil.getBloggerItem(resultString);
 							mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
 						}
-
 					}
-				}).start();
+				});
 			}
 		});
 
@@ -181,11 +193,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
-		if (progressdialog.isShowing()) {
-			progressdialog.dismiss();
-		}
-
-		ToastUtil.showToast(HomeActivity.this, "博客ID添加成功！");
+		ToastUtil.show(HomeActivity.this, "博客ID添加成功！");
 	}
 
 	/**
@@ -200,23 +208,33 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
-		ToastUtil.showToast(HomeActivity.this, "博客删除成功！");
+		ToastUtil.show(HomeActivity.this, "博客删除成功！");
 	}
 
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
+
+			if (progressdialog != null && progressdialog.isShowing()) {
+				progressdialog.dismiss();
+			}
+
 			switch (msg.what) {
 			case MSG_ADD_SUCCESS:
 				addBlogger();
 				break;
 
 			case MSG_ADD_FAILURE:
-				if (progressdialog != null && progressdialog.isShowing()) {
-					progressdialog.dismiss();
-				}
-				ToastUtil.showToast(HomeActivity.this, "ID不存在，添加失败！");
+				ToastUtil.show(HomeActivity.this, "博客ID不存在，添加失败！");
+				break;
+
+			case MSG_ADD_EMPTY:
+				ToastUtil.show(HomeActivity.this, "博客ID为空！");
+				break;
+
+			case MSG_ADD_REPEAT:
+				ToastUtil.show(HomeActivity.this, "博客ID重复添加！");
 				break;
 
 			default:
@@ -232,7 +250,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 			if ((System.currentTimeMillis() - exitTime) > 2000) {
-				ToastUtil.showToast(this, "再按一次退出程序");
+				ToastUtil.show(this, "再按一次退出程序");
 				exitTime = System.currentTimeMillis();
 			} else {
 				System.exit(0);

@@ -13,9 +13,10 @@
 	<color name="black2">#80000000</color>
 	<color name="transparent">#00000000</color>
 	<color name="transparentblack">#88000000</color>
+	<color name="transparent_half">#A0000000</color>
 
 	<color name="list_decs_color">#848B84</color>
 	<color name="list_divider_color">#DBDBDB</color>
-	<color name="bg_blue">#388E8E</color>
+	<color name="blue_deep">#4A708B</color>
 
 </resources>

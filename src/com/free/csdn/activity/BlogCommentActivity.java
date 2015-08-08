@@ -25,7 +25,7 @@ import com.free.csdn.constant.Constants;
 import com.free.csdn.db.BlogCommentDb;
 import com.free.csdn.db.impl.BlogCommentDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
+import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
@@ -130,13 +130,13 @@ public class BlogCommentActivity extends BaseActivity implements
 		mAsyncTask = new HttpAsyncTask(this);
 		String url = URLUtil.getCommentListURL(filename, String.valueOf(page));
 		mAsyncTask.execute(url);
-		mAsyncTask.setOnCompleteListener(mOnCompleteListener);
+		mAsyncTask.setOnCompleteListener(onResponseListener);
 	}
 
-	private OnCompleteListener mOnCompleteListener = new OnCompleteListener() {
+	private OnResponseListener onResponseListener = new OnResponseListener() {
 
 		@Override
-		public void onComplete(String resultString) {
+		public void onResponse(String resultString) {
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
@@ -155,7 +155,7 @@ public class BlogCommentActivity extends BaseActivity implements
 				saveDB(list);
 
 			} else {
-				ToastUtil.showToast(BlogCommentActivity.this, "未能获取最新数据");
+				ToastUtil.show(BlogCommentActivity.this, "网络已断开");
 				mListView.disablePullLoad();
 			}
 

@@ -2,6 +2,8 @@ package com.free.csdn.db;
 
 import java.util.List;
 
+import android.app.DownloadManager.Query;
+
 import com.free.csdn.bean.Blogger;
 
 /**
@@ -36,6 +38,14 @@ public interface BloggerDb {
 	 * @param list
 	 */
 	public void insert(List<Blogger> list);
+
+	/**
+	 * 查询某个博主是否存在
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public Blogger query(String userId);
 
 	/**
 	 * 查询所有博主

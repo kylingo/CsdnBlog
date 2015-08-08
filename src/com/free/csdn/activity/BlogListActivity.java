@@ -28,7 +28,7 @@ import com.free.csdn.constant.Constants;
 import com.free.csdn.db.BlogListDb;
 import com.free.csdn.db.impl.BlogListDbImpl;
 import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnCompleteListener;
+import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.NetUtil;
@@ -42,13 +42,13 @@ import com.free.csdn.util.URLUtil;
  * @data 2015年7月8日下午9:20:20
  *
  */
-public class BlogListActivity extends BaseActivity implements
-		OnItemClickListener, OnClickListener, IXListViewRefreshListener,
-		IXListViewLoadMore {
+public class BlogListActivity extends BaseActivity implements OnItemClickListener, OnClickListener,
+		IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;// 列表适配器
 	private HttpAsyncTask mAsyncTask;
+	private ImageView reLoadImageView; // 重新加载的图片
 	private ProgressBar pbLoading;
 
 	private TextView tvUserId;
@@ -86,6 +86,18 @@ public class BlogListActivity extends BaseActivity implements
 			}
 		}
 
+		reLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+		reLoadImageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				reLoadImageView.setVisibility(View.INVISIBLE);
+				pbLoading.setVisibility(View.VISIBLE);
+
+				refresh();
+			}
+		});
+
 		initListView();
 	}
 
@@ -121,8 +133,7 @@ public class BlogListActivity extends BaseActivity implements
 	 * ListView点击事件
 	 */
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		// // 获得博客列表项
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
@@ -150,6 +161,10 @@ public class BlogListActivity extends BaseActivity implements
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
+		refresh();
+	}
+
+	private void refresh() {
 		page = 1;
 		requestData(page);
 	}
@@ -162,18 +177,17 @@ public class BlogListActivity extends BaseActivity implements
 		mAsyncTask = new HttpAsyncTask(this);
 		String url = URLUtil.getBlogListURL(userId, page);
 		mAsyncTask.execute(url);
-		mAsyncTask.setOnCompleteListener(mOnCompleteListener);
+		mAsyncTask.setOnCompleteListener(mOnResponseListener);
 	}
 
-	private OnCompleteListener mOnCompleteListener = new OnCompleteListener() {
+	private OnResponseListener mOnResponseListener = new OnResponseListener() {
 
 		@Override
-		public void onComplete(String resultString) {
+		public void onResponse(String resultString) {
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<BlogItem> list = JsoupUtil
-						.getBlogItemList(0, resultString);
+				List<BlogItem> list = JsoupUtil.getBlogItemList(0, resultString);
 				if (page == 1) {
 					mAdapter.setList(list);
 				} else {
@@ -183,8 +197,13 @@ public class BlogListActivity extends BaseActivity implements
 				mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
 
 				saveDB(list);
+				reLoadImageView.setVisibility(View.GONE);
 			} else {
-				ToastUtil.showToast(BlogListActivity.this, "未能获取最新数据");
+
+				ToastUtil.show(BlogListActivity.this, "网络已断开");
+				if (mAdapter.getCount() == 0) {
+					reLoadImageView.setVisibility(View.VISIBLE);
+				}
 			}
 
 			pbLoading.setVisibility(View.GONE);
