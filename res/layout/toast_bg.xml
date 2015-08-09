@@ -5,10 +5,10 @@
     android:background="@drawable/shap_rect_bg_toast"
     android:gravity="center"
     android:orientation="horizontal"
-    android:paddingBottom="15dip"
+    android:paddingBottom="13dip"
     android:paddingLeft="20dip"
     android:paddingRight="20dip"
-    android:paddingTop="15dip" >
+    android:paddingTop="13dip" >
 
     <TextView
         android:id="@+id/tv_message"

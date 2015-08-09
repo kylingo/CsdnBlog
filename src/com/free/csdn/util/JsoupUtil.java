@@ -68,22 +68,18 @@ public class JsoupUtil {
 			BlogItem item = new BlogItem();
 			String title = blogItem.select("h1").text(); // 得到标题
 
-			String icoType = blogItem.getElementsByClass("ico").get(0)
-					.className();
+			String icoType = blogItem.getElementsByClass("ico").get(0).className();
 			if (title.contains("置顶")) {
 				item.setTopFlag(1);
 			}
 			// System.out.println("title----->" + title);
-			String description = blogItem.select("div.article_description")
-					.text();
+			String description = blogItem.select("div.article_description").text();
 			// System.out.println("descrition--->" + description);
 			String msg = blogItem.select("div.article_manage").text();
 			// System.out.println("msg--->" + msg);
-			String date = blogItem.getElementsByClass("article_manage").get(0)
-					.text();
+			String date = blogItem.getElementsByClass("article_manage").get(0).text();
 			// System.out.println("date--->" + date);
-			String link = BLOG_URL
-					+ blogItem.select("h1").select("a").attr("href");
+			String link = BLOG_URL + blogItem.select("h1").select("a").attr("href");
 			// System.out.println("link--->" + link);
 			item.setTitle(title);
 			item.setMsg(msg);
@@ -185,8 +181,7 @@ public class JsoupUtil {
 						// 大图链接
 						if (!img.parent().attr("href").equals("")) {
 							blogImgs.setImgLink(img.parent().attr("href"));
-							System.out.println("href="
-									+ img.parent().attr("href"));
+							System.out.println("href=" + img.parent().attr("href"));
 							if (img.parent().parent().tagName().equals("p")) {
 								// img.parent().parent().remove();
 							}
@@ -209,12 +204,10 @@ public class JsoupUtil {
 			if (c.text().equals("")) {
 				continue;
 			} else if (c.children().size() == 1) {
-				if (c.child(0).tagName().equals("bold")
-						|| c.child(0).tagName().equals("span")) {
+				if (c.child(0).tagName().equals("bold") || c.child(0).tagName().equals("span")) {
 					if (c.ownText().equals("")) {
 						// 小标题，咖啡色
-						blogContent
-								.setState(Constants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE);
+						blogContent.setState(Constants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE);
 					}
 				}
 			}
@@ -245,8 +238,7 @@ public class JsoupUtil {
 		if (TextUtils.isEmpty(paramString)) {
 			return null;
 		}
-		Element localElement1 = Jsoup.parse(paramString)
-				.getElementsByClass("details").get(0);
+		Element localElement1 = Jsoup.parse(paramString).getElementsByClass("details").get(0);
 		localElement1.select("script").remove();
 		if (localElement1.getElementById("digg") != null) {
 			Log.i("CSNDBlog_JsoupUtil",
@@ -260,25 +252,21 @@ public class JsoupUtil {
 		}
 		localElement1.getElementsByClass("article_manage").remove();
 		localElement1.getElementsByTag("h1").tagName("h2");
-		Iterator<?> localIterator = localElement1.select("pre[name=code]")
-				.iterator();
+		Iterator<?> localIterator = localElement1.select("pre[name=code]").iterator();
 		while (true) {
 			if (!localIterator.hasNext())
 				return localElement1.toString();
 			Element localElement2 = (Element) localIterator.next();
 			localElement2.attr("class", "brush: java; gutter: false;");
-			Log.i("CSNDBlog_JsoupUtil",
-					"codeNode.text()" + localElement2.text());
+			Log.i("CSNDBlog_JsoupUtil", "codeNode.text()" + localElement2.text());
 		}
 	}
 
 	public static HashMap<String, String> getBloggerItem(String paramString) {
 		Document localDocument = Jsoup.parse(paramString);
 		Elements localElements = localDocument.getElementsByClass("header");
-		System.out.println("11#################"
-				+ localElements.select("h2").text());
-		System.out.println("11#################"
-				+ localElements.select("h3").text());
+		System.out.println("11#################" + localElements.select("h2").text());
+		System.out.println("11#################" + localElements.select("h3").text());
 		// Element localElement1 = localDocument.getElementsByClass("panel")
 		// .get(0);
 		// if (!localElement1.select("ul.panel_body.profile").isEmpty())
@@ -288,14 +276,15 @@ public class JsoupUtil {
 
 		String str = "";
 		try {
-			Element localElement2 = localDocument.getElementsByClass("panel")
-					.get(1).select("ul.panel_body.profile").get(0);
-			str = localElement2.getElementById("blog_userface").select("a")
-					.select("img").attr("src");
+			Element localElement2 = localDocument.getElementsByClass("panel").get(1)
+					.select("ul.panel_body.profile").get(0);
+			str = localElement2.getElementById("blog_userface").select("a").select("img")
+					.attr("src");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			str = "http://avatar.csdn.net/D/9/4/1_studiotang.jpg";
+			// str = "http://avatar.csdn.net/D/9/4/1_studiotang.jpg";
+			str = "";
 		}
 
 		HashMap<String, String> localHashMap = new HashMap<String, String>();
@@ -375,8 +364,7 @@ public class JsoupUtil {
 	 *            json字符串
 	 * @return
 	 */
-	public static List<Comment> getBlogCommentList(String str, int pageIndex,
-			int pageSize) {
+	public static List<Comment> getBlogCommentList(String str, int pageIndex, int pageSize) {
 		List<Comment> list = new ArrayList<Comment>();
 		try {
 			// 创建一个json对象
@@ -474,11 +462,11 @@ public class JsoupUtil {
 		statistics = sb2.toString();
 
 		BloggerDetail blogger = new BloggerDetail();
-		
-		 blogger.setUserface(userfaceLink);
-		 blogger.setUsername(username);
-		 blogger.setRank(rankStr);
-		 blogger.setStatistics(statistics);
+
+		blogger.setUserface(userfaceLink);
+		blogger.setUsername(username);
+		blogger.setRank(rankStr);
+		blogger.setStatistics(statistics);
 
 		return blogger;
 	}

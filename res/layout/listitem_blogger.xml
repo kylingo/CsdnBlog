@@ -10,7 +10,7 @@
         android:layout_width="@dimen/listitem_blogger_height"
         android:layout_height="@dimen/listitem_blogger_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher" >
+        android:src="@drawable/me_01" >
     </com.free.csdn.view.CircleImageView>
 
     <LinearLayout

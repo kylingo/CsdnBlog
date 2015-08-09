@@ -2,6 +2,7 @@
 <resources>
 
 	<color name="main_color">#019587</color><!-- 主色调 -->
+	<color name="green_main_color">#09A284</color><!-- 绿色主色调 -->
 	<color name="blue_main_color">#019587</color><!-- 蓝色主色调 -->
 	<color name="black_main_color">#21292C</color><!-- 黑色主色调 -->
 	<color name="white">#FFFFFF</color>

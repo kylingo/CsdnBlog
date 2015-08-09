@@ -2,6 +2,7 @@ package com.free.csdn.fragment;
 
 import java.util.List;
 
+import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.IXListViewRefreshListener;
 import me.maxwin.view.XListView;
 import android.os.Bundle;
@@ -22,13 +23,14 @@ import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.ToastUtil;
 
 /**
- *
+ * 频道
+ * 
  * @author tangqi
  * @data 2015年8月9日上午11:07:09
  */
 
 public class ChannelFragment extends BaseFragment implements OnItemClickListener,
-		OnItemLongClickListener, IXListViewRefreshListener {
+		OnItemLongClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private ChannelListAdapter mAdapter;
@@ -51,6 +53,7 @@ public class ChannelFragment extends BaseFragment implements OnItemClickListener
 		mListView = (XListView) view.findViewById(R.id.listView);
 		mAdapter = new ChannelListAdapter(getActivity(), list);
 		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
+		mListView.setPullLoadEnable(this);
 		mListView.NotRefreshAtBegin();
 		mListView.setRefreshTime(DateUtil.getDate());
 		mListView.setAdapter(mAdapter);
@@ -74,9 +77,24 @@ public class ChannelFragment extends BaseFragment implements OnItemClickListener
 				// TODO Auto-generated method stub
 				mListView.setRefreshTime(DateUtil.getDate());
 				mListView.stopRefresh();
-				ToastUtil.showCenter(getActivity(), getActivity().getString(R.string.refresh_complete));
+				ToastUtil.showCenter(getActivity(),
+						getActivity().getString(R.string.refresh_complete));
 			}
 		}, 1000);
+	}
+
+	@Override
+	public void onLoadMore() {
+		// TODO Auto-generated method stub
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mListView.stopLoadMore("暂无更多数据");
+			}
+		}, 1000);
+		;
 	}
 
 	@Override

@@ -7,13 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- *
+ * Fragment_基类
+ * 
  * @author tangqi
  * @data 2015年8月9日上午10:28:46
  */
 
 public class BaseFragment extends Fragment {
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

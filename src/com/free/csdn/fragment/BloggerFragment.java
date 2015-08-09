@@ -43,7 +43,7 @@ import com.free.csdn.view.BloggerOperationDialog;
 import com.free.csdn.view.LoadingDialog;
 
 /**
- * 主页
+ * 博主列表
  * 
  * @author tangqi
  * @data 2015年7月8日下午9:20:20
@@ -261,7 +261,6 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
-		
 	}
 
 	/**
@@ -284,7 +283,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 
-			if (progressdialog != null && progressdialog.isShowing()) {
+			if (msg.what != MSG_ADD_BLOG && progressdialog != null && progressdialog.isShowing()) {
 				progressdialog.dismiss();
 			}
 

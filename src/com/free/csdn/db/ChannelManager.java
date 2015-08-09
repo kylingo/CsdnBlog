@@ -9,7 +9,8 @@ import com.free.csdn.bean.Channel;
 import android.content.Context;
 
 /**
- *
+ * 频道管理
+ * 
  * @author tangqi
  * @data 2015年8月9日下午2:27:17
  */
@@ -21,8 +22,8 @@ public class ChannelManager {
 
 	int[] mResourceId = { R.drawable.logo_dropbox, R.drawable.logo_evernote,
 			R.drawable.logo_googleplus, R.drawable.logo_neteasemicroblog,
-			R.drawable.logo_pinterest, R.drawable.logo_sohumicroblog, R.drawable.logo_twitter,
-			R.drawable.logo_vkontakte, R.drawable.logo_yixin, R.drawable.logo_yixinmoments };
+			R.drawable.logo_yixinmoments, R.drawable.logo_pinterest, R.drawable.logo_sohumicroblog,
+			R.drawable.logo_twitter, R.drawable.logo_vkontakte, R.drawable.logo_yixin };
 
 	public ChannelManager(Context context) {
 		// TODO Auto-generated constructor stub

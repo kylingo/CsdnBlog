@@ -12,12 +12,19 @@ import com.free.csdn.R;
 import com.free.csdn.util.ToastUtil;
 
 /**
- *
+ * 发现
+ * 
  * @author tangqi
  * @data 2015年8月9日上午11:08:13
  */
 
 public class FindFragment extends BaseFragment implements OnClickListener {
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,12 +50,6 @@ public class FindFragment extends BaseFragment implements OnClickListener {
 		mFindView03.setOnClickListener(this);
 		mFindView04.setOnClickListener(this);
 		mFindView05.setOnClickListener(this);
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
 	}
 
 	@Override

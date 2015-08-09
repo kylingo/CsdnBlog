@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,31 +53,35 @@ public class BloggerListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_blogger, null);
 			holder = new ViewHolder();
-			holder.imv_blogger = (CircleImageView) convertView.findViewById(R.id.imv_blogger);
-			holder.tv_blog_title = (TextView) convertView.findViewById(R.id.tv_blog_title);
-			holder.tv_blog_desc = (TextView) convertView.findViewById(R.id.tv_blog_desc);
+			holder.imvBlogger = (CircleImageView) convertView.findViewById(R.id.imv_blogger);
+			holder.tvBlogTitle = (TextView) convertView.findViewById(R.id.tv_blog_title);
+			holder.tvBlogDesc = (TextView) convertView.findViewById(R.id.tv_blog_desc);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageLoaderUtils.displayImg(getItem(position).getImgUrl(), holder.imv_blogger);
-		if (getItem(position).getIsTop() == 1) {
-			holder.tv_blog_title.setText("[置顶]\b" + getItem(position).getTitle());
-			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.blue_text));
+		if (!TextUtils.isEmpty(getItem(position).getImgUrl())) {
+			ImageLoaderUtils.displayImg(getItem(position).getImgUrl(), holder.imvBlogger);
 		} else {
-			holder.tv_blog_title.setText(getItem(position).getTitle());
-			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.black_text));
+			holder.imvBlogger.setImageResource(R.drawable.me_01);
 		}
-		holder.tv_blog_desc.setText(getItem(position).getDescription());
+		if (getItem(position).getIsTop() == 1) {
+			holder.tvBlogTitle.setText(getItem(position).getTitle() + "\b[顶]");
+			holder.tvBlogTitle.setTextColor(context.getResources().getColor(R.color.blue_text));
+		} else {
+			holder.tvBlogTitle.setText(getItem(position).getTitle());
+			holder.tvBlogTitle.setTextColor(context.getResources().getColor(R.color.black_text));
+		}
+		holder.tvBlogDesc.setText(getItem(position).getDescription());
 
 		return convertView;
 	}
 
 	static class ViewHolder {
-		CircleImageView imv_blogger;
-		TextView tv_blog_title, tv_blog_desc;
+		CircleImageView imvBlogger;
+		TextView tvBlogTitle, tvBlogDesc;
 	}
 
 }
