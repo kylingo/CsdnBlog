@@ -50,6 +50,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	private HttpAsyncTask mAsyncTask;
 	private ImageView reLoadImageView; // 重新加载的图片
 	private ProgressBar pbLoading;
+	private ImageView mBackBtn;
 
 	private TextView tvUserId;
 	private String userId;
@@ -75,9 +76,10 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	private void initView() {
 		mListView = (XListView) findViewById(R.id.listView_blog);
 		pbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-		tvUserId = (TextView) findViewById(R.id.tv_userid);
-		ImageView backBtn = (ImageView) findViewById(R.id.backBtn);
-		backBtn.setOnClickListener(this);
+		tvUserId = (TextView) findViewById(R.id.tvTitle);
+		ImageView mBackBtn = (ImageView) findViewById(R.id.backBtn);
+		mBackBtn.setVisibility(View.VISIBLE);
+		mBackBtn.setOnClickListener(this);
 
 		if (blogger != null) {
 			String title = blogger.getTitle();

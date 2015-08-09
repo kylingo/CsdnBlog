@@ -2,44 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.free.csdn.activity.HomeActivity" >
 
-    <RelativeLayout
+    <include
         android:id="@+id/rl_head"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/main_color" >
-
-        <ImageView
-            android:id="@+id/backBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:background="@drawable/selector_btn_header"
-            android:padding="13dip"
-            android:src="@drawable/back" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/backBtn"
-            android:src="@drawable/base_action_bar_back_divider" />
-
-        <TextView
-            android:id="@+id/tv_userid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/bogger_title"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_size" />
-    </RelativeLayout>
+        layout="@layout/include_head_layout" />
 
     <me.maxwin.view.XListView
         android:id="@+id/listView_blog"

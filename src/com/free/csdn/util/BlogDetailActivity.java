@@ -1,4 +1,4 @@
-package com.free.csdn.activity;
+package com.free.csdn.util;
 
 import java.util.List;
 
@@ -20,13 +20,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.free.csdn.R;
+import com.free.csdn.activity.BaseActivity;
+import com.free.csdn.activity.BlogCommentActivity;
+import com.free.csdn.activity.ImageActivity;
 import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.bean.Blog;
 import com.free.csdn.constant.Constants;
-import com.free.csdn.util.FileUtil;
-import com.free.csdn.util.HttpUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.MD5;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
 

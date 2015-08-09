@@ -19,8 +19,12 @@ import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogHtml;
@@ -38,17 +42,21 @@ import com.free.csdn.util.ToastUtil;
  * @date 2014/8/10
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class BlogContentActivity extends BaseActivity implements
-		OnResponseListener {
-	private WebView webView = null;
-	private ProgressBar progressBar; // 进度条
-	private ImageView reLoadImageView; // 重新加载的图片
-	private ImageView backBtn; // 回退按钮
-	private ImageView commentBtn; // 评论按钮
+public class BlogContentActivity extends BaseActivity implements OnResponseListener,
+		OnClickListener, OnCheckedChangeListener {
+	private WebView mWebView = null;
+	private ProgressBar mProgressBar; // 进度条
+	private ImageView mReLoadImageView; // 重新加载的图片
+	private ImageView mBackBtn; // 回退按钮
+	private ImageView mCommemtBtn;
+	private ImageView mShareBtn;
+	private ImageView mMoreBtn;
+	private ToggleButton mCollectBtn;
 
-	public static String url;
-	public String urlMD5 = "url-md5";
-	private String filename;
+	public String mTitle;
+	public static String mUrl;
+	public String mUrlMD5 = "url-md5";
+	private String mFileName;
 	private static final int MSG_RELOAD_DATA = 1000;
 
 	@Override
@@ -66,63 +74,115 @@ public class BlogContentActivity extends BaseActivity implements
 
 	// 初始化
 	private void init() {
-		url = getIntent().getExtras().getString("blogLink");
-		filename = url.substring(url.lastIndexOf("/") + 1);
-		System.out.println("filename--->" + filename);
+		mUrl = getIntent().getExtras().getString("blogLink");
+		mTitle = getIntent().getExtras().getString("title");
+		mFileName = mUrl.substring(mUrl.lastIndexOf("/") + 1);
+		System.out.println("filename--->" + mFileName);
 
 	}
 
 	// 初始化组件
 	private void initComponent() {
-		progressBar = (ProgressBar) findViewById(R.id.blogContentPro);
-		reLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
-		reLoadImageView.setOnClickListener(new OnClickListener() {
+		TextView mTitleView = (TextView) findViewById(R.id.tvTitle);
+		mTitleView.setText(R.string.blog_detail);
 
-			@Override
-			public void onClick(View view) {
-				reLoadImageView.setVisibility(View.INVISIBLE);
-				progressBar.setVisibility(View.VISIBLE);
-				requestData(url);
-			}
-		});
+		mProgressBar = (ProgressBar) findViewById(R.id.blogContentPro);
+		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+		mBackBtn = (ImageView) findViewById(R.id.backBtn);
+		mBackBtn.setVisibility(View.VISIBLE);
+		mCommemtBtn = (ImageView) findViewById(R.id.iv_comment);
+		mShareBtn = (ImageView) findViewById(R.id.iv_share);
+		mMoreBtn = (ImageView) findViewById(R.id.iv_more);
+		mCollectBtn = (ToggleButton) findViewById(R.id.tb_collect);
 
-		backBtn = (ImageView) findViewById(R.id.backBtn);
-		backBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				finish();
-			}
-		});
-
-		commentBtn = (ImageView) findViewById(R.id.comment);
-		commentBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View view) {
-				Intent i = new Intent();
-				i.setClass(BlogContentActivity.this, BlogCommentActivity.class);
-				i.putExtra("filename", filename);
-				startActivity(i);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
-			}
-		});
+		mReLoadImageView.setOnClickListener(this);
+		mBackBtn.setOnClickListener(this);
+		mCommemtBtn.setOnClickListener(this);
+		mShareBtn.setOnClickListener(this);
+		mMoreBtn.setOnClickListener(this);
+		mCollectBtn.setOnCheckedChangeListener(this);
 
 		initWebView();
 	}
 
 	private void initWebView() {
-		webView = (WebView) findViewById(R.id.webview);
-		webView.setWebViewClient(new MyWebViewClient());
-		webView.getSettings().setJavaScriptEnabled(true);
-		webView.getSettings().setDefaultTextEncodingName("utf-8");
-		webView.getSettings().setAppCacheEnabled(true);
-		webView.getSettings().setDatabaseEnabled(true);
+		mWebView = (WebView) findViewById(R.id.webview);
+		mWebView.setWebViewClient(new MyWebViewClient());
+		mWebView.getSettings().setJavaScriptEnabled(true);
+		mWebView.getSettings().setDefaultTextEncodingName("utf-8");
+		mWebView.getSettings().setAppCacheEnabled(true);
+		mWebView.getSettings().setDatabaseEnabled(true);
 
 		// LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
 		// LOAD_DEFAULT: 根据cache-control决定是否从网络上取数据。
 		// 总结：根据以上两种模式，建议缓存策略为，判断是否有网络，有的话，使用LOAD_DEFAULT，无网络时，使用LOAD_CACHE_ELSE_NETWORK。
-		webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+		mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		// TODO Auto-generated method stub
+		if (isChecked) {
+			ToastUtil.show(this, "收藏成功");
+		} else {
+			ToastUtil.show(this, "取消收藏");
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.backBtn:
+			finish();
+			break;
+
+		case R.id.reLoadImage:
+			reload();
+			break;
+
+		case R.id.iv_comment:
+		case R.id.comment:
+			comment();
+			break;
+
+		case R.id.iv_share:
+			share();
+			break;
+
+		case R.id.iv_more:
+			more();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void reload() {
+		mReLoadImageView.setVisibility(View.INVISIBLE);
+		mProgressBar.setVisibility(View.VISIBLE);
+		requestData(mUrl);
+	}
+
+	private void comment() {
+		Intent i = new Intent();
+		i.setClass(BlogContentActivity.this, BlogCommentActivity.class);
+		i.putExtra("filename", mFileName);
+		startActivity(i);
+		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+	}
+
+	private void share() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_TEXT, mTitle + "：" + "\n" + mUrl);
+		startActivity(Intent.createChooser(intent, "CSDN博客分享"));
+	}
+
+	private void more() {
+
 	}
 
 	/**
@@ -146,7 +206,7 @@ public class BlogContentActivity extends BaseActivity implements
 	 */
 	private void requestData(String url) {
 		// TODO Auto-generated method stub
-		progressBar.setVisibility(View.VISIBLE);
+		mProgressBar.setVisibility(View.VISIBLE);
 		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(this);
 		httpAsyncTask.execute(url);
 		httpAsyncTask.setOnCompleteListener(this);
@@ -170,12 +230,11 @@ public class BlogContentActivity extends BaseActivity implements
 	 */
 	private void loadHtml(String html) {
 		if (!TextUtils.isEmpty(html)) {
-			webView.loadDataWithBaseURL("http://blog.csdn.net", html,
-					"text/html", "utf-8", null);
-			reLoadImageView.setVisibility(View.GONE);
+			mWebView.loadDataWithBaseURL("http://blog.csdn.net", html, "text/html", "utf-8", null);
+			mReLoadImageView.setVisibility(View.GONE);
 		} else {
-			progressBar.setVisibility(View.GONE);
-			reLoadImageView.setVisibility(View.VISIBLE);
+			mProgressBar.setVisibility(View.GONE);
+			mReLoadImageView.setVisibility(View.VISIBLE);
 			ToastUtil.show(this, "网络已断开");
 		}
 	}
@@ -190,11 +249,11 @@ public class BlogContentActivity extends BaseActivity implements
 			return;
 		}
 		BlogHtml blogHtml = new BlogHtml();
-		blogHtml.setUrl(url);
+		blogHtml.setUrl(mUrl);
 		blogHtml.setHtml(html);
 		blogHtml.setReserve("");
 
-		BlogContentDb blogContentDb = new BlogContentDbImpl(this, url);
+		BlogContentDb blogContentDb = new BlogContentDbImpl(this, mUrl);
 		blogContentDb.insert(blogHtml);
 	}
 
@@ -208,10 +267,8 @@ public class BlogContentActivity extends BaseActivity implements
 		if (TextUtils.isEmpty(paramString)) {
 			return null;
 		}
-		Element localElement = Jsoup.parse(paramString)
-				.getElementsByClass("details").get(0);
-		Iterator<?> localIterator = localElement.getElementsByTag("img")
-				.iterator();
+		Element localElement = Jsoup.parse(paramString).getElementsByClass("details").get(0);
+		Iterator<?> localIterator = localElement.getElementsByTag("img").iterator();
 		while (true) {
 			if (!localIterator.hasNext())
 				return "<script type=\"text/javascript\" src=\"file:///android_asset/shCore.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushCpp.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushXml.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushJScript.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushJava.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shThemeDefault.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shCore.css\"><script type=\"text/javascript\">SyntaxHighlighter.all();</script>"
@@ -238,7 +295,7 @@ public class BlogContentActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case MSG_RELOAD_DATA:
-				getData(url);
+				getData(mUrl);
 				break;
 
 			default:
@@ -267,19 +324,17 @@ public class BlogContentActivity extends BaseActivity implements
 		}
 
 		public void onPageFinished(WebView paramWebView, String paramString) {
-			webView.getSettings().setBlockNetworkImage(false);
-			progressBar.setVisibility(View.GONE);
+			mWebView.getSettings().setBlockNetworkImage(false);
+			mProgressBar.setVisibility(View.GONE);
 			super.onPageFinished(paramWebView, paramString);
 		}
 
-		public void onReceivedError(WebView paramWebView, int paramInt,
-				String paramString1, String paramString2) {
-			super.onReceivedError(paramWebView, paramInt, paramString1,
-					paramString2);
+		public void onReceivedError(WebView paramWebView, int paramInt, String paramString1,
+				String paramString2) {
+			super.onReceivedError(paramWebView, paramInt, paramString1, paramString2);
 		}
 
-		public boolean shouldOverrideUrlLoading(WebView paramWebView,
-				String paramString) {
+		public boolean shouldOverrideUrlLoading(WebView paramWebView, String paramString) {
 			// int i = 1;
 			// String str = "brian512";
 			// Log.i("CSDNBlog_BlogContentActivity", "url=" + paramString);
@@ -316,9 +371,8 @@ public class BlogContentActivity extends BaseActivity implements
 			// i = 0;
 			// }
 			//
-			if ((paramString
-					.matches("http://blog.csdn.net/(\\w+)/article/details/(\\d+)"))) {
-				url = paramString;
+			if ((paramString.matches("http://blog.csdn.net/(\\w+)/article/details/(\\d+)"))) {
+				mUrl = paramString;
 				getData(paramString);
 				return false;
 			}

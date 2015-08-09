@@ -38,7 +38,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.free.csdn.activity.BlogDetailActivity"
+            android:name="com.free.csdn.util.BlogDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

@@ -4,6 +4,26 @@
     android:layout_height="@dimen/title_height"
     android:background="@color/main_color" >
 
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_btn_header"
+        android:contentDescription="@null"
+        android:padding="13dip"
+        android:src="@drawable/back"
+        android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/backBtn"
+        android:contentDescription="@null"
+        android:src="@drawable/base_action_bar_back_divider" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
