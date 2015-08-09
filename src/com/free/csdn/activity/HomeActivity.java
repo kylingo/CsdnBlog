@@ -1,7 +1,6 @@
 package com.free.csdn.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
@@ -20,6 +19,7 @@ import com.free.csdn.fragment.ChannelFragment;
  */
 import com.free.csdn.fragment.FindFragment;
 import com.free.csdn.fragment.MeFragment;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 首页
@@ -27,7 +27,7 @@ import com.free.csdn.fragment.MeFragment;
  * @author smile
  * 
  */
-public class HomeActivity extends FragmentActivity implements OnCheckedChangeListener {
+public class HomeActivity extends BaseFragmentActivity implements OnCheckedChangeListener {
 
 	private RadioGroup mGroup;
 	private BloggerFragment mFirstFragment;
@@ -60,6 +60,20 @@ public class HomeActivity extends FragmentActivity implements OnCheckedChangeLis
 				.add(R.id.main_content, mFirstFragment, FIRST_TAG).commit();
 
 		mGroup.setOnCheckedChangeListener(this);
+		
+		
+		initUmengStatistics();
+	}
+
+	private void initUmengStatistics() {
+		MobclickAgent.setDebugMode(true);
+//      SDK在统计Fragment时，需要关闭Activity自带的页面统计，
+//		然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
+		MobclickAgent.openActivityDurationTrack(false);
+//		MobclickAgent.setAutoLocation(true);
+//		MobclickAgent.setSessionContinueMillis(1000);
+		
+		MobclickAgent.updateOnlineConfig(this);
 	}
 
 	/**

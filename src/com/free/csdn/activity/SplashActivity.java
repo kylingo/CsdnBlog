@@ -1,20 +1,18 @@
 ﻿package com.free.csdn.activity;
 
-import com.free.csdn.R;
-import com.free.csdn.util.ACache;
-import com.free.csdn.util.VersionUtil;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class SplashActivity extends Activity {
+import com.free.csdn.R;
+import com.free.csdn.util.ACache;
+import com.free.csdn.util.VersionUtil;
+
+public class SplashActivity extends BaseActivity {
 	TextView tvVersion, tvLogoName;
 	RelativeLayout rvSplash;
 	ACache mCache;
@@ -48,7 +46,7 @@ public class SplashActivity extends Activity {
 		}
 
 		String str = VersionUtil.getVersionName(this);
-		tvVersion.setText("当前版本：V" + str);
+		tvVersion.setText("当前版本：" + str);
 	}
 
 	/**
@@ -56,7 +54,8 @@ public class SplashActivity extends Activity {
 	 */
 	private void startAnimation() {
 
-		AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
+		Animation aa = new Animation() {
+		};
 		aa.setDuration(3000);
 		rvSplash.startAnimation(aa);
 		aa.setAnimationListener(new AnimationListener() {
