@@ -33,6 +33,7 @@ public class AboutActivity extends BaseActivity {
 		mTitleView.setText("关于");
 		
 		ImageView mBackBtn = (ImageView)findViewById(R.id.backBtn);
+		mBackBtn.setVisibility(View.VISIBLE);
 		mBackBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
