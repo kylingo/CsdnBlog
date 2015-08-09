@@ -6,6 +6,7 @@
 	<color name="black_main_color">#21292C</color><!-- 黑色主色调 -->
 	<color name="white">#FFFFFF</color>
 	<color name="black">#000000</color>
+	<color name="red">#FF0000</color>
 	<color name="gray">#5D5D5D</color>
 	<color name="coffee">#622f1b</color>
 	<color name="wangyibg">#f0f0f0</color>

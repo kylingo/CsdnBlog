@@ -62,12 +62,13 @@ public class BloggerListAdapter extends BaseAdapter {
 		}
 
 		ImageLoaderUtils.displayImg(getItem(position).getImgUrl(), holder.imv_blogger);
-		if (getItem(position).getIsTop() == 1 || getItem(position).getIsNew() == 1) {
+		if (getItem(position).getIsTop() == 1) {
+			holder.tv_blog_title.setText("[置顶]\b" + getItem(position).getTitle());
 			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.blue_text));
 		} else {
+			holder.tv_blog_title.setText(getItem(position).getTitle());
 			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.black_text));
 		}
-		holder.tv_blog_title.setText(getItem(position).getTitle());
 		holder.tv_blog_desc.setText(getItem(position).getDescription());
 
 		return convertView;

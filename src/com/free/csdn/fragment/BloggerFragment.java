@@ -230,7 +230,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		blogger.setLink(Constants.CSDN_BASE_URL + newUserId);
 		blogger.setType(type);
 		blogger.setCategory(BloggerDb.CATEGORY_MOBILE);
-		blogger.setIsTop(1);
+		blogger.setIsTop(0);
 		blogger.setIsNew(1);
 		blogger.setUpdateTime(System.currentTimeMillis());
 		db.insert(blogger);
@@ -248,8 +248,10 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	private void stickBlogger(Blogger blogger) {
 		if (blogger.getIsTop() == 1) {
 			blogger.setIsTop(0);
+			ToastUtil.show(getActivity(), "取消置顶成功");
 		} else {
 			blogger.setIsTop(1);
+			ToastUtil.show(getActivity(), "置顶成功");
 		}
 
 		blogger.setUpdateTime(System.currentTimeMillis());
@@ -259,7 +261,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
-		ToastUtil.show(getActivity(), "博客置顶成功");
+		
 	}
 
 	/**
@@ -274,7 +276,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
-		ToastUtil.show(getActivity(), "博客删除成功");
+		ToastUtil.show(getActivity(), "删除成功");
 	}
 
 	private Handler mHandler = new Handler() {
