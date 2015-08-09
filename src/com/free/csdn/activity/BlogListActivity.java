@@ -50,7 +50,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	private HttpAsyncTask mAsyncTask;
 	private ImageView reLoadImageView; // 重新加载的图片
 	private ProgressBar pbLoading;
-	private ImageView mBackBtn;
 
 	private TextView tvUserId;
 	private String userId;

@@ -1,8 +1,10 @@
 package com.free.csdn.fragment;
 
 import com.free.csdn.R;
+import com.free.csdn.activity.AboutActivity;
 import com.free.csdn.util.ToastUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,10 @@ public class MeFragment extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
+		case R.id.ll_me_04:
+			Intent intent = new Intent(getActivity(), AboutActivity.class);
+			startActivity(intent);
+			return;
 
 		default:
 			break;

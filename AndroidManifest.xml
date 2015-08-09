@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.free.csdn"
     android:versionCode="100"
-    android:versionName="1.0.0" >
+    android:versionName="1.0.5" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -51,6 +51,10 @@
         </activity>
         <activity
             android:name="com.free.csdn.activity.ImageActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.free.csdn.activity.AboutActivity"
             android:screenOrientation="portrait" >
         </activity>
 

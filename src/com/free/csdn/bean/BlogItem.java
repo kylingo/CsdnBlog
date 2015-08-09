@@ -41,6 +41,9 @@ public class BlogItem extends BaseEntity{
 	
 	@Column(column = "icoType")
 	private String icoType;
+	
+	@Column(column = "updateTime")
+	private long updateTime;
 		
 	@Column(column = "reserve")
 	private String reserve;

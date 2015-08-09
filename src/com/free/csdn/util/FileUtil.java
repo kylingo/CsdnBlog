@@ -1,11 +1,13 @@
 package com.free.csdn.util;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 import android.content.Context;
@@ -19,7 +21,8 @@ import android.os.Environment;
  */
 public class FileUtil {
 	// 文件保存路径
-	public static String filePath = android.os.Environment.getExternalStorageDirectory() + "/WWJBlog";
+	public static String filePath = android.os.Environment.getExternalStorageDirectory()
+			+ "/WWJBlog";
 
 	public static String getFileName(String str) {
 		// 去除url中的符号作为文件名返回
@@ -67,7 +70,8 @@ public class FileUtil {
 			}
 			InputStream is = bitmap2InputStream(bmp);
 
-			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/" + getFileName(fileName));
+			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/"
+					+ getFileName(fileName));
 			byte[] buffer = new byte[512];
 			int count = 0;
 			while ((count = is.read(buffer)) > 0) {
@@ -152,6 +156,24 @@ public class FileUtil {
 			path = context.getCacheDir().getAbsolutePath();
 		}
 		return path;
+	}
+
+	public static String getFileFromAssets(Context context, String fileName) {
+		try {
+			InputStream in = context.getResources().getAssets().open(fileName);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+			StringBuffer sb = new StringBuffer();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			return sb.toString();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**

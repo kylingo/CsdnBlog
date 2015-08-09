@@ -1,5 +1,7 @@
 package com.free.csdn.bean;
 
+import com.lidroid.xutils.db.annotation.Column;
+
 /**
  *
  * @author tangqi
@@ -24,6 +26,12 @@ public class Channel extends BaseEntity {
 	 * 频道图标ID（本地）
 	 */
 	private int imgResourceId;
+
+	/**
+	 * 更新时间
+	 */
+	@Column(column = "updateTime")
+	private long updateTime;
 
 	/**
 	 * 保留
@@ -61,5 +69,5 @@ public class Channel extends BaseEntity {
 	public void setReserve(String reserve) {
 		this.reserve = reserve;
 	}
-	
+
 }
