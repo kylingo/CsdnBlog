@@ -24,6 +24,6 @@
         android:singleLine="true"
         android:text="@string/channel_name"
         android:textColor="@color/black_text"
-        android:textSize="16sp" />
+        android:textSize="@dimen/content_size" />
 
 </LinearLayout>

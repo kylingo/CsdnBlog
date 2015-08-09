@@ -73,7 +73,7 @@
         <item name="android:gravity">center</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/black_text</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">@dimen/content_size</item>
     </style>
 
 </resources>
