@@ -60,6 +60,12 @@ public class Blogger extends BaseEntity {
 	 */
 	@Column(column = "isNew")
 	private int isNew;
+	
+	/**
+	 * 是否置顶
+	 */
+	@Column(column = "isTop")
+	private int isTop;
 
 	/**
 	 * 博主更新时间
@@ -151,6 +157,14 @@ public class Blogger extends BaseEntity {
 
 	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public int getIsTop() {
+		return isTop;
+	}
+
+	public void setIsTop(int isTop) {
+		this.isTop = isTop;
 	}
 
 }

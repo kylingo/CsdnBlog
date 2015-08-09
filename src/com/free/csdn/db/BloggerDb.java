@@ -82,4 +82,10 @@ public interface BloggerDb {
 	 */
 	public void deleteAll();
 
+	/**
+	 * 初始化博客数据库
+	 * @param type
+	 */
+	void init(String type);
+
 }

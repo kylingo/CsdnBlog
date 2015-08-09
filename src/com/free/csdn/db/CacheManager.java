@@ -22,8 +22,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBloggerDbPath(Context context) {
-		return FileUtil.getExternalCacheDir(context) + File.separator
-				+ "Blogger";
+		return FileUtil.getExternalCacheDir(context) + File.separator + "Blogger";
 	}
 
 	/**
@@ -33,8 +32,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBlogListDbPath(Context context) {
-		return FileUtil.getExternalCacheDir(context) + File.separator
-				+ "BlogList";
+		return FileUtil.getExternalCacheDir(context) + File.separator + "BlogList";
 	}
 
 	/**
@@ -44,8 +42,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBlogContentDbPath(Context context) {
-		return FileUtil.getExternalCacheDir(context) + File.separator
-				+ "BlogContent";
+		return FileUtil.getExternalCacheDir(context) + File.separator + "BlogContent";
 	}
 
 	/**
@@ -55,8 +52,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getCommentDbPath(Context context) {
-		return FileUtil.getExternalCacheDir(context) + File.separator
-				+ "CommentList";
+		return FileUtil.getExternalCacheDir(context) + File.separator + "CommentList";
 	}
 
 	/**
@@ -65,8 +61,8 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getAppCachePath(Context context) {
-		return FileUtil.getExternalCacheDir(context) + File.separator + "App"
-				+ File.separator + "Cache";
+		return FileUtil.getExternalCacheDir(context) + File.separator + "App" + File.separator
+				+ "Cache";
 	}
 
 	/**
@@ -76,7 +72,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getAppDatabasePath(Context context) {
-		return FileUtil.getExternalCacheDir(context) + File.separator + "App"
-				+ File.separator + "DataBase";
+		return FileUtil.getExternalCacheDir(context) + File.separator + "App" + File.separator
+				+ "DataBase";
 	}
 }

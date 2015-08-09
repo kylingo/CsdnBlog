@@ -1,14 +1,13 @@
 package com.free.csdn.adapter;
 
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.free.csdn.R;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.util.ImageLoaderUtils;
@@ -27,7 +26,7 @@ public class BloggerListAdapter extends BaseAdapter {
 		this.context = context;
 		this.list = list;
 	}
-	
+
 	public void setList(List<Blogger> list) {
 		this.list = list;
 	}
@@ -37,7 +36,7 @@ public class BloggerListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public Blogger getItem(int position) {
 		return list.get(position);
 	}
 
@@ -45,26 +44,27 @@ public class BloggerListAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(context).inflate(
-					R.layout.listitem_blogger, null);
+			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_blogger, null);
 			holder = new ViewHolder();
-			holder.imv_blogger = (CircleImageView) convertView
-					.findViewById(R.id.imv_blogger);
-			holder.tv_blog_title = (TextView) convertView
-					.findViewById(R.id.tv_blog_title);
-			holder.tv_blog_desc = (TextView) convertView
-					.findViewById(R.id.tv_blog_desc);
+			holder.imv_blogger = (CircleImageView) convertView.findViewById(R.id.imv_blogger);
+			holder.tv_blog_title = (TextView) convertView.findViewById(R.id.tv_blog_title);
+			holder.tv_blog_desc = (TextView) convertView.findViewById(R.id.tv_blog_desc);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageLoaderUtils.displayImg(list.get(position).getImgUrl(),
-				holder.imv_blogger);
+		ImageLoaderUtils.displayImg(list.get(position).getImgUrl(), holder.imv_blogger);
+		if (getItem(position).getIsTop() == 1 || getItem(position).getIsNew() == 1) {
+			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.blue_text));
+		} else {
+			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.black_text));
+		}
 		holder.tv_blog_title.setText(list.get(position).getTitle());
 		holder.tv_blog_desc.setText(list.get(position).getDescription());
 

@@ -32,7 +32,11 @@ public class BloggerDbImpl implements BloggerDb {
 	public BloggerDbImpl(Context context, String type) {
 		this.context = context;
 		this.type = type;
-		this.db = DbUtils.create(context, CacheManager.getBloggerDbPath(context), "blogger_" + type);
+		init(type);
+	}
+
+	public void init(String type) {
+		this.db = DbUtils.create(context, "blogger_" + type);
 	}
 
 	public void insert(Blogger blogger) {
@@ -80,11 +84,18 @@ public class BloggerDbImpl implements BloggerDb {
 
 	public List<Blogger> queryAll() {
 		try {
-			// 最新的排最前面
+			// // 最新的排最前面
 			List<Blogger> list = new ArrayList<Blogger>();
-			List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where(WhereBuilder.b("isNew", "=", 1))
+			List<Blogger> toplist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 1)
 					.orderBy("updateTime", true));
-			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where(WhereBuilder.b("isNew", "=", 0)));
+			List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0)
+					.and("isNew", "=", 1).orderBy("updateTime", true));
+			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0)
+					.and("isNew", "=", 0));
+
+			if (toplist != null) {
+				list.addAll(toplist);
+			}
 
 			if (newlist != null) {
 				list.addAll(newlist);
@@ -135,14 +146,15 @@ public class BloggerDbImpl implements BloggerDb {
 	}
 
 	@Override
+	@Deprecated
 	public void deleteAll() {
 		// TODO Auto-generated method stub
 
 		// 删除数据库文件
-		File file = new File(CacheManager.getBloggerDbPath(context) + "blogger_" + type);
+		File file = new File(CacheManager.getBloggerDbPath(context) + File.separator + "blogger_" + type);
 		FileUtil.delete(file);
 
-		file = new File(CacheManager.getBloggerDbPath(context) + "blogger_" + type + "-journal");
+		file = new File(CacheManager.getBloggerDbPath(context) + File.separator + "blogger_" + type + "-journal");
 		FileUtil.delete(file);
 	}
 }

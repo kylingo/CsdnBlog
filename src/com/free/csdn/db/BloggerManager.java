@@ -3,7 +3,6 @@ package com.free.csdn.db;
 import android.content.Context;
 
 import com.free.csdn.bean.Blogger;
-import com.free.csdn.db.impl.BloggerDbImpl;
 import com.free.csdn.util.SpfUtils;
 
 /**
@@ -31,6 +30,7 @@ public class BloggerManager {
 		blogger.setImgUrl(array[3]);
 		blogger.setLink(array[4]);
 		blogger.setType(array[5]);
+		blogger.setIsTop(0);
 		blogger.setIsNew(0);
 		blogger.setCategory(BloggerDb.CATEGORY_MOBILE);
 		blogger.setUpdateTime(System.currentTimeMillis());
@@ -58,7 +58,7 @@ public class BloggerManager {
 			return;
 
 		deleteAllBlogger(bloggerDb, type);
-		bloggerDb = new BloggerDbImpl(context, type);
+		bloggerDb.init(type);
 
 		Blogger blogger = new Blogger();
 		String[] array = new String[6];

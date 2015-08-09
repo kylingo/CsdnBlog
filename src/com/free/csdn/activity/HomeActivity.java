@@ -105,22 +105,22 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
 		Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
-
 		Intent intent = new Intent(HomeActivity.this, BlogListActivity.class);
 		intent.putExtra("blogger", blogger);
 		startActivity(intent);
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		BloggerOperationDialog dialog = new BloggerOperationDialog(this);
+		final Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
+		BloggerOperationDialog dialog = new BloggerOperationDialog(this, blogger);
 		dialog.setOnDeleteListener(new OnDeleteListener() {
 
 			@Override
 			public void onDelete(String result) {
 				// TODO Auto-generated method stub
-				deleleBlogger(mBloggerList.get(position - 1));
+				deleleBlogger(blogger);
 			}
 		});
 
@@ -129,7 +129,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 			@Override
 			public void onStick(String result) {
 				// TODO Auto-generated method stub
-				stickBlogger(mBloggerList.get(position - 1));
+				stickBlogger(blogger);
 			}
 		});
 		dialog.show();
@@ -216,6 +216,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		blogger.setImgUrl(bloggerItem.get("imgUrl"));
 		blogger.setLink(Constants.CSDN_BASE_URL + newUserId);
 		blogger.setType(type);
+		blogger.setIsTop(1);
 		blogger.setIsNew(1);
 		blogger.setUpdateTime(System.currentTimeMillis());
 		db.insert(blogger);
@@ -231,7 +232,12 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	 * @param blogger
 	 */
 	private void stickBlogger(Blogger blogger) {
-		blogger.setIsNew(1);
+		if (blogger.getIsTop() == 1) {
+			blogger.setIsTop(0);
+		} else {
+			blogger.setIsTop(1);
+		}
+
 		blogger.setUpdateTime(System.currentTimeMillis());
 		db.insert(blogger);
 
