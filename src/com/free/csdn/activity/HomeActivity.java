@@ -20,6 +20,7 @@ import com.free.csdn.fragment.ChannelFragment;
 import com.free.csdn.fragment.FindFragment;
 import com.free.csdn.fragment.MeFragment;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 首页
@@ -34,7 +35,7 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 	private ChannelFragment mSecondFragment;
 	private FindFragment mThirdFragment;
 	private MeFragment mFourthFragment;
-	
+
 	private String mFormerTag;
 	private final static String FIRST_TAG = "FirstFragment";
 	private final static String SECOND_TAG = "SecondFragment";
@@ -49,7 +50,7 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		
+
 		mGroup = (RadioGroup) findViewById(R.id.main_radio);
 		mFirstFragment = new BloggerFragment();
 		mSecondFragment = new ChannelFragment();
@@ -60,20 +61,30 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 				.add(R.id.main_content, mFirstFragment, FIRST_TAG).commit();
 
 		mGroup.setOnCheckedChangeListener(this);
-		
-		
+
 		initUmengStatistics();
+		initUmengUpdate();
 	}
 
+	/**
+	 * 友盟数据统计
+	 */
 	private void initUmengStatistics() {
 		MobclickAgent.setDebugMode(true);
-//      SDK在统计Fragment时，需要关闭Activity自带的页面统计，
-//		然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
+		// SDK在统计Fragment时，需要关闭Activity自带的页面统计，
+		// 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
 		MobclickAgent.openActivityDurationTrack(false);
-//		MobclickAgent.setAutoLocation(true);
-//		MobclickAgent.setSessionContinueMillis(1000);
-		
+		// MobclickAgent.setAutoLocation(true);
+		// MobclickAgent.setSessionContinueMillis(1000);
+
 		MobclickAgent.updateOnlineConfig(this);
+	}
+
+	/**
+	 * 友盟自动更新
+	 */
+	private void initUmengUpdate() {
+		UmengUpdateAgent.update(this);
 	}
 
 	/**
@@ -129,7 +140,7 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 
 		}
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {

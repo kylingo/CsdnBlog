@@ -104,14 +104,6 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		initUmengUpdate();
-	}
-
-	/**
-	 * 友盟自动更新
-	 */
-	private void initUmengUpdate() {
-		// UmengUpdateAgent.update(this);
 	}
 
 	@Override
