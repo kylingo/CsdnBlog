@@ -40,3 +40,9 @@
 3、对话框样式，添加博客、数据加载、删除【完成】
 4、自定义Toast样式【完成】
 
+
+各大应用 市场：
+1、腾迅：http://android.myapp.com/		QQ登陆
+2、应用汇：http://dev.appchina.com		手机号
+3、机锋：http://dev.gfan.com/			邮箱
+
