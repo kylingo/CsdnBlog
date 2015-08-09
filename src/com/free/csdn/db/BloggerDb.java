@@ -53,22 +53,13 @@ public interface BloggerDb {
 	public List<Blogger> queryAll();
 
 	/**
-	 * 查询所有博主
-	 * 
-	 * @param type
-	 *            例如：Android、IOS、Web
-	 * @return
-	 */
-	public List<Blogger> queryAll(String type);
-
-	/**
 	 * 查询博主（分页）
 	 * 
 	 * @param type
 	 * @param page
 	 * @return
 	 */
-	List<Blogger> query(String type, int pageIndex, int pageSize);
+	List<Blogger> query( int pageIndex, int pageSize);
 
 	/**
 	 * 删除博主
@@ -83,5 +74,12 @@ public interface BloggerDb {
 	 * @param list
 	 */
 	public void deleteAll(List<Blogger> list);
+
+	/***
+	 * 删除所有博主
+	 * 
+	 * @param type
+	 */
+	public void deleteAll();
 
 }

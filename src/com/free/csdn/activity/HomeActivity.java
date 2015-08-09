@@ -75,9 +75,9 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		ImageView imvAdd = (ImageView) findViewById(R.id.imvAdd);
 		imvAdd.setOnClickListener(this);
 
-		db = new BloggerDbImpl(this);
-		BloggerManager.init(this, db);
-		mBloggerList = db.queryAll(type);
+		db = new BloggerDbImpl(this, type);
+		new BloggerManager().init(this, db, type);
+		mBloggerList = db.queryAll();
 
 		mListView = (XListView) findViewById(R.id.listView);
 		mAdapter = new BloggerListAdapter(this, mBloggerList);
@@ -220,11 +220,9 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		blogger.setUpdateTime(System.currentTimeMillis());
 		db.insert(blogger);
 
-		mBloggerList = db.queryAll(type);
+		mBloggerList = db.queryAll();
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
-
-		ToastUtil.show(HomeActivity.this, "博客ID添加成功");
 	}
 
 	/**
@@ -237,7 +235,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 		blogger.setUpdateTime(System.currentTimeMillis());
 		db.insert(blogger);
 
-		mBloggerList = db.queryAll(type);
+		mBloggerList = db.queryAll();
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
@@ -252,7 +250,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 	private void deleleBlogger(Blogger blogger) {
 		db.delete(blogger);
 
-		mBloggerList = db.queryAll(type);
+		mBloggerList = db.queryAll();
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
@@ -270,6 +268,7 @@ public class HomeActivity extends BaseActivity implements OnItemClickListener, O
 
 			switch (msg.what) {
 			case MSG_ADD_SUCCESS:
+				ToastUtil.show(HomeActivity.this, "博客ID添加成功");
 				addBlogger();
 				break;
 

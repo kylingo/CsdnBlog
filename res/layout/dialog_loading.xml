@@ -5,7 +5,10 @@
     android:background="@drawable/shap_rect_bg_transparent"
     android:gravity="center"
     android:orientation="horizontal"
-    android:padding="20dip" >
+    android:paddingBottom="15dip"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip"
+    android:paddingTop="15dip" >
 
     <ProgressBar
         android:layout_width="20dip"
@@ -16,7 +19,7 @@
         android:id="@+id/tv_loading_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
+        android:layout_marginLeft="15dip"
         android:text="@string/loading"
         android:textColor="@color/line"
         android:textSize="16sp" />

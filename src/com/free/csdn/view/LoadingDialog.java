@@ -43,7 +43,7 @@ public class LoadingDialog extends ProgressDialog {
 	/**
 	 * 显示在底部
 	 */
-	public void show() {
+	public void showButtom() {
 		WindowManager windowManager = ((Activity) mContext).getWindowManager();
 		Display display = windowManager.getDefaultDisplay();
 

@@ -11,6 +11,7 @@ import java.nio.charset.Charset;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.text.TextUtils;
 
 /**
  * 文件工具类
@@ -19,8 +20,7 @@ import android.os.Environment;
  */
 public class FileUtil {
 	// 文件保存路径
-	public static String filePath = android.os.Environment
-			.getExternalStorageDirectory() + "/WWJBlog";
+	public static String filePath = android.os.Environment.getExternalStorageDirectory() + "/WWJBlog";
 
 	public static String getFileName(String str) {
 		// 去除url中的符号作为文件名返回
@@ -44,8 +44,7 @@ public class FileUtil {
 				file.mkdirs();
 			}
 
-			FileOutputStream fileOutputStream = new FileOutputStream(filePath
-					+ "/" + filename);
+			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/" + filename);
 			byte[] buffer = new byte[512];
 			int count = 0;
 			while ((count = inputStream.read(buffer)) > 0) {
@@ -69,8 +68,7 @@ public class FileUtil {
 			}
 			InputStream is = bitmap2InputStream(bmp);
 
-			FileOutputStream fileOutputStream = new FileOutputStream(filePath
-					+ "/" + getFileName(fileName));
+			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/" + getFileName(fileName));
 			byte[] buffer = new byte[512];
 			int count = 0;
 			while ((count = is.read(buffer)) > 0) {
@@ -137,10 +135,8 @@ public class FileUtil {
 	 * @return
 	 */
 	public static boolean getSdAvailable() {
-		return Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment
-				.getExternalStorageState())
-				|| Environment.MEDIA_MOUNTED.equals(Environment
-						.getExternalStorageState());
+		return Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())
+				|| Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
 	}
 
 	/**
@@ -157,6 +153,30 @@ public class FileUtil {
 			path = context.getCacheDir().getAbsolutePath();
 		}
 		return path;
+	}
+
+	/**
+	 * 递归删除文件和文件夹
+	 * 
+	 * @param file
+	 *            要删除的根目录
+	 */
+	public static void delete(File file) {
+		if (file.isFile()) {
+			file.delete();
+			return;
+		}
+		if (file.isDirectory()) {
+			File[] childFile = file.listFiles();
+			if (childFile == null || childFile.length == 0) {
+				file.delete();
+				return;
+			}
+			for (File f : childFile) {
+				delete(f);
+			}
+			file.delete();
+		}
 	}
 
 }

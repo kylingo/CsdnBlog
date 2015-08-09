@@ -1,5 +1,6 @@
 package com.free.csdn.db.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.db.BloggerDb;
 import com.free.csdn.db.CacheManager;
+import com.free.csdn.util.FileUtil;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -24,9 +26,13 @@ import com.lidroid.xutils.exception.DbException;
 public class BloggerDbImpl implements BloggerDb {
 
 	private DbUtils db;
+	private String type;
+	private Context context;
 
-	public BloggerDbImpl(Context context) {
-		db = DbUtils.create(context, CacheManager.getBloggerDbPath(context), "Blogger");
+	public BloggerDbImpl(Context context, String type) {
+		this.context = context;
+		this.type = type;
+		this.db = DbUtils.create(context, CacheManager.getBloggerDbPath(context), "blogger_" + type);
 	}
 
 	public void insert(Blogger blogger) {
@@ -75,26 +81,18 @@ public class BloggerDbImpl implements BloggerDb {
 	public List<Blogger> queryAll() {
 		try {
 			// 最新的排最前面
-			List<Blogger> list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true));
-			return list;
-		} catch (DbException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-
-	public List<Blogger> queryAll(String type) {
-		try {
-			// 最新的排最前面
 			List<Blogger> list = new ArrayList<Blogger>();
-			List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where("type", "=", type)
-					.where(WhereBuilder.b("isNew", "=", 1)).orderBy("updateTime", true));
-			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where("type", "=", type)
-					.where(WhereBuilder.b("isNew", "=", 0)));
-			list.addAll(newlist);
-			list.addAll(oldlist);
+			List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where(WhereBuilder.b("isNew", "=", 1))
+					.orderBy("updateTime", true));
+			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where(WhereBuilder.b("isNew", "=", 0)));
+
+			if (newlist != null) {
+				list.addAll(newlist);
+			}
+
+			if (oldlist != null) {
+				list.addAll(oldlist);
+			}
 			return list;
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
@@ -104,11 +102,11 @@ public class BloggerDbImpl implements BloggerDb {
 		return null;
 	}
 
-	public List<Blogger> query(String type, int pageIndex, int pageSize) {
+	public List<Blogger> query(int pageIndex, int pageSize) {
 		List<Blogger> list = null;
 		try {
-			list = db.findAll(Selector.from(BlogItem.class).where("type", "=", type).orderBy("isNew", true)
-					.limit(pageSize).offset(pageIndex * pageSize));
+			list = db.findAll(Selector.from(BlogItem.class).orderBy("isNew", true).limit(pageSize)
+					.offset(pageIndex * pageSize));
 			return list;
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
@@ -134,5 +132,17 @@ public class BloggerDbImpl implements BloggerDb {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+
+		// 删除数据库文件
+		File file = new File(CacheManager.getBloggerDbPath(context) + "blogger_" + type);
+		FileUtil.delete(file);
+
+		file = new File(CacheManager.getBloggerDbPath(context) + "blogger_" + type + "-journal");
+		FileUtil.delete(file);
 	}
 }
