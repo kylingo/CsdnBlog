@@ -11,7 +11,6 @@ import java.nio.charset.Charset;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.text.TextUtils;
 
 /**
  * 文件工具类

@@ -1,11 +1,8 @@
 package com.free.csdn.view;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.free.csdn.R;
@@ -20,13 +17,14 @@ import com.free.csdn.R;
 public class LoadingDialog extends ProgressDialog {
 
 	private String mMessage;
-	private Context mContext;
+
+	// private Context mContext;
 
 	public LoadingDialog(Context context, String message) {
 		// TODO Auto-generated constructor stub
 		super(context, R.style.Theme_Light_LoadingDialog);
 
-		this.mContext = context;
+		// this.mContext = context;
 		this.mMessage = message;
 	}
 
@@ -44,13 +42,14 @@ public class LoadingDialog extends ProgressDialog {
 	 * 显示在底部
 	 */
 	public void showButtom() {
-		WindowManager windowManager = ((Activity) mContext).getWindowManager();
-		Display display = windowManager.getDefaultDisplay();
-
-		WindowManager.LayoutParams lp = getWindow().getAttributes();
-		lp.width = (int) (display.getWidth() * 0.8);
-		getWindow().setAttributes(lp);
-		super.show();
+		// WindowManager windowManager = ((Activity)
+		// mContext).getWindowManager();
+		// Display display = windowManager.getDefaultDisplay();
+		//
+		// WindowManager.LayoutParams lp = getWindow().getAttributes();
+		// lp.width = (int) (display.getWidth() * 0.8);
+		// getWindow().setAttributes(lp);
+		// super.show();
 	}
 
 }
