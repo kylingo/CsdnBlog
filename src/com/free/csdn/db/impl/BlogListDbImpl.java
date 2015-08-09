@@ -25,19 +25,17 @@ public class BlogListDbImpl implements BlogListDb {
 
 	public BlogListDbImpl(Context context, String userId) {
 		// TODO Auto-generated constructor stub
-		db = DbUtils.create(context, CacheManager.getBlogListDbPath(context),
-				userId + "_blog");
+		db = DbUtils.create(context, CacheManager.getBlogListDbPath(context), userId + "_blog");
 	}
 
 	public void insert(List<BlogItem> list) {
 		try {
 			for (int i = 0; i < list.size(); i++) {
 				BlogItem blogItem = list.get(i);
-				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class)
-						.where("link", "=", blogItem.getLink()));
+				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("link", "=",
+						blogItem.getLink()));
 				if (findItem != null) {
-					db.update(blogItem,
-							WhereBuilder.b("link", "=", blogItem.getLink()));
+					db.update(blogItem, WhereBuilder.b("link", "=", blogItem.getLink()));
 				} else {
 					db.save(blogItem);
 				}
@@ -51,13 +49,11 @@ public class BlogListDbImpl implements BlogListDb {
 	public List<BlogItem> query(int page) {
 		List<BlogItem> list = null;
 		try {
-			list = db.findAll(Selector.from(BlogItem.class).where("isTop", "=",
-					1));
+			list = db.findAll(Selector.from(BlogItem.class).where("isTop", "=", 1));
 
 			// 加上这句，可把置顶的文章在后面的地方不显示
-			List<BlogItem> normalList = db.findAll(Selector
-					.from(BlogItem.class).where("isTop", "!=", 1)
-					.orderBy("date", true).limit(page * 20));
+			List<BlogItem> normalList = db.findAll(Selector.from(BlogItem.class)
+					.where("isTop", "!=", 1).orderBy("date", true).limit(page * 20));
 			if (list != null) {
 				list.addAll(normalList);
 			} else {

@@ -9,8 +9,7 @@
     <dimen name="title_size">18sp</dimen>
     
     <!-- 博主列表 -->
-    <dimen name="listitem_blogger_height">55dip</dimen>
-    <dimen name="listitem_blogger_height_image">40dip</dimen>
+    <dimen name="listitem_blogger_height">50dip</dimen>
     <dimen name="desc_size">13sp</dimen>
 
 </resources>

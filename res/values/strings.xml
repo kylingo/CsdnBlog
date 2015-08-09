@@ -25,5 +25,9 @@
     <string name="blogger_delete">删除博主</string>
     <string name="blogger_stick">置顶博主</string>
     <string name="cache_operation">取消操作</string>
+    <string name="blogger">博客</string>
+    <string name="channel">频道</string>
+    <string name="find">发现</string>
+    <string name="me">我</string>
 
 </resources>

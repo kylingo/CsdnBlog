@@ -188,22 +188,28 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			// 解析html页面获取列表
 			if (resultString != null) {
 				List<BlogItem> list = JsoupUtil.getBlogItemList(0, resultString);
-				if (page == 1) {
-					mAdapter.setList(list);
+
+				if (list != null && list.size() > 0) {
+					if (page == 1) {
+						mAdapter.setList(list);
+					} else {
+						mAdapter.addList(list);
+					}
+					mAdapter.notifyDataSetChanged();
+					mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
+
+					saveDB(list);
+					reLoadImageView.setVisibility(View.GONE);
 				} else {
-					mAdapter.addList(list);
-				}
-				mAdapter.notifyDataSetChanged();
-				mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
-
-				saveDB(list);
-				reLoadImageView.setVisibility(View.GONE);
-			} else {
-
-				ToastUtil.show(BlogListActivity.this, "网络已断开");
-				if (mAdapter.getCount() == 0) {
 					reLoadImageView.setVisibility(View.VISIBLE);
+					mListView.disablePullLoad();
+					ToastUtil.show(BlogListActivity.this, "暂无最新数据");
 				}
+
+			} else {
+				ToastUtil.show(BlogListActivity.this, "网络已断开");
+				reLoadImageView.setVisibility(View.VISIBLE);
+				mListView.disablePullLoad();
 			}
 
 			pbLoading.setVisibility(View.GONE);
@@ -238,7 +244,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			case Constants.MSG_PRELOAD_DATA:
 				List<BlogItem> list = blogListDb.query(page);
 
-				if (list != null) {
+				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
 					mAdapter.notifyDataSetChanged();
 					mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载

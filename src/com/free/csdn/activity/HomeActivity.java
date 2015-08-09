@@ -1,45 +1,16 @@
 package com.free.csdn.activity;
 
-import java.util.HashMap;
-import java.util.List;
-
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Toast;
 
 import com.free.csdn.R;
-import com.free.csdn.adapter.BloggerListAdapter;
-import com.free.csdn.bean.Blogger;
-import com.free.csdn.constant.Constants;
-import com.free.csdn.db.BloggerDb;
-import com.free.csdn.db.BloggerManager;
-import com.free.csdn.db.impl.BloggerDbImpl;
-import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
-import com.free.csdn.view.BaseDialog.OnConfirmListener;
-import com.free.csdn.view.BaseDialog.OnDeleteListener;
-import com.free.csdn.view.BaseDialog.OnStickListener;
-import com.free.csdn.view.BloggerAddDialog;
-import com.free.csdn.view.BloggerOperationDialog;
-import com.free.csdn.view.LoadingDialog;
-
+import com.free.csdn.fragment.BloggerFragment;
+import com.free.csdn.fragment.ChannelFragment;
 /**
  * 主页
  * 
@@ -47,301 +18,118 @@ import com.free.csdn.view.LoadingDialog;
  * @data 2015年7月8日下午9:20:20
  *
  */
-@SuppressLint("HandlerLeak")
-public class HomeActivity extends BaseActivity implements OnItemClickListener, OnItemLongClickListener,
-		OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+import com.free.csdn.fragment.FindFragment;
+import com.free.csdn.fragment.MeFragment;
 
-	private XListView mListView;
-	private List<Blogger> mBloggerList;
-	private BloggerListAdapter mAdapter;
-	private ProgressDialog progressdialog;
+/**
+ * 首页
+ * 
+ * @author smile
+ * 
+ */
+public class HomeActivity extends FragmentActivity implements OnCheckedChangeListener {
 
-	private HashMap<String, String> bloggerItem = null;
-	private BloggerDb db;
-	private String newUserId = null;
-	private static final int MSG_ADD_SUCCESS = 1000;
-	private static final int MSG_ADD_FAILURE = 1001;
-	private static final int MSG_ADD_REPEAT = 1002;
-	private static final int MSG_ADD_EMPTY = 1003;
-	private static final int MSG_ADD_BLOG = 1004;
+	private RadioGroup mGroup;
+	private BloggerFragment mFirstFragment;
+	private ChannelFragment mSecondFragment;
+	private FindFragment mThirdFragment;
+	private MeFragment mFourthFragment;
+	
+	private String mFormerTag;
+	private final static String FIRST_TAG = "FirstFragment";
+	private final static String SECOND_TAG = "SecondFragment";
+	private final static String THIRD_TAG = "ThirdFragment";
+	private final static String FOURTH_TAG = "FourthFragment";
+
 	private long exitTime;
-	private String type = BloggerDb.TYPE_ANDROID;
+	private final static long TIME_DIFF = 2 * 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		
+		mGroup = (RadioGroup) findViewById(R.id.main_radio);
+		mFirstFragment = new BloggerFragment();
+		mSecondFragment = new ChannelFragment();
+		mThirdFragment = new FindFragment();
+		mFourthFragment = new MeFragment();
+		mFormerTag = FIRST_TAG;
+		getSupportFragmentManager().beginTransaction()
+				.add(R.id.main_content, mFirstFragment, FIRST_TAG).commit();
 
-		ImageView imvAdd = (ImageView) findViewById(R.id.imvAdd);
-		imvAdd.setOnClickListener(this);
-
-		db = new BloggerDbImpl(this, type);
-		new BloggerManager().init(this, db, type);
-		mBloggerList = db.queryAll();
-
-		mListView = (XListView) findViewById(R.id.listView);
-		mAdapter = new BloggerListAdapter(this, mBloggerList);
-		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
-		if (mBloggerList != null && mBloggerList.size() > 0) {
-			mListView.setPullLoadEnable(this);// 设置可上拉加载
-		}
-		mListView.NotRefreshAtBegin();
-		mListView.setRefreshTime(DateUtil.getDate());
-		mListView.setAdapter(mAdapter);
-		mListView.setOnItemClickListener(this);
-		mListView.setOnItemLongClickListener(this);
-
-		initUmengUpdate();
+		mGroup.setOnCheckedChangeListener(this);
 	}
 
 	/**
-	 * 友盟自动更新
+	 * 首页导航切换
 	 */
-	private void initUmengUpdate() {
-		// UmengUpdateAgent.update(this);
-	}
-
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onCheckedChanged(RadioGroup arg0, int checkedId) {
 		// TODO Auto-generated method stub
-		Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
-		Intent intent = new Intent(HomeActivity.this, BlogListActivity.class);
-		intent.putExtra("blogger", blogger);
-		startActivity(intent);
-	}
+		FragmentTransaction mTransaction = getSupportFragmentManager().beginTransaction();
+		mTransaction.hide(getSupportFragmentManager().findFragmentByTag(mFormerTag));
 
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
-		final Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
-		BloggerOperationDialog dialog = new BloggerOperationDialog(this, blogger);
-		dialog.setOnDeleteListener(new OnDeleteListener() {
+		switch (checkedId) {
 
-			@Override
-			public void onDelete(String result) {
-				// TODO Auto-generated method stub
-				deleleBlogger(blogger);
+		// 博客
+		case R.id.radiobutton_blogger:
+			mFormerTag = FIRST_TAG;
+			if (mFirstFragment.isAdded()) {
+				mTransaction.show(mFirstFragment).commit();
+			} else {
+				mTransaction.add(R.id.main_content, mFirstFragment, mFormerTag).commit();
 			}
-		});
-
-		dialog.setOnStickListener(new OnStickListener() {
-
-			@Override
-			public void onStick(String result) {
-				// TODO Auto-generated method stub
-				stickBlogger(blogger);
-			}
-		});
-		dialog.show();
-		return true;
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-
-		// 增加博主
-		case R.id.imvAdd:
-			showCenterAddDialog();
 			break;
 
-		default:
+		// 频道
+		case R.id.radiobutton_channel:
+			mFormerTag = SECOND_TAG;
+			if (mSecondFragment.isAdded()) {
+				mTransaction.show(mSecondFragment).commit();
+			} else {
+				mTransaction.add(R.id.main_content, mSecondFragment, mFormerTag).commit();
+			}
 			break;
+
+		// 发现
+		case R.id.radiobutton_find:
+			mFormerTag = THIRD_TAG;
+			if (mThirdFragment.isAdded()) {
+				mTransaction.show(mThirdFragment).commit();
+			} else {
+				mTransaction.add(R.id.main_content, mThirdFragment, mFormerTag).commit();
+			}
+			break;
+
+		// 个人
+		case R.id.radiobutton_me:
+			mFormerTag = FOURTH_TAG;
+			if (mFourthFragment.isAdded()) {
+				mTransaction.show(mFourthFragment).commit();
+			} else {
+				mTransaction.add(R.id.main_content, mFourthFragment, mFormerTag).commit();
+			}
+			break;
+
 		}
-
 	}
-
-	/**
-	 * 显示添加Dialog
-	 */
-	private void showCenterAddDialog() {
-		BloggerAddDialog dialog = new BloggerAddDialog(this, new OnConfirmListener() {
-
-			@Override
-			public void onConfirm(String result) {
-				// TODO Auto-generated method stub
-				if (TextUtils.isEmpty(result)) {
-					mHandler.sendEmptyMessage(MSG_ADD_EMPTY);
-					return;
-				}
-
-				if (db.query(result) != null) {
-					mHandler.sendEmptyMessage(MSG_ADD_REPEAT);
-					return;
-				}
-
-				newUserId = result;
-				progressdialog = new LoadingDialog(HomeActivity.this, "正在添加博客...");
-				progressdialog.setCancelable(false);
-				progressdialog.show();
-				mHandler.sendEmptyMessageDelayed(MSG_ADD_BLOG, 1000);
-			}
-
-		});
-
-		dialog.show();
-	}
-
-	/**
-	 * 请求博主数据
-	 * 
-	 * @param result
-	 */
-	private void requestData(String result) {
-		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(HomeActivity.this);
-		httpAsyncTask.execute(Constants.CSDN_BASE_URL + result);
-		httpAsyncTask.setOnCompleteListener(new OnResponseListener() {
-			@Override
-			public void onResponse(String resultString) {
-				// TODO Auto-generated method stub
-				if (TextUtils.isEmpty(resultString)) {
-					mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
-				} else {
-					bloggerItem = JsoupUtil.getBloggerItem(resultString);
-					mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
-				}
-			}
-		});
-	}
-
-	/**
-	 * 增加博主
-	 */
-	private void addBlogger() {
-		Blogger blogger = new Blogger();
-		blogger.setUserId(newUserId);
-		blogger.setTitle(bloggerItem.get("title"));
-		blogger.setDescription(bloggerItem.get("description"));
-		blogger.setImgUrl(bloggerItem.get("imgUrl"));
-		blogger.setLink(Constants.CSDN_BASE_URL + newUserId);
-		blogger.setType(type);
-		blogger.setIsTop(1);
-		blogger.setIsNew(1);
-		blogger.setUpdateTime(System.currentTimeMillis());
-		db.insert(blogger);
-
-		mBloggerList = db.queryAll();
-		mAdapter.setList(mBloggerList);
-		mAdapter.notifyDataSetChanged();
-	}
-
-	/**
-	 * 置顶博主
-	 * 
-	 * @param blogger
-	 */
-	private void stickBlogger(Blogger blogger) {
-		if (blogger.getIsTop() == 1) {
-			blogger.setIsTop(0);
-		} else {
-			blogger.setIsTop(1);
-		}
-
-		blogger.setUpdateTime(System.currentTimeMillis());
-		db.insert(blogger);
-
-		mBloggerList = db.queryAll();
-		mAdapter.setList(mBloggerList);
-		mAdapter.notifyDataSetChanged();
-
-		ToastUtil.show(HomeActivity.this, "博客置顶成功");
-	}
-
-	/**
-	 * 删除博主
-	 * 
-	 * @param blogger
-	 */
-	private void deleleBlogger(Blogger blogger) {
-		db.delete(blogger);
-
-		mBloggerList = db.queryAll();
-		mAdapter.setList(mBloggerList);
-		mAdapter.notifyDataSetChanged();
-
-		ToastUtil.show(HomeActivity.this, "博客删除成功");
-	}
-
-	private Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
-
-			if (progressdialog != null && progressdialog.isShowing()) {
-				progressdialog.dismiss();
-			}
-
-			switch (msg.what) {
-			case MSG_ADD_SUCCESS:
-				ToastUtil.show(HomeActivity.this, "博客ID添加成功");
-				addBlogger();
-				break;
-
-			case MSG_ADD_FAILURE:
-				ToastUtil.show(HomeActivity.this, "博客ID不存在，添加失败");
-				break;
-
-			case MSG_ADD_EMPTY:
-				ToastUtil.show(HomeActivity.this, "博客ID为空");
-				break;
-
-			case MSG_ADD_REPEAT:
-				ToastUtil.show(HomeActivity.this, "博客ID重复添加");
-				break;
-
-			case MSG_ADD_BLOG:
-				requestData(newUserId);
-				break;
-
-			default:
-				break;
-			}
-
-			super.handleMessage(msg);
-		}
-
-	};
-
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-			if ((System.currentTimeMillis() - exitTime) > 2000) {
-				ToastUtil.show(this, "再按一次退出程序");
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+			if ((System.currentTimeMillis() - exitTime) > TIME_DIFF) {
+				Toast.makeText(HomeActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
 				exitTime = System.currentTimeMillis();
 			} else {
 				System.exit(0);
-				finish();
 			}
 			return true;
 		}
+
 		return super.onKeyDown(keyCode, event);
-	}
-
-	@Override
-	public void onLoadMore() {
-		// TODO Auto-generated method stub
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				mListView.stopLoadMore(" -- THE END --");
-			}
-		}, 1000);
-	}
-
-	@Override
-	public void onRefresh() {
-		// TODO Auto-generated method stub
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				mListView.stopRefresh(DateUtil.getDate());
-			}
-		}, 1000);
 	}
 
 }

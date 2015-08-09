@@ -145,8 +145,8 @@ public class BloggerDbImpl implements BloggerDb {
 		}
 	}
 
-	@Override
 	@Deprecated
+	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
 

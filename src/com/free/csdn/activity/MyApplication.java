@@ -43,13 +43,13 @@ public class MyApplication extends Application {
 				this).threadPriority(Thread.NORM_PRIORITY - 2)
 				.threadPoolSize(5).memoryCache(new WeakMemoryCache())
 				.denyCacheImageMultipleSizesInMemory().writeDebugLogs()
-				.memoryCacheSize(1024 * 1024 * 4)
+				.memoryCacheSize(1024 * 1024 * 8)
 				.diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
 				.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
 				.build();
 
 		ImageLoader.getInstance().init(config);
-		L.writeLogs(true);
+		L.writeLogs(false);
 	}
 
 	/**

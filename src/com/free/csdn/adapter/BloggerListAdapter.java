@@ -1,6 +1,7 @@
 package com.free.csdn.adapter;
 
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import com.free.csdn.R;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.util.ImageLoaderUtils;
@@ -59,19 +61,19 @@ public class BloggerListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		ImageLoaderUtils.displayImg(list.get(position).getImgUrl(), holder.imv_blogger);
+		ImageLoaderUtils.displayImg(getItem(position).getImgUrl(), holder.imv_blogger);
 		if (getItem(position).getIsTop() == 1 || getItem(position).getIsNew() == 1) {
 			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.blue_text));
 		} else {
 			holder.tv_blog_title.setTextColor(context.getResources().getColor(R.color.black_text));
 		}
-		holder.tv_blog_title.setText(list.get(position).getTitle());
-		holder.tv_blog_desc.setText(list.get(position).getDescription());
+		holder.tv_blog_title.setText(getItem(position).getTitle());
+		holder.tv_blog_desc.setText(getItem(position).getDescription());
 
 		return convertView;
 	}
 
-	private class ViewHolder {
+	static class ViewHolder {
 		CircleImageView imv_blogger;
 		TextView tv_blog_title, tv_blog_desc;
 	}

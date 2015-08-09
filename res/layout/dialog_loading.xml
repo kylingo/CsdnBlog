@@ -6,8 +6,8 @@
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingBottom="15dip"
-    android:paddingLeft="20dip"
-    android:paddingRight="20dip"
+    android:paddingLeft="30dip"
+    android:paddingRight="30dip"
     android:paddingTop="15dip" >
 
     <ProgressBar
