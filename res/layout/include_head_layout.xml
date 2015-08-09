@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"
+    android:background="@color/main_color" >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/bogger_title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title_size" />
+
+    <ImageView
+        android:id="@+id/imvRight"
+        android:layout_width="@dimen/title_height"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_btn_header"
+        android:contentDescription="@string/empty"
+        android:padding="10dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_action_new_light"
+        android:visibility="gone" />
+
+</RelativeLayout>

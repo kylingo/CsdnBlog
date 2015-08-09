@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/main_title"
+            android:text="@string/bogger_title"
             android:textColor="@color/white"
             android:textSize="@dimen/title_size" />
     </RelativeLayout>

@@ -1,11 +1,25 @@
 package com.free.csdn.fragment;
 
+import java.util.List;
+
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.TextView;
 
 import com.free.csdn.R;
+import com.free.csdn.adapter.ChannelListAdapter;
+import com.free.csdn.bean.Channel;
+import com.free.csdn.db.ChannelManager;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.ToastUtil;
 
 /**
  *
@@ -13,18 +27,68 @@ import com.free.csdn.R;
  * @data 2015年8月9日上午11:07:09
  */
 
-public class ChannelFragment extends BaseFragment {
+public class ChannelFragment extends BaseFragment implements OnItemClickListener,
+		OnItemLongClickListener, IXListViewRefreshListener {
+
+	private XListView mListView;
+	private ChannelListAdapter mAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.fragment_channel, container, false);
+		initView(view);
 		return view;
 	}
-	
+
+	private void initView(View view) {
+		// TODO Auto-generated method stub
+		TextView mTitleView = (TextView) view.findViewById(R.id.tvTitle);
+		mTitleView.setText(R.string.change_type);
+
+		ChannelManager channelManager = new ChannelManager(getActivity());
+		List<Channel> list = channelManager.getChannelList();
+		mListView = (XListView) view.findViewById(R.id.listView);
+		mAdapter = new ChannelListAdapter(getActivity(), list);
+		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
+		mListView.NotRefreshAtBegin();
+		mListView.setRefreshTime(DateUtil.getDate());
+		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(this);
+		mListView.setOnItemLongClickListener(this);
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mListView.setRefreshTime(DateUtil.getDate());
+				mListView.stopRefresh();
+				ToastUtil.showCenter(getActivity(), getActivity().getString(R.string.refresh_complete));
+			}
+		}, 1000);
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		ToastUtil.showCenter(getActivity(), getActivity().getString(R.string.coming_soon));
+	}
+
 }

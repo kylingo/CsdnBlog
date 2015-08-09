@@ -35,7 +35,6 @@ public class ToastUtil {
 		mToast.setView(view);
 
 		mMessageView.setText(message);
-		// mToast.setGravity(Gravity.CENTER, 0, 0);
 		mToast.show();
 	}
 
@@ -46,7 +45,7 @@ public class ToastUtil {
 	 * @param message
 	 */
 
-	public static final void showButtom(final Context context, final String message) {
+	public static final void showCenter(final Context context, final String message) {
 		if (mToast != null) {
 			mToast.cancel();
 			mToast = null;
@@ -58,7 +57,7 @@ public class ToastUtil {
 		mToast.setView(view);
 
 		mMessageView.setText(message);
-		mToast.setGravity(Gravity.BOTTOM, 0, 100);
+		mToast.setGravity(Gravity.CENTER, 0, 0);
 		mToast.show();
 	}
 

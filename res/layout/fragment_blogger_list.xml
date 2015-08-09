@@ -2,36 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.free.csdn.activity.HomeActivity" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/main_color" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/main_title"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_size" />
-
-        <ImageView
-            android:id="@+id/imvAdd"
-            android:layout_width="@dimen/title_height"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/selector_btn_header"
-            android:contentDescription="@string/empty"
-            android:padding="10dip"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_action_new_light" />
-    </RelativeLayout>
+    <include layout="@layout/include_head_layout" />
 
     <me.maxwin.view.XListView
         android:id="@+id/listView"
