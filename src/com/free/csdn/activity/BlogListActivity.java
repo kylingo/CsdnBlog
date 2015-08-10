@@ -2,24 +2,6 @@ package com.free.csdn.activity;
 
 import java.util.List;
 
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogListAdapter;
 import com.free.csdn.bean.BlogItem;
@@ -35,6 +17,24 @@ import com.free.csdn.util.NetUtil;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.URLUtil;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
+
 /**
  * 博客列表
  * 
@@ -42,8 +42,8 @@ import com.free.csdn.util.URLUtil;
  * @data 2015年7月8日下午9:20:20
  *
  */
-public class BlogListActivity extends BaseActivity implements OnItemClickListener, OnClickListener,
-		IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogListActivity extends BaseActivity
+		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;// 列表适配器
@@ -202,15 +202,19 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 					saveDB(list);
 					reLoadImageView.setVisibility(View.GONE);
 				} else {
-					reLoadImageView.setVisibility(View.VISIBLE);
+					if (mAdapter.getCount() == 0) {
+						reLoadImageView.setVisibility(View.VISIBLE);
+					}
 					mListView.disablePullLoad();
 					ToastUtil.show(BlogListActivity.this, "暂无最新数据");
 				}
 
 			} else {
-				ToastUtil.show(BlogListActivity.this, "网络已断开");
-				reLoadImageView.setVisibility(View.VISIBLE);
+				if (mAdapter.getCount() == 0) {
+					reLoadImageView.setVisibility(View.VISIBLE);
+				}
 				mListView.disablePullLoad();
+				ToastUtil.show(BlogListActivity.this, "网络已断开");
 			}
 
 			pbLoading.setVisibility(View.GONE);
