@@ -15,7 +15,10 @@
     <dimen name="listitem_blogger_height">50dip</dimen>
     <dimen name="desc_size">13sp</dimen>
 
-    <!-- 分分享 -->
+    <!-- 分享 -->
     <dimen name="share_bar_height">40dip</dimen>
+
+    <!-- DrawerLayout -->
+    <dimen name="mm_up_arrow_margin">-16dp</dimen>
 
 </resources>

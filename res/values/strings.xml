@@ -3,7 +3,7 @@
 
     <string name="app_name">CSDN博客</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_add">添加博客</string>
     <string name="bogger_title">Android博客</string>
     <string name="empty"></string>
     

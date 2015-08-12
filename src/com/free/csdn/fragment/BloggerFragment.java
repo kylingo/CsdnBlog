@@ -14,6 +14,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,12 +38,12 @@ import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
-import com.free.csdn.view.BaseDialog.OnConfirmListener;
-import com.free.csdn.view.BaseDialog.OnDeleteListener;
-import com.free.csdn.view.BaseDialog.OnStickListener;
-import com.free.csdn.view.BloggerAddDialog;
-import com.free.csdn.view.BloggerOperationDialog;
-import com.free.csdn.view.LoadingDialog;
+import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
+import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
+import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
+import com.free.csdn.view.dialog.BloggerAddDialog;
+import com.free.csdn.view.dialog.BloggerOperationDialog;
+import com.free.csdn.view.dialog.LoadingDialog;
 
 /**
  * 博主列表
@@ -104,6 +107,17 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);// 为了在Fragment中显示右上角的menu
+	}
+	
+	/**
+	 * 加载菜单
+	 */
+	@Override
+	public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getActivity().getMenuInflater().inflate(R.menu.main, menu);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
@@ -139,6 +153,15 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		});
 		dialog.show();
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId() == R.id.action_add){
+			showCenterAddDialog();
+		}
+		
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.free.csdn.view;
+package com.free.csdn.view.dialog;
 
 import android.content.Context;
 import android.view.Gravity;

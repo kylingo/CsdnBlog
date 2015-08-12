@@ -3,9 +3,10 @@
     tools:context="com.free.csdn.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_add"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:showAsAction="always"
+        android:icon="@drawable/ic_add"
+        android:title="@string/action_add"/>
 
 </menu>

@@ -61,7 +61,7 @@ public class SplashActivity extends BaseActivity {
 		aa.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationEnd(Animation arg0) {
-				Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+				Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 				startActivity(intent);
 				finish();
 			}

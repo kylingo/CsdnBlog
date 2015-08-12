@@ -6,7 +6,9 @@
     android:orientation="vertical"
     tools:context="com.free.csdn.activity.HomeActivity" >
 
-    <include layout="@layout/include_head_layout" />
+    <include
+        layout="@layout/include_head_layout"
+        android:visibility="gone" />
 
     <me.maxwin.view.XListView
         android:id="@+id/listView"

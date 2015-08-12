@@ -44,7 +44,7 @@
         android:contentDescription="@string/empty"
         android:padding="10dip"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_action_new_light"
+        android:src="@drawable/ic_add"
         android:visibility="gone" />
 
 </RelativeLayout>
