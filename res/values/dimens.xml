@@ -9,7 +9,7 @@
     <dimen name="title_size">18sp</dimen>
 
     <!-- 小标题大小 -->
-    <dimen name="content_size">17sp</dimen>
+    <dimen name="content_size">16sp</dimen>
 
     <!-- 博主列表 -->
     <dimen name="listitem_blogger_height">50dip</dimen>

@@ -152,4 +152,14 @@
             android:text="@string/settings" />
     </LinearLayout>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dip"
+        android:background="@drawable/shap_rect_bg_white"
+        android:hint="测试输入法的问题"
+        android:inputType="text"
+        android:padding="10dip" 
+        android:visibility="gone"/>
+
 </LinearLayout>
