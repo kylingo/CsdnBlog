@@ -32,15 +32,23 @@ import com.free.csdn.util.ToastUtil;
 public class ChannelFragment extends BaseFragment implements OnItemClickListener,
 		OnItemLongClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
+	private View rootView;
 	private XListView mListView;
 	private ChannelListAdapter mAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_channel, container, false);
-		initView(view);
-		return view;
+		if (rootView == null) {
+			rootView = inflater.inflate(R.layout.fragment_channel, container, false);
+		}
+		ViewGroup parent = (ViewGroup) rootView.getParent();
+		if (parent != null) {
+			parent.removeView(rootView);
+		}
+		
+		initView(rootView);
+		return rootView;
 	}
 
 	private void initView(View view) {

@@ -56,6 +56,7 @@ import com.free.csdn.view.dialog.LoadingDialog;
 public class BloggerFragment extends BaseFragment implements OnItemClickListener,
 		OnItemLongClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
+	private View rootView;
 	private XListView mListView;
 	private List<Blogger> mBloggerList;
 	private BloggerListAdapter mAdapter;
@@ -74,10 +75,16 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.fragment_blogger_list, container, false);
-
-		initView(view);
-		return view;
+		if (rootView == null) {
+			rootView = inflater.inflate(R.layout.fragment_blogger_list, container, false);
+		}
+		ViewGroup parent = (ViewGroup) rootView.getParent();
+		if (parent != null) {
+			parent.removeView(rootView);
+		}
+		
+		initView(rootView);
+		return rootView;
 	}
 
 	private void initView(View view) {
@@ -109,12 +116,12 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);// 为了在Fragment中显示右上角的menu
 	}
-	
+
 	/**
 	 * 加载菜单
 	 */
 	@Override
-	public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getActivity().getMenuInflater().inflate(R.menu.main, menu);
 		super.onCreateOptionsMenu(menu, inflater);
@@ -154,13 +161,13 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		dialog.show();
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if(item.getItemId() == R.id.action_add){
+		if (item.getItemId() == R.id.action_add) {
 			showCenterAddDialog();
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 

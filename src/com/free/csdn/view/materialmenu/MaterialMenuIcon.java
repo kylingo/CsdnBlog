@@ -16,7 +16,6 @@
 
 package com.free.csdn.view.materialmenu;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.res.Resources;
@@ -50,20 +49,23 @@ public class MaterialMenuIcon extends MaterialMenuBase {
 		super(activity, color, stroke, transformDuration);
 	}
 
-	public MaterialMenuIcon(Activity activity, int color, Stroke stroke, int transformDuration, int pressedDuration) {
+	public MaterialMenuIcon(Activity activity, int color, Stroke stroke, int transformDuration,
+			int pressedDuration) {
 		super(activity, color, stroke, transformDuration, pressedDuration);
 	}
 
 	@Override
 	protected View getActionBarHomeView(Activity activity) {
 		Resources resources = activity.getResources();
-		return activity.getWindow().getDecorView().findViewById(resources.getIdentifier("android:id/home", null, null));
+		return activity.getWindow().getDecorView()
+				.findViewById(resources.getIdentifier("android:id/home", null, null));
 	}
 
 	@Override
 	protected View getActionBarUpView(Activity activity) {
 		Resources resources = activity.getResources();
-		ViewGroup actionBarView = (ViewGroup) activity.getWindow().getDecorView().findViewById(resources.getIdentifier("android:id/action_bar", null, null));
+		ViewGroup actionBarView = (ViewGroup) activity.getWindow().getDecorView()
+				.findViewById(resources.getIdentifier("android:id/action_bar", null, null));
 		View homeView = actionBarView.getChildAt(actionBarView.getChildCount() > 1 ? 1 : 0);
 		return homeView.findViewById(resources.getIdentifier("android:id/up", null, null));
 	}
@@ -74,10 +76,9 @@ public class MaterialMenuIcon extends MaterialMenuBase {
 	}
 
 	@Override
-	@TargetApi(14)
 	protected void setActionBarSettings(Activity activity) {
 		ActionBar actionBar = activity.getActionBar();
-		actionBar.setDisplayShowHomeEnabled(true);
+		// actionBar.setDisplayShowHomeEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setIcon(getDrawable());

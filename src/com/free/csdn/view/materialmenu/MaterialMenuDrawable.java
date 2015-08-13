@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 Balys Valentukevicius
+ * Copyright (C) 2014 Balys Valentukevicius
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,7 +146,7 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 	private final float dip2;
 	private final float dip3;
 	private final float dip4;
-	private final float dip6;
+	// private final float dip6;
 	private final float dip8;
 
 	private final int width;
@@ -182,21 +182,24 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 	private MaterialMenuState materialMenuState;
 
 	public MaterialMenuDrawable(Context context, int color, Stroke stroke) {
-		this(context, color, stroke, DEFAULT_SCALE, DEFAULT_TRANSFORM_DURATION, DEFAULT_PRESSED_DURATION);
+		this(context, color, stroke, DEFAULT_SCALE, DEFAULT_TRANSFORM_DURATION,
+				DEFAULT_PRESSED_DURATION);
 	}
 
-	public MaterialMenuDrawable(Context context, int color, Stroke stroke, int transformDuration, int pressedDuration) {
+	public MaterialMenuDrawable(Context context, int color, Stroke stroke, int transformDuration,
+			int pressedDuration) {
 		this(context, color, stroke, DEFAULT_SCALE, transformDuration, pressedDuration);
 	}
 
-	public MaterialMenuDrawable(Context context, int color, Stroke stroke, int scale, int transformDuration, int pressedDuration) {
+	public MaterialMenuDrawable(Context context, int color, Stroke stroke, int scale,
+			int transformDuration, int pressedDuration) {
 		Resources resources = context.getResources();
 		// convert each separately due to various densities
 		this.dip1 = dpToPx(resources, 1) * scale;
 		this.dip2 = dpToPx(resources, 2) * scale;
 		this.dip3 = dpToPx(resources, 3) * scale;
 		this.dip4 = dpToPx(resources, 4) * scale;
-		this.dip6 = dpToPx(resources, 6) * scale;
+		// this.dip6 = dpToPx(resources, 6) * scale;
 		this.dip8 = dpToPx(resources, 8) * scale;
 		this.diph = dip1 / 2;
 
@@ -216,12 +219,14 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 		materialMenuState = new MaterialMenuState();
 	}
 
-	private MaterialMenuDrawable(int color, Stroke stroke, long transformDuration, long pressedDuration, int width, int height, float iconWidth, float circleRadius, float strokeWidth, float dip1) {
+	private MaterialMenuDrawable(int color, Stroke stroke, long transformDuration,
+			long pressedDuration, int width, int height, float iconWidth, float circleRadius,
+			float strokeWidth, float dip1) {
 		this.dip1 = dip1;
 		this.dip2 = dip1 * 2;
 		this.dip3 = dip1 * 3;
 		this.dip4 = dip1 * 4;
-		this.dip6 = dip1 * 6;
+		// this.dip6 = dip1 * 6;
 		this.dip8 = dip1 * 8;
 		this.diph = dip1 / 2;
 		this.stroke = stroke;
@@ -259,7 +264,8 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 
 	@Override
 	public void draw(Canvas canvas) {
-		final float ratio = transformationValue <= 1 ? transformationValue : 2 - transformationValue;
+		final float ratio = transformationValue <= 1 ? transformationValue
+				: 2 - transformationValue;
 
 		if (rtlEnabled) {
 			canvas.save();
@@ -503,7 +509,8 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 			break;
 		case ARROW_X:
 			// rotate from ARROW angle to X angle
-			rotation = ARROW_TOP_LINE_ANGLE + (360 + X_BOT_LINE_ANGLE - ARROW_TOP_LINE_ANGLE) * ratio;
+			rotation = ARROW_TOP_LINE_ANGLE + (360 + X_BOT_LINE_ANGLE - ARROW_TOP_LINE_ANGLE)
+					* ratio;
 			rotation2 = -X_ROTATION_ANGLE * ratio;
 
 			// move pivot from ARROW pivot to X pivot
@@ -541,7 +548,8 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 		case X_CHECK:
 			// rotate from X to CHECK angles
 			rotation2 = -X_ROTATION_ANGLE * (1 - ratio);
-			rotation = X_BOT_LINE_ANGLE + (CHECK_BOTTOM_ANGLE + ARROW_TOP_LINE_ANGLE - X_BOT_LINE_ANGLE) * ratio;
+			rotation = X_BOT_LINE_ANGLE
+					+ (CHECK_BOTTOM_ANGLE + ARROW_TOP_LINE_ANGLE - X_BOT_LINE_ANGLE) * ratio;
 
 			// move pivot from X to CHECK
 			pivotX = sidePadding + dip4 + (width / 2 + dip3 - sidePadding - dip4) * ratio;
@@ -565,17 +573,20 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 	private float resolveStrokeModifier(float ratio) {
 		switch (stroke) {
 		case REGULAR:
-			if (animationState == AnimationState.ARROW_X || animationState == AnimationState.X_CHECK) {
+			if (animationState == AnimationState.ARROW_X
+					|| animationState == AnimationState.X_CHECK) {
 				return dip3 - (dip3 * ratio);
 			}
 			return ratio * dip3;
 		case THIN:
-			if (animationState == AnimationState.ARROW_X || animationState == AnimationState.X_CHECK) {
+			if (animationState == AnimationState.ARROW_X
+					|| animationState == AnimationState.X_CHECK) {
 				return dip3 + diph - (dip3 + diph) * ratio;
 			}
 			return ratio * (dip3 + diph);
 		case EXTRA_THIN:
-			if (animationState == AnimationState.ARROW_X || animationState == AnimationState.X_CHECK) {
+			if (animationState == AnimationState.ARROW_X
+					|| animationState == AnimationState.X_CHECK) {
 				return dip4 - ((dip3 + dip1) * ratio);
 			}
 			return ratio * dip4;
@@ -670,15 +681,18 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 
 	public IconState setTransformationOffset(AnimationState animationState, float offset) {
 		if (offset < TRANSFORMATION_START || offset > TRANSFORMATION_END) {
-			throw new IllegalArgumentException(String.format("Value must be between %s and %s", TRANSFORMATION_START, TRANSFORMATION_END));
+			throw new IllegalArgumentException(String.format("Value must be between %s and %s",
+					TRANSFORMATION_START, TRANSFORMATION_END));
 		}
 
 		this.animationState = animationState;
 
 		final boolean isFirstIcon = offset < TRANSFORMATION_MID || offset == TRANSFORMATION_END;
 
-		currentIconState = isFirstIcon ? animationState.getFirstState() : animationState.getSecondState();
-		animatingIconState = isFirstIcon ? animationState.getSecondState() : animationState.getFirstState();
+		currentIconState = isFirstIcon ? animationState.getFirstState() : animationState
+				.getSecondState();
+		animatingIconState = isFirstIcon ? animationState.getSecondState() : animationState
+				.getFirstState();
 
 		setTransformationValue(offset);
 
@@ -697,7 +711,8 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 	/*
 	 * Animations
 	 */
-	private Property<MaterialMenuDrawable, Float> transformationProperty = new Property<MaterialMenuDrawable, Float>(Float.class, "transformation") {
+	private Property<MaterialMenuDrawable, Float> transformationProperty = new Property<MaterialMenuDrawable, Float>(
+			Float.class, "transformation") {
 		@Override
 		public Float get(MaterialMenuDrawable object) {
 			return object.getTransformationValue();
@@ -709,7 +724,8 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 		}
 	};
 
-	private Property<MaterialMenuDrawable, Float> pressedProgressProperty = new Property<MaterialMenuDrawable, Float>(Float.class, "pressedProgress") {
+	private Property<MaterialMenuDrawable, Float> pressedProgressProperty = new Property<MaterialMenuDrawable, Float>(
+			Float.class, "pressedProgress") {
 		@Override
 		public Float get(MaterialMenuDrawable object) {
 			return object.getPressedProgress();
@@ -808,17 +824,20 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 			return isCurrentX;
 		}
 
-		throw new IllegalStateException(String.format("Animating from %s to %s is not supported", currentIconState, animatingIconState));
+		throw new IllegalStateException(String.format("Animating from %s to %s is not supported",
+				currentIconState, animatingIconState));
 	}
 
 	@Override
 	public void start() {
-		if (transformationRunning || animatingIconState == null || animatingIconState == currentIconState)
+		if (transformationRunning || animatingIconState == null
+				|| animatingIconState == currentIconState)
 			return;
 		transformationRunning = true;
 
 		final boolean direction = resolveTransformation();
-		transformation.setFloatValues(direction ? TRANSFORMATION_START : TRANSFORMATION_MID, direction ? TRANSFORMATION_MID : TRANSFORMATION_END);
+		transformation.setFloatValues(direction ? TRANSFORMATION_START : TRANSFORMATION_MID,
+				direction ? TRANSFORMATION_MID : TRANSFORMATION_END);
 		transformation.start();
 
 		if (pressedCircle.isRunning()) {
@@ -877,8 +896,11 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 
 		@Override
 		public Drawable newDrawable() {
-			MaterialMenuDrawable drawable = new MaterialMenuDrawable(circlePaint.getColor(), stroke, transformation.getDuration(), pressedCircle.getDuration(), width, height, iconWidth, circleRadius, strokeWidth, dip1);
-			drawable.setIconState(animatingIconState != null ? animatingIconState : currentIconState);
+			MaterialMenuDrawable drawable = new MaterialMenuDrawable(circlePaint.getColor(),
+					stroke, transformation.getDuration(), pressedCircle.getDuration(), width,
+					height, iconWidth, circleRadius, strokeWidth, dip1);
+			drawable.setIconState(animatingIconState != null ? animatingIconState
+					: currentIconState);
 			drawable.setRTLEnabled(rtlEnabled);
 			return drawable;
 		}
@@ -890,6 +912,7 @@ public class MaterialMenuDrawable extends Drawable implements Animatable {
 	}
 
 	static float dpToPx(Resources resources, float dp) {
-		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
+		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+				resources.getDisplayMetrics());
 	}
 }

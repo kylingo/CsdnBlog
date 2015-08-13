@@ -233,16 +233,17 @@ public class MaterialMenuView extends View implements MaterialMenu {
 			out.writeString(state.name());
 		}
 
-		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-			@Override
-			public SavedState createFromParcel(Parcel in) {
-				return new SavedState(in);
-			}
-
-			@Override
-			public SavedState[] newArray(int size) {
-				return new SavedState[size];
-			}
-		};
+		// public static final Parcelable.Creator<SavedState> CREATOR = new
+		// Parcelable.Creator<SavedState>() {
+		// @Override
+		// public SavedState createFromParcel(Parcel in) {
+		// return new SavedState(in);
+		// }
+		//
+		// @Override
+		// public SavedState[] newArray(int size) {
+		// return new SavedState[size];
+		// }
+		// };
 	}
 }

@@ -7,24 +7,24 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.free.csdn.R;
 import com.free.csdn.fragment.AboutFragment;
 import com.free.csdn.fragment.BloggerFragment;
+import com.free.csdn.fragment.ChannelFragment;
 import com.free.csdn.fragment.ContentFragment;
 import com.free.csdn.view.materialmenu.MaterialMenuDrawable;
 import com.free.csdn.view.materialmenu.MaterialMenuDrawable.Stroke;
 import com.free.csdn.view.materialmenu.MaterialMenuIcon;
 
 /**
- *
+ * 侧滑风格主Activity
+ * 
  * @author tangqi
  * @data 2015年8月12日下午10:46:07
  */
@@ -34,10 +34,8 @@ public class MainActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	/** 左边栏菜单 */
 	private ListView mMenuListView;
-	/** 右边栏 */
-	private RelativeLayout right_drawer;
 	/** 菜单列表 */
-	private String[] mMenuTitles = { "首页", "反馈", "关于", "设置" };
+	private String[] mMenuTitles = { "首页", "频道", "收藏", "关于", "设置" };
 	/** Material Design风格 */
 	private MaterialMenuIcon mMaterialMenuIcon;
 	/** 菜单打开/关闭状态 */
@@ -98,29 +96,29 @@ public class MainActivity extends FragmentActivity {
 				mMaterialMenuIcon.setTransformationOffset(
 						MaterialMenuDrawable.AnimationState.BURGER_ARROW,
 						isDirection_left ? 2 - slideOffset : slideOffset);
-			} 
+			}
 		}
 
 		/**
 		 * 当导航菜单打开时执行
 		 */
 		@Override
-		public void onDrawerOpened(android.view.View drawerView) {
+		public void onDrawerOpened(View drawerView) {
 			if (drawerView == mMenuListView) {
 				isDirection_left = true;
-				setTitle("博客");
-			} 
+				// setTitle("博客");
+			}
 		}
 
 		/**
 		 * 当导航菜单关闭时执行
 		 */
 		@Override
-		public void onDrawerClosed(android.view.View drawerView) {
+		public void onDrawerClosed(View drawerView) {
 			if (drawerView == mMenuListView) {
 				isDirection_left = false;
-				setTitle(mMenuTitles[mMenuListView.getCheckedItemPosition()]);
-			} 
+				// setTitle(mMenuTitles[mMenuListView.getCheckedItemPosition()]);
+			}
 		}
 	}
 
@@ -137,16 +135,24 @@ public class MainActivity extends FragmentActivity {
 			args.putString("key", mMenuTitles[position]);
 			fragment = new BloggerFragment();
 			break;
+
 		case 1:
+			fragment = new ChannelFragment();
+			break;
+
+		case 2:
 			args.putString("key", mMenuTitles[position]);
 			break;
-		case 2:
+
+		case 3:
 			args.putString("key", mMenuTitles[position]);
 			fragment = new AboutFragment();
 			break;
-		case 3:
+
+		case 4:
 			args.putString("key", mMenuTitles[position]);
 			break;
+
 		default:
 			break;
 		}
@@ -174,7 +180,7 @@ public class MainActivity extends FragmentActivity {
 				} else {// 左边栏菜单打开时，关闭
 					mDrawerLayout.closeDrawer(mMenuListView);
 				}
-			} 
+			}
 			break;
 		default:
 			break;
