@@ -5,6 +5,18 @@ import java.util.Iterator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
+import com.free.csdn.R;
+import com.free.csdn.bean.BlogHtml;
+import com.free.csdn.bean.BlogItem;
+import com.free.csdn.db.BlogCollectDao;
+import com.free.csdn.db.BlogContentDao;
+import com.free.csdn.db.impl.BlogCollectDaoImpl;
+import com.free.csdn.db.impl.BlogContentDaoImpl;
+import com.free.csdn.network.HttpAsyncTask;
+import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.ToastUtil;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,15 +38,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.free.csdn.R;
-import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.db.BlogContentDao;
-import com.free.csdn.db.impl.BlogContentDaoImpl;
-import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
-
 /**
  * 博客详细内容界面
  * 
@@ -53,11 +56,13 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	private ImageView mMoreBtn;
 	private ToggleButton mCollectBtn;
 
+	private BlogCollectDao db;
+	private BlogItem blogItem;
 	public String mTitle;
-	public static String mUrl;
-	public String mUrlMD5 = "url-md5";
+	private String mUrl;
 	private String mFileName;
 	private static final int MSG_RELOAD_DATA = 1000;
+	private boolean isFirstCheck = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +79,14 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	// 初始化
 	private void init() {
-		mUrl = getIntent().getExtras().getString("blogLink");
-		mTitle = getIntent().getExtras().getString("title");
-		mFileName = mUrl.substring(mUrl.lastIndexOf("/") + 1);
-		System.out.println("filename--->" + mFileName);
-
+		db = new BlogCollectDaoImpl(this);
+		
+		blogItem = (BlogItem) getIntent().getSerializableExtra("blogItem");
+		if(blogItem!= null){
+			mUrl = blogItem.getLink();
+			mTitle = blogItem.getTitle();
+			mFileName = mUrl.substring(mUrl.lastIndexOf("/") + 1);
+		}
 	}
 
 	// 初始化组件
@@ -101,6 +109,10 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		mShareBtn.setOnClickListener(this);
 		mMoreBtn.setOnClickListener(this);
 		mCollectBtn.setOnCheckedChangeListener(this);
+		if(isCollect()){
+			isFirstCheck = true;
+			mCollectBtn.setChecked(true);
+		}
 
 		initWebView();
 	}
@@ -118,14 +130,24 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		// 总结：根据以上两种模式，建议缓存策略为，判断是否有网络，有的话，使用LOAD_DEFAULT，无网络时，使用LOAD_CACHE_ELSE_NETWORK。
 		mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 	}
-
+	
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		// TODO Auto-generated method stub
+		
+		// 屏蔽第一次也会进来的问题
+		if(isFirstCheck){
+			isFirstCheck = false;
+			return;
+		}
+		
 		if (isChecked) {
 			ToastUtil.show(this, "收藏成功");
+			blogItem.setUpdateTime(System.currentTimeMillis());
+			db.insert(blogItem);
 		} else {
 			ToastUtil.show(this, "取消收藏");
+			db.delete(blogItem);
 		}
 	}
 
@@ -164,6 +186,13 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		mProgressBar.setVisibility(View.VISIBLE);
 		requestData(mUrl);
 	}
+	
+	private boolean isCollect(){
+		if(null != db.query(blogItem.getLink())){
+			return true;
+		}
+		return false;
+	}
 
 	private void comment() {
 		Intent i = new Intent();
@@ -181,9 +210,12 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		startActivity(Intent.createChooser(intent, "CSDN博客分享"));
 	}
 
+	// 更多
 	private void more() {
 
 	}
+	
+	
 
 	/**
 	 * 处理WebView返回

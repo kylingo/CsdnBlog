@@ -6,8 +6,7 @@
     android:orientation="vertical" >
 
     <include
-        layout="@layout/include_head_layout"
-        android:visibility="gone" />
+        layout="@layout/include_head_layout"/>
 
     <WebView
         android:id="@+id/webview_about"

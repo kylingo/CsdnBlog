@@ -62,6 +62,10 @@
             android:name="com.free.csdn.activity.AboutActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.free.csdn.activity.BlogCollectActivity"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <!-- umeng auto upgrade start -->
         <service

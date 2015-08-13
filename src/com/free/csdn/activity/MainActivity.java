@@ -1,5 +1,13 @@
 package com.free.csdn.activity;
 
+import com.free.csdn.R;
+import com.free.csdn.fragment.BloggerFragment;
+import com.free.csdn.fragment.ChannelFragment;
+import com.free.csdn.view.materialmenu.MaterialMenuDrawable;
+import com.free.csdn.view.materialmenu.MaterialMenuDrawable.Stroke;
+import com.free.csdn.view.materialmenu.MaterialMenuIcon;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,15 +22,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.free.csdn.R;
-import com.free.csdn.fragment.AboutFragment;
-import com.free.csdn.fragment.BloggerFragment;
-import com.free.csdn.fragment.ChannelFragment;
-import com.free.csdn.fragment.ContentFragment;
-import com.free.csdn.view.materialmenu.MaterialMenuDrawable;
-import com.free.csdn.view.materialmenu.MaterialMenuDrawable.Stroke;
-import com.free.csdn.view.materialmenu.MaterialMenuIcon;
 
 /**
  * 侧滑风格主Activity
@@ -42,7 +41,7 @@ public class MainActivity extends FragmentActivity {
 	private MaterialMenuIcon mMaterialMenuIcon;
 	/** 菜单打开/关闭状态 */
 	private boolean isDirection_left = false;
-	
+
 	private View showView;
 	private long exitTime;
 	private final static long TIME_DIFF = 2 * 1000;
@@ -57,8 +56,7 @@ public class MainActivity extends FragmentActivity {
 		this.showView = mMenuListView;
 
 		// 初始化菜单列表
-		mMenuListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item,
-				mMenuTitles));
+		mMenuListView.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mMenuTitles));
 		mMenuListView.setOnItemClickListener(new DrawerItemClickListener());
 
 		// 设置抽屉打开时，主要内容区被自定义阴影覆盖
@@ -98,8 +96,7 @@ public class MainActivity extends FragmentActivity {
 		public void onDrawerSlide(View drawerView, float slideOffset) {
 			showView = drawerView;
 			if (drawerView == mMenuListView) {// 根据isDirection_left决定执行动画
-				mMaterialMenuIcon.setTransformationOffset(
-						MaterialMenuDrawable.AnimationState.BURGER_ARROW,
+				mMaterialMenuIcon.setTransformationOffset(MaterialMenuDrawable.AnimationState.BURGER_ARROW,
 						isDirection_left ? 2 - slideOffset : slideOffset);
 			}
 		}
@@ -133,11 +130,13 @@ public class MainActivity extends FragmentActivity {
 	 * @param position
 	 */
 	private void selectItem(int position) {
-		Fragment fragment = new ContentFragment();
+		Fragment fragment = null;
 		Bundle args = new Bundle();
+		args.putString("key", mMenuTitles[position]);
+
+		Intent intent = null;
 		switch (position) {
 		case 0:
-			args.putString("key", mMenuTitles[position]);
 			fragment = new BloggerFragment();
 			break;
 
@@ -146,29 +145,34 @@ public class MainActivity extends FragmentActivity {
 			break;
 
 		case 2:
-			args.putString("key", mMenuTitles[position]);
+			intent = new Intent(this, BlogCollectActivity.class);
 			break;
 
 		case 3:
-			args.putString("key", mMenuTitles[position]);
-			fragment = new AboutFragment();
+			intent = new Intent(this, AboutActivity.class);
 			break;
 
 		case 4:
-			args.putString("key", mMenuTitles[position]);
 			break;
 
 		default:
 			break;
 		}
-		fragment.setArguments(args); // FragmentActivity将点击的菜单列表标题传递给Fragment
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
-		// 更新选择后的item和title，然后关闭菜单
-		mMenuListView.setItemChecked(position, true);
-		setTitle(mMenuTitles[position]);
-		mDrawerLayout.closeDrawer(mMenuListView);
+		if (intent != null) {
+			startActivity(intent);
+			return;
+		}
+
+		if (fragment != null) {
+			// 更新选择后的item和title，然后关闭菜单
+			mDrawerLayout.closeDrawer(mMenuListView);
+			setTitle(mMenuTitles[position]);
+			mMenuListView.setItemChecked(position, true);
+			fragment.setArguments(args); // FragmentActivity将点击的菜单列表标题传递给Fragment
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		}
 	}
 
 	/**

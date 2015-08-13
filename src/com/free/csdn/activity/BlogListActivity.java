@@ -140,8 +140,7 @@ public class BlogListActivity extends BaseActivity
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
 		Intent i = new Intent();
 		i.setClass(BlogListActivity.this, BlogContentActivity.class);
-		i.putExtra("blogLink", item.getLink());
-		i.putExtra("title", item.getTitle());
+		i.putExtra("blogItem", item);
 		startActivity(i);
 		// 动画过渡
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);

@@ -1,11 +1,29 @@
 package com.free.csdn.fragment;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
+import com.free.csdn.R;
+import com.free.csdn.activity.BlogListActivity;
+import com.free.csdn.adapter.BloggerListAdapter;
+import com.free.csdn.bean.Blogger;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.config.BloggerManager;
+import com.free.csdn.db.BloggerDao;
+import com.free.csdn.db.impl.BloggerDaoImpl;
+import com.free.csdn.network.HttpAsyncTask;
+import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.ToastUtil;
+import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
+import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
+import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
+import com.free.csdn.view.dialog.BloggerAddDialog;
+import com.free.csdn.view.dialog.BloggerOperationDialog;
+import com.free.csdn.view.dialog.LoadingDialog;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,26 +42,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
-
-import com.free.csdn.R;
-import com.free.csdn.activity.BlogListActivity;
-import com.free.csdn.adapter.BloggerListAdapter;
-import com.free.csdn.bean.Blogger;
-import com.free.csdn.config.BloggerManager;
-import com.free.csdn.config.AppConstants;
-import com.free.csdn.db.BloggerDao;
-import com.free.csdn.db.impl.BloggerDaoImpl;
-import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
-import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
-import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
-import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
-import com.free.csdn.view.dialog.BloggerAddDialog;
-import com.free.csdn.view.dialog.BloggerOperationDialog;
-import com.free.csdn.view.dialog.LoadingDialog;
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 
 /**
  * 博主列表
@@ -53,38 +54,39 @@ import com.free.csdn.view.dialog.LoadingDialog;
  *
  */
 @SuppressLint("HandlerLeak")
-public class BloggerFragment extends BaseFragment implements OnItemClickListener,
-		OnItemLongClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+public class BloggerFragment extends BaseFragment implements OnItemClickListener, OnItemLongClickListener,
+		OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
-	private View rootView;
+	private View mRootView;
 	private XListView mListView;
 	private List<Blogger> mBloggerList;
 	private BloggerListAdapter mAdapter;
-	private ProgressDialog progressdialog;
+	private ProgressDialog mProgressdialog;
 
-	private HashMap<String, String> bloggerItem = null;
-	private BloggerDao db;
-	private String newUserId = null;
+	private HashMap<String, String> mAddBloggerItem = null;
+	private BloggerDao mBloggerDao = null;
+	private String mNewUserId = null;
+	private String mType = BloggerDao.TYPE_ANDROID;
+
 	private static final int MSG_ADD_SUCCESS = 1000;
 	private static final int MSG_ADD_FAILURE = 1001;
 	private static final int MSG_ADD_REPEAT = 1002;
 	private static final int MSG_ADD_EMPTY = 1003;
 	private static final int MSG_ADD_BLOG = 1004;
-	private String type = BloggerDao.TYPE_ANDROID;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		if (rootView == null) {
-			rootView = inflater.inflate(R.layout.fragment_blogger_list, container, false);
+		if (mRootView == null) {
+			mRootView = inflater.inflate(R.layout.fragment_blogger_list, container, false);
 		}
-		ViewGroup parent = (ViewGroup) rootView.getParent();
+		ViewGroup parent = (ViewGroup) mRootView.getParent();
 		if (parent != null) {
-			parent.removeView(rootView);
+			parent.removeView(mRootView);
 		}
-		
-		initView(rootView);
-		return rootView;
+
+		initView(mRootView);
+		return mRootView;
 	}
 
 	private void initView(View view) {
@@ -93,9 +95,9 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		imvAdd.setVisibility(View.VISIBLE);
 		imvAdd.setOnClickListener(this);
 
-		db = new BloggerDaoImpl(getActivity(), type);
-		new BloggerManager().init(getActivity(), db, type);
-		mBloggerList = db.queryAll();
+		mBloggerDao = new BloggerDaoImpl(getActivity(), mType);
+		new BloggerManager().init(getActivity(), mBloggerDao, mType);
+		mBloggerList = mBloggerDao.queryAll();
 
 		mListView = (XListView) view.findViewById(R.id.listView);
 		mAdapter = new BloggerListAdapter(getActivity(), mBloggerList);
@@ -123,8 +125,30 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+		setIconEnable(menu, true);
 		getActivity().getMenuInflater().inflate(R.menu.main, menu);
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	/**
+	 * 设置菜单添加图标有效
+	 * 
+	 * @说明 enable为true时，菜单添加图标有效，enable为false时无效。4.0系统默认无效
+	 * @param menu
+	 * @param enable
+	 */
+	private void setIconEnable(Menu menu, boolean enable) {
+		try {
+			Class<?> clazz = Class.forName("com.android.internal.view.menu.MenuBuilder");
+			Method m = clazz.getDeclaredMethod("setOptionalIconsVisible", boolean.class);
+			m.setAccessible(true);
+
+			// MenuBuilder实现Menu接口，创建菜单时，传进来的menu其实就是MenuBuilder对象(java的多态特征)
+			m.invoke(menu, enable);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -201,15 +225,15 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 					return;
 				}
 
-				if (db.query(result) != null) {
+				if (mBloggerDao.query(result) != null) {
 					mHandler.sendEmptyMessage(MSG_ADD_REPEAT);
 					return;
 				}
 
-				newUserId = result;
-				progressdialog = new LoadingDialog(getActivity(), "正在添加博客...");
-				progressdialog.setCancelable(false);
-				progressdialog.show();
+				mNewUserId = result;
+				mProgressdialog = new LoadingDialog(getActivity(), "正在添加博客...");
+				mProgressdialog.setCancelable(false);
+				mProgressdialog.show();
 				mHandler.sendEmptyMessageDelayed(MSG_ADD_BLOG, 1000);
 			}
 
@@ -233,7 +257,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 				if (TextUtils.isEmpty(resultString)) {
 					mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
 				} else {
-					bloggerItem = JsoupUtil.getBloggerItem(resultString);
+					mAddBloggerItem = JsoupUtil.getBloggerItem(resultString);
 					mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
 				}
 			}
@@ -245,19 +269,19 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	 */
 	private void addBlogger() {
 		Blogger blogger = new Blogger();
-		blogger.setUserId(newUserId);
-		blogger.setTitle(bloggerItem.get("title"));
-		blogger.setDescription(bloggerItem.get("description"));
-		blogger.setImgUrl(bloggerItem.get("imgUrl"));
-		blogger.setLink(AppConstants.CSDN_BASE_URL + newUserId);
-		blogger.setType(type);
+		blogger.setUserId(mNewUserId);
+		blogger.setTitle(mAddBloggerItem.get("title"));
+		blogger.setDescription(mAddBloggerItem.get("description"));
+		blogger.setImgUrl(mAddBloggerItem.get("imgUrl"));
+		blogger.setLink(AppConstants.CSDN_BASE_URL + mNewUserId);
+		blogger.setType(mType);
 		blogger.setCategory(BloggerDao.CATEGORY_MOBILE);
 		blogger.setIsTop(0);
 		blogger.setIsNew(1);
 		blogger.setUpdateTime(System.currentTimeMillis());
-		db.insert(blogger);
+		mBloggerDao.insert(blogger);
 
-		mBloggerList = db.queryAll();
+		mBloggerList = mBloggerDao.queryAll();
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 	}
@@ -277,9 +301,9 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		}
 
 		blogger.setUpdateTime(System.currentTimeMillis());
-		db.insert(blogger);
+		mBloggerDao.insert(blogger);
 
-		mBloggerList = db.queryAll();
+		mBloggerList = mBloggerDao.queryAll();
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
@@ -291,9 +315,9 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	 * @param blogger
 	 */
 	private void deleleBlogger(Blogger blogger) {
-		db.delete(blogger);
+		mBloggerDao.delete(blogger);
 
-		mBloggerList = db.queryAll();
+		mBloggerList = mBloggerDao.queryAll();
 		mAdapter.setList(mBloggerList);
 		mAdapter.notifyDataSetChanged();
 
@@ -305,8 +329,8 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 
-			if (msg.what != MSG_ADD_BLOG && progressdialog != null && progressdialog.isShowing()) {
-				progressdialog.dismiss();
+			if (msg.what != MSG_ADD_BLOG && mProgressdialog != null && mProgressdialog.isShowing()) {
+				mProgressdialog.dismiss();
 			}
 
 			switch (msg.what) {
@@ -328,7 +352,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 				break;
 
 			case MSG_ADD_BLOG:
-				requestData(newUserId);
+				requestData(mNewUserId);
 				break;
 
 			default:

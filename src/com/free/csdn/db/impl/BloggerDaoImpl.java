@@ -17,7 +17,7 @@ import com.lidroid.xutils.db.sqlite.WhereBuilder;
 import com.lidroid.xutils.exception.DbException;
 
 /**
- * 博主数据库
+ * 博主-数据库实现
  * 
  * @author tangqi
  * @data 2015年8月8日下午12:17:35

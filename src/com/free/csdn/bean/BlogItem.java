@@ -136,4 +136,12 @@ public class BlogItem extends BaseEntity{
 		this.reserve = reserve;
 	}
 
+	public long getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
+	}
+
 }
