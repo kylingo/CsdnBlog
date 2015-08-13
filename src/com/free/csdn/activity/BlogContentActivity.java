@@ -28,8 +28,8 @@ import android.widget.ToggleButton;
 
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.db.BlogContentDb;
-import com.free.csdn.db.impl.BlogContentDbImpl;
+import com.free.csdn.db.BlogContentDao;
+import com.free.csdn.db.impl.BlogContentDaoImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.JsoupUtil;
@@ -253,7 +253,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		blogHtml.setHtml(html);
 		blogHtml.setReserve("");
 
-		BlogContentDb blogContentDb = new BlogContentDbImpl(this, mUrl);
+		BlogContentDao blogContentDb = new BlogContentDaoImpl(this, mUrl);
 		blogContentDb.insert(blogHtml);
 	}
 
@@ -278,7 +278,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	}
 
 	private void getData(String url) {
-		BlogContentDb blogContentDb = new BlogContentDbImpl(this, url);
+		BlogContentDao blogContentDb = new BlogContentDaoImpl(this, url);
 		BlogHtml blogHtml = blogContentDb.query(url);
 		if (blogHtml != null) {
 			loadHtml(blogHtml.getHtml());

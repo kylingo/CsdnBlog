@@ -11,7 +11,7 @@ import com.free.csdn.bean.Blogger;
  * @data 2015年8月8日下午12:59:26
  */
 
-public interface BloggerDb {
+public interface BloggerDao {
 
 	/**
 	 * 博主类别（大方向）

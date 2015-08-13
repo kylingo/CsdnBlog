@@ -8,8 +8,8 @@ import android.content.Context;
 
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
-import com.free.csdn.db.BloggerDb;
-import com.free.csdn.db.CacheManager;
+import com.free.csdn.config.CacheManager;
+import com.free.csdn.db.BloggerDao;
 import com.free.csdn.util.FileUtil;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -23,13 +23,13 @@ import com.lidroid.xutils.exception.DbException;
  * @data 2015年8月8日下午12:17:35
  */
 
-public class BloggerDbImpl implements BloggerDb {
+public class BloggerDaoImpl implements BloggerDao {
 
 	private DbUtils db;
 	private String type;
 	private Context context;
 
-	public BloggerDbImpl(Context context, String type) {
+	public BloggerDaoImpl(Context context, String type) {
 		this.context = context;
 		this.type = type;
 		init(type);

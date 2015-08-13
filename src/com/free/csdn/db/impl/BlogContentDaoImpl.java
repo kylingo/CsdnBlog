@@ -3,8 +3,8 @@ package com.free.csdn.db.impl;
 import android.content.Context;
 
 import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.db.BlogContentDb;
-import com.free.csdn.db.CacheManager;
+import com.free.csdn.config.CacheManager;
+import com.free.csdn.db.BlogContentDao;
 import com.free.csdn.util.MD5;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -18,11 +18,11 @@ import com.lidroid.xutils.exception.DbException;
  * @data 2015年8月7日下午11:24:06
  */
 
-public class BlogContentDbImpl implements BlogContentDb {
+public class BlogContentDaoImpl implements BlogContentDao {
 
 	private DbUtils db;
 
-	public BlogContentDbImpl(Context context, String url) {
+	public BlogContentDaoImpl(Context context, String url) {
 		// TODO Auto-generated constructor stub
 		String urlMD5 = "url-md5";
 		try {

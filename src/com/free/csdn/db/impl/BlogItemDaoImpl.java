@@ -5,8 +5,8 @@ import java.util.List;
 import android.content.Context;
 
 import com.free.csdn.bean.BlogItem;
-import com.free.csdn.db.BlogListDb;
-import com.free.csdn.db.CacheManager;
+import com.free.csdn.config.CacheManager;
+import com.free.csdn.db.BlogItemDao;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -19,11 +19,11 @@ import com.lidroid.xutils.exception.DbException;
  * @data 2015年8月7日下午10:39:22
  */
 
-public class BlogListDbImpl implements BlogListDb {
+public class BlogItemDaoImpl implements BlogItemDao {
 
 	private DbUtils db;
 
-	public BlogListDbImpl(Context context, String userId) {
+	public BlogItemDaoImpl(Context context, String userId) {
 		// TODO Auto-generated constructor stub
 		db = DbUtils.create(context, CacheManager.getBlogListDbPath(context), userId + "_blog");
 	}

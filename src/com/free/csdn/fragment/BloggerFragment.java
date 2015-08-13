@@ -29,10 +29,10 @@ import com.free.csdn.R;
 import com.free.csdn.activity.BlogListActivity;
 import com.free.csdn.adapter.BloggerListAdapter;
 import com.free.csdn.bean.Blogger;
-import com.free.csdn.constant.Constants;
-import com.free.csdn.db.BloggerDb;
-import com.free.csdn.db.BloggerManager;
-import com.free.csdn.db.impl.BloggerDbImpl;
+import com.free.csdn.config.BloggerManager;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.db.BloggerDao;
+import com.free.csdn.db.impl.BloggerDaoImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
@@ -63,14 +63,14 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	private ProgressDialog progressdialog;
 
 	private HashMap<String, String> bloggerItem = null;
-	private BloggerDb db;
+	private BloggerDao db;
 	private String newUserId = null;
 	private static final int MSG_ADD_SUCCESS = 1000;
 	private static final int MSG_ADD_FAILURE = 1001;
 	private static final int MSG_ADD_REPEAT = 1002;
 	private static final int MSG_ADD_EMPTY = 1003;
 	private static final int MSG_ADD_BLOG = 1004;
-	private String type = BloggerDb.TYPE_ANDROID;
+	private String type = BloggerDao.TYPE_ANDROID;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		imvAdd.setVisibility(View.VISIBLE);
 		imvAdd.setOnClickListener(this);
 
-		db = new BloggerDbImpl(getActivity(), type);
+		db = new BloggerDaoImpl(getActivity(), type);
 		new BloggerManager().init(getActivity(), db, type);
 		mBloggerList = db.queryAll();
 
@@ -225,7 +225,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	 */
 	private void requestData(String result) {
 		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(getActivity());
-		httpAsyncTask.execute(Constants.CSDN_BASE_URL + result);
+		httpAsyncTask.execute(AppConstants.CSDN_BASE_URL + result);
 		httpAsyncTask.setOnCompleteListener(new OnResponseListener() {
 			@Override
 			public void onResponse(String resultString) {
@@ -249,9 +249,9 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		blogger.setTitle(bloggerItem.get("title"));
 		blogger.setDescription(bloggerItem.get("description"));
 		blogger.setImgUrl(bloggerItem.get("imgUrl"));
-		blogger.setLink(Constants.CSDN_BASE_URL + newUserId);
+		blogger.setLink(AppConstants.CSDN_BASE_URL + newUserId);
 		blogger.setType(type);
-		blogger.setCategory(BloggerDb.CATEGORY_MOBILE);
+		blogger.setCategory(BloggerDao.CATEGORY_MOBILE);
 		blogger.setIsTop(0);
 		blogger.setIsNew(1);
 		blogger.setUpdateTime(System.currentTimeMillis());

@@ -25,7 +25,7 @@ import com.free.csdn.activity.BlogCommentActivity;
 import com.free.csdn.activity.ImageActivity;
 import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.bean.Blog;
-import com.free.csdn.constant.Constants;
+import com.free.csdn.config.AppConstants;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
 
@@ -64,7 +64,7 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 		initComponent();
 
 		mHandler.sendEmptyMessage(MSG_RELOAD_DATA);
-		new MainTask().execute(url, Constants.DEF_TASK_TYPE.FIRST);
+		new MainTask().execute(url, AppConstants.DEF_TASK_TYPE.FIRST);
 	}
 
 	// 初始化
@@ -130,7 +130,7 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 				// 获取点击列表项的状态
 				int state = blogDetailAdapter.getList().get(position - 1).getState();
 				switch (state) {
-				case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 点击的是图片
+				case AppConstants.DEF_BLOG_ITEM_TYPE.IMG: // 点击的是图片
 					String url = blogDetailAdapter.getList().get(position - 1).getImgLink();
 					Intent i = new Intent();
 					i.setClass(BlogDetailActivity.this, ImageActivity.class);
@@ -161,10 +161,10 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 		protected Integer doInBackground(String... params) {
 			String temp = HttpUtil.httpGet(params[0]);
 			if (temp == null) {
-				if (params[1].equals(Constants.DEF_TASK_TYPE.FIRST)) {
-					return Constants.DEF_RESULT_CODE.FIRST;
+				if (params[1].equals(AppConstants.DEF_TASK_TYPE.FIRST)) {
+					return AppConstants.DEF_RESULT_CODE.FIRST;
 				} else {
-					return Constants.DEF_RESULT_CODE.ERROR;
+					return AppConstants.DEF_RESULT_CODE.ERROR;
 				}
 			}
 			List<Blog> blogList = JsoupUtil.getContent(url, temp);
@@ -179,22 +179,22 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 				e.printStackTrace();
 			}
 
-			if (params[1].equals(Constants.DEF_TASK_TYPE.FIRST)) {
-				return Constants.DEF_RESULT_CODE.REFRESH;
+			if (params[1].equals(AppConstants.DEF_TASK_TYPE.FIRST)) {
+				return AppConstants.DEF_RESULT_CODE.REFRESH;
 			}
-			return Constants.DEF_RESULT_CODE.LOAD;
+			return AppConstants.DEF_RESULT_CODE.LOAD;
 		}
 
 		@Override
 		protected void onPostExecute(Integer result) {
-			if (result == Constants.DEF_RESULT_CODE.FIRST) {
+			if (result == AppConstants.DEF_RESULT_CODE.FIRST) {
 				Toast.makeText(getApplicationContext(), "网络信号不佳", Toast.LENGTH_LONG).show();
 				if (!isPreload) {
 					reLoadImageView.setVisibility(View.VISIBLE);
 				}
-			} else if (result == Constants.DEF_RESULT_CODE.ERROR) {
+			} else if (result == AppConstants.DEF_RESULT_CODE.ERROR) {
 				listView.stopLoadMore();
-			} else if (result == Constants.DEF_RESULT_CODE.REFRESH) {
+			} else if (result == AppConstants.DEF_RESULT_CODE.REFRESH) {
 				blogDetailAdapter.notifyDataSetChanged();
 			} else {
 				blogDetailAdapter.notifyDataSetChanged();
@@ -210,7 +210,7 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 	@Override
 	public void onLoadMore() {
 		if (!JsoupUtil.contentLastPage) {
-			new MainTask().execute(url, Constants.DEF_TASK_TYPE.NOR_FIRST);
+			new MainTask().execute(url, AppConstants.DEF_TASK_TYPE.NOR_FIRST);
 		} else {
 			listView.stopLoadMore(" -- THE END --");
 		}

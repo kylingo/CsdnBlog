@@ -20,7 +20,7 @@ import com.free.csdn.bean.Blog;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.BloggerDetail;
 import com.free.csdn.bean.Comment;
-import com.free.csdn.constant.Constants;
+import com.free.csdn.config.AppConstants;
 
 /**
  * 
@@ -119,7 +119,7 @@ public class JsoupUtil {
 		// 获取标题
 		Element title = detail.getElementsByClass("article_title").get(0);
 		Blog blogTitle = new Blog();
-		blogTitle.setState(Constants.DEF_BLOG_ITEM_TYPE.TITLE); // 设置状态
+		blogTitle.setState(AppConstants.DEF_BLOG_ITEM_TYPE.TITLE); // 设置状态
 		blogTitle.setContent(ToDBC(title.text())); // 设置标题内容
 
 		// 获取文章内容
@@ -190,7 +190,7 @@ public class JsoupUtil {
 						blogImgs.setContent(img.attr("src"));
 						blogImgs.setImgLink(img.attr("src"));
 						System.out.println(blogImgs.getContent());
-						blogImgs.setState(Constants.DEF_BLOG_ITEM_TYPE.IMG);
+						blogImgs.setState(AppConstants.DEF_BLOG_ITEM_TYPE.IMG);
 						list.add(blogImgs);
 					}
 				}
@@ -199,7 +199,7 @@ public class JsoupUtil {
 
 			// 获取博客内容
 			Blog blogContent = new Blog();
-			blogContent.setState(Constants.DEF_BLOG_ITEM_TYPE.CONTENT);
+			blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.CONTENT);
 
 			if (c.text().equals("")) {
 				continue;
@@ -207,17 +207,17 @@ public class JsoupUtil {
 				if (c.child(0).tagName().equals("bold") || c.child(0).tagName().equals("span")) {
 					if (c.ownText().equals("")) {
 						// 小标题，咖啡色
-						blogContent.setState(Constants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE);
+						blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE);
 					}
 				}
 			}
 
 			// 代码
 			if (c.select("pre").attr("name").equals("code")) {
-				blogContent.setState(Constants.DEF_BLOG_ITEM_TYPE.CODE);
+				blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.CODE);
 				blogContent.setContent(ToDBC(c.outerHtml()));
 			} else if ((c.select("pre").attr("class").equals("prettyprint"))) {
-				blogContent.setState(Constants.DEF_BLOG_ITEM_TYPE.CODE);
+				blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.CODE);
 				blogContent.setContent(ToDBC(c.outerHtml()));
 			} else {
 				blogContent.setContent(ToDBC(c.outerHtml()));
@@ -407,9 +407,9 @@ public class JsoupUtil {
 
 				if (parentId.equals("0")) {
 					// 如果parentId为0的话，表示它是评论的topic
-					comment.setType(Constants.DEF_COMMENT_TYPE.PARENT);
+					comment.setType(AppConstants.DEF_COMMENT_TYPE.PARENT);
 				} else {
-					comment.setType(Constants.DEF_COMMENT_TYPE.CHILD);
+					comment.setType(AppConstants.DEF_COMMENT_TYPE.CHILD);
 				}
 				list.add(comment);
 			}

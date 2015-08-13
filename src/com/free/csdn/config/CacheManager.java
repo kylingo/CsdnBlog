@@ -1,4 +1,4 @@
-package com.free.csdn.db;
+package com.free.csdn.config;
 
 import java.io.File;
 

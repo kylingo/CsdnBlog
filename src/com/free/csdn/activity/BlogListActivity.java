@@ -6,9 +6,9 @@ import com.free.csdn.R;
 import com.free.csdn.adapter.BlogListAdapter;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
-import com.free.csdn.constant.Constants;
-import com.free.csdn.db.BlogListDb;
-import com.free.csdn.db.impl.BlogListDbImpl;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.db.BlogItemDao;
+import com.free.csdn.db.impl.BlogItemDaoImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
@@ -55,7 +55,7 @@ public class BlogListActivity extends BaseActivity
 	private String userId;
 	private int page = 1;
 	private Blogger blogger;
-	private BlogListDb blogListDb;
+	private BlogItemDao blogListDb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class BlogListActivity extends BaseActivity
 	private void initData() {
 		blogger = (Blogger) getIntent().getSerializableExtra("blogger");
 		userId = blogger.getUserId();
-		blogListDb = new BlogListDbImpl(this, userId);
+		blogListDb = new BlogItemDaoImpl(this, userId);
 	}
 
 	private void initView() {
@@ -114,7 +114,7 @@ public class BlogListActivity extends BaseActivity
 		mListView.setOnItemClickListener(this);
 
 		// 先预加载数据，再请求最新数据
-		mHandler.sendEmptyMessage(Constants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class BlogListActivity extends BaseActivity
 		if (NetUtil.isNetAvailable(this)) {
 			requestData(page);
 		} else {
-			mHandler.sendEmptyMessage(Constants.MSG_PRELOAD_DATA);
+			mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
 		}
 	}
 
@@ -246,7 +246,7 @@ public class BlogListActivity extends BaseActivity
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
-			case Constants.MSG_PRELOAD_DATA:
+			case AppConstants.MSG_PRELOAD_DATA:
 				List<BlogItem> list = blogListDb.query(page);
 
 				if (list != null && list.size() != 0) {

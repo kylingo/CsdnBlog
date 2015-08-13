@@ -11,7 +11,7 @@ import com.free.csdn.bean.BlogItem;
  * @data 2015年8月7日下午11:19:46
  */
 
-public interface BlogListDb {
+public interface BlogItemDao {
 
 	/**
 	 * 保存博客列表

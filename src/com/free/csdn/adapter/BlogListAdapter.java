@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogItem;
-import com.free.csdn.constant.Constants.BLOG_ICO_TYPE;
+import com.free.csdn.config.AppConstants.BLOG_ICO_TYPE;
 import com.free.csdn.util.ImageLoaderUtils;
 
 /**

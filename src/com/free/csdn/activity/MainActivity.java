@@ -7,11 +7,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.free.csdn.R;
 import com.free.csdn.fragment.AboutFragment;
@@ -40,7 +42,10 @@ public class MainActivity extends FragmentActivity {
 	private MaterialMenuIcon mMaterialMenuIcon;
 	/** 菜单打开/关闭状态 */
 	private boolean isDirection_left = false;
+	
 	private View showView;
+	private long exitTime;
+	private final static long TIME_DIFF = 2 * 1000;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -206,4 +211,19 @@ public class MainActivity extends FragmentActivity {
 		super.onSaveInstanceState(outState);
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+			if ((System.currentTimeMillis() - exitTime) > TIME_DIFF) {
+				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+				exitTime = System.currentTimeMillis();
+			} else {
+				System.exit(0);
+			}
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
 }

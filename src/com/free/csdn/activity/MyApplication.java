@@ -4,7 +4,7 @@ import java.io.File;
 
 import android.app.Application;
 
-import com.free.csdn.db.CacheManager;
+import com.free.csdn.config.CacheManager;
 import com.free.csdn.util.CrashHandler;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;

@@ -1,8 +1,9 @@
-package com.free.csdn.db;
+package com.free.csdn.config;
 
 import android.content.Context;
 
 import com.free.csdn.bean.Blogger;
+import com.free.csdn.db.BloggerDao;
 import com.free.csdn.util.SpfUtils;
 
 /**
@@ -19,7 +20,7 @@ public class BloggerManager {
 	 * @param blogger
 	 * @param array
 	 */
-	private void insertBlogger(BloggerDb bloggerDb, Blogger blogger, String[] array) {
+	private void insertBlogger(BloggerDao bloggerDb, Blogger blogger, String[] array) {
 		if (array == null || array.length < 6 || blogger == null || bloggerDb == null) {
 			return;
 		}
@@ -32,7 +33,7 @@ public class BloggerManager {
 		blogger.setType(array[5]);
 		blogger.setIsTop(0);
 		blogger.setIsNew(0);
-		blogger.setCategory(BloggerDb.CATEGORY_MOBILE);
+		blogger.setCategory(BloggerDao.CATEGORY_MOBILE);
 		blogger.setUpdateTime(System.currentTimeMillis());
 
 		bloggerDb.insert(blogger);
@@ -43,7 +44,7 @@ public class BloggerManager {
 	 * 
 	 * @param bloggerDb
 	 */
-	private void deleteAllBlogger(BloggerDb bloggerDb, String type) {
+	private void deleteAllBlogger(BloggerDao bloggerDb, String type) {
 		bloggerDb.deleteAll();
 	}
 
@@ -52,7 +53,7 @@ public class BloggerManager {
 	 * 
 	 * @param context
 	 */
-	public void init(Context context, BloggerDb bloggerDb, String type) {
+	public void init(Context context, BloggerDao bloggerDb, String type) {
 
 		if (!((Boolean) SpfUtils.get(context, "isFirst", true)))
 			return;

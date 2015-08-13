@@ -5,8 +5,8 @@ import java.util.List;
 import android.content.Context;
 
 import com.free.csdn.bean.Comment;
-import com.free.csdn.db.BlogCommentDb;
-import com.free.csdn.db.CacheManager;
+import com.free.csdn.config.CacheManager;
+import com.free.csdn.db.BlogCommentDao;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -19,11 +19,11 @@ import com.lidroid.xutils.exception.DbException;
  * @data 2015年8月7日下午11:53:19
  */
 
-public class BlogCommentDbImpl implements BlogCommentDb {
+public class BlogCommentDaoImpl implements BlogCommentDao {
 
 	private DbUtils db;
 
-	public BlogCommentDbImpl(Context context, String filename) {
+	public BlogCommentDaoImpl(Context context, String filename) {
 		// TODO Auto-generated method stub
 		db = DbUtils.create(context, CacheManager.getCommentDbPath(context),
 				filename + "_comment");

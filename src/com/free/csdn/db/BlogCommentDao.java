@@ -11,7 +11,7 @@ import com.free.csdn.bean.Comment;
  * @data 2015年8月7日下午11:58:31
  */
 
-public interface BlogCommentDb {
+public interface BlogCommentDao {
 
 	/**
 	 * 保存博客评论列表

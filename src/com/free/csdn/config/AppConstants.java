@@ -1,4 +1,4 @@
-package com.free.csdn.constant;
+package com.free.csdn.config;
 
 
 /**
@@ -7,7 +7,7 @@ package com.free.csdn.constant;
  * @author wwj_748
  * 
  */
-public class Constants {
+public class AppConstants {
 
 	/**
 	 * CSDN博客基础地址

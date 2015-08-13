@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.bean.Blog;
-import com.free.csdn.constant.Constants;
+import com.free.csdn.config.AppConstants;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;
@@ -86,33 +86,33 @@ public class BlogDetailAdapter extends BaseAdapter {
 		if (null == convertView) {
 			holder = new ViewHolder();
 			switch (item.getState()) {
-			case Constants.DEF_BLOG_ITEM_TYPE.TITLE:// 显示标题
+			case AppConstants.DEF_BLOG_ITEM_TYPE.TITLE:// 显示标题
 				convertView = layoutInflater.inflate(
 						R.layout.article_detail_title_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
-			case Constants.DEF_BLOG_ITEM_TYPE.SUMMARY: // 摘要
+			case AppConstants.DEF_BLOG_ITEM_TYPE.SUMMARY: // 摘要
 				convertView = layoutInflater.inflate(
 						R.layout.article_detail_summary_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
-			case Constants.DEF_BLOG_ITEM_TYPE.CONTENT: // 内容
+			case AppConstants.DEF_BLOG_ITEM_TYPE.CONTENT: // 内容
 				convertView = layoutInflater.inflate(
 						R.layout.article_detail_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
-			case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 图片
+			case AppConstants.DEF_BLOG_ITEM_TYPE.IMG: // 图片
 				convertView = layoutInflater.inflate(
 						R.layout.article_detail_img_item, null);
 				holder.image = (ImageView) convertView
 						.findViewById(R.id.imageView);
 				break;
-			case Constants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE: // 加粗标题
+			case AppConstants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE: // 加粗标题
 				convertView = layoutInflater.inflate(
 						R.layout.article_detail_bold_title_item, null);
 				holder.content = (TextView) convertView.findViewById(R.id.text);
 				break;
-			case Constants.DEF_BLOG_ITEM_TYPE.CODE: // 代码
+			case AppConstants.DEF_BLOG_ITEM_TYPE.CODE: // 代码
 				convertView = layoutInflater.inflate(
 						R.layout.article_detail_code_item, null);
 				holder.code = (WebView) convertView
@@ -133,10 +133,10 @@ public class BlogDetailAdapter extends BaseAdapter {
 
 		if (null != item) {
 			switch (item.getState()) {
-			case Constants.DEF_BLOG_ITEM_TYPE.IMG: // 图片，异步加载
+			case AppConstants.DEF_BLOG_ITEM_TYPE.IMG: // 图片，异步加载
 				ImageLoaderUtils.displayImg(item.getContent(), holder.image);
 				break;
-			case Constants.DEF_BLOG_ITEM_TYPE.CODE: // 代码，格式显示
+			case AppConstants.DEF_BLOG_ITEM_TYPE.CODE: // 代码，格式显示
 
 				// 读取代码文件和模板文件
 				String code = item.getContent();
@@ -172,17 +172,17 @@ public class BlogDetailAdapter extends BaseAdapter {
 	@Override
 	public int getItemViewType(int position) {
 		switch (list.get(position).getState()) {
-		case Constants.DEF_BLOG_ITEM_TYPE.TITLE:
+		case AppConstants.DEF_BLOG_ITEM_TYPE.TITLE:
 			return 0;
-		case Constants.DEF_BLOG_ITEM_TYPE.SUMMARY:
+		case AppConstants.DEF_BLOG_ITEM_TYPE.SUMMARY:
 			return 1;
-		case Constants.DEF_BLOG_ITEM_TYPE.CONTENT:
+		case AppConstants.DEF_BLOG_ITEM_TYPE.CONTENT:
 			return 2;
-		case Constants.DEF_BLOG_ITEM_TYPE.IMG:
+		case AppConstants.DEF_BLOG_ITEM_TYPE.IMG:
 			return 3;
-		case Constants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE:
+		case AppConstants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE:
 			return 4;
-		case Constants.DEF_BLOG_ITEM_TYPE.CODE:
+		case AppConstants.DEF_BLOG_ITEM_TYPE.CODE:
 			return 5;
 		}
 		return 1;
@@ -191,7 +191,7 @@ public class BlogDetailAdapter extends BaseAdapter {
 	@Override
 	public boolean isEnabled(int position) {
 		switch (list.get(position).getState()) {
-		case Constants.DEF_BLOG_ITEM_TYPE.IMG:
+		case AppConstants.DEF_BLOG_ITEM_TYPE.IMG:
 			return true;
 		default:
 			return false;

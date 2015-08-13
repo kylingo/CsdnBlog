@@ -21,9 +21,9 @@ import com.free.csdn.R;
 import com.free.csdn.adapter.CommentAdapter;
 import com.free.csdn.bean.Comment;
 import com.free.csdn.bean.CommentComparator;
-import com.free.csdn.constant.Constants;
-import com.free.csdn.db.BlogCommentDb;
-import com.free.csdn.db.impl.BlogCommentDbImpl;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.db.BlogCommentDao;
+import com.free.csdn.db.impl.BlogCommentDaoImpl;
 import com.free.csdn.network.HttpAsyncTask;
 import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
@@ -53,7 +53,7 @@ public class BlogCommentActivity extends BaseActivity implements
 	private String filename;
 	private int page = 1;
 	private int pageSize = 20;
-	private BlogCommentDb blogCommentDb;
+	private BlogCommentDao blogCommentDb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class BlogCommentActivity extends BaseActivity implements
 		filename = getIntent().getExtras().getString("filename"); // 获得文件名
 		mAdapter = new CommentAdapter(this);
 
-		blogCommentDb = new BlogCommentDbImpl(this, filename);
+		blogCommentDb = new BlogCommentDaoImpl(this, filename);
 	}
 
 	private void initComponent() {
@@ -101,7 +101,7 @@ public class BlogCommentActivity extends BaseActivity implements
 		mListView.setPullRefreshEnable(this);
 
 		// 先预加载数据，再请求最新数据
-		mHandler.sendEmptyMessage(Constants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class BlogCommentActivity extends BaseActivity implements
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
-			case Constants.MSG_PRELOAD_DATA:
+			case AppConstants.MSG_PRELOAD_DATA:
 				mListView.setRefreshTime(DateUtil.getDate()); // 设置刷新时间
 				List<Comment> list = blogCommentDb.query(page);
 
