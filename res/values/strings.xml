@@ -6,6 +6,8 @@
     <string name="action_add">添加博客</string>
     <string name="bogger_title">Android博客</string>
     <string name="empty"></string>
+     <string name="drawer_open">drawer_open</string>
+    <string name="drawer_close">drawer_close</string>
     
     <string name="blog_title">Cocos2d-x 3.2示例UserDefaultTest（用户默认配置）</string>
     <string name="blog_desc">本篇博客介绍Cocos2d-x 3.2示例中的UserDefaulstTest,我们在开发中可能需要用到一些默认配置，一般会以xml形式保存。Cocos2d-x为我们提供了UserDefault类来实现这样的需求。</string>

@@ -20,6 +20,8 @@
 	<color name="list_decs_color">#999999</color>
 	<color name="list_divider_color">#D9D9D9</color>
 	<color name="blue_deep">#4A708B</color>
+	<color name="blue">#01A7FF</color><!-- 知乎蓝色 -->
+	<color name="ldrawer_color">#FFFFFF</color>
 	
 	<!-- 微信风格 -->
 	<color name="line">#D9D9D9</color><!-- 微信线条颜色 -->
