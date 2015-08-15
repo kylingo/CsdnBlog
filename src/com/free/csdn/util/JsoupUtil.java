@@ -276,14 +276,13 @@ public class JsoupUtil {
 
 		String str = "";
 		try {
-			Element localElement2 = localDocument.getElementsByClass("panel").get(1)
+			Element localElement1 = localDocument.getElementsByClass("panel").get(0)
 					.select("ul.panel_body.profile").get(0);
-			str = localElement2.getElementById("blog_userface").select("a").select("img")
+			str = localElement1.getElementById("blog_userface").select("a").select("img")
 					.attr("src");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			// str = "http://avatar.csdn.net/D/9/4/1_studiotang.jpg";
 			str = "";
 		}
 

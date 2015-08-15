@@ -11,11 +11,11 @@
     <ImageView
         android:id="@+id/imvDrawer"
         android:layout_width="wrap_content"
-        android:layout_height="50dip"
+        android:layout_height="40dip"
         android:contentDescription="@null"
         android:layout_marginLeft="10dip"
-        android:padding="8dip"
-        android:src="@drawable/ic_launcher"
+        android:padding="5dip"
+        android:src="@drawable/ic_default"
         android:visibility="visible" />
 
     <TextView

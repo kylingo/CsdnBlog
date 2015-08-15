@@ -11,8 +11,8 @@
     <com.free.csdn.view.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/userface"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
         android:background="@drawable/csdn"
         app:border_color="#FFffffff"
         app:border_width="1dp" />
