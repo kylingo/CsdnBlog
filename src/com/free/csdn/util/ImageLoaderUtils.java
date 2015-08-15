@@ -1,80 +1,45 @@
 package com.free.csdn.util;
 
-import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.MemoryCategory;
+import com.free.csdn.R;
 
+/**
+ * 图片加载工具类
+ * 
+ * @info 使用Glide加载图片
+ * @author tangqi
+ * @data 2015年8月15日上午9:41:15
+ */
 public class ImageLoaderUtils {
 
 	/**
-	 * 不缓存
-	 */
-	static DisplayImageOptions noCacheOptions = new DisplayImageOptions.Builder()
-	// .showImageOnLoading(R.drawable.csdn) // 设置图片在下载期间显示的图片
-	// .showImageForEmptyUri(R.drawable.csdn)// 设置图片Uri为空或是错误的时候显示的图片
-	// .showImageOnFail(R.drawable.csdn) // 设置图片加载/解码过程中错误时候显示的图片
-			.cacheInMemory(false)// 设置下载的图片是否缓存在内存中
-			.cacheOnDisk(false)// 设置下载的图片是否缓存在SD卡中
-			.imageScaleType(ImageScaleType.IN_SAMPLE_INT)// 设置图片以如何的编码方式显示
-			.bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型
-			.build();// 构建完成
-
-	/**
-	 * 缓存
-	 */
-	static DisplayImageOptions cacheOptions = new DisplayImageOptions.Builder()
-	// .showImageOnLoading(R.drawable.csdn) // 设置图片在下载期间显示的图片
-	// .showImageForEmptyUri(R.drawable.csdn)// 设置图片Uri为空或是错误的时候显示的图片
-	// .showImageOnFail(R.drawable.csdn) // 设置图片加载/解码过程中错误时候显示的图片
-			.cacheInMemory(true)// 设置下载的图片是否缓存在内存中
-			.cacheOnDisk(true)// 设置下载的图片是否缓存在SD卡中
-			.imageScaleType(ImageScaleType.IN_SAMPLE_INT)// 设置图片以如何的编码方式显示
-			.bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型
-			.build();// 构建完成
-
-	/**
-	 * 只缓存Memory
-	 */
-	static DisplayImageOptions fileOptions = new DisplayImageOptions.Builder()
-	// .showImageOnLoading(R.drawable.csdn) // 设置图片在下载期间显示的图片
-	// .showImageForEmptyUri(R.drawable.csdn)// 设置图片Uri为空或是错误的时候显示的图片
-	// .showImageOnFail(R.drawable.csdn) // 设置图片加载/解码过程中错误时候显示的图片
-			.cacheInMemory(true)// 设置下载的图片是否缓存在内存中
-			.cacheOnDisk(false)// 设置下载的图片是否缓存在SD卡中
-			.imageScaleType(ImageScaleType.IN_SAMPLE_INT)// 设置图片以如何的编码方式显示
-			.bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型
-			.build();// 构建完成
-
-	/**
-	 * 加载图片（缓存）
+	 * 加载图片
 	 * 
 	 * @param url
 	 * @param container
 	 */
 	public static void displayImg(String url, ImageView container) {
-		ImageLoader.getInstance().displayImage(url, container, cacheOptions);
+		// Glide.with(myFragment).load(url).centerCrop().placeholder(R.drawable.loading_spinner)
+		// .crossFade().into(myImageView);
+		Glide.with(container.getContext()).load(url).centerCrop().crossFade()
+				.error(R.drawable.ic_default).into(container);
 	}
 
 	/**
-	 * 加载图片（缓存）
+	 * 加载图片
 	 * 
 	 * @param url
 	 * @param container
-	 * @param isCache
+	 * @param defaultResId
+	 *            默认占位图片
 	 */
-	public static void displayImg(String url, ImageView container,
-			boolean isCache) {
-		if (isCache) {
-			ImageLoader.getInstance()
-					.displayImage(url, container, cacheOptions);
-		} else {
-			ImageLoader.getInstance().displayImage(url, container,
-					noCacheOptions);
-		}
+	public static void displayImg(String url, ImageView container, int defaultResId) {
+		Glide.with(container.getContext()).load(url).centerCrop().crossFade()
+				.placeholder(defaultResId).error(R.drawable.ic_default).into(container);
 	}
 
 	/**
@@ -94,6 +59,6 @@ public class ImageLoaderUtils {
 		} else {
 			fileUrl = "file:/" + url;
 		}
-		ImageLoader.getInstance().displayImage(fileUrl, container, fileOptions);
+		displayImg(fileUrl, container);
 	}
 }

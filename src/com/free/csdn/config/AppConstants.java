@@ -24,7 +24,7 @@ public class AppConstants {
 	 */
 	public class BLOG_ICO_TYPE {
 		public static final String BLOG_TYPE_REPOST = "ico ico_type_Repost";
-		public static final String BLOG_TYPE_ORIGINAL = "ico_type_Original";
+		public static final String BLOG_TYPE_ORIGINAL = "ico ico_type_Original";
 		public static final String BLOG_TYPE_TRANSLATED = "ico ico_type_Translated";
 	}
 

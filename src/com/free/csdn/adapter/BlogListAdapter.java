@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.free.csdn.R;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.config.AppConstants.BLOG_ICO_TYPE;
-import com.free.csdn.util.ImageLoaderUtils;
 
 /**
  * 博客列表适配器
@@ -96,24 +95,17 @@ public class BlogListAdapter extends BaseAdapter {
 			holder.title.setText(item.getTitle());
 			holder.content.setText("\b\b\b\b\b\b\b" + item.getContent());
 			holder.date.setText(item.getDate());
-			if (item.getImgLink() != null) {
-				holder.img.setVisibility(View.VISIBLE);
-				// 异步加载图片
-				ImageLoaderUtils.displayImg(item.getImgLink(), holder.img);
-			} else {
-				//
-				holder.img.setVisibility(View.VISIBLE);
+			holder.img.setVisibility(View.VISIBLE);
 
-				String icoType = item.getIcoType();
-				if (BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL.equals(icoType)) {
-					holder.img.setImageResource(R.drawable.ic_original);
-				} else if (BLOG_ICO_TYPE.BLOG_TYPE_REPOST.equals(icoType)) {
-					holder.img.setImageResource(R.drawable.ic_repost);
-				} else if (BLOG_ICO_TYPE.BLOG_TYPE_TRANSLATED.equals(icoType)) {
-					holder.img.setImageResource(R.drawable.ic_translate);
-				} else {
-					holder.img.setImageResource(R.drawable.ic_original);
-				}
+			String icoType = item.getIcoType();
+			if (BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL.equals(icoType)) {
+				holder.img.setImageResource(R.drawable.ic_original);
+			} else if (BLOG_ICO_TYPE.BLOG_TYPE_REPOST.equals(icoType)) {
+				holder.img.setImageResource(R.drawable.ic_repost);
+			} else if (BLOG_ICO_TYPE.BLOG_TYPE_TRANSLATED.equals(icoType)) {
+				holder.img.setImageResource(R.drawable.ic_translate);
+			} else {
+				holder.img.setImageResource(R.drawable.ic_original);
 			}
 		}
 

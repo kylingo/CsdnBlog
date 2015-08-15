@@ -65,7 +65,7 @@ public class BloggerListAdapter extends BaseAdapter {
 		if (!TextUtils.isEmpty(getItem(position).getImgUrl())) {
 			ImageLoaderUtils.displayImg(getItem(position).getImgUrl(), holder.imvBlogger);
 		} else {
-			holder.imvBlogger.setImageResource(R.drawable.me_01);
+			holder.imvBlogger.setImageResource(R.drawable.ic_default);
 		}
 		if (getItem(position).getIsTop() == 1) {
 			holder.tvBlogTitle.setText(getItem(position).getTitle() + "\b[顶]");

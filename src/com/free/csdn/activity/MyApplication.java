@@ -6,12 +6,6 @@ import android.app.Application;
 
 import com.free.csdn.config.CacheManager;
 import com.free.csdn.util.CrashHandler;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.utils.L;
 
 /**
  * 应用Application类
@@ -39,17 +33,7 @@ public class MyApplication extends Application {
 	 * 初始化ImageLoader
 	 */
 	private void initImageLoader() {
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				this).threadPriority(Thread.NORM_PRIORITY - 2)
-				.threadPoolSize(5).memoryCache(new WeakMemoryCache())
-				.denyCacheImageMultipleSizesInMemory().writeDebugLogs()
-				.memoryCacheSize(1024 * 1024 * 8)
-				.diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
-				.defaultDisplayImageOptions(DisplayImageOptions.createSimple())
-				.build();
 
-		ImageLoader.getInstance().init(config);
-		L.writeLogs(false);
 	}
 
 	/**
@@ -61,6 +45,9 @@ public class MyApplication extends Application {
 		Thread.currentThread().setUncaughtExceptionHandler(crashHandler);
 	}
 
+	/**
+	 * 重载系统获取缓存目录
+	 */
 	@Override
 	public File getCacheDir() {
 		// TODO Auto-generated method stub
