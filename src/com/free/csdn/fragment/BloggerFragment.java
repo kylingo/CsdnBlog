@@ -92,7 +92,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 
 	private void initView(View view) {
 		// TODO Auto-generated method stub
-		ImageView imvAdd = (ImageView) view.findViewById(R.id.imvRight);
+		ImageView imvAdd = (ImageView) view.findViewById(R.id.imv_right);
 		imvAdd.setVisibility(View.VISIBLE);
 		imvAdd.setOnClickListener(this);
 
@@ -202,7 +202,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		switch (v.getId()) {
 
 		// 增加博主
-		case R.id.imvRight:
+		case R.id.imv_right:
 			showCenterAddDialog();
 			break;
 

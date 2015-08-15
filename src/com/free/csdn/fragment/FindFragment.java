@@ -37,7 +37,7 @@ public class FindFragment extends BaseFragment implements OnClickListener {
 
 	private void initView(View view) {
 		// TODO Auto-generated method stub
-		TextView mTitleView = (TextView) view.findViewById(R.id.tvTitle);
+		TextView mTitleView = (TextView) view.findViewById(R.id.tv_title);
 		mTitleView.setText("热门最新");
 
 		LinearLayout mFindView01 = (LinearLayout) view.findViewById(R.id.ll_find_01);

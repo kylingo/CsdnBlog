@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.free.csdn.R;
 import com.free.csdn.bean.Blog;
 import com.free.csdn.config.AppConstants;
-import com.free.csdn.util.FileUtil;
+import com.free.csdn.util.FileUtils;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;
 
@@ -142,7 +142,7 @@ public class BlogDetailAdapter extends BaseAdapter {
 				String code = item.getContent();
 				// String code = FileUtil.getFileContent(context,
 				// "AboutActivity.java");
-				String template = FileUtil.getFileContent(context, "code.html");
+				String template = FileUtils.getFileContent(context, "code.html");
 				// 生成结果
 				String html = template.replace("{{code}}", code);
 				holder.code.getSettings().setDefaultTextEncodingName("utf-8");

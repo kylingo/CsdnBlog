@@ -2,13 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="8dp"
-    android:background="@color/wangyibg2" >
+    android:background="@color/wangyibg2"
+    android:paddingBottom="8dp" >
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@drawable/shadow_gradient" />
+        android:background="@drawable/shadow_gradient"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/replyIcon"
@@ -18,7 +19,7 @@
         android:layout_marginLeft="16dp"
         android:drawableLeft="@drawable/material_go_normal"
         android:gravity="center_vertical"
-        android:text="回复:"
+        android:text="@string/comment_replay"
         android:textColor="@color/gray" />
 
     <LinearLayout
@@ -36,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:text="username"
+            android:text="@string/comment_username"
             android:textColor="@color/light_blue"
             android:textSize="12sp" />
         <!--
@@ -52,9 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="mark"
             android:ellipsize="none"
             android:singleLine="false"
+            android:text="@string/comment_mark"
             android:textColor="@color/black2"
             android:textSize="14sp" />
 
@@ -79,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="2013-10-11"
+                android:text="@string/commet_date"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
         </LinearLayout>

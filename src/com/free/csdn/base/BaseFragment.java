@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Fragment_基类
+ * Fragment-基类
  * 
  * @author tangqi
  * @data 2015年8月9日上午10:28:46

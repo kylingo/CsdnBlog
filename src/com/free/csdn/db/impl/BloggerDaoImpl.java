@@ -10,7 +10,7 @@ import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.config.CacheManager;
 import com.free.csdn.db.BloggerDao;
-import com.free.csdn.util.FileUtil;
+import com.free.csdn.util.FileUtils;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -152,9 +152,9 @@ public class BloggerDaoImpl implements BloggerDao {
 
 		// 删除数据库文件
 		File file = new File(CacheManager.getBloggerDbPath(context) + File.separator + "blogger_" + type);
-		FileUtil.delete(file);
+		FileUtils.delete(file);
 
 		file = new File(CacheManager.getBloggerDbPath(context) + File.separator + "blogger_" + type + "-journal");
-		FileUtil.delete(file);
+		FileUtils.delete(file);
 	}
 }

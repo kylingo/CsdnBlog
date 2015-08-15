@@ -81,9 +81,9 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	// 初始化
 	private void init() {
 		db = new BlogCollectDaoImpl(this);
-		
+
 		blogItem = (BlogItem) getIntent().getSerializableExtra("blogItem");
-		if(blogItem!= null){
+		if (blogItem != null) {
 			mUrl = blogItem.getLink();
 			mTitle = blogItem.getTitle();
 			mFileName = mUrl.substring(mUrl.lastIndexOf("/") + 1);
@@ -92,12 +92,12 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	// 初始化组件
 	private void initComponent() {
-		TextView mTitleView = (TextView) findViewById(R.id.tvTitle);
+		TextView mTitleView = (TextView) findViewById(R.id.tv_title);
 		mTitleView.setText(R.string.blog_detail);
 
 		mProgressBar = (ProgressBar) findViewById(R.id.blogContentPro);
 		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
-		mBackBtn = (ImageView) findViewById(R.id.backBtn);
+		mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setVisibility(View.VISIBLE);
 		mCommemtBtn = (ImageView) findViewById(R.id.iv_comment);
 		mShareBtn = (ImageView) findViewById(R.id.iv_share);
@@ -110,7 +110,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		mShareBtn.setOnClickListener(this);
 		mMoreBtn.setOnClickListener(this);
 		mCollectBtn.setOnCheckedChangeListener(this);
-		if(isCollect()){
+		if (isCollect()) {
 			isFirstCheck = true;
 			mCollectBtn.setChecked(true);
 		}
@@ -131,17 +131,17 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		// 总结：根据以上两种模式，建议缓存策略为，判断是否有网络，有的话，使用LOAD_DEFAULT，无网络时，使用LOAD_CACHE_ELSE_NETWORK。
 		mWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 	}
-	
+
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		// TODO Auto-generated method stub
-		
+
 		// 屏蔽第一次也会进来的问题
-		if(isFirstCheck){
+		if (isFirstCheck) {
 			isFirstCheck = false;
 			return;
 		}
-		
+
 		if (isChecked) {
 			ToastUtil.show(this, "收藏成功");
 			blogItem.setUpdateTime(System.currentTimeMillis());
@@ -156,7 +156,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.backBtn:
+		case R.id.btn_back:
 			finish();
 			break;
 
@@ -182,19 +182,30 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		}
 	}
 
+	/**
+	 * 重新加载
+	 */
 	private void reload() {
 		mReLoadImageView.setVisibility(View.INVISIBLE);
 		mProgressBar.setVisibility(View.VISIBLE);
 		requestData(mUrl);
 	}
-	
-	private boolean isCollect(){
-		if(null != db.query(blogItem.getLink())){
+
+	/**
+	 * 判断是否收藏
+	 * 
+	 * @return
+	 */
+	private boolean isCollect() {
+		if (null != db.query(blogItem.getLink())) {
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * 评论
+	 */
 	private void comment() {
 		Intent i = new Intent();
 		i.setClass(BlogContentActivity.this, BlogCommentActivity.class);
@@ -203,6 +214,9 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
 	}
 
+	/**
+	 * 分享
+	 */
 	private void share() {
 		// TODO Auto-generated method stub
 		Intent intent = new Intent(Intent.ACTION_SEND);
@@ -215,8 +229,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	private void more() {
 
 	}
-	
-	
 
 	/**
 	 * 处理WebView返回

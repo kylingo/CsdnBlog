@@ -54,7 +54,7 @@ public class ChannelFragment extends BaseFragment implements OnItemClickListener
 
 	private void initView(View view) {
 		// TODO Auto-generated method stub
-		TextView mTitleView = (TextView) view.findViewById(R.id.tvTitle);
+		TextView mTitleView = (TextView) view.findViewById(R.id.tv_title);
 		mTitleView.setText(R.string.change_type);
 
 		ChannelManager channelManager = new ChannelManager(getActivity());

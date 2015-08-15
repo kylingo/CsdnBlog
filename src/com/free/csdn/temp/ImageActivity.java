@@ -1,11 +1,4 @@
-package com.free.csdn.activity;
-
-import com.free.csdn.R;
-import com.free.csdn.base.BaseActivity;
-import com.free.csdn.util.FileUtil;
-import com.free.csdn.util.HttpUtil;
-import com.free.csdn.util.ImageLoaderUtils;
-import com.polites.android.GestureImageView;
+package com.free.csdn.temp;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -16,6 +9,13 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
+import com.free.csdn.util.FileUtils;
+import com.free.csdn.util.HttpUtil;
+import com.free.csdn.util.ImageLoaderUtils;
+import com.polites.android.GestureImageView;
 
 /**
  * 2014/8/13 显示图片的界面
@@ -63,7 +63,8 @@ public class ImageActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				imageView.setDrawingCacheEnabled(true);
-				if (FileUtil.writeSDCard(url, imageView.getDrawingCache())) {
+				if (FileUtils.writeSDCard(FileUtils.getExternalCacheDir(ImageActivity.this), url,
+						imageView.getDrawingCache())) {
 					Toast.makeText(getApplicationContext(), "保存成功", Toast.LENGTH_SHORT).show();
 				} else {
 					Toast.makeText(getApplicationContext(), "保存失败", Toast.LENGTH_SHORT).show();

@@ -39,7 +39,7 @@ public class MeFragment extends BaseFragment implements OnClickListener {
 
 	private void initView(View view) {
 		// TODO Auto-generated method stub
-		TextView mTitleView = (TextView) view.findViewById(R.id.tvTitle);
+		TextView mTitleView = (TextView) view.findViewById(R.id.tv_title);
 		mTitleView.setText(R.string.user_center);
 
 		LinearLayout mMeView01 = (LinearLayout) view.findViewById(R.id.ll_me_01);

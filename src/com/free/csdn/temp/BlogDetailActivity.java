@@ -1,4 +1,4 @@
-package com.free.csdn.util;
+package com.free.csdn.temp;
 
 import java.util.List;
 
@@ -21,11 +21,14 @@ import android.widget.Toast;
 
 import com.free.csdn.R;
 import com.free.csdn.activity.BlogCommentActivity;
-import com.free.csdn.activity.ImageActivity;
 import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.base.BaseActivity;
 import com.free.csdn.bean.Blog;
 import com.free.csdn.config.AppConstants;
+import com.free.csdn.util.FileUtils;
+import com.free.csdn.util.HttpUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.MD5;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.exception.DbException;
 
@@ -81,7 +84,7 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		db = DbUtils.create(this, FileUtil.getExternalCacheDir(this) + "/BlogDetail", urlMD5);
+		db = DbUtils.create(this, FileUtils.getExternalCacheDir(this) + "/BlogDetail", urlMD5);
 	}
 
 	// 初始化组件
@@ -98,7 +101,7 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 			}
 		});
 
-		backBtn = (ImageView) findViewById(R.id.backBtn);
+		backBtn = (ImageView) findViewById(R.id.btn_back);
 		backBtn.setOnClickListener(new OnClickListener() {
 
 			@Override

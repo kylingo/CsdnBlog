@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -27,6 +26,7 @@ import android.widget.Toast;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.DrawerAdapter;
+import com.free.csdn.base.BaseFragmentActivity;
 import com.free.csdn.bean.DrawerItem;
 import com.free.csdn.fragment.BloggerFragment;
 import com.free.csdn.fragment.ChannelFragment;
@@ -42,7 +42,7 @@ import com.umeng.update.UmengUpdateAgent;
  * @author tangqi
  * @data 2015年8月12日下午10:46:07
  */
-public class MainActivity extends FragmentActivity implements OnClickListener {
+public class MainActivity extends BaseFragmentActivity implements OnClickListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -57,7 +57,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	public static FragmentManager fm;
 	private Boolean openOrClose = false;
-	private String[] mMenuTitles = { "首页", "频道", "收藏", "关于", "设置" };
+	private String[] mMenuTitles = { "首页", "频道", "收藏", "设置" };
 	private int[] mResId = { R.drawable.me_06, R.drawable.me_03, R.drawable.me_02,
 			R.drawable.me_04, R.drawable.me_05 };
 	private long exitTime;
@@ -111,7 +111,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	 * 友盟自动更新
 	 */
 	private void initUmengUpdate() {
-		UmengUpdateAgent.update(this);
+		/** 静默更新 */
+		UmengUpdateAgent.silentUpdate(this);
+
+		/** 自动更新，提醒用户下载 */
+		// UmengUpdateAgent.update(this);
 	}
 
 	/**
@@ -193,7 +197,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					break;
 
 				case 3:
-					intent = new Intent(MainActivity.this, AboutActivity.class);
+					intent = new Intent(MainActivity.this, SettingsActivity.class);
 					break;
 
 				case 4:

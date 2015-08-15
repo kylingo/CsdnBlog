@@ -6,9 +6,8 @@
     <string name="action_add">添加博客</string>
     <string name="bogger_title">Android博客</string>
     <string name="empty"></string>
-     <string name="drawer_open">drawer_open</string>
+    <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
-    
     <string name="blog_title">Cocos2d-x 3.2示例UserDefaultTest（用户默认配置）</string>
     <string name="blog_desc">本篇博客介绍Cocos2d-x 3.2示例中的UserDefaulstTest,我们在开发中可能需要用到一些默认配置，一般会以xml形式保存。Cocos2d-x为我们提供了UserDefault类来实现这样的需求。</string>
     <string name="android_blog">Android博客</string>
@@ -18,6 +17,7 @@
     <string name="blog_create_date">2014-08-08 17:54|141人阅读</string>
     <string name="blog_description">本篇博客介绍Cocos2d-x 3.2示例中的UserDefaulstTest,我们在开发中可能需要用到一些默认配置，一般会以xml形式保存。Cocos2d-x为我们提供了UserDefault类来实现这样的需求。</string>
     <string name="input_blog_id">添加博客ID</string>
+    <string name="cancle">取消</string>
     <string name="confirm">确定</string>
     <string name="add_blog_notice">例如：博客地址为“http://blog.csdn.net/abc”，那么“abc”就是您的博客ID。</string>
     <string name="loading">正在加载...</string>
@@ -42,10 +42,23 @@
     <string name="blog_post">博客专栏</string>
     <string name="settings">设置</string>
     <string name="collect">收藏</string>
-    <string name="feedback">反馈</string>
+    <string name="feedback">用户反馈</string>
     <string name="about">关于</string>
     <string name="user_name">东风解冻</string>
     <string name="wechat_name">QQ号：820012865</string>
     <string name="user_center">个人中心</string>
+    <string name="commet_date">2013-10-11</string>
+    <string name="comment_user_name">username</string>
+    <string name="comment_mark">mark</string>
+    <string name="comment_replay">回复:</string>
+    <string name="comment_username">username</string>
+    <string name="check_update">检查更新</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="update_log">更新日志</string>
+    <string name="share_app">分享好友</string>
+    <string name="about_us">关于我们</string>
+    <string name="exit">退出</string>
+    <string name="confirm_to_exit">确定要退出吗？</string>
+    <string name="setttings_now_version">当前版本V</string>
 
 </resources>

@@ -86,7 +86,7 @@ public class BlogCommentActivity extends BaseActivity implements
 			}
 		});
 
-		backBtn = (ImageView) findViewById(R.id.backBtn);
+		backBtn = (ImageView) findViewById(R.id.btn_back);
 		backBtn.setOnClickListener(new OnClickListener() {
 
 			@Override

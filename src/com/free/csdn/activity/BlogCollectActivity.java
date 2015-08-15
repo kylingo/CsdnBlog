@@ -64,8 +64,8 @@ public class BlogCollectActivity extends BaseActivity
 	private void initView() {
 		mListView = (XListView) findViewById(R.id.listView_blog);
 		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-		tvTitle = (TextView) findViewById(R.id.tvTitle);
-		ImageView mBackBtn = (ImageView) findViewById(R.id.backBtn);
+		tvTitle = (TextView) findViewById(R.id.tv_title);
+		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setVisibility(View.VISIBLE);
 		mBackBtn.setOnClickListener(this);
 
@@ -104,7 +104,7 @@ public class BlogCollectActivity extends BaseActivity
 	public void onClick(View view) {
 		// TODO Auto-generated method stub
 		switch (view.getId()) {
-		case R.id.backBtn:
+		case R.id.btn_back:
 			finish();
 			break;
 

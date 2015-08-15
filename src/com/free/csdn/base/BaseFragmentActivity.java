@@ -3,29 +3,32 @@ package com.free.csdn.base;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.free.csdn.activity.MyApplication;
 import com.umeng.analytics.MobclickAgent;
 
 /**
- *
- * @author  tangqi
- * @data    2015年8月10日上午12:07:57
+ * FragmentActivity-基类
+ * 
+ * @author tangqi
+ * @data 2015年8月10日上午12:07:57
  */
 
 public class BaseFragmentActivity extends FragmentActivity {
-	
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
+		MyApplication.getInstance().addActivity(this);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
 		MobclickAgent.onPause(this);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub

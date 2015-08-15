@@ -5,7 +5,7 @@
     android:background="@color/main_color" >
 
     <ImageView
-        android:id="@+id/backBtn"
+        android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -20,12 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/backBtn"
+        android:layout_toRightOf="@id/btn_back"
         android:contentDescription="@null"
         android:src="@drawable/base_action_bar_back_divider" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -34,7 +34,7 @@
         android:textSize="@dimen/title_size" />
 
     <ImageView
-        android:id="@+id/imvRight"
+        android:id="@+id/imv_right"
         android:layout_width="@dimen/title_height"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"

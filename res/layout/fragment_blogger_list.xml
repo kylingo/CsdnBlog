@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.free.csdn.activity.HomeActivity" >
+    tools:context="com.free.csdn.temp.HomeActivity" >
 
     <include
         layout="@layout/include_head_layout"

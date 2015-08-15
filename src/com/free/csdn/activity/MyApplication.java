@@ -1,7 +1,10 @@
 package com.free.csdn.activity;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.free.csdn.config.CacheManager;
@@ -15,6 +18,18 @@ import com.free.csdn.util.CrashHandler;
  */
 
 public class MyApplication extends Application {
+
+	private static MyApplication instance;
+	private List<Activity> activities = new ArrayList<Activity>();
+
+	// 单例模式中获取唯一的ExitApplication 实例
+	public static MyApplication getInstance() {
+		if (null == instance) {
+			instance = new MyApplication();
+		}
+		return instance;
+
+	}
 
 	@Override
 	public void onCreate() {
@@ -60,4 +75,26 @@ public class MyApplication extends Application {
 		return new File(CacheManager.getAppDatabasePath(this));
 	}
 
+	/**
+	 * 把Activity加入历史堆栈
+	 * 
+	 * @param activity
+	 */
+	public void addActivity(Activity activity) {
+		activities.add(activity);
+	}
+
+	/**
+	 * 结束
+	 */
+	@Override
+	public void onTerminate() {
+		super.onTerminate();
+
+		for (Activity activity : activities) {
+			activity.finish();
+		}
+
+		System.exit(0);
+	}
 }

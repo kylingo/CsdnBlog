@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="5dp"
-            android:text="username"
+            android:text="@string/comment_user_name"
             android:textColor="@color/light_blue"
             android:textSize="14sp" />
 
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="mark"
+            android:text="@string/comment_mark"
             android:ellipsize="none"
             android:singleLine="false"
             android:textSize="16sp" />
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="2013-10-11"
+                android:text="@string/commet_date"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
         </LinearLayout>
