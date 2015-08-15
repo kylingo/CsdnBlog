@@ -205,7 +205,7 @@ public class FileUtils {
 	 * @throws Exception
 	 */
 	public static long getFileSize(File f) {
-		if (f == null) {
+		if (f == null || !f.exists()) {
 			return 0;
 		}
 		long size = 0;
@@ -263,7 +263,7 @@ public class FileUtils {
 	 *            要删除的根目录
 	 */
 	public static void delete(File file) {
-		if (file.isFile()) {
+		if (file != null && file.isFile()) {
 			file.delete();
 			return;
 		}

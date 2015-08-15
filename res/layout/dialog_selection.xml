@@ -5,30 +5,30 @@
     android:layout_marginBottom="5dip"
     android:background="@drawable/shap_rect_bg_white"
     android:orientation="vertical"
-    android:padding="15dip" >
+    android:padding="20dip" >
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/dialog_title_size"
         android:text="@string/notice"
         android:textColor="@color/main_color" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:layout_marginTop="15dip"
+        android:layout_marginTop="10dip"
         android:background="@color/line" />
 
     <TextView
         android:id="@+id/tv_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="15dip"
         android:text="@string/notice"
-        android:textColor="@color/black"
+        android:textColor="@color/black_text"
         android:textSize="18sp" />
 
     <LinearLayout
@@ -45,7 +45,7 @@
             android:gravity="center"
             android:padding="10dip"
             android:text="@string/cancle"
-            android:textColor="@color/black"
+            android:textColor="@color/black_text"
             android:textSize="18sp" />
 
         <Button

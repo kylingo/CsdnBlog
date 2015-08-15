@@ -16,6 +16,17 @@ import com.free.csdn.util.FileUtils;
 public class CacheManager {
 
 	/**
+	 * 获取外部缓存目录
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getExternalCachePath(Context context) {
+		return FileUtils.getExternalCacheDir(context);
+	}
+	
+
+	/**
 	 * 获取博客收藏数据库目录
 	 * 
 	 * @param context
@@ -24,7 +35,7 @@ public class CacheManager {
 	public static String getBloggerCollectDbPath(Context context) {
 		return FileUtils.getExternalCacheDir(context) + File.separator + "BlogCollect";
 	}
-	
+
 	/**
 	 * 获取博主数据库目录
 	 * 
@@ -61,7 +72,7 @@ public class CacheManager {
 	 * @param context
 	 * @return
 	 */
-	public static String getCommentDbPath(Context context) {
+	public static String getBlogCommentDbPath(Context context) {
 		return FileUtils.getExternalCacheDir(context) + File.separator + "CommentList";
 	}
 

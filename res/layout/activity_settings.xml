@@ -45,6 +45,15 @@
                 <TextView
                     style="@style/settings_text_style"
                     android:text="@string/clear_cache" />
+                
+                 <TextView
+                    android:id="@+id/tv_cache_size"
+                    style="@style/settings_text_style"
+                    android:layout_width="match_parent"
+                    android:gravity="right"
+                    android:text="@string/cache_size"
+                    android:textSize="15sp"
+                    android:textColor="@color/list_decs_color" />
             </LinearLayout>
 
             <View style="@style/settings_divider_style" />

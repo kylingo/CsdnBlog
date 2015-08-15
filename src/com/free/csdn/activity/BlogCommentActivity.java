@@ -25,8 +25,8 @@ import com.free.csdn.bean.CommentComparator;
 import com.free.csdn.config.AppConstants;
 import com.free.csdn.db.BlogCommentDao;
 import com.free.csdn.db.impl.BlogCommentDaoImpl;
-import com.free.csdn.http.HttpAsyncTask;
-import com.free.csdn.http.HttpAsyncTask.OnResponseListener;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
@@ -131,7 +131,7 @@ public class BlogCommentActivity extends BaseActivity implements
 		mAsyncTask = new HttpAsyncTask(this);
 		String url = URLUtil.getCommentListURL(filename, String.valueOf(page));
 		mAsyncTask.execute(url);
-		mAsyncTask.setOnCompleteListener(onResponseListener);
+		mAsyncTask.setOnResponseListener(onResponseListener);
 	}
 
 	private OnResponseListener onResponseListener = new OnResponseListener() {

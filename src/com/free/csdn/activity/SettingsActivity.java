@@ -1,5 +1,7 @@
 package com.free.csdn.activity;
 
+import java.io.File;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +12,17 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.base.BaseActivity;
+import com.free.csdn.config.CacheManager;
+import com.free.csdn.lib.umeng.CustomActivity;
+import com.free.csdn.task.FileCalculateAsyncTask;
+import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.FileUtils;
+import com.free.csdn.util.NetUtil;
+import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.VersionUtil;
 import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
 import com.free.csdn.view.dialog.SelectionDialog;
+import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 /**
@@ -24,6 +33,20 @@ import com.umeng.update.UmengUpdateAgent;
  */
 
 public class SettingsActivity extends BaseActivity implements OnClickListener {
+	/**
+	 * SD卡缓存大小
+	 */
+	private long mExternCacheSize;
+
+	/**
+	 * 外部缓存目录
+	 */
+	private File mExternalCacheFile;
+
+	/**
+	 * 缓存数据View
+	 */
+	private TextView tvCacheSize;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +60,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		TextView tvTitle = (TextView) findViewById(R.id.tv_title);
 		ImageView btnBack = (ImageView) findViewById(R.id.btn_back);
+		tvCacheSize = (TextView) findViewById(R.id.tv_cache_size);
 		TextView tvVersionName = (TextView) findViewById(R.id.tv_version_name);
 		LinearLayout llCheckUpgrade = (LinearLayout) findViewById(R.id.ll_settings_check_upgrade);
 		LinearLayout llClearCache = (LinearLayout) findViewById(R.id.ll_settings_clear_cache);
@@ -58,6 +82,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		llShareApp.setOnClickListener(this);
 		llSettingsAboutApp.setOnClickListener(this);
 		llSettingsExit.setOnClickListener(this);
+
+		updateData();
 	}
 
 	@Override
@@ -111,11 +137,38 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	}
 
 	/**
+	 * 更新数据
+	 */
+	private void updateData() {
+		// TODO Auto-generated method stub
+
+		FileCalculateAsyncTask task = new FileCalculateAsyncTask(this);
+		mExternalCacheFile = new File(CacheManager.getBlogCommentDbPath(SettingsActivity.this));
+		task.execute(mExternalCacheFile);
+		task.setOnResponseListener(new OnResponseListener() {
+
+			@Override
+			public void onResponse(String resultString) {
+				// TODO Auto-generated method stub
+				try {
+					mExternCacheSize = Long.valueOf(resultString);
+					tvCacheSize.setText(FileUtils.formatSize(mExternCacheSize));
+				} catch (Exception e) {
+					// TODO: handle exception
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
 	 * 检查更新
 	 */
 	private void checkUpgrade() {
 		// TODO Auto-generated method stub
-		UmengUpdateAgent.forceUpdate(this);
+		if(NetUtil.isNetAvailable(this)){
+			UmengUpdateAgent.forceUpdate(this);
+		}
 	}
 
 	/**
@@ -123,7 +176,19 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void clearCache() {
 		// TODO Auto-generated method stub
-		// FileUtils.getFileSize(f);
+		SelectionDialog dialog = new SelectionDialog(this, "确定清除"
+				+ FileUtils.formatSize(mExternCacheSize) + "缓存吗？");
+		dialog.setOnConfirmListener(new OnConfirmListener() {
+
+			@Override
+			public void onConfirm(String result) {
+				// TODO Auto-generated method stub
+				FileUtils.delete(mExternalCacheFile);
+				ToastUtil.showCenter(SettingsActivity.this, "清理成功");
+				updateData();
+			}
+		});
+		dialog.show();
 	}
 
 	/**
@@ -131,7 +196,16 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void feedback() {
 		// TODO Auto-generated method stub
+		// FeedbackAgent agent = new FeedbackAgent(this);
+		// agent.startFeedbackActivity();
 
+		FeedbackAgent fb = new FeedbackAgent(this);
+		// check if the app developer has replied to the feedback or not.
+		fb.sync();
+		fb.openFeedbackPush();
+		
+	    Intent intent = new Intent(this,CustomActivity.class);
+        startActivity(intent);
 	}
 
 	/**
@@ -139,7 +213,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void updateLog() {
 		// TODO Auto-generated method stub
-
+		startActivity(UpdateLogActivity.class);
 	}
 
 	/**
@@ -150,7 +224,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_TEXT, "CSDN博客之星，非常好用，赶紧去各大应用市场下载吧。");
-		startActivity(Intent.createChooser(intent, "CSDN博客下载"));
+		startActivity(Intent.createChooser(intent, "CSDN博客分享"));
 	}
 
 	/**

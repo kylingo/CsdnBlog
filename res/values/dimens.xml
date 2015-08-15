@@ -7,6 +7,7 @@
     <!-- 标题大小 -->
     <dimen name="title_height">50dip</dimen>
     <dimen name="title_size">18sp</dimen>
+    <dimen name="dialog_title_size">20sp</dimen>
 
     <!-- 小标题大小 -->
     <dimen name="content_size">16sp</dimen>

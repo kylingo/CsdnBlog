@@ -4,27 +4,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-import com.free.csdn.R;
-import com.free.csdn.activity.BlogListActivity;
-import com.free.csdn.adapter.BloggerListAdapter;
-import com.free.csdn.base.BaseFragment;
-import com.free.csdn.bean.Blogger;
-import com.free.csdn.config.AppConstants;
-import com.free.csdn.config.BloggerManager;
-import com.free.csdn.db.BloggerDao;
-import com.free.csdn.db.impl.BloggerDaoImpl;
-import com.free.csdn.http.HttpAsyncTask;
-import com.free.csdn.http.HttpAsyncTask.OnResponseListener;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
-import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
-import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
-import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
-import com.free.csdn.view.dialog.BloggerAddDialog;
-import com.free.csdn.view.dialog.BloggerOperationDialog;
-import com.free.csdn.view.dialog.LoadingDialog;
-
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -43,9 +25,27 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
+
+import com.free.csdn.R;
+import com.free.csdn.activity.BlogListActivity;
+import com.free.csdn.adapter.BloggerListAdapter;
+import com.free.csdn.base.BaseFragment;
+import com.free.csdn.bean.Blogger;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.config.BloggerManager;
+import com.free.csdn.db.BloggerDao;
+import com.free.csdn.db.impl.BloggerDaoImpl;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.ToastUtil;
+import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
+import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
+import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
+import com.free.csdn.view.dialog.BloggerAddDialog;
+import com.free.csdn.view.dialog.BloggerOperationDialog;
+import com.free.csdn.view.dialog.LoadingDialog;
 
 /**
  * 博主列表
@@ -251,7 +251,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	private void requestData(String result) {
 		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(getActivity());
 		httpAsyncTask.execute(AppConstants.CSDN_BASE_URL + result);
-		httpAsyncTask.setOnCompleteListener(new OnResponseListener() {
+		httpAsyncTask.setOnResponseListener(new OnResponseListener() {
 			@Override
 			public void onResponse(String resultString) {
 				// TODO Auto-generated method stub

@@ -2,22 +2,9 @@ package com.free.csdn.activity;
 
 import java.util.List;
 
-import com.free.csdn.R;
-import com.free.csdn.adapter.BlogListAdapter;
-import com.free.csdn.base.BaseActivity;
-import com.free.csdn.bean.BlogItem;
-import com.free.csdn.bean.Blogger;
-import com.free.csdn.config.AppConstants;
-import com.free.csdn.db.BlogItemDao;
-import com.free.csdn.db.impl.BlogItemDaoImpl;
-import com.free.csdn.http.HttpAsyncTask;
-import com.free.csdn.http.HttpAsyncTask.OnResponseListener;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.NetUtil;
-import com.free.csdn.util.ToastUtil;
-import com.free.csdn.util.URLUtil;
-
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,9 +19,22 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
+
+import com.free.csdn.R;
+import com.free.csdn.adapter.BlogListAdapter;
+import com.free.csdn.base.BaseActivity;
+import com.free.csdn.bean.BlogItem;
+import com.free.csdn.bean.Blogger;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.db.BlogItemDao;
+import com.free.csdn.db.impl.BlogItemDaoImpl;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.NetUtil;
+import com.free.csdn.util.ToastUtil;
+import com.free.csdn.util.URLUtil;
 
 /**
  * 博客列表
@@ -178,7 +178,7 @@ public class BlogListActivity extends BaseActivity
 		mAsyncTask = new HttpAsyncTask(this);
 		String url = URLUtil.getBlogListURL(userId, page);
 		mAsyncTask.execute(url);
-		mAsyncTask.setOnCompleteListener(mOnResponseListener);
+		mAsyncTask.setOnResponseListener(mOnResponseListener);
 	}
 
 	private OnResponseListener mOnResponseListener = new OnResponseListener() {

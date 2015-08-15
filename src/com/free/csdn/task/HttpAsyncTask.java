@@ -1,4 +1,4 @@
-package com.free.csdn.http;
+package com.free.csdn.task;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -45,15 +45,11 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		}
 	}
 
-	public interface OnResponseListener {
-		public void onResponse(String resultString);
-	}
-
 	public OnResponseListener getResponseListener() {
 		return onResponseListener;
 	}
 
-	public void setOnCompleteListener(OnResponseListener onResponseListener) {
+	public void setOnResponseListener(OnResponseListener onResponseListener) {
 		this.onResponseListener = onResponseListener;
 	}
 }

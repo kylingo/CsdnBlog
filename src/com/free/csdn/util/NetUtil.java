@@ -186,9 +186,11 @@ public class NetUtil {
 					&& info.getDetailedState() == NetworkInfo.DetailedState.CONNECTED) {
 				return true;
 			} else {
+				ToastUtil.show(context, "网络已断开");
 				return false;
 			}
 		} else {
+			ToastUtil.show(context, "网络已断开");
 			return false;
 		}
 	}
