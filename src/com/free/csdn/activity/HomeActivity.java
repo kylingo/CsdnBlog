@@ -8,6 +8,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.free.csdn.R;
+import com.free.csdn.base.BaseFragmentActivity;
 import com.free.csdn.fragment.BloggerFragment;
 import com.free.csdn.fragment.ChannelFragment;
 /**

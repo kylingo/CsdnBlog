@@ -6,14 +6,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
 import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
 import com.free.csdn.bean.BlogHtml;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.db.BlogCollectDao;
 import com.free.csdn.db.BlogContentDao;
 import com.free.csdn.db.impl.BlogCollectDaoImpl;
 import com.free.csdn.db.impl.BlogContentDaoImpl;
-import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
+import com.free.csdn.http.HttpAsyncTask;
+import com.free.csdn.http.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;
 

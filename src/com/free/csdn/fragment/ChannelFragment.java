@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.ChannelListAdapter;
+import com.free.csdn.base.BaseFragment;
 import com.free.csdn.bean.Channel;
 import com.free.csdn.config.ChannelManager;
 import com.free.csdn.util.DateUtil;

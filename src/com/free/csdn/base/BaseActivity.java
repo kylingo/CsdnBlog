@@ -1,4 +1,4 @@
-package com.free.csdn.activity;
+package com.free.csdn.base;
 
 import com.umeng.analytics.MobclickAgent;
 

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.free.csdn.R;
+import com.free.csdn.base.BaseFragment;
 import com.free.csdn.util.ToastUtil;
 
 /**

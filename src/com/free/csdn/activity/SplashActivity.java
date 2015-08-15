@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
 import com.free.csdn.util.ACache;
 import com.free.csdn.util.VersionUtil;
 

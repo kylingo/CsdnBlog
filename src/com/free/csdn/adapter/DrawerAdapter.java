@@ -79,9 +79,13 @@ public class DrawerAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
-	public void setSelection(int selection){
+	public void setSelectionPosition(int selection){
 		this.selection = selection;
 		notifyDataSetChanged();
+	}
+	
+	public int getSelectionPosition(){
+		return this.selection;
 	}
 
 	static class ViewHolder {

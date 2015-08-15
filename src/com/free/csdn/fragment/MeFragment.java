@@ -2,6 +2,7 @@ package com.free.csdn.fragment;
 
 import com.free.csdn.R;
 import com.free.csdn.activity.AboutActivity;
+import com.free.csdn.base.BaseFragment;
 import com.free.csdn.util.ToastUtil;
 
 import android.content.Intent;

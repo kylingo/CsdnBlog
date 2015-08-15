@@ -33,6 +33,8 @@ import com.free.csdn.fragment.ChannelFragment;
 import com.free.csdn.view.CircleImageView;
 import com.free.csdn.view.drawerlayout.ActionBarDrawerToggle;
 import com.free.csdn.view.drawerlayout.DrawerArrowDrawable;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 侧滑风格主Activity
@@ -56,7 +58,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public static FragmentManager fm;
 	private Boolean openOrClose = false;
 	private String[] mMenuTitles = { "首页", "频道", "收藏", "关于", "设置" };
-	private int[] mResId = {R.drawable.me_06, R.drawable.me_03, R.drawable.me_02,R.drawable.me_04,R.drawable.me_05};
+	private int[] mResId = { R.drawable.me_06, R.drawable.me_03, R.drawable.me_02,
+			R.drawable.me_04, R.drawable.me_05 };
 	private long exitTime;
 	private final static long TIME_DIFF = 2 * 1000;
 
@@ -85,6 +88,30 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		initFragment();
 		initDrawerLayout();
 		initDrawerList();
+
+		initUmengStatistics();
+		initUmengUpdate();
+	}
+
+	/**
+	 * 友盟数据统计
+	 */
+	private void initUmengStatistics() {
+		MobclickAgent.setDebugMode(true);
+		// SDK在统计Fragment时，需要关闭Activity自带的页面统计，
+		// 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
+		MobclickAgent.openActivityDurationTrack(false);
+		// MobclickAgent.setAutoLocation(true);
+		// MobclickAgent.setSessionContinueMillis(1000);
+
+		MobclickAgent.updateOnlineConfig(this);
+	}
+
+	/**
+	 * 友盟自动更新
+	 */
+	private void initUmengUpdate() {
+		UmengUpdateAgent.update(this);
 	}
 
 	/**
@@ -136,7 +163,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 		final DrawerAdapter adapter = new DrawerAdapter(this, list);
 		mDrawerList.setAdapter(adapter);
-		adapter.setSelection(0);
+		adapter.setSelectionPosition(0);
 		mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@SuppressLint({ "ResourceAsColor", "Recycle" })
 			@Override
@@ -149,7 +176,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					}
 					initFragment(bloggerFragment);
 					setTitle(mMenuTitles[position]);
-					adapter.setSelection(position);
+					adapter.setSelectionPosition(position);
 					break;
 
 				case 1:
@@ -158,7 +185,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					}
 					initFragment(channelFragment);
 					setTitle(mMenuTitles[position]);
-					adapter.setSelection(position);
+					adapter.setSelectionPosition(position);
 					break;
 
 				case 2:
@@ -172,10 +199,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				case 4:
 					break;
 				}
-				
+
 				if (intent != null) {
 					startActivity(intent);
-				}else{
+				} else {
 					mDrawerLayout.closeDrawers();
 					openOrClose = false;
 				}
@@ -260,7 +287,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					System.exit(0);
 				}
 				return true;
-			}else{
+			} else {
 				mDrawerLayout.closeDrawers();
 				return true;
 			}

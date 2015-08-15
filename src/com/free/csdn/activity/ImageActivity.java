@@ -1,6 +1,7 @@
 package com.free.csdn.activity;
 
 import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
 import com.free.csdn.util.FileUtil;
 import com.free.csdn.util.HttpUtil;
 import com.free.csdn.util.ImageLoaderUtils;

@@ -19,13 +19,14 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.CommentAdapter;
+import com.free.csdn.base.BaseActivity;
 import com.free.csdn.bean.Comment;
 import com.free.csdn.bean.CommentComparator;
 import com.free.csdn.config.AppConstants;
 import com.free.csdn.db.BlogCommentDao;
 import com.free.csdn.db.impl.BlogCommentDaoImpl;
-import com.free.csdn.network.HttpAsyncTask;
-import com.free.csdn.network.HttpAsyncTask.OnResponseListener;
+import com.free.csdn.http.HttpAsyncTask;
+import com.free.csdn.http.HttpAsyncTask.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.ToastUtil;

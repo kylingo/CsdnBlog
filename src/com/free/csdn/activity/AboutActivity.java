@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
 
 /**
  * 关于

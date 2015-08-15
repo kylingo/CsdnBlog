@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogListAdapter;
+import com.free.csdn.base.BaseActivity;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.config.AppConstants;
 import com.free.csdn.db.BlogCollectDao;

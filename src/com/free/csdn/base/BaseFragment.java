@@ -1,4 +1,4 @@
-package com.free.csdn.fragment;
+package com.free.csdn.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
