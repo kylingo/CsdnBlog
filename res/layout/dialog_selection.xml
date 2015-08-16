@@ -5,16 +5,19 @@
     android:layout_marginBottom="5dip"
     android:background="@drawable/shap_rect_bg_white"
     android:orientation="vertical"
-    android:padding="20dip" >
+    android:paddingBottom="20dip"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip"
+    android:paddingTop="15dip" >
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="@dimen/dialog_title_size"
         android:text="@string/notice"
-        android:textColor="@color/main_color" />
+        android:textColor="@color/main_color"
+        android:textSize="@dimen/dialog_title_size" />
 
     <View
         android:layout_width="match_parent"
@@ -33,8 +36,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="15dip">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip" >
 
         <Button
             android:id="@+id/btn_cancle"
@@ -52,13 +55,13 @@
             android:id="@+id/btn_confirm_selection"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
             android:layout_weight="1"
             android:background="@drawable/selector_btn_confirm"
             android:gravity="center"
             android:padding="10dip"
             android:text="@string/confirm"
             android:textColor="@color/white"
-            android:layout_marginLeft="20dip"
             android:textSize="18sp" />
     </LinearLayout>
 

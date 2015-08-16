@@ -143,7 +143,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 
 		FileCalculateAsyncTask task = new FileCalculateAsyncTask(this);
-		mExternalCacheFile = new File(CacheManager.getBlogCommentDbPath(SettingsActivity.this));
+		mExternalCacheFile = new File(CacheManager.getExternalCachePath(SettingsActivity.this));
 		task.execute(mExternalCacheFile);
 		task.setOnResponseListener(new OnResponseListener() {
 
@@ -258,7 +258,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * @param cls
 	 */
 	private void startActivity(Class<?> cls) {
-		Intent intent = new Intent(this, AboutActivity.class);
+		Intent intent = new Intent(this, cls);
 		startActivity(intent);
 	}
 }
