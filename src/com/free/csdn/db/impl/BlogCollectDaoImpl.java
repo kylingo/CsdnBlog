@@ -25,7 +25,7 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 
 	public BlogCollectDaoImpl(Context context) {
 		// TODO Auto-generated constructor stub
-		db = DbUtils.create(context, CacheManager.getBlogListDbPath(context), "collect_blog");
+		db = DbUtils.create(context, CacheManager.getBloggerCollectDbPath(context), "collect_blog");
 	}
 
 	public void insert(List<BlogItem> list) {

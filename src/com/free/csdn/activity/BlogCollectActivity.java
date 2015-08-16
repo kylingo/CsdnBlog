@@ -35,8 +35,8 @@ import me.maxwin.view.XListView;
  * @data 2015年7月8日下午9:20:20
  *
  */
-public class BlogCollectActivity extends BaseActivity
-		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogCollectActivity extends BaseActivity implements OnItemClickListener,
+		OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;// 列表适配器
@@ -134,7 +134,8 @@ public class BlogCollectActivity extends BaseActivity
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
 		page++;
-		mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA,
+				AppConstants.MSG_PRELOAD_DATA);
 	}
 
 	@Override
@@ -145,7 +146,8 @@ public class BlogCollectActivity extends BaseActivity
 
 	private void refresh() {
 		page = 1;
-		mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA,
+				AppConstants.MSG_PRELOAD_DATA);
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -163,7 +165,7 @@ public class BlogCollectActivity extends BaseActivity
 					mListView.setRefreshTime(DateUtil.getDate());
 					mListView.stopLoadMore();
 					mListView.stopRefresh(DateUtil.getDate());
-					
+
 					mPbLoading.setVisibility(View.GONE);
 				}
 
