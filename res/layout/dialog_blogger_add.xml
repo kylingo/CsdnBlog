@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main_color"
+        android:background="@color/blue_main_color"
         android:gravity="center"
         android:padding="10dip"
         android:text="@string/input_blog_id"

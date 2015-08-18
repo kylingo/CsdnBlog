@@ -6,10 +6,10 @@
 
     <!-- 标题大小 -->
     <dimen name="title_height">50dip</dimen>
-    <dimen name="title_size">18sp</dimen>
+    <dimen name="title_size">17sp</dimen>
     <dimen name="dialog_title_size">20sp</dimen>
 
-    <!-- 小标题大小 -->
+    <!-- 内容大小 -->
     <dimen name="content_size">16sp</dimen>
 
     <!-- 博主列表 -->
@@ -19,8 +19,11 @@
     <!-- 分享 -->
     <dimen name="share_bar_height">40dip</dimen>
 
+    <!-- Popwindow -->
+    <dimen name="popwindow_bloglist_width">220dip</dimen>
+    
     <!-- DrawerLayout -->
-    <dimen name="navdrawer_width">240dp</dimen>
+    <dimen name="navdrawer_width">240dip</dimen>
     <dimen name="ldrawer_drawableSize">50dp</dimen>
     <dimen name="ldrawer_barSize">18dp</dimen>
     <dimen name="ldrawer_topBottomBarArrowSize">11dp</dimen>

@@ -1,10 +1,35 @@
 package com.free.csdn.activity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogListAdapter;
+import com.free.csdn.adapter.BlogCategoryAdapter;
 import com.free.csdn.base.BaseActivity;
+import com.free.csdn.bean.BlogCategory;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.config.AppConstants;
@@ -13,28 +38,12 @@ import com.free.csdn.db.impl.BlogItemDaoImpl;
 import com.free.csdn.task.HttpAsyncTask;
 import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.DisplayUtil;
 import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.LogUtil;
 import com.free.csdn.util.NetUtil;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.URLUtil;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
 
 /**
  * 博客列表
@@ -43,20 +52,23 @@ import me.maxwin.view.XListView;
  * @data 2015年7月8日下午9:20:20
  *
  */
-public class BlogListActivity extends BaseActivity
-		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+@SuppressLint("InflateParams")
+public class BlogListActivity extends BaseActivity implements OnItemClickListener, OnClickListener,
+		IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;// 列表适配器
 	private HttpAsyncTask mAsyncTask;
-	private ImageView reLoadImageView; // 重新加载的图片
-	private ProgressBar pbLoading;
+	private ImageView mReLoadImageView; // 重新加载的图片
+	private ProgressBar mPbLoading;
+	private TextView mTvUserId;
+	private PopupWindow mPopupWindow;
 
-	private TextView tvUserId;
-	private String userId;
-	private int page = 1;
-	private Blogger blogger;
-	private BlogItemDao blogListDb;
+	private String mUserId;
+	private int mPage = 1;
+	private Blogger mBlogger;
+	private BlogItemDao mBlogListDb;
+	private List<BlogCategory> mBlogCategoryList = new ArrayList<BlogCategory>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,49 +80,49 @@ public class BlogListActivity extends BaseActivity
 	}
 
 	private void initData() {
-		blogger = (Blogger) getIntent().getSerializableExtra("blogger");
-		userId = blogger.getUserId();
-		blogListDb = new BlogItemDaoImpl(this, userId);
+		mBlogger = (Blogger) getIntent().getSerializableExtra("blogger");
+		mUserId = mBlogger.getUserId();
+		mBlogListDb = new BlogItemDaoImpl(this, mUserId);
+
+		BlogCategory blogCategory = new BlogCategory();
+		blogCategory.setName("全部");
+		mBlogCategoryList.add(blogCategory);
 	}
 
 	private void initView() {
-		// ActionBar ab = getActionBar();
-		// ab.setDisplayHomeAsUpEnabled(true);
-		// ab.setHomeButtonEnabled(true);
-		//
-		// int upid = Resources.getSystem().getIdentifier("up", "id",
-		// "android");
-		// ImageView img = (ImageView) findViewById(upid);
-		// img.setImageResource(R.drawable.back);
-		// img.setPadding(30, 30, 30, 30);
-		
 		mListView = (XListView) findViewById(R.id.listView_blog);
-		pbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-		tvUserId = (TextView) findViewById(R.id.tv_title);
+		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
+		mTvUserId = (TextView) findViewById(R.id.tv_title);
 		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
-		mBackBtn.setVisibility(View.VISIBLE);
+		ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
 		mBackBtn.setOnClickListener(this);
+		mMenuBtn.setOnClickListener(this);
+		mMenuBtn.setVisibility(View.VISIBLE);
 
-		if (blogger != null) {
-			String title = blogger.getTitle();
-			if (!TextUtils.isEmpty(title)) {
-				tvUserId.setText(title);
-			}
+		if (mBlogger != null) {
+			setDefaultTitle();
 		}
 
-		reLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
-		reLoadImageView.setOnClickListener(new OnClickListener() {
+		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+		mReLoadImageView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View view) {
-				reLoadImageView.setVisibility(View.INVISIBLE);
-				pbLoading.setVisibility(View.VISIBLE);
+				mReLoadImageView.setVisibility(View.INVISIBLE);
+				mPbLoading.setVisibility(View.VISIBLE);
 
 				refresh();
 			}
 		});
 
 		initListView();
+	}
+
+	private void setDefaultTitle() {
+		String title = mBlogger.getTitle();
+		if (!TextUtils.isEmpty(title)) {
+			mTvUserId.setText(title);
+		}
 	}
 
 	/**
@@ -136,9 +148,68 @@ public class BlogListActivity extends BaseActivity
 			finish();
 			break;
 
+		case R.id.btn_menu:
+			showMenu(view);
+			break;
+
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 显示PopWindow
+	 */
+	private void showMenu(View view) {
+		// TODO Auto-generated method stub
+		if (mPopupWindow == null) {
+			getPopupWindow(view);
+		}
+
+		int xOffset = (int) getResources().getDimension(R.dimen.popwindow_bloglist_width) - DisplayUtil.dp2px(this, 40);
+		mPopupWindow.showAsDropDown(view, (-1) * xOffset, 0);
+	}
+
+	/**
+	 * 初始化PopupWindow
+	 * 
+	 * @param view
+	 */
+	@SuppressWarnings("deprecation")
+	private void getPopupWindow(View view) {
+		View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_bloglist, null);
+
+		mPopupWindow = new PopupWindow(contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
+		mPopupWindow.setTouchable(true);
+		// 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+		mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
+
+		ListView listView = (ListView) contentView.findViewById(R.id.lv_blog_type);
+		BlogCategoryAdapter adapter = new BlogCategoryAdapter(this, mBlogCategoryList);
+		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				mPopupWindow.dismiss();
+				if (position == 0) {
+					setDefaultTitle();
+				} else {
+					BlogCategory blogCategory = ((BlogCategoryAdapter) parent.getAdapter()).getItem(position);
+					mTvUserId.setText(blogCategory.getName().trim().replace("【", "").replace("】", ""));
+				}
+			}
+		});
+
+		contentView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mPopupWindow.dismiss();
+			}
+		});
 	}
 
 	/**
@@ -161,9 +232,9 @@ public class BlogListActivity extends BaseActivity
 	@Override
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
-		page++;
+		mPage++;
 		if (NetUtil.isNetAvailable(this)) {
-			requestData(page);
+			requestData(mPage);
 		} else {
 			mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
 		}
@@ -176,8 +247,8 @@ public class BlogListActivity extends BaseActivity
 	}
 
 	private void refresh() {
-		page = 1;
-		requestData(page);
+		mPage = 1;
+		requestData(mPage);
 	}
 
 	private void requestData(int page) {
@@ -186,7 +257,7 @@ public class BlogListActivity extends BaseActivity
 		}
 
 		mAsyncTask = new HttpAsyncTask(this);
-		String url = URLUtil.getBlogListURL(userId, page);
+		String url = URLUtil.getBlogListURL(mUserId, page);
 		mAsyncTask.execute(url);
 		mAsyncTask.setOnResponseListener(mOnResponseListener);
 	}
@@ -198,10 +269,10 @@ public class BlogListActivity extends BaseActivity
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<BlogItem> list = JsoupUtil.getBlogItemList(0, resultString);
+				List<BlogItem> list = JsoupUtil.getBlogItemList(0, resultString, mBlogCategoryList);
 
 				if (list != null && list.size() > 0) {
-					if (page == 1) {
+					if (mPage == 1) {
 						mAdapter.setList(list);
 					} else {
 						mAdapter.addList(list);
@@ -210,10 +281,10 @@ public class BlogListActivity extends BaseActivity
 					mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
 
 					saveDB(list);
-					reLoadImageView.setVisibility(View.GONE);
+					mReLoadImageView.setVisibility(View.GONE);
 				} else {
 					if (mAdapter.getCount() == 0) {
-						reLoadImageView.setVisibility(View.VISIBLE);
+						mReLoadImageView.setVisibility(View.VISIBLE);
 					}
 					mListView.disablePullLoad();
 					ToastUtil.show(BlogListActivity.this, "暂无最新数据");
@@ -221,13 +292,13 @@ public class BlogListActivity extends BaseActivity
 
 			} else {
 				if (mAdapter.getCount() == 0) {
-					reLoadImageView.setVisibility(View.VISIBLE);
+					mReLoadImageView.setVisibility(View.VISIBLE);
 				}
 				mListView.disablePullLoad();
 				ToastUtil.show(BlogListActivity.this, "网络已断开");
 			}
 
-			pbLoading.setVisibility(View.GONE);
+			mPbLoading.setVisibility(View.GONE);
 			mListView.stopRefresh(DateUtil.getDate());
 			mListView.stopLoadMore();
 		}
@@ -244,7 +315,7 @@ public class BlogListActivity extends BaseActivity
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				blogListDb.insert(list);
+				mBlogListDb.insert(list);
 			}
 		}).start();
 
@@ -257,7 +328,7 @@ public class BlogListActivity extends BaseActivity
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
-				List<BlogItem> list = blogListDb.query(page);
+				List<BlogItem> list = mBlogListDb.query(mPage);
 
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
@@ -267,8 +338,8 @@ public class BlogListActivity extends BaseActivity
 					mListView.stopLoadMore();
 				} else {
 					// 不请求最新数据，让用户自己刷新或者加载
-					pbLoading.setVisibility(View.VISIBLE);
-					requestData(page);
+					mPbLoading.setVisibility(View.VISIBLE);
+					requestData(mPage);
 					mListView.disablePullLoad();
 				}
 

@@ -19,12 +19,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ImageView;
 
 import com.free.csdn.R;
 import com.free.csdn.activity.BlogListActivity;
@@ -55,8 +53,8 @@ import com.free.csdn.view.dialog.LoadingDialog;
  *
  */
 @SuppressLint("HandlerLeak")
-public class BloggerFragment extends BaseFragment implements OnItemClickListener, OnItemLongClickListener,
-		OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+public class BloggerFragment extends BaseFragment implements OnItemClickListener,
+		OnItemLongClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private View mRootView;
 	private XListView mListView;
@@ -92,10 +90,6 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 
 	private void initView(View view) {
 		// TODO Auto-generated method stub
-		ImageView imvAdd = (ImageView) view.findViewById(R.id.imv_right);
-		imvAdd.setVisibility(View.VISIBLE);
-		imvAdd.setOnClickListener(this);
-
 		mBloggerDao = new BloggerDaoImpl(getActivity(), mType);
 		new BloggerManager().init(getActivity(), mBloggerDao, mType);
 		mBloggerList = mBloggerDao.queryAll();
@@ -194,22 +188,6 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-
-		// 增加博主
-		case R.id.imv_right:
-			showCenterAddDialog();
-			break;
-
-		default:
-			break;
-		}
-
 	}
 
 	/**

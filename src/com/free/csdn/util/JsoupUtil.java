@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.free.csdn.bean.Blog;
+import com.free.csdn.bean.BlogCategory;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.BloggerDetail;
 import com.free.csdn.bean.Comment;
@@ -54,7 +55,7 @@ public class JsoupUtil {
 	 * @param str
 	 * @return
 	 */
-	public static List<BlogItem> getBlogItemList(int blogType, String str) {
+	public static List<BlogItem> getBlogItemList(int blogType, String str, List<BlogCategory> blogCategoryList) {
 		// Log.e("URL---->", str);
 		List<BlogItem> list = new ArrayList<BlogItem>();
 		// 获取文档对象
@@ -92,8 +93,28 @@ public class JsoupUtil {
 			// 没有图片
 			item.setImgLink(null);
 			list.add(item);
-
 		}
+
+		Elements panelElements = doc.getElementsByClass("panel");
+		for (Element panelElement : panelElements) {
+			String panelHead = panelElement.select("ul.panel_head").get(0).text();
+			if ("文章分类".equals(panelHead)) {
+				Element panelBodyElement = panelElement.select("ul.panel_body").get(0);
+				Elements typeElements = panelBodyElement.select("li");
+				if (typeElements != null) {
+					for (Element typeElement : typeElements) {
+						BlogCategory blogCategory = new BlogCategory();
+						String name = typeElement.select("a").text().trim().replace("【", "").replace("】", "");
+						String link = typeElement.select("a").attr("href");
+						blogCategory.setName(name.trim());
+						blogCategory.setLink(link.trim());
+						blogCategoryList.add(blogCategory);
+					}
+				}
+				break;
+			}
+		}
+
 		return list;
 	}
 
@@ -241,8 +262,7 @@ public class JsoupUtil {
 		Element localElement1 = Jsoup.parse(paramString).getElementsByClass("details").get(0);
 		localElement1.select("script").remove();
 		if (localElement1.getElementById("digg") != null) {
-			Log.i("CSNDBlog_JsoupUtil",
-					"null != detail.getElementById(digg), detail.getElementById(digg).remove()");
+			Log.i("CSNDBlog_JsoupUtil", "null != detail.getElementById(digg), detail.getElementById(digg).remove()");
 			localElement1.getElementById("digg").remove();
 		}
 		if (localElement1.getElementsByClass("tag2box") != null) {
@@ -276,10 +296,9 @@ public class JsoupUtil {
 
 		String str = "";
 		try {
-			Element localElement1 = localDocument.getElementsByClass("panel").get(0)
-					.select("ul.panel_body.profile").get(0);
-			str = localElement1.getElementById("blog_userface").select("a").select("img")
-					.attr("src");
+			Element localElement1 = localDocument.getElementsByClass("panel").get(0).select("ul.panel_body.profile")
+					.get(0);
+			str = localElement1.getElementById("blog_userface").select("a").select("img").attr("src");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

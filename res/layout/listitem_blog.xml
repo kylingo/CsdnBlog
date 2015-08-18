@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="@string/blog_title"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/title_size"
             android:textStyle="bold" />
     </LinearLayout>
 

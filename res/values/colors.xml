@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<color name="main_color">#019587</color><!-- 主色调 -->
+	<drawable name="transparent">#00000000</drawable>
+
+	<color name="main_color">#21292C</color><!-- 主色调 -->
 	<color name="green_main_color">#09A284</color><!-- 绿色主色调 -->
 	<color name="blue_main_color">#019587</color><!-- 蓝色主色调 -->
 	<color name="black_main_color">#21292C</color><!-- 黑色主色调 -->
@@ -22,6 +24,9 @@
 	<color name="blue_deep">#4A708B</color>
 	<color name="blue">#01A7FF</color><!-- 知乎蓝色 -->
 	<color name="ldrawer_color">#FFFFFF</color>
+	
+	
+	
 	
 	<!-- 微信风格 -->
 	<color name="line">#D9D9D9</color><!-- 微信线条颜色 -->
