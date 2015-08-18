@@ -1,10 +1,10 @@
 package com.free.csdn.base;
 
-import android.app.Activity;
-import android.os.Bundle;
-
 import com.free.csdn.activity.MyApplication;
 import com.umeng.analytics.MobclickAgent;
+
+import android.app.Activity;
+import android.os.Bundle;
 
 /**
  * Activity-基类

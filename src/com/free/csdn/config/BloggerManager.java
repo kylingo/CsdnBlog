@@ -338,7 +338,7 @@ public class BloggerManager {
 		array[0] = "nupt123456789";
 		array[1] = "郑海波";
 		array[2] = "业精于勤而荒于嬉，行成于思而毁于随 http://www.mobctrl.net";
-		array[3] = "http://my.csdn.net/NUPTboyZHB";
+		array[3] = "http://avatar.csdn.net/C/2/1/1_nuptboyzhb.jpg";
 		array[4] = "http://blog.csdn.net/nupt123456789";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);

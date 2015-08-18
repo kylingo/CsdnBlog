@@ -2,24 +2,6 @@ package com.free.csdn.activity;
 
 import java.util.List;
 
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.free.csdn.R;
 import com.free.csdn.adapter.BlogListAdapter;
 import com.free.csdn.base.BaseActivity;
@@ -35,6 +17,24 @@ import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.NetUtil;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.URLUtil;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 
 /**
  * 博客列表
@@ -74,6 +74,16 @@ public class BlogListActivity extends BaseActivity
 	}
 
 	private void initView() {
+		// ActionBar ab = getActionBar();
+		// ab.setDisplayHomeAsUpEnabled(true);
+		// ab.setHomeButtonEnabled(true);
+		//
+		// int upid = Resources.getSystem().getIdentifier("up", "id",
+		// "android");
+		// ImageView img = (ImageView) findViewById(upid);
+		// img.setImageResource(R.drawable.back);
+		// img.setPadding(30, 30, 30, 30);
+		
 		mListView = (XListView) findViewById(R.id.listView_blog);
 		pbLoading = (ProgressBar) findViewById(R.id.pb_loading);
 		tvUserId = (TextView) findViewById(R.id.tv_title);
