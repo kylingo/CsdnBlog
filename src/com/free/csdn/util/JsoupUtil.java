@@ -19,6 +19,7 @@ import android.util.Log;
 import com.free.csdn.bean.Blog;
 import com.free.csdn.bean.BlogCategory;
 import com.free.csdn.bean.BlogItem;
+import com.free.csdn.bean.Blogger;
 import com.free.csdn.bean.BloggerDetail;
 import com.free.csdn.bean.Comment;
 import com.free.csdn.config.AppConstants;
@@ -323,68 +324,6 @@ public class JsoupUtil {
 	}
 
 	/**
-	 * 获取博客评论列表
-	 * 
-	 * @unused 无用
-	 * @param str
-	 * @return
-	 */
-	// public static List<Comment> getComment(String str) {
-	// List<Comment> list = new ArrayList<Comment>();
-	//
-	// // 获取文档对象
-	// Document doc = Jsoup.parse(str);
-	// // 获得id为comment_list的元素
-	// Element commentClass = doc.getElementsByClass("comment_class").get(0);
-	//
-	// Element commentList = commentClass.getElementById("comment_list");
-	//
-	// // 获得所有评论主题
-	// Elements commentTopics = commentList
-	// .select("div.comment_item.comment_topic");
-	// // 遍历所有评论主题
-	// for (Element commentTopic : commentTopics) {
-	// Comment topic = new Comment();
-	// topic.setName(commentTopic.select("a.username").text());
-	// topic.setDate(commentTopic.select("span.ptime").text());
-	// topic.setContent(commentTopic.select("dd.comment_body").text());
-	// topic.setPic(commentTopic.select("dd.comment_userface")
-	// .select("img").attr("src"));
-	//
-	// // 获取评论回复
-	// Elements commentReplies = commentTopic
-	// .getElementsByClass("comment_reply");
-	// if (commentReplies.size() == 0) {
-	// topic.setReplyCount("");
-	// } else {
-	// topic.setReplyCount("回复: " + commentReplies.size());
-	// }
-	// topic.setType(Constants.DEF_COMMENT_TYPE.PARENT);
-	// list.add(topic);
-	//
-	// if (commentReplies.size() != 0) {
-	// for (Element replyElement : commentReplies) {
-	// Comment reply = new Comment();
-	// reply.setName(replyElement.select("a.username").text());
-	// reply.setDate(replyElement.select("span.ptime").text());
-	// reply.setContent(replyElement.select("dd.comment_body")
-	// .text());
-	// reply.setPic(replyElement.select("dd.comment_userface")
-	// .select("img").attr("src"));
-	// Elements commentReplies2 = replyElement
-	// .getElementsByClass("comment_reply");
-	// reply.setReplyCount("" + commentReplies2.size());
-	// reply.setType(Constants.DEF_COMMENT_TYPE.CHILD);
-	//
-	// list.add(reply);
-	// }
-	// }
-	// }
-	// return list;
-	//
-	// }
-
-	/**
 	 * 获取博文评论列表
 	 * 
 	 * @param str
@@ -515,6 +454,38 @@ public class JsoupUtil {
 				c[i] = (char) (c[i] - 65248);
 		}
 		return new String(c);
+	}
+
+	/**
+	 * 获取博主列表(各大分类)
+	 * 
+	 * @param category
+	 * @param str
+	 * @return
+	 */
+	public static List<Blogger> getBloggerList(String category, String str) {
+		List<Blogger> list = new ArrayList<Blogger>();
+		Document doc = Jsoup.parse(str);
+		Elements bloggerList = doc.getElementsByClass("list_3");
+		
+		Element ulElement = bloggerList.select("ul").get(0);
+		Elements liElements = ulElement.select("li");
+		for (Element element : liElements) {
+			Blogger blogger = new Blogger();
+			Element bloggerElement = element.select("dl").get(0).select("dt").get(0).select("a").get(0);
+			String url = bloggerElement.attr("href");
+			
+			Element imgElement = bloggerElement.select("img").get(0);
+			String title = imgElement.attr("alt");
+			String imgUrl = imgElement.attr("src");
+			
+			blogger.setLink(url);
+			blogger.setTitle(title);
+			blogger.setImgUrl(imgUrl);
+			blogger.setCategory(category);
+			list.add(blogger);
+		}
+		return list;
 	}
 
 }

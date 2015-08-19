@@ -28,6 +28,11 @@ public class Channel extends BaseEntity {
 	private int imgResourceId;
 
 	/**
+	 * 资源地址
+	 */
+	private String url;
+
+	/**
 	 * 更新时间
 	 */
 	@Column(column = "updateTime")
@@ -68,6 +73,14 @@ public class Channel extends BaseEntity {
 
 	public void setReserve(String reserve) {
 		this.reserve = reserve;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }
