@@ -30,8 +30,8 @@ public class NetUtil {
 	public static final String UNKNOWN = "Unknown";
 
 	private static String convertIntToIp(int paramInt) {
-		return (paramInt & 0xFF) + "." + (0xFF & paramInt >> 8) + "."
-				+ (0xFF & paramInt >> 16) + "." + (0xFF & paramInt >> 24);
+		return (paramInt & 0xFF) + "." + (0xFF & paramInt >> 8) + "." + (0xFF & paramInt >> 16) + "."
+				+ (0xFF & paramInt >> 24);
 	}
 
 	/***
@@ -44,26 +44,21 @@ public class NetUtil {
 		String[] type = new String[2];
 		type[0] = "Unknown";
 		type[1] = "Unknown";
-		if (pContext.getPackageManager().checkPermission(
-				"android.permission.ACCESS_NETWORK_STATE",
+		if (pContext.getPackageManager().checkPermission("android.permission.ACCESS_NETWORK_STATE",
 				pContext.getPackageName()) == PackageManager.PERMISSION_GRANTED) {
 			ConnectivityManager localConnectivityManager = (ConnectivityManager) pContext
 					.getSystemService("connectivity");
 			if (localConnectivityManager == null)
 				return type;
 
-			NetworkInfo localNetworkInfo1 = localConnectivityManager
-					.getNetworkInfo(1);
-			if ((localNetworkInfo1 != null)
-					&& (localNetworkInfo1.getState() == NetworkInfo.State.CONNECTED)) {
+			NetworkInfo localNetworkInfo1 = localConnectivityManager.getNetworkInfo(1);
+			if ((localNetworkInfo1 != null) && (localNetworkInfo1.getState() == NetworkInfo.State.CONNECTED)) {
 				type[0] = "Wi-Fi";
 				type[1] = localNetworkInfo1.getSubtypeName();
 				return type;
 			}
-			NetworkInfo localNetworkInfo2 = localConnectivityManager
-					.getNetworkInfo(0);
-			if ((localNetworkInfo2 == null)
-					|| (localNetworkInfo2.getState() != NetworkInfo.State.CONNECTED))
+			NetworkInfo localNetworkInfo2 = localConnectivityManager.getNetworkInfo(0);
+			if ((localNetworkInfo2 == null) || (localNetworkInfo2.getState() != NetworkInfo.State.CONNECTED))
 				type[0] = "2G/3G";
 			type[1] = localNetworkInfo2.getSubtypeName();
 			return type;
@@ -81,8 +76,7 @@ public class NetUtil {
 	public static String getWifiAddress(Context pContext) {
 		String address = DEFAULT_WIFI_ADDRESS;
 		if (pContext != null) {
-			WifiInfo localWifiInfo = ((WifiManager) pContext
-					.getSystemService("wifi")).getConnectionInfo();
+			WifiInfo localWifiInfo = ((WifiManager) pContext.getSystemService("wifi")).getConnectionInfo();
 			if (localWifiInfo != null) {
 				address = localWifiInfo.getMacAddress();
 				if (address == null || address.trim().equals(""))
@@ -103,8 +97,7 @@ public class NetUtil {
 	public static String getWifiIpAddress(Context pContext) {
 		WifiInfo localWifiInfo = null;
 		if (pContext != null) {
-			localWifiInfo = ((WifiManager) pContext.getSystemService("wifi"))
-					.getConnectionInfo();
+			localWifiInfo = ((WifiManager) pContext.getSystemService("wifi")).getConnectionInfo();
 			if (localWifiInfo != null) {
 				String str = convertIntToIp(localWifiInfo.getIpAddress());
 				return str;
@@ -131,8 +124,7 @@ public class NetUtil {
 	 */
 	public static boolean isNetworkAvailable(Context context) {
 
-		ConnectivityManager cm = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 		return (info != null && info.isConnected());
 	}
@@ -144,8 +136,7 @@ public class NetUtil {
 	 * @return
 	 */
 	public static boolean isWifi(Context pContext) {
-		if ((pContext != null)
-				&& (getNetworkState(pContext)[0].equals("Wi-Fi"))) {
+		if ((pContext != null) && (getNetworkState(pContext)[0].equals("Wi-Fi"))) {
 			return true;
 		} else {
 			return false;
@@ -157,8 +148,7 @@ public class NetUtil {
 	 */
 	public static boolean isNetDeviceAvailable(Context context) {
 		boolean bisConnFlag = false;
-		ConnectivityManager conManager = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager conManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo network = conManager.getActiveNetworkInfo();
 		if (network != null) {
 			bisConnFlag = conManager.getActiveNetworkInfo().isAvailable();
@@ -167,8 +157,7 @@ public class NetUtil {
 	}
 
 	public static boolean isNetAvailable(Context context) {
-		ConnectivityManager cm = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo info = cm.getActiveNetworkInfo();
 
 		if (info != null) {
@@ -182,8 +171,7 @@ public class NetUtil {
 					isAvailable = true;
 				}
 			}
-			if (isAvailable
-					&& info.getDetailedState() == NetworkInfo.DetailedState.CONNECTED) {
+			if (isAvailable && info.getDetailedState() == NetworkInfo.DetailedState.CONNECTED) {
 				return true;
 			} else {
 				ToastUtil.show(context, "网络已断开");
@@ -196,8 +184,7 @@ public class NetUtil {
 	}
 
 	public static enum ProviderName {
-		chinaMobile("中国移动"), chinaUnicom("中国联�?"), chinaTelecom("中国电信"), chinaNetcom(
-				"中国网�?"), other("未知");
+		chinaMobile("中国移动"), chinaUnicom("中国联�?"), chinaTelecom("中国电信"), chinaNetcom("中国网�?"), other("未知");
 		private String text;
 
 		private ProviderName(String text) {
@@ -222,8 +209,7 @@ public class NetUtil {
 		if (imsi != null) {
 			// 因为移动网络编号46000下的IMSI已经用完,�?��虚拟了一�?6002编号�?34/159号段使用了此编号
 			LogUtil.log("imsi", Log.INFO, imsi);
-			if (imsi.startsWith("46000") || imsi.startsWith("46002")
-					|| imsi.startsWith("46007")) {
+			if (imsi.startsWith("46000") || imsi.startsWith("46002") || imsi.startsWith("46007")) {
 				return ProviderName.chinaMobile;
 			} else if (imsi.startsWith("46001")) {
 				return ProviderName.chinaUnicom;
@@ -249,8 +235,7 @@ public class NetUtil {
 	 * @return
 	 */
 	public static String getIMEI(Context context) {
-		TelephonyManager ts = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
+		TelephonyManager ts = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 		return ts.getDeviceId();
 	}
 
@@ -263,8 +248,7 @@ public class NetUtil {
 	 * @return
 	 */
 	public static String getIMSI(Context context) {
-		TelephonyManager ts = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
+		TelephonyManager ts = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 		return ts.getSubscriberId();
 	}
 
@@ -273,8 +257,7 @@ public class NetUtil {
 	 * android.permission.WAKE_LOCK �?��wifi�?��使用异步
 	 */
 	public static void toggleWifi(Context context) {
-		WifiManager wifiManager = (WifiManager) context
-				.getSystemService(Context.WIFI_SERVICE);
+		WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
 		if (wifiManager.isWifiEnabled()) {
 			wifiManager.setWifiEnabled(false);
@@ -284,37 +267,31 @@ public class NetUtil {
 	}
 
 	public static void getScanWifiResults(Context context) {
-		WifiManager wifiManager = (WifiManager) context
-				.getSystemService(Context.WIFI_SERVICE);
+		WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		List<ScanResult> wifiResults = wifiManager.getScanResults();
 		for (ScanResult wifi : wifiResults) {
 			LogUtil.log(TAG, Log.DEBUG, wifi.toString());
 		}
 
-		TelephonyManager tm = (TelephonyManager) context
-				.getSystemService(Context.TELEPHONY_SERVICE);
+		TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-		LogUtil.log(TAG, Log.DEBUG, TelephonyManager.PHONE_TYPE_GSM + "----"
-				+ tm.getPhoneType());
+		LogUtil.log(TAG, Log.DEBUG, TelephonyManager.PHONE_TYPE_GSM + "----" + tm.getPhoneType());
 		List<NeighboringCellInfo> cellResults = tm.getNeighboringCellInfo();
 		for (NeighboringCellInfo cell : cellResults) {
-			LogUtil.log(TAG, Log.DEBUG,
-					cell.getCid() + "-" + cell.getLac() + "-" + cell.getRssi()
-							+ "-" + cell.getPsc() + "-" + cell.getNetworkType());
+			LogUtil.log(TAG, Log.DEBUG, cell.getCid() + "-" + cell.getLac() + "-" + cell.getRssi() + "-" + cell.getPsc()
+					+ "-" + cell.getNetworkType());
 		}
 
 		LogUtil.log(TAG, Log.DEBUG, getProviderName(context).getText());
 	}
 
 	public static boolean isNetworkProvider(Context context) {
-		LocationManager lm = (LocationManager) context
-				.getSystemService(Context.LOCATION_SERVICE);
+		LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 	}
 
 	public static boolean isGpsProvider(Context context) {
-		LocationManager lm = (LocationManager) context
-				.getSystemService(Context.LOCATION_SERVICE);
+		LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 		return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
 	}
 
@@ -325,15 +302,12 @@ public class NetUtil {
 	 */
 	public static String getLocalIpAddress() {
 		try {
-			for (Enumeration<NetworkInterface> en = NetworkInterface
-					.getNetworkInterfaces(); en.hasMoreElements();) {
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
 				NetworkInterface intf = en.nextElement();
-				for (Enumeration<InetAddress> enumIpAddr = intf
-						.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
 					InetAddress inetAddress = enumIpAddr.nextElement();
 					if (!inetAddress.isLoopbackAddress()
-							&& InetAddressUtils.isIPv4Address(inetAddress
-									.getHostAddress())) {
+							&& InetAddressUtils.isIPv4Address(inetAddress.getHostAddress())) {
 						return inetAddress.getHostAddress().toString();
 					}
 				}
@@ -359,8 +333,7 @@ public class NetUtil {
 	 */
 	public static NetState connectType(Context context) {
 		NetState stateCode = NetState.NET_NO;
-		ConnectivityManager cm = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo ni = cm.getActiveNetworkInfo();
 		if (ni != null && ni.isConnectedOrConnecting()) {
 			switch (ni.getType()) {

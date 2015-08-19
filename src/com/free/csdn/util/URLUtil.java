@@ -1,5 +1,7 @@
 package com.free.csdn.util;
 
+import com.free.csdn.config.AppConstants;
+
 /**
  * 
  * @author wwj_748
@@ -35,18 +37,29 @@ public class URLUtil {
 	/**
 	 * 获取博客列表的URL
 	 * 
-	 * @param blogType
+	 * @param baseUrl
 	 *            博客类型
 	 * @param page
 	 *            页数
 	 * @return
 	 */
-	public static String getBlogListURL(String userId, int page) {
-		String url = "http://blog.csdn.net/" + userId + "/article/list" + "/"
-				+ page;
-		return url;
+	public static String getBlogListURL(String baseUrl, int page) {
+		return baseUrl + page;
 	}
 
+	/**
+	 * 获取CSDN博客默认URL
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public static String getBlogDefaultUrl(String userId) {
+		return AppConstants.CSDN_BASE_URL + userId + "/article/list" + "/";
+	}
+
+	public static String getBlogCategoryUrl(String categoryLink) {
+		return AppConstants.CSDN_BASE_URL + categoryLink + "/";
+	}
 
 	/**
 	 * 返回博文评论列表链接
@@ -58,8 +71,7 @@ public class URLUtil {
 	 * @return
 	 */
 	public static String getCommentListURL(String filename, String pageIndex) {
-		return "http://blog.csdn.net/wwj_748/comment/list/" + filename
-				+ "?page=" + pageIndex;
+		return "http://blog.csdn.net/wwj_748/comment/list/" + filename + "?page=" + pageIndex;
 	}
 
 }

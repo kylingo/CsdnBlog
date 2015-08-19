@@ -1,6 +1,5 @@
 package com.free.csdn.config;
 
-
 /**
  * 常量类
  * 
@@ -18,6 +17,11 @@ public class AppConstants {
 	 * 预加载数据--消息类型
 	 */
 	public static final int MSG_PRELOAD_DATA = 1000;
+
+	/**
+	 * 博客分类--全部
+	 */
+	public static final String BLOG_CATEGORY_ALL = "全部";
 
 	/**
 	 * 博客类型

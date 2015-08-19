@@ -2,6 +2,7 @@ package com.free.csdn.db;
 
 import java.util.List;
 
+import com.free.csdn.bean.BlogCategory;
 import com.free.csdn.bean.BlogItem;
 
 /**
@@ -18,7 +19,7 @@ public interface BlogItemDao {
 	 * 
 	 * @param list
 	 */
-	public void insert(List<BlogItem> list);
+	public void insert(String category, List<BlogItem> blogItemList);
 
 	/**
 	 * 查找博客列表
@@ -26,5 +27,19 @@ public interface BlogItemDao {
 	 * @param page
 	 * @return
 	 */
-	public List<BlogItem> query(int page);
+	public List<BlogItem> query(String category, int page);
+
+	/**
+	 * 插入博客分类
+	 * 
+	 * @param list
+	 */
+	public void insertCategory(List<BlogCategory> blogCategoryList);
+
+	/**
+	 * 查询博客分类
+	 * 
+	 * @param list
+	 */
+	public List<BlogCategory> queryCategory();
 }

@@ -30,8 +30,8 @@ public class BlogItem extends BaseEntity {
 	@Column(column = "msg")
 	private String msg; // 消息
 
-	@Column(column = "type")
-	private int type; // 博客分类
+	@Column(column = "category")
+	private String category; // 博客分类
 
 	@Column(column = "viewTime")
 	private String viewTime;
@@ -96,14 +96,6 @@ public class BlogItem extends BaseEntity {
 		this.msg = msg;
 	}
 
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
 	public String getViewTime() {
 		return viewTime;
 	}
@@ -142,6 +134,14 @@ public class BlogItem extends BaseEntity {
 
 	public void setUpdateTime(long updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }

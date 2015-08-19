@@ -55,7 +55,7 @@ public class JsoupUtil {
 	 * @param str
 	 * @return
 	 */
-	public static List<BlogItem> getBlogItemList(int blogType, String str, List<BlogCategory> blogCategoryList) {
+	public static List<BlogItem> getBlogItemList(String category, String str, List<BlogCategory> blogCategoryList) {
 		// Log.e("URL---->", str);
 		List<BlogItem> list = new ArrayList<BlogItem>();
 		// 获取文档对象
@@ -87,7 +87,7 @@ public class JsoupUtil {
 			item.setContent(description);
 			item.setDate(date);
 			item.setLink(link);
-			item.setType(blogType);
+			item.setCategory(category);
 			item.setIcoType(icoType);
 
 			// 没有图片
@@ -101,15 +101,24 @@ public class JsoupUtil {
 			if ("文章分类".equals(panelHead)) {
 				Element panelBodyElement = panelElement.select("ul.panel_body").get(0);
 				Elements typeElements = panelBodyElement.select("li");
+
 				if (typeElements != null) {
+					// 若发现新的分类，清除以前的分类
+					blogCategoryList.clear();
+					BlogCategory allBlogCategory = new BlogCategory();
+					allBlogCategory.setName("全部");
+					blogCategoryList.add(0, allBlogCategory);
+
 					for (Element typeElement : typeElements) {
 						BlogCategory blogCategory = new BlogCategory();
 						String name = typeElement.select("a").text().trim().replace("【", "").replace("】", "");
 						String link = typeElement.select("a").attr("href");
 						blogCategory.setName(name.trim());
 						blogCategory.setLink(link.trim());
+
 						blogCategoryList.add(blogCategory);
 					}
+
 				}
 				break;
 			}

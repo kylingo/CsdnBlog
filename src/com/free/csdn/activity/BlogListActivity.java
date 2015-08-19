@@ -52,8 +52,8 @@ import me.maxwin.view.XListView;
  *
  */
 @SuppressLint("InflateParams")
-public class BlogListActivity extends BaseActivity implements OnItemClickListener, OnClickListener,
-		IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogListActivity extends BaseActivity
+		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;
@@ -68,6 +68,8 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	private Blogger mBlogger;
 	private BlogItemDao mBlogListDb;
 	private List<BlogCategory> mBlogCategoryList = new ArrayList<BlogCategory>();
+	private String mCategory = AppConstants.BLOG_CATEGORY_ALL;
+	private String mBaseUrl = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +80,22 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		initView();
 	}
 
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if (mAsyncTask != null) {
+			mAsyncTask.cancel(true);
+		}
+	}
+
 	private void initData() {
 		mBlogger = (Blogger) getIntent().getSerializableExtra("blogger");
 		mUserId = mBlogger.getUserId();
 		mBlogListDb = new BlogItemDaoImpl(this, mUserId);
 
-		BlogCategory blogCategory = new BlogCategory();
-		blogCategory.setName("全部");
-		mBlogCategoryList.add(blogCategory);
+		mBaseUrl = URLUtil.getBlogDefaultUrl(mUserId);
+		queryCategory();
 	}
 
 	private void initView() {
@@ -192,9 +202,19 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 				mPopupWindow.dismiss();
 				if (position == 0) {
 					setDefaultTitle();
+					mCategory = AppConstants.BLOG_CATEGORY_ALL;
+					mBaseUrl = URLUtil.getBlogDefaultUrl(mUserId);
+
+					mAdapter.clearList();
+					refresh();
 				} else {
 					BlogCategory blogCategory = ((BlogCategoryAdapter) parent.getAdapter()).getItem(position);
-					mTvUserId.setText(blogCategory.getName().trim().replace("【", "").replace("】", ""));
+					mTvUserId.setText(blogCategory.getName());
+					mCategory = blogCategory.getName();
+					mBaseUrl = URLUtil.getBlogCategoryUrl(blogCategory.getLink());
+
+					mAdapter.clearList();
+					refresh();
 				}
 			}
 		});
@@ -229,12 +249,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	@Override
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
-		mPage++;
-		if (NetUtil.isNetAvailable(this)) {
-			requestData(mPage);
-		} else {
-			mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
-		}
+		loadMore();
 	}
 
 	@Override
@@ -243,18 +258,34 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		refresh();
 	}
 
-	private void refresh() {
-		mPage = 1;
-		requestData(mPage);
+	private void loadMore() {
+		mPage++;
+		requestData();
 	}
 
-	private void requestData(int page) {
+	private void refresh() {
+		mReLoadImageView.setVisibility(View.GONE);
+		mPbLoading.setVisibility(View.VISIBLE);
+		mListView.disablePullLoad();
+		mPage = 1;
+		requestData();
+	}
+
+	private void requestData() {
+		if (NetUtil.isNetAvailable(this)) {
+			getData(mPage);
+		} else {
+			mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
+		}
+	}
+
+	private void getData(int page) {
 		if (mAsyncTask != null) {
 			mAsyncTask.cancel(true);
 		}
 
 		mAsyncTask = new HttpAsyncTask(this);
-		String url = URLUtil.getBlogListURL(mUserId, page);
+		String url = URLUtil.getBlogListURL(mBaseUrl, page);
 		mAsyncTask.execute(url);
 		mAsyncTask.setOnResponseListener(mOnResponseListener);
 	}
@@ -266,7 +297,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<BlogItem> list = JsoupUtil.getBlogItemList(0, resultString, mBlogCategoryList);
+				List<BlogItem> list = JsoupUtil.getBlogItemList(mCategory, resultString, mBlogCategoryList);
 
 				if (list != null && list.size() > 0) {
 					if (mPage == 1) {
@@ -286,7 +317,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 					mListView.disablePullLoad();
 					ToastUtil.show(BlogListActivity.this, "暂无最新数据");
 				}
-
 			} else {
 				if (mAdapter.getCount() == 0) {
 					mReLoadImageView.setVisibility(View.VISIBLE);
@@ -301,6 +331,20 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		}
 	};
 
+	private void queryCategory() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				List<BlogCategory> blogCategoryList = mBlogListDb.queryCategory();
+				if (blogCategoryList != null) {
+					mBlogCategoryList.addAll(blogCategoryList);
+				}
+			}
+		}).start();
+	}
+
 	/**
 	 * 保存数据库
 	 * 
@@ -312,7 +356,11 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mBlogListDb.insert(list);
+				mBlogListDb.insert(mCategory, list);
+
+				if (mBlogCategoryList != null) {
+					mBlogListDb.insertCategory(mBlogCategoryList);
+				}
 			}
 		}).start();
 
@@ -325,18 +373,20 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
-				List<BlogItem> list = mBlogListDb.query(mPage);
+				List<BlogItem> list = mBlogListDb.query(mCategory, mPage);
 
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
 					mAdapter.notifyDataSetChanged();
 					mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
 					mListView.setRefreshTime(DateUtil.getDate());
+					mListView.stopRefresh();
 					mListView.stopLoadMore();
+					mPbLoading.setVisibility(View.GONE);
 				} else {
 					// 不请求最新数据，让用户自己刷新或者加载
 					mPbLoading.setVisibility(View.VISIBLE);
-					requestData(mPage);
+					getData(mPage);
 					mListView.disablePullLoad();
 				}
 
