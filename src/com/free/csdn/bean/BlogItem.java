@@ -8,43 +8,43 @@ import com.lidroid.xutils.db.annotation.Column;
  * @author wwj_748
  * @date 2014/8/9
  */
-public class BlogItem extends BaseEntity{
-	
+public class BlogItem extends BaseEntity {
+
 	private static final long serialVersionUID = 3348273811892710379L;
 
 	@Column(column = "title")
 	private String title; // 标题
-	
+
 	@Column(column = "link")
 	private String link; // 文章链接
-	
+
 	@Column(column = "date")
 	private String date; // 博客发布时间
-	
+
 	@Column(column = "imgLink")
 	private String imgLink; // 图片链接
-	
+
 	@Column(column = "content")
 	private String content; // 文章内容
-	
+
 	@Column(column = "msg")
 	private String msg; // 消息
-	
+
 	@Column(column = "type")
 	private int type; // 博客分类
 
 	@Column(column = "viewTime")
 	private String viewTime;
-	
+
 	@Column(column = "isTop")
-	private int topFlag;// 
-	
+	private int topFlag;// 是否置顶
+
 	@Column(column = "icoType")
-	private String icoType;
-	
+	private String icoType;// 文章类型
+
 	@Column(column = "updateTime")
-	private long updateTime;
-		
+	private long updateTime;// 更新时间
+
 	@Column(column = "reserve")
 	private String reserve;
 

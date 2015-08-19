@@ -11,21 +11,39 @@ import com.lidroid.xutils.db.annotation.Column;
 public class BlogCategory extends BaseEntity {
 	private static final long serialVersionUID = -8366599113596257949L;
 
+	/**
+	 * 分类名称
+	 */
 	@Column(column = "name")
 	private String name;
 
+	/**
+	 * 分类连接
+	 */
 	@Column(column = "link")
 	private String link;
-	
+
+	/**
+	 * 分类图片
+	 */
 	@Column(column = "image")
 	private String image;
 
+	/**
+	 * 分类详情
+	 */
 	@Column(column = "content")
 	private String content;
 
+	/**
+	 * 分类更新时间
+	 */
 	@Column(column = "updateTime")
 	private String updateTime;
 
+	/**
+	 * 保留字段
+	 */
 	@Column(column = "reserve")
 	private String reserve;
 

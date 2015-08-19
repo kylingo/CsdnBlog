@@ -3,9 +3,25 @@ package com.free.csdn.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
+import com.free.csdn.R;
+import com.free.csdn.adapter.BlogCategoryAdapter;
+import com.free.csdn.adapter.BlogListAdapter;
+import com.free.csdn.base.BaseActivity;
+import com.free.csdn.bean.BlogCategory;
+import com.free.csdn.bean.BlogItem;
+import com.free.csdn.bean.Blogger;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.db.BlogItemDao;
+import com.free.csdn.db.impl.BlogItemDaoImpl;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.DisplayUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.NetUtil;
+import com.free.csdn.util.ToastUtil;
+import com.free.csdn.util.URLUtil;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,26 +40,9 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.free.csdn.R;
-import com.free.csdn.adapter.BlogListAdapter;
-import com.free.csdn.adapter.BlogCategoryAdapter;
-import com.free.csdn.base.BaseActivity;
-import com.free.csdn.bean.BlogCategory;
-import com.free.csdn.bean.BlogItem;
-import com.free.csdn.bean.Blogger;
-import com.free.csdn.config.AppConstants;
-import com.free.csdn.db.BlogItemDao;
-import com.free.csdn.db.impl.BlogItemDaoImpl;
-import com.free.csdn.task.HttpAsyncTask;
-import com.free.csdn.task.OnResponseListener;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.DisplayUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.LogUtil;
-import com.free.csdn.util.NetUtil;
-import com.free.csdn.util.ToastUtil;
-import com.free.csdn.util.URLUtil;
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 
 /**
  * 博客列表
@@ -57,9 +56,9 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
-	private BlogListAdapter mAdapter;// 列表适配器
+	private BlogListAdapter mAdapter;
 	private HttpAsyncTask mAsyncTask;
-	private ImageView mReLoadImageView; // 重新加载的图片
+	private ImageView mReLoadImageView;
 	private ProgressBar mPbLoading;
 	private TextView mTvUserId;
 	private PopupWindow mPopupWindow;
@@ -130,10 +129,9 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	 */
 	private void initListView() {
 		mAdapter = new BlogListAdapter(this);
-		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
+		mListView.setPullRefreshEnable(this);
 		mListView.NotRefreshAtBegin();
-		mListView.setAdapter(mAdapter);// 设置适配器
-		// 设置列表项点击事件
+		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(this);
 
 		// 先预加载数据，再请求最新数据
@@ -175,7 +173,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	 * 
 	 * @param view
 	 */
-	@SuppressWarnings("deprecation")
 	private void getPopupWindow(View view) {
 		View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_bloglist, null);
 
