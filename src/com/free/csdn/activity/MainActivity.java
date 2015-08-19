@@ -57,7 +57,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 	public static FragmentManager fm;
 	private Boolean openOrClose = false;
-	private String[] mMenuTitles = { "首页", "频道", "收藏", "设置" };
+	private String[] mMenuTitles = { "首页", "频道", "收藏", "关于","设置" };
 	private int[] mResId = { R.drawable.me_06, R.drawable.me_03, R.drawable.me_02,
 			R.drawable.me_04, R.drawable.me_05 };
 	private long exitTime;
@@ -197,10 +197,11 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 					break;
 
 				case 3:
-					intent = new Intent(MainActivity.this, SettingsActivity.class);
+					intent = new Intent(MainActivity.this, AboutActivity.class);
 					break;
 
 				case 4:
+					intent = new Intent(MainActivity.this, SettingsActivity.class);
 					break;
 				}
 

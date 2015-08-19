@@ -32,8 +32,8 @@
                     android:layout_width="match_parent"
                     android:gravity="right"
                     android:text="@string/setttings_now_version"
-                    android:textSize="15sp"
-                    android:textColor="@color/list_decs_color" />
+                    android:textColor="@color/list_decs_color"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <View style="@style/settings_divider_style" />
@@ -45,15 +45,15 @@
                 <TextView
                     style="@style/settings_text_style"
                     android:text="@string/clear_cache" />
-                
-                 <TextView
+
+                <TextView
                     android:id="@+id/tv_cache_size"
                     style="@style/settings_text_style"
                     android:layout_width="match_parent"
                     android:gravity="right"
                     android:text="@string/cache_size"
-                    android:textSize="15sp"
-                    android:textColor="@color/list_decs_color" />
+                    android:textColor="@color/list_decs_color"
+                    android:textSize="15sp" />
             </LinearLayout>
 
             <View style="@style/settings_divider_style" />
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@color/white"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/ll_settings_about_us"
