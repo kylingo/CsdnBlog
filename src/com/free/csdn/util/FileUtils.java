@@ -125,8 +125,7 @@ public class FileUtils {
 	public static String getSdCardPath(Context c) {
 		// ToastUtils.showToast(paths.toString());
 		File sdDir = null;
-		boolean sdCardExist = Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+		boolean sdCardExist = Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
 		if (sdCardExist) {
 			sdDir = Environment.getExternalStorageDirectory();// 获取跟目录
 			return sdDir.toString();
@@ -141,8 +140,7 @@ public class FileUtils {
 	 * @return
 	 */
 	public static boolean getSdAvailable() {
-		return Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())
-				|| Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
+		return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
 	}
 
 	/**
@@ -249,7 +247,12 @@ public class FileUtils {
 	public static String getExternalCacheDir(Context context) {
 		String path = null;
 		if (getSdAvailable()) {
-			path = context.getExternalCacheDir().getAbsolutePath();
+			File file = context.getExternalCacheDir();
+			if (file != null) {
+				path = file.getAbsolutePath();
+			} else {
+				path = context.getCacheDir().getAbsolutePath();
+			}
 		} else {
 			path = context.getCacheDir().getAbsolutePath();
 		}
@@ -326,8 +329,7 @@ public class FileUtils {
 			}
 			InputStream is = bitmap2InputStream(bmp);
 
-			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/"
-					+ getFileName(fileName));
+			FileOutputStream fileOutputStream = new FileOutputStream(filePath + "/" + getFileName(fileName));
 			byte[] buffer = new byte[512];
 			int count = 0;
 			while ((count = is.read(buffer)) > 0) {
