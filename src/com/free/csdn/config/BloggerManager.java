@@ -7,6 +7,8 @@ import com.free.csdn.db.BloggerDao;
 import com.free.csdn.util.SpfUtils;
 
 /**
+ * Andoird博主管理
+ * 
  * @author tangqi
  * @data 2015年7月9日下午4:41:18
  */
@@ -79,7 +81,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/yayun0516";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "wwj_748";
 		array[1] = "巫文杰";
 		array[2] = "一个人走到任何境地全都是因为自己。";
@@ -103,7 +105,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/jiangwei0910410003";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "guolin_blog";
 		array[1] = "郭霖";
 		array[2] = "每当你在感叹，如果有这样一个东西就好了的时候，请注意，其实这是你的机会";
@@ -119,7 +121,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/singwhatiwanna";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "cym492224103";
 		array[1] = "陈宇明";
 		array[2] = "分享既是快乐！更多源码请查看javaapk.com.";
@@ -127,7 +129,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/cym492224103";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "eclipsexys";
 		array[1] = "徐宜生";
 		array[2] = "路漫漫其修远兮 吾将上下而求索";
@@ -135,7 +137,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/eclipsexys";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "zhaokaiqiang1992";
 		array[1] = "赵凯强";
 		array[2] = "专注Android移动开发，热爱分享，支持开源";
@@ -143,7 +145,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/zhaokaiqiang1992";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "xiaanming";
 		array[1] = "夏安明";
 		array[2] = "专注移动互联网开发，注重实战，是软件开发的一柄利剑";
@@ -431,7 +433,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/LoveLion";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "DLUTBruceZhang";
 		array[1] = "张虎";
 		array[2] = "echo 'are you happy ?' | cut -d ' ' -f 3 | tr -d '\r\n '";
@@ -439,7 +441,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/DLUTBruceZhang";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "songjinshi";
 		array[1] = "宋金时";
 		array[2] = "士不可以不弘毅，任重而道远！你无法改变过去，却可以把握现在和未来，相信自己，无限可能！";
@@ -447,7 +449,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/songjinshi";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "ameyume";
 		array[1] = "巩玉敏";
 		array[2] = "蓝蓝的天，白云朵朵。 White clouds in the blue sky.";
@@ -455,7 +457,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/ameyume";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "sunboy_2050";
 		array[1] = "杨刚";
 		array[2] = "欢迎访问我的新博客： http://blog.mimvp.com";

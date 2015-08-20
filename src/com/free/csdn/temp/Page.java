@@ -6,6 +6,7 @@ package com.free.csdn.temp;
  * @author wwj_748
  * @date 2014/8/9
  */
+@Deprecated
 public class Page {
 	private int page = 1; // 记录页面数
 	public boolean contentFirstPage = true; // 内容第一页

@@ -1,10 +1,10 @@
 package com.free.csdn.config;
 
 /**
- * 常量类
- * 
- * @author wwj_748
- * 
+ * 全局常量
+ *
+ * @author tangqi
+ * @data 2015年7月20日下午10:42:07
  */
 public class AppConstants {
 

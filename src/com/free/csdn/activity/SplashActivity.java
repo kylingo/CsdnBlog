@@ -12,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * 闪屏页面
+ *
+ * @author tangqi
+ * @data 2015年8月15日下午10:10:51
+ */
 public class SplashActivity extends BaseActivity {
 	private TextView mTvVersion;
 	private RelativeLayout mRvSplash;

@@ -6,7 +6,7 @@ import java.util.Comparator;
 /**
  * 评论列表-排序
  * 
- * @author Frank
+ * @author tangqi
  * @date 2015年8月4日下午4:09:58
  */
 

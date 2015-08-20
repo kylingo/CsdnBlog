@@ -1,4 +1,4 @@
-package com.free.csdn.adapter;
+package com.free.csdn.temp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.free.csdn.R;
 import com.free.csdn.config.AppConstants;
-import com.free.csdn.temp.Blog;
 import com.free.csdn.util.FileUtils;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;
@@ -24,8 +23,8 @@ import com.free.csdn.util.MyTagHandler;
 /**
  * 博客内容适配器
  * 
- * @author wwj_748
- * @date 2014/8/10
+ * @author tangqi
+ * @data 2015年8月9日下午2:01:25
  */
 
 @Deprecated

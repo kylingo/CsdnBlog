@@ -8,6 +8,7 @@ import com.free.csdn.adapter.DrawerAdapter;
 import com.free.csdn.base.BaseFragmentActivity;
 import com.free.csdn.bean.DrawerInfo;
 import com.free.csdn.fragment.BloggerFragment;
+import com.free.csdn.util.ToastUtil;
 import com.free.csdn.view.CircleImageView;
 import com.free.csdn.view.drawerlayout.ActionBarDrawerToggle;
 import com.free.csdn.view.drawerlayout.DrawerArrowDrawable;
@@ -33,7 +34,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * 侧滑风格主Activity
@@ -288,7 +288,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 			if (isOpen == false) {
 				if ((System.currentTimeMillis() - mExitTime) > TIME_DIFF) {
-					Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+					ToastUtil.show(MainActivity.this, "再按一次退出程序");
 					mExitTime = System.currentTimeMillis();
 				} else {
 					System.exit(0);

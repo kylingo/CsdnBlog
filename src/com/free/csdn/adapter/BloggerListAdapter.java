@@ -2,6 +2,11 @@ package com.free.csdn.adapter;
 
 import java.util.List;
 
+import com.free.csdn.R;
+import com.free.csdn.bean.Blogger;
+import com.free.csdn.util.ImageLoaderUtils;
+import com.free.csdn.view.CircleImageView;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
@@ -11,14 +16,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.free.csdn.R;
-import com.free.csdn.bean.Blogger;
-import com.free.csdn.util.ImageLoaderUtils;
-import com.free.csdn.view.CircleImageView;
-
 /**
  * 博主列表
+ * 
+ * @author tangqi
+ * @data 2015年8月9日下午2:01:25
  */
+
 public class BloggerListAdapter extends BaseAdapter {
 
 	private Context context;

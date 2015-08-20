@@ -17,10 +17,10 @@ import com.free.csdn.bean.BlogItem;
 import com.free.csdn.config.AppConstants.BLOG_ICO_TYPE;
 
 /**
- * 博客列表适配器
+ *  博客列表适配器
  * 
- * @author wwj_748
- * @date 2012/8/9
+ * @author tangqi
+ * @data 2015年8月9日下午2:01:25
  */
 public class BlogListAdapter extends BaseAdapter {
 	private ViewHolder holder; // 视图容器

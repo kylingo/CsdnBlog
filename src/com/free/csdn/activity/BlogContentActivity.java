@@ -5,6 +5,19 @@ import java.util.Iterator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
+import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
+import com.free.csdn.bean.BlogHtml;
+import com.free.csdn.bean.BlogItem;
+import com.free.csdn.db.BlogCollectDao;
+import com.free.csdn.db.BlogContentDao;
+import com.free.csdn.db.impl.BlogCollectDaoImpl;
+import com.free.csdn.db.impl.BlogContentDaoImpl;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.ToastUtil;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,24 +39,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.free.csdn.R;
-import com.free.csdn.base.BaseActivity;
-import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.bean.BlogItem;
-import com.free.csdn.db.BlogCollectDao;
-import com.free.csdn.db.BlogContentDao;
-import com.free.csdn.db.impl.BlogCollectDaoImpl;
-import com.free.csdn.db.impl.BlogContentDaoImpl;
-import com.free.csdn.task.HttpAsyncTask;
-import com.free.csdn.task.OnResponseListener;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
-
 /**
  * 博客详细内容界面
  * 
- * @author wwj_748
- * @date 2014/8/10
+ * @author tangqi
+ * @data 2015年7月20日下午9:20:20
+ *
  */
 @SuppressLint("SetJavaScriptEnabled")
 public class BlogContentActivity extends BaseActivity implements OnResponseListener,

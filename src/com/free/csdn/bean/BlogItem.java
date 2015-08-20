@@ -5,8 +5,8 @@ import com.lidroid.xutils.db.annotation.Column;
 /**
  * 博客实体类
  * 
- * @author wwj_748
- * @date 2014/8/9
+ * @author tangqi
+ * @data 2015年8月6日下午10:28:30
  */
 public class BlogItem extends BaseEntity {
 

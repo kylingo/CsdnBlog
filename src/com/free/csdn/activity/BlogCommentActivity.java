@@ -33,12 +33,11 @@ import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.URLUtil;
 
 /**
- * 2014/8/13
- * 
  * 博客评论列表
  * 
- * @author wwj_748
- * 
+ * @author tangqi
+ * @data 2015年7月20日下午8:20:20
+ *
  */
 public class BlogCommentActivity extends BaseActivity implements IXListViewRefreshListener, IXListViewLoadMore {
 

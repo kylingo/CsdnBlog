@@ -29,6 +29,7 @@ import com.umeng.update.UmengUpdateAgent;
  * @author smile
  * 
  */
+@Deprecated
 public class HomeActivity extends BaseFragmentActivity implements OnCheckedChangeListener {
 
 	private RadioGroup mGroup;

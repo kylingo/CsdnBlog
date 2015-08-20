@@ -2,6 +2,8 @@ package com.free.csdn.view.drawerlayout;
 
 import java.lang.reflect.Method;
 
+import com.free.csdn.R;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -14,12 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.free.csdn.R;
 
-
+@SuppressWarnings("deprecation")
 public class ActionBarDrawerToggle extends android.support.v4.app.ActionBarDrawerToggle {
-
-	private static final String TAG = ActionBarDrawerToggle.class.getName();
 
 	protected Activity mActivity;
 	protected DrawerLayout mDrawerLayout;

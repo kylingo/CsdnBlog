@@ -19,10 +19,10 @@ import com.free.csdn.config.AppConstants;
 import com.free.csdn.util.ImageLoaderUtils;
 
 /**
- * 评论列表适配器
+ *  评论列表适配器
  * 
- * @author wwj_748
- * 
+ * @author tangqi
+ * @data 2015年8月9日下午4:01:25
  */
 public class CommentAdapter extends BaseAdapter {
 	private ViewHolder holder;

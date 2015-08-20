@@ -34,7 +34,7 @@ import com.umeng.fb.model.Reply;
 /**
  * 自定义反馈界面
  * 
- * @author Frank
+ * @author tangqi
  *
  */
 @SuppressLint({ "InflateParams", "SimpleDateFormat" })

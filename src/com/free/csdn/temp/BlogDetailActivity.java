@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.free.csdn.R;
 import com.free.csdn.activity.BlogCommentActivity;
-import com.free.csdn.adapter.BlogDetailAdapter;
 import com.free.csdn.base.BaseActivity;
 import com.free.csdn.config.AppConstants;
 import com.free.csdn.util.FileUtils;
