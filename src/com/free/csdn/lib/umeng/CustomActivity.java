@@ -31,6 +31,12 @@ import com.umeng.fb.SyncListener;
 import com.umeng.fb.model.Conversation;
 import com.umeng.fb.model.Reply;
 
+/**
+ * 自定义反馈界面
+ * 
+ * @author Frank
+ *
+ */
 @SuppressLint({ "InflateParams", "SimpleDateFormat" })
 public class CustomActivity extends Activity {
 
@@ -113,9 +119,8 @@ public class CustomActivity extends Activity {
 		});
 
 		// 顶部刷新的样式
-		mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
-				android.R.color.holo_green_light, android.R.color.holo_blue_bright,
-				android.R.color.holo_orange_light);
+		mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
+				android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
 	}
 
 	// 数据同步
@@ -190,21 +195,17 @@ public class CustomActivity extends Activity {
 				// 根据Type的类型来加载不同的Item布局
 				if (Reply.TYPE_DEV_REPLY.equals(reply.type)) {
 					// 开发者的回复
-					convertView = LayoutInflater.from(mContext).inflate(
-							R.layout.umeng_fb_custom_dev_reply, null);
+					convertView = LayoutInflater.from(mContext).inflate(R.layout.umeng_fb_custom_dev_reply, null);
 				} else {
 					// 用户的反馈、回复
-					convertView = LayoutInflater.from(mContext).inflate(
-							R.layout.umeng_fb_custom_user_reply, null);
+					convertView = LayoutInflater.from(mContext).inflate(R.layout.umeng_fb_custom_user_reply, null);
 				}
 
 				// 创建ViewHolder并获取各种View
 				holder = new ViewHolder();
 				holder.replyContent = (TextView) convertView.findViewById(R.id.fb_reply_content);
-				holder.replyProgressBar = (ProgressBar) convertView
-						.findViewById(R.id.fb_reply_progressBar);
-				holder.replyStateFailed = (ImageView) convertView
-						.findViewById(R.id.fb_reply_state_failed);
+				holder.replyProgressBar = (ProgressBar) convertView.findViewById(R.id.fb_reply_progressBar);
+				holder.replyStateFailed = (ImageView) convertView.findViewById(R.id.fb_reply_state_failed);
 				holder.replyData = (TextView) convertView.findViewById(R.id.fb_reply_date);
 				convertView.setTag(holder);
 			} else {

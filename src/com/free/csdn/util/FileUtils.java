@@ -265,22 +265,23 @@ public class FileUtils {
 	 * @param file
 	 *            要删除的根目录
 	 */
-	public static void delete(File file) {
+	public static boolean delete(File file) {
 		if (file != null && file.isFile()) {
 			file.delete();
-			return;
+			return false;
 		}
 		if (file.isDirectory()) {
 			File[] childFile = file.listFiles();
 			if (childFile == null || childFile.length == 0) {
 				file.delete();
-				return;
+				return true;
 			}
 			for (File f : childFile) {
 				delete(f);
 			}
 			file.delete();
 		}
+		return true;
 	}
 
 	public static String getFileName(String str) {

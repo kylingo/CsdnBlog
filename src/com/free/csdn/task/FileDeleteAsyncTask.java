@@ -2,20 +2,20 @@ package com.free.csdn.task;
 
 import java.io.File;
 
+import com.free.csdn.util.FileUtils;
+
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.free.csdn.util.FileUtils;
-
 /**
- * 计算文件目录大小-Task
+ * 删除文件-Task
+ * 
+ * @author Frank
  *
- * @author tangqi
- * @data 2015年8月15日下午9:38:04
  */
-public class FileCalculateAsyncTask extends AsyncTask<File, Void, Long> {
+public class FileDeleteAsyncTask extends AsyncTask<File, Void, Boolean> {
 
-	public FileCalculateAsyncTask(Context context) {
+	public FileDeleteAsyncTask(Context context) {
 
 	}
 
@@ -28,12 +28,12 @@ public class FileCalculateAsyncTask extends AsyncTask<File, Void, Long> {
 	}
 
 	@Override
-	protected Long doInBackground(File... params) {
-		return FileUtils.getFileSize(params[0]);
+	protected Boolean doInBackground(File... params) {
+		return FileUtils.delete(params[0]);
 	}
 
 	@Override
-	protected void onPostExecute(Long result) {
+	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
 		if (null != onResponseListener) {
 			onResponseListener.onResponse(String.valueOf(result));

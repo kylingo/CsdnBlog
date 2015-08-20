@@ -7,12 +7,14 @@ import com.free.csdn.base.BaseActivity;
 import com.free.csdn.config.CacheManager;
 import com.free.csdn.lib.umeng.CustomActivity;
 import com.free.csdn.task.FileCalculateAsyncTask;
+import com.free.csdn.task.FileDeleteAsyncTask;
 import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.FileUtils;
 import com.free.csdn.util.NetUtil;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.util.VersionUtil;
 import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
+import com.free.csdn.view.dialog.LoadingDialog;
 import com.free.csdn.view.dialog.SelectionDialog;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -206,9 +208,22 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onConfirm(String result) {
 				// TODO Auto-generated method stub
-				FileUtils.delete(mExternalCacheFile);
-				ToastUtil.showCenter(SettingsActivity.this, "清理成功");
-				updateData();
+
+				final LoadingDialog dialog = new LoadingDialog(SettingsActivity.this, "正在清理缓存");
+				dialog.show();
+				
+				FileDeleteAsyncTask task = new FileDeleteAsyncTask(SettingsActivity.this);
+				task.execute(mExternalCacheFile);
+				task.setOnResponseListener(new OnResponseListener() {
+
+					@Override
+					public void onResponse(String resultString) {
+						// TODO Auto-generated method stub
+						dialog.dismiss();
+						ToastUtil.showCenter(SettingsActivity.this, "清理成功");
+						updateData();
+					}
+				});
 			}
 		});
 		dialog.show();
