@@ -19,15 +19,15 @@ import com.free.csdn.util.CrashHandler;
 
 public class MyApplication extends Application {
 
-	private static MyApplication instance;
-	private List<Activity> activities = new ArrayList<Activity>();
+	private static MyApplication mInstance;
+	private List<Activity> mActivities = new ArrayList<Activity>();
 
 	// 单例模式中获取唯一的ExitApplication 实例
 	public static MyApplication getInstance() {
-		if (null == instance) {
-			instance = new MyApplication();
+		if (null == mInstance) {
+			mInstance = new MyApplication();
 		}
-		return instance;
+		return mInstance;
 
 	}
 
@@ -81,7 +81,7 @@ public class MyApplication extends Application {
 	 * @param activity
 	 */
 	public void addActivity(Activity activity) {
-		activities.add(activity);
+		mActivities.add(activity);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class MyApplication extends Application {
 	public void onTerminate() {
 		super.onTerminate();
 
-		for (Activity activity : activities) {
+		for (Activity activity : mActivities) {
 			activity.finish();
 		}
 

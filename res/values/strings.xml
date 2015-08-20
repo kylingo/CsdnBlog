@@ -64,5 +64,6 @@
     
      <string name="message_image_desc">Message Image</string>
       <string name="action_new_conversation">新建会话</string>
+      <string name="contact_us">联系我们</string>
 
 </resources>

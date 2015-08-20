@@ -1,11 +1,10 @@
 package com.free.csdn.util;
 
+import com.bumptech.glide.Glide;
+import com.free.csdn.R;
+
 import android.text.TextUtils;
 import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.MemoryCategory;
-import com.free.csdn.R;
 
 /**
  * 图片加载工具类

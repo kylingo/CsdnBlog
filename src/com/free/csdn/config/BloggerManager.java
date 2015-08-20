@@ -63,13 +63,6 @@ public class BloggerManager {
 
 		Blogger blogger = new Blogger();
 		String[] array = new String[6];
-		array[0] = "wwj_748";
-		array[1] = "巫文杰";
-		array[2] = "一个人走到任何境地全都是因为自己。";
-		array[3] = "http://avatar.csdn.net/C/C/8/1_wwj_748.jpg";
-		array[4] = "http://blog.csdn.net/wwj_748";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
 
 		array[0] = "lmj623565791";
 		array[1] = "张鸿洋";
@@ -84,6 +77,14 @@ public class BloggerManager {
 		array[2] = "Technology changes life，Code writes everything.（小研快毕业，求引荐工作！谢谢）";
 		array[3] = "http://avatar.csdn.net/D/6/D/1_yayun0516.jpg";
 		array[4] = "http://blog.csdn.net/yayun0516";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "wwj_748";
+		array[1] = "巫文杰";
+		array[2] = "一个人走到任何境地全都是因为自己。";
+		array[3] = "http://avatar.csdn.net/C/C/8/1_wwj_748.jpg";
+		array[4] = "http://blog.csdn.net/wwj_748";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
@@ -102,12 +103,52 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/jiangwei0910410003";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "guolin_blog";
+		array[1] = "郭霖";
+		array[2] = "每当你在感叹，如果有这样一个东西就好了的时候，请注意，其实这是你的机会";
+		array[3] = "http://avatar.csdn.net/8/B/B/1_sinyu890807.jpg";
+		array[4] = "http://blog.csdn.net/guolin_blog";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
 
-		array[0] = "songjinshi";
-		array[1] = "宋金时";
-		array[2] = "士不可以不弘毅，任重而道远！你无法改变过去，却可以把握现在和未来，相信自己，无限可能！";
-		array[3] = "http://avatar.csdn.net/7/C/E/1_songjinshi.jpg";
-		array[4] = "http://blog.csdn.net/songjinshi";
+		array[0] = "singwhatiwanna";
+		array[1] = "任玉刚";
+		array[2] = "有创新精神的Android技术分享者";
+		array[3] = "http://avatar.csdn.net/0/2/C/1_singwhatiwanna.jpg";
+		array[4] = "http://blog.csdn.net/singwhatiwanna";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "cym492224103";
+		array[1] = "陈宇明";
+		array[2] = "分享既是快乐！更多源码请查看javaapk.com.";
+		array[3] = "http://avatar.csdn.net/F/A/3/1_cym492224103.jpg";
+		array[4] = "http://blog.csdn.net/cym492224103";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "eclipsexys";
+		array[1] = "徐宜生";
+		array[2] = "路漫漫其修远兮 吾将上下而求索";
+		array[3] = "http://avatar.csdn.net/A/6/8/1_x359981514.jpg";
+		array[4] = "http://blog.csdn.net/eclipsexys";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "zhaokaiqiang1992";
+		array[1] = "赵凯强";
+		array[2] = "专注Android移动开发，热爱分享，支持开源";
+		array[3] = "http://avatar.csdn.net/C/6/8/1_bz419927089.jpg";
+		array[4] = "http://blog.csdn.net/zhaokaiqiang1992";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "xiaanming";
+		array[1] = "夏安明";
+		array[2] = "专注移动互联网开发，注重实战，是软件开发的一柄利剑";
+		array[3] = "http://avatar.csdn.net/4/F/6/1_xiaanming.jpg";
+		array[4] = "http://blog.csdn.net/xiaanming";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
@@ -124,46 +165,6 @@ public class BloggerManager {
 		array[2] = "当乌龟有了梦想……";
 		array[3] = "http://avatar.csdn.net/0/D/3/1_harvic880925.jpg";
 		array[4] = "http://blog.csdn.net/harvic880925";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
-		array[0] = "DLUTBruceZhang";
-		array[1] = "张虎";
-		array[2] = "echo 'are you happy ?' | cut -d ' ' -f 3 | tr -d '\r\n '";
-		array[3] = "http://avatar.csdn.net/4/9/E/1_dlutbrucezhang.jpg";
-		array[4] = "http://blog.csdn.net/DLUTBruceZhang";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
-		array[0] = "ameyume";
-		array[1] = "巩玉敏";
-		array[2] = "蓝蓝的天，白云朵朵。 White clouds in the blue sky.";
-		array[3] = "http://avatar.csdn.net/3/2/4/1_ameyume.jpg";
-		array[4] = "http://blog.csdn.net/ameyume";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
-		array[0] = "sunboy_2050";
-		array[1] = "杨刚";
-		array[2] = "欢迎访问我的新博客： http://blog.mimvp.com";
-		array[3] = "http://avatar.csdn.net/C/6/F/1_sunboy_2050.jpg";
-		array[4] = "http://blog.csdn.net/sunboy_2050";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
-		array[0] = "guolin_blog";
-		array[1] = "郭霖";
-		array[2] = "每当你在感叹，如果有这样一个东西就好了的时候，请注意，其实这是你的机会";
-		array[3] = "http://avatar.csdn.net/8/B/B/1_sinyu890807.jpg";
-		array[4] = "http://blog.csdn.net/guolin_blog";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
-		array[0] = "singwhatiwanna";
-		array[1] = "任玉刚";
-		array[2] = "有创新精神的Android技术分享者";
-		array[3] = "http://avatar.csdn.net/0/2/C/1_singwhatiwanna.jpg";
-		array[4] = "http://blog.csdn.net/singwhatiwanna";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
@@ -223,27 +224,11 @@ public class BloggerManager {
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
-		array[0] = "cym492224103";
-		array[1] = "陈宇明";
-		array[2] = "分享既是快乐！更多源码请查看javaapk.com.";
-		array[3] = "http://avatar.csdn.net/F/A/3/1_cym492224103.jpg";
-		array[4] = "http://blog.csdn.net/cym492224103";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
 		array[0] = "rootusers";
 		array[1] = "仝利";
 		array[2] = "道可道，非常道，名可名，非常名。";
 		array[3] = "http://avatar.csdn.net/D/A/9/1_rootusers.jpg";
 		array[4] = "http://blog.csdn.net/rootusers";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
-		array[0] = "eclipsexys";
-		array[1] = "徐宜生";
-		array[2] = "路漫漫其修远兮 吾将上下而求索";
-		array[3] = "http://avatar.csdn.net/A/6/8/1_x359981514.jpg";
-		array[4] = "http://blog.csdn.net/eclipsexys";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
@@ -292,14 +277,6 @@ public class BloggerManager {
 		array[2] = "知道+做到=得到";
 		array[3] = "http://avatar.csdn.net/7/3/D/1_yanbober.jpg";
 		array[4] = "http://blog.csdn.net/yanbober";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
-		array[0] = "zhaokaiqiang1992";
-		array[1] = "赵凯强";
-		array[2] = "专注Android移动开发，热爱分享，支持开源";
-		array[3] = "http://avatar.csdn.net/C/6/8/1_bz419927089.jpg";
-		array[4] = "http://blog.csdn.net/zhaokaiqiang1992";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
@@ -447,19 +424,43 @@ public class BloggerManager {
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
-		array[0] = "xiaanming";
-		array[1] = "夏安明";
-		array[2] = "专注移动互联网开发，注重实战，是软件开发的一柄利剑";
-		array[3] = "http://avatar.csdn.net/4/F/6/1_xiaanming.jpg";
-		array[4] = "http://blog.csdn.net/xiaanming";
-		array[5] = type;
-		insertBlogger(bloggerDb, blogger, array);
-
 		array[0] = "LoveLion";
 		array[1] = "刘伟";
 		array[2] = "专注软件架构、设计模式、重构、UML和OOAD！";
 		array[3] = "http://avatar.csdn.net/C/8/3/1_lovelion.jpg";
 		array[4] = "http://blog.csdn.net/LoveLion";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "DLUTBruceZhang";
+		array[1] = "张虎";
+		array[2] = "echo 'are you happy ?' | cut -d ' ' -f 3 | tr -d '\r\n '";
+		array[3] = "http://avatar.csdn.net/4/9/E/1_dlutbrucezhang.jpg";
+		array[4] = "http://blog.csdn.net/DLUTBruceZhang";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "songjinshi";
+		array[1] = "宋金时";
+		array[2] = "士不可以不弘毅，任重而道远！你无法改变过去，却可以把握现在和未来，相信自己，无限可能！";
+		array[3] = "http://avatar.csdn.net/7/C/E/1_songjinshi.jpg";
+		array[4] = "http://blog.csdn.net/songjinshi";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "ameyume";
+		array[1] = "巩玉敏";
+		array[2] = "蓝蓝的天，白云朵朵。 White clouds in the blue sky.";
+		array[3] = "http://avatar.csdn.net/3/2/4/1_ameyume.jpg";
+		array[4] = "http://blog.csdn.net/ameyume";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
+		array[0] = "sunboy_2050";
+		array[1] = "杨刚";
+		array[2] = "欢迎访问我的新博客： http://blog.mimvp.com";
+		array[3] = "http://avatar.csdn.net/C/6/F/1_sunboy_2050.jpg";
+		array[4] = "http://blog.csdn.net/sunboy_2050";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 

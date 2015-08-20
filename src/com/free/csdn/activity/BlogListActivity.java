@@ -206,6 +206,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 					mBaseUrl = URLUtil.getBlogDefaultUrl(mUserId);
 
 					mAdapter.clearList();
+					mPbLoading.setVisibility(View.VISIBLE);
 					refresh();
 				} else {
 					BlogCategory blogCategory = ((BlogCategoryAdapter) parent.getAdapter()).getItem(position);
@@ -214,6 +215,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 					mBaseUrl = URLUtil.getBlogCategoryUrl(blogCategory.getLink());
 
 					mAdapter.clearList();
+					mPbLoading.setVisibility(View.VISIBLE);
 					refresh();
 				}
 			}
@@ -265,7 +267,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 	private void refresh() {
 		mReLoadImageView.setVisibility(View.GONE);
-		mPbLoading.setVisibility(View.VISIBLE);
 		mListView.disablePullLoad();
 		mPage = 1;
 		requestData();

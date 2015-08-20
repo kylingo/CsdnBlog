@@ -43,10 +43,10 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	private ImageView mReLoadImageView; // 重新加载的图片
 	private ProgressBar mPbLoading;
 
-	private TextView tvTitle;
-	private int page = 1;
-	private int pageSize = 20;
-	private BlogCollectDao db;
+	private TextView mTvTitle;
+	private int mPage = 1;
+	private int mPageSize = 20;
+	private BlogCollectDao mBb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +58,18 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	}
 
 	private void initData() {
-		db = new BlogCollectDaoImpl(this);
+		mBb = new BlogCollectDaoImpl(this);
 	}
 
 	private void initView() {
 		mListView = (XListView) findViewById(R.id.listView_blog);
 		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-		tvTitle = (TextView) findViewById(R.id.tv_title);
+		mTvTitle = (TextView) findViewById(R.id.tv_title);
 		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setVisibility(View.VISIBLE);
 		mBackBtn.setOnClickListener(this);
 
-		tvTitle.setText("博客收藏");
+		mTvTitle.setText("博客收藏");
 		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
 		mReLoadImageView.setOnClickListener(new OnClickListener() {
 
@@ -133,7 +133,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	@Override
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
-		page++;
+		mPage++;
 		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA,
 				AppConstants.MSG_PRELOAD_DATA);
 	}
@@ -145,7 +145,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	}
 
 	private void refresh() {
-		page = 1;
+		mPage = 1;
 		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA,
 				AppConstants.MSG_PRELOAD_DATA);
 	}
@@ -157,7 +157,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
-				List<BlogItem> list = db.query(page, pageSize);
+				List<BlogItem> list = mBb.query(mPage, mPageSize);
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
 					mAdapter.notifyDataSetChanged();

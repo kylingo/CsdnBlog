@@ -2,14 +2,6 @@ package com.free.csdn.activity;
 
 import java.io.File;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.free.csdn.R;
 import com.free.csdn.base.BaseActivity;
 import com.free.csdn.config.CacheManager;
@@ -24,6 +16,17 @@ import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
 import com.free.csdn.view.dialog.SelectionDialog;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * 设置
@@ -46,7 +49,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	/**
 	 * 缓存数据View
 	 */
-	private TextView tvCacheSize;
+	private TextView mTvCacheSize;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +63,18 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		TextView tvTitle = (TextView) findViewById(R.id.tv_title);
 		ImageView btnBack = (ImageView) findViewById(R.id.btn_back);
-		tvCacheSize = (TextView) findViewById(R.id.tv_cache_size);
+		mTvCacheSize = (TextView) findViewById(R.id.tv_cache_size);
 		TextView tvVersionName = (TextView) findViewById(R.id.tv_version_name);
 		LinearLayout llCheckUpgrade = (LinearLayout) findViewById(R.id.ll_settings_check_upgrade);
 		LinearLayout llClearCache = (LinearLayout) findViewById(R.id.ll_settings_clear_cache);
 		LinearLayout llUserFeedback = (LinearLayout) findViewById(R.id.ll_settings_user_feedback);
 		LinearLayout llUpdateLog = (LinearLayout) findViewById(R.id.ll_settings_update_log);
 		LinearLayout llShareApp = (LinearLayout) findViewById(R.id.ll_settings_share_app);
-		LinearLayout llSettingsAboutApp = (LinearLayout) findViewById(R.id.ll_settings_about_us);
+		LinearLayout llSettingsContactUs = (LinearLayout) findViewById(R.id.ll_settings_contact_us);
 		LinearLayout llSettingsExit = (LinearLayout) findViewById(R.id.ll_settings_exit);
 
 		tvTitle.setText(R.string.settings);
-		tvVersionName.setText(getString(R.string.setttings_now_version)
-				+ VersionUtil.getVersionName(this));
+		tvVersionName.setText(getString(R.string.setttings_now_version) + VersionUtil.getVersionName(this));
 		btnBack.setOnClickListener(this);
 		btnBack.setVisibility(View.VISIBLE);
 		llCheckUpgrade.setOnClickListener(this);
@@ -80,7 +82,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		llUserFeedback.setOnClickListener(this);
 		llUpdateLog.setOnClickListener(this);
 		llShareApp.setOnClickListener(this);
-		llSettingsAboutApp.setOnClickListener(this);
+		llSettingsContactUs.setOnClickListener(this);
 		llSettingsExit.setOnClickListener(this);
 
 		updateData();
@@ -122,8 +124,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			break;
 
 		// 关于我们
-		case R.id.ll_settings_about_us:
-			aboutUs();
+		case R.id.ll_settings_contact_us:
+			ContactUs();
 			break;
 
 		// 退出
@@ -152,7 +154,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 				// TODO Auto-generated method stub
 				try {
 					mExternCacheSize = Long.valueOf(resultString);
-					tvCacheSize.setText(FileUtils.formatSize(mExternCacheSize));
+					mTvCacheSize.setText(FileUtils.formatSize(mExternCacheSize));
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();
@@ -166,8 +168,30 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void checkUpgrade() {
 		// TODO Auto-generated method stub
-		if(NetUtil.isNetAvailable(this)){
+		if (NetUtil.isNetAvailable(this)) {
 			UmengUpdateAgent.forceUpdate(this);
+			UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+				@Override
+				public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
+					switch (updateStatus) {
+					case UpdateStatus.Yes:
+						ToastUtil.show(SettingsActivity.this, "软件有更新");
+						break;
+
+					case UpdateStatus.No:
+						ToastUtil.show(SettingsActivity.this, "没有更新");
+						break;
+
+					case UpdateStatus.NoneWifi:
+						ToastUtil.show(SettingsActivity.this, "没有wifi连接， 只在wifi下更新");
+						break;
+
+					case UpdateStatus.Timeout:
+						ToastUtil.show(SettingsActivity.this, "连接超时");
+						break;
+					}
+				}
+			});
 		}
 	}
 
@@ -176,8 +200,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 */
 	private void clearCache() {
 		// TODO Auto-generated method stub
-		SelectionDialog dialog = new SelectionDialog(this, "确定清除"
-				+ FileUtils.formatSize(mExternCacheSize) + "缓存吗？");
+		SelectionDialog dialog = new SelectionDialog(this, "确定清除" + FileUtils.formatSize(mExternCacheSize) + "缓存吗？");
 		dialog.setOnConfirmListener(new OnConfirmListener() {
 
 			@Override
@@ -203,9 +226,9 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		// check if the app developer has replied to the feedback or not.
 		fb.sync();
 		fb.openFeedbackPush();
-		
-	    Intent intent = new Intent(this,CustomActivity.class);
-        startActivity(intent);
+
+		Intent intent = new Intent(this, CustomActivity.class);
+		startActivity(intent);
 	}
 
 	/**
@@ -230,9 +253,9 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	/**
 	 * 关于我们
 	 */
-	private void aboutUs() {
+	private void ContactUs() {
 		// TODO Auto-generated method stub
-		startActivity(AboutActivity.class);
+		startActivity(ContactUsActivity.class);
 	}
 
 	/**

@@ -26,7 +26,7 @@ public class UpdateLogActivity extends BaseActivity {
 		setContentView(R.layout.activity_update_log);
 
 		initView();
-	}
+	}	
 
 	private void initView() {
 		// TODO Auto-generated method stub

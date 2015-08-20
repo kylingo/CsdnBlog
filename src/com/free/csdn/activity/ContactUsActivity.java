@@ -11,13 +11,13 @@ import com.free.csdn.R;
 import com.free.csdn.base.BaseActivity;
 
 /**
- * 关于
+ * 联系我们
  * 
  * @author tangqi
  * @data 2015年8月9日下午11:09:57
  */
 
-public class AboutActivity extends BaseActivity {
+public class ContactUsActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class AboutActivity extends BaseActivity {
 	private void initView() {
 		// TODO Auto-generated method stub
 		TextView mTitleView = (TextView) findViewById(R.id.tv_title);
-		mTitleView.setText("关于");
+		mTitleView.setText("联系我们");
 
 		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setVisibility(View.VISIBLE);
@@ -45,6 +45,6 @@ public class AboutActivity extends BaseActivity {
 		});
 
 		WebView mWebView = (WebView) findViewById(R.id.webview_about);
-		mWebView.loadUrl("file:///android_asset/about/about.html");
+		mWebView.loadUrl("file:///android_asset/about/contact.html");
 	}
 }

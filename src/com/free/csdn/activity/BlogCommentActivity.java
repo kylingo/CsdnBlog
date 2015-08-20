@@ -40,21 +40,20 @@ import com.free.csdn.util.URLUtil;
  * @author wwj_748
  * 
  */
-public class BlogCommentActivity extends BaseActivity implements
-		IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogCommentActivity extends BaseActivity implements IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private CommentAdapter mAdapter;
-	private ImageView reLoadImageView;
-	private ImageView backBtn;
-	private TextView commentTV;
-	private ProgressBar pbLoading;
+	private ImageView mReLoadImageView;
+	private ImageView mBtnBack;
+	private TextView mTvComment;
+	private ProgressBar mPbLoading;
 
 	private HttpAsyncTask mAsyncTask;
-	private String filename;
-	private int page = 1;
-	private int pageSize = 20;
-	private BlogCommentDao blogCommentDb;
+	private String mFileName;
+	private int mPage = 1;
+	private int mPageSize = 20;
+	private BlogCommentDao mDb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,34 +66,34 @@ public class BlogCommentActivity extends BaseActivity implements
 	}
 
 	private void initData() {
-		filename = getIntent().getExtras().getString("filename"); // 获得文件名
+		mFileName = getIntent().getExtras().getString("filename"); // 获得文件名
 		mAdapter = new CommentAdapter(this);
 
-		blogCommentDb = new BlogCommentDaoImpl(this, filename);
+		mDb = new BlogCommentDaoImpl(this, mFileName);
 	}
 
 	private void initComponent() {
-		pbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-		reLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
-		reLoadImageView.setOnClickListener(new OnClickListener() {
+		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
+		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+		mReLoadImageView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				System.out.println("click");
-				reLoadImageView.setVisibility(View.INVISIBLE);
+				mReLoadImageView.setVisibility(View.INVISIBLE);
 				onRefresh();
 			}
 		});
 
-		backBtn = (ImageView) findViewById(R.id.btn_back);
-		backBtn.setOnClickListener(new OnClickListener() {
+		mBtnBack = (ImageView) findViewById(R.id.btn_back);
+		mBtnBack.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				finish();
 			}
 		});
-		commentTV = (TextView) findViewById(R.id.comment);
+		mTvComment = (TextView) findViewById(R.id.comment);
 
 		mListView = (XListView) findViewById(R.id.listview);
 		mListView.setAdapter(mAdapter);
@@ -107,14 +106,14 @@ public class BlogCommentActivity extends BaseActivity implements
 
 	@Override
 	public void onLoadMore() {
-		page++;
-		requestData(page);
+		mPage++;
+		requestData(mPage);
 	}
 
 	@Override
 	public void onRefresh() {
-		page = 1;
-		requestData(page);
+		mPage = 1;
+		requestData(mPage);
 	}
 
 	@Override
@@ -129,7 +128,7 @@ public class BlogCommentActivity extends BaseActivity implements
 		}
 
 		mAsyncTask = new HttpAsyncTask(this);
-		String url = URLUtil.getCommentListURL(filename, String.valueOf(page));
+		String url = URLUtil.getCommentListURL(mFileName, String.valueOf(page));
 		mAsyncTask.execute(url);
 		mAsyncTask.setOnResponseListener(onResponseListener);
 	}
@@ -141,18 +140,17 @@ public class BlogCommentActivity extends BaseActivity implements
 			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<Comment> list = JsoupUtil.getBlogCommentList(resultString,
-						page, pageSize);
+				List<Comment> list = JsoupUtil.getBlogCommentList(resultString, mPage, mPageSize);
 				CommentComparator comparator = new CommentComparator();
 				Collections.sort(list, comparator);
-				if (page == 1) {
+				if (mPage == 1) {
 					mAdapter.setList(list);
 				} else {
 					mAdapter.addList(list);
 				}
 				mAdapter.notifyDataSetChanged();
 				mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
-				commentTV.setText(list.size() + "条");
+				mTvComment.setText(mAdapter.getCount() + "条");
 				saveDB(list);
 
 			} else {
@@ -160,8 +158,8 @@ public class BlogCommentActivity extends BaseActivity implements
 				mListView.disablePullLoad();
 			}
 
-			pbLoading.setVisibility(View.GONE);
-			reLoadImageView.setVisibility(View.GONE);
+			mPbLoading.setVisibility(View.GONE);
+			mReLoadImageView.setVisibility(View.GONE);
 			mListView.stopRefresh(DateUtil.getDate());
 			mListView.stopLoadMore();
 		}
@@ -178,7 +176,7 @@ public class BlogCommentActivity extends BaseActivity implements
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				blogCommentDb.insert(list);
+				mDb.insert(list);
 			}
 		}).start();
 
@@ -192,18 +190,18 @@ public class BlogCommentActivity extends BaseActivity implements
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
 				mListView.setRefreshTime(DateUtil.getDate()); // 设置刷新时间
-				List<Comment> list = blogCommentDb.query(page);
+				List<Comment> list = mDb.query(mPage);
 
 				if (list != null) {
 					mAdapter.setList(list);
 					mAdapter.notifyDataSetChanged();
 					mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
 					mListView.setRefreshTime(DateUtil.getDate());
-					commentTV.setText(list.size() + "条");
+					mTvComment.setText(mAdapter.getCount() + "条");
 				} else {
 					// 不请求最新数据，让用户自己刷新或者加载
-					pbLoading.setVisibility(View.VISIBLE);
-					requestData(page);
+					mPbLoading.setVisibility(View.VISIBLE);
+					requestData(mPage);
 					mListView.disablePullLoad();
 				}
 				break;

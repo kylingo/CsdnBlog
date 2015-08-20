@@ -40,6 +40,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dip"
         android:textColor="@color/black_text"
-        android:textSize="16sp" />
+        android:textSize="@dimen/title_size" />
 
 </RelativeLayout>

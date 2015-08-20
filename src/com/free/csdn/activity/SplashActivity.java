@@ -14,10 +14,10 @@ import com.free.csdn.util.ACache;
 import com.free.csdn.util.VersionUtil;
 
 public class SplashActivity extends BaseActivity {
-	TextView tvVersion, tvLogoName;
-	RelativeLayout rvSplash;
-	ACache mCache;
-	ImageView ivLogo;
+	private TextView mTvVersion, mTvLogoName;
+	private RelativeLayout mRvSplash;
+	private ACache mCache;
+	private ImageView mIvLogo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +31,23 @@ public class SplashActivity extends BaseActivity {
 	 * 初始化
 	 */
 	private void initView() {
-		ivLogo = (ImageView) findViewById(R.id.iv_logo);
-		tvLogoName = (TextView) findViewById(R.id.tv_logo_name);
-		tvVersion = (TextView) findViewById(R.id.tv_version);
-		rvSplash = (RelativeLayout) findViewById(R.id.rl_splash);
+		mIvLogo = (ImageView) findViewById(R.id.iv_logo);
+		mTvLogoName = (TextView) findViewById(R.id.tv_logo_name);
+		mTvVersion = (TextView) findViewById(R.id.tv_version);
+		mRvSplash = (RelativeLayout) findViewById(R.id.rl_splash);
 		mCache = ACache.get(this);
 		String name = mCache.getAsString("name");
 		try {
-			ivLogo.setImageResource(R.drawable.ic_launcher);
+			mIvLogo.setImageResource(R.drawable.ic_launcher);
 			if (!name.equals("")) {
-				tvLogoName.setText(name + ",欢迎回来");
+				mTvLogoName.setText(name + ",欢迎回来");
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
 		String str = VersionUtil.getVersionName(this);
-		tvVersion.setText("当前版本：" + str);
+		mTvVersion.setText("当前版本：" + str);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class SplashActivity extends BaseActivity {
 		Animation aa = new Animation() {
 		};
 		aa.setDuration(3000);
-		rvSplash.startAnimation(aa);
+		mRvSplash.startAnimation(aa);
 		aa.setAnimationListener(new AnimationListener() {
 			@Override
 			public void onAnimationEnd(Animation arg0) {

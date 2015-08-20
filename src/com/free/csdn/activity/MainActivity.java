@@ -3,6 +3,17 @@ package com.free.csdn.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.free.csdn.R;
+import com.free.csdn.adapter.DrawerAdapter;
+import com.free.csdn.base.BaseFragmentActivity;
+import com.free.csdn.bean.DrawerItem;
+import com.free.csdn.fragment.BloggerFragment;
+import com.free.csdn.view.CircleImageView;
+import com.free.csdn.view.drawerlayout.ActionBarDrawerToggle;
+import com.free.csdn.view.drawerlayout.DrawerArrowDrawable;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
@@ -24,18 +35,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.free.csdn.R;
-import com.free.csdn.adapter.DrawerAdapter;
-import com.free.csdn.base.BaseFragmentActivity;
-import com.free.csdn.bean.DrawerItem;
-import com.free.csdn.fragment.BloggerFragment;
-import com.free.csdn.fragment.ChannelFragment;
-import com.free.csdn.view.CircleImageView;
-import com.free.csdn.view.drawerlayout.ActionBarDrawerToggle;
-import com.free.csdn.view.drawerlayout.DrawerArrowDrawable;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.update.UmengUpdateAgent;
-
 /**
  * 侧滑风格主Activity
  * 
@@ -46,25 +45,28 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	private RelativeLayout rl;
+	private RelativeLayout mRl;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private DrawerArrowDrawable drawerArrow;
-	private CircleImageView iv_main_left_head;
-	private RelativeLayout toprl;
-	private ImageView login_tv;
-	private LinearLayout animll_id;
-	private TextView user_name;
+	private DrawerArrowDrawable mDrawerArrow;
+	private CircleImageView mIvMainLeftHead;
+	private RelativeLayout mRlTop;
+	private ImageView mTvLogin;
+	private LinearLayout mllAnimllId;
+	private TextView mUserName;
 
-	public static FragmentManager fm;
-	private Boolean openOrClose = false;
-	private String[] mMenuTitles = { "首页", "频道", "收藏", "关于","设置" };
-	private int[] mResId = { R.drawable.me_06, R.drawable.me_03, R.drawable.me_02,
-			R.drawable.me_04, R.drawable.me_05 };
-	private long exitTime;
+	public static FragmentManager mFragmentManager;
+	private Boolean isOpen = false;
+	private String[] mMenuTitles = { "首页",
+			// "频道",
+			"收藏", "关于", "设置" };
+	private int[] mResId = { R.drawable.me_06,
+			// R.drawable.me_03,
+			R.drawable.me_02, R.drawable.me_04, R.drawable.me_05 };
+	private long mExitTime;
 	private final static long TIME_DIFF = 2 * 1000;
 
-	private BloggerFragment bloggerFragment = null;
-	private ChannelFragment channelFragment = null;
+	private BloggerFragment mBloggerFragment = null;
+	// private ChannelFragment channelFragment = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +74,18 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 		setContentView(R.layout.activity_main);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		toprl = (RelativeLayout) findViewById(R.id.toprl);
-		animll_id = (LinearLayout) findViewById(R.id.animll_id);
-		login_tv = (ImageView) findViewById(R.id.login_tv);
-		user_name = (TextView) findViewById(R.id.user_name);
-		iv_main_left_head = (CircleImageView) findViewById(R.id.iv_main_left_head);
-		rl = (RelativeLayout) findViewById(R.id.rl);
+		mRlTop = (RelativeLayout) findViewById(R.id.toprl);
+		mllAnimllId = (LinearLayout) findViewById(R.id.animll_id);
+		mTvLogin = (ImageView) findViewById(R.id.login_tv);
+		mUserName = (TextView) findViewById(R.id.user_name);
+		mIvMainLeftHead = (CircleImageView) findViewById(R.id.iv_main_left_head);
+		mRl = (RelativeLayout) findViewById(R.id.rl);
 
-		toprl.setOnClickListener(this);
-		login_tv.setOnClickListener(this);
-		animll_id.setOnClickListener(this);
-		user_name.setOnClickListener(this);
-		iv_main_left_head.setOnClickListener(this);
+		mRlTop.setOnClickListener(this);
+		mTvLogin.setOnClickListener(this);
+		mllAnimllId.setOnClickListener(this);
+		mUserName.setOnClickListener(this);
+		mIvMainLeftHead.setOnClickListener(this);
 
 		initFragment();
 		initDrawerLayout();
@@ -129,25 +131,25 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.navdrawer);
 
-		drawerArrow = new DrawerArrowDrawable(this) {
+		mDrawerArrow = new DrawerArrowDrawable(this) {
 			@Override
 			public boolean isLayoutRtl() {
 				return false;
 			}
 		};
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, drawerArrow,
-				R.string.drawer_open, R.string.drawer_close) {
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mDrawerArrow, R.string.drawer_open,
+				R.string.drawer_close) {
 
 			public void onDrawerClosed(View view) {
 				super.onDrawerClosed(view);
 				invalidateOptionsMenu();
-				openOrClose = false;
+				isOpen = false;
 			}
 
 			public void onDrawerOpened(View drawerView) {
 				super.onDrawerOpened(drawerView);
 				invalidateOptionsMenu();
-				openOrClose = true;
+				isOpen = true;
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -175,32 +177,32 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 				Intent intent = null;
 				switch (position) {
 				case 0:
-					if (bloggerFragment == null) {
-						bloggerFragment = new BloggerFragment();
+					if (mBloggerFragment == null) {
+						mBloggerFragment = new BloggerFragment();
 					}
-					initFragment(bloggerFragment);
+					initFragment(mBloggerFragment);
 					setTitle(mMenuTitles[position]);
 					adapter.setSelectionPosition(position);
 					break;
+
+				// case 1:
+				// if (channelFragment == null) {
+				// channelFragment = new ChannelFragment();
+				// }
+				// initFragment(channelFragment);
+				// setTitle(mMenuTitles[position]);
+				// adapter.setSelectionPosition(position);
+				// break;
 
 				case 1:
-					if (channelFragment == null) {
-						channelFragment = new ChannelFragment();
-					}
-					initFragment(channelFragment);
-					setTitle(mMenuTitles[position]);
-					adapter.setSelectionPosition(position);
-					break;
-
-				case 2:
 					intent = new Intent(MainActivity.this, BlogCollectActivity.class);
 					break;
 
-				case 3:
+				case 2:
 					intent = new Intent(MainActivity.this, AboutActivity.class);
 					break;
 
-				case 4:
+				case 3:
 					intent = new Intent(MainActivity.this, SettingsActivity.class);
 					break;
 				}
@@ -209,7 +211,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 					startActivity(intent);
 				} else {
 					mDrawerLayout.closeDrawers();
-					openOrClose = false;
+					isOpen = false;
 				}
 			}
 		});
@@ -218,12 +220,12 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
-			if (mDrawerLayout.isDrawerOpen(rl)) {
-				mDrawerLayout.closeDrawer(rl);
-				openOrClose = false;
+			if (mDrawerLayout.isDrawerOpen(mRl)) {
+				mDrawerLayout.closeDrawer(mRl);
+				isOpen = false;
 			} else {
-				mDrawerLayout.openDrawer(rl);
-				openOrClose = true;
+				mDrawerLayout.openDrawer(mRl);
+				isOpen = true;
 			}
 		}
 		return super.onOptionsItemSelected(item);
@@ -248,12 +250,12 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	}
 
 	private void initFragment() {
-		fm = getSupportFragmentManager();
+		mFragmentManager = getSupportFragmentManager();
 		// 只當容器，主要內容已Fragment呈現
-		if (bloggerFragment == null) {
-			bloggerFragment = new BloggerFragment();
+		if (mBloggerFragment == null) {
+			mBloggerFragment = new BloggerFragment();
 		}
-		initFragment(bloggerFragment);
+		initFragment(mBloggerFragment);
 		setTitle(mMenuTitles[0]);
 	}
 
@@ -268,7 +270,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	}
 
 	private void changeFragment(Fragment f, boolean init) {
-		FragmentTransaction ft = fm.beginTransaction();
+		FragmentTransaction ft = mFragmentManager.beginTransaction();
 		// .setCustomAnimations(
 		// R.anim.umeng_fb_slide_in_from_left,
 		// R.anim.umeng_fb_slide_out_from_left,
@@ -284,10 +286,10 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-			if (openOrClose == false) {
-				if ((System.currentTimeMillis() - exitTime) > TIME_DIFF) {
+			if (isOpen == false) {
+				if ((System.currentTimeMillis() - mExitTime) > TIME_DIFF) {
 					Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-					exitTime = System.currentTimeMillis();
+					mExitTime = System.currentTimeMillis();
 				} else {
 					System.exit(0);
 				}

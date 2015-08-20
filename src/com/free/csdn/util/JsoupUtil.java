@@ -98,31 +98,37 @@ public class JsoupUtil {
 
 		Elements panelElements = doc.getElementsByClass("panel");
 		for (Element panelElement : panelElements) {
-			String panelHead = panelElement.select("ul.panel_head").get(0).text();
-			if ("文章分类".equals(panelHead)) {
-				Element panelBodyElement = panelElement.select("ul.panel_body").get(0);
-				Elements typeElements = panelBodyElement.select("li");
+			try {
+				String panelHead = panelElement.select("ul.panel_head").get(0).text();
+				if ("文章分类".equals(panelHead)) {
+					Element panelBodyElement = panelElement.select("ul.panel_body").get(0);
+					Elements typeElements = panelBodyElement.select("li");
 
-				if (typeElements != null) {
-					// 若发现新的分类，清除以前的分类
-					blogCategoryList.clear();
-					BlogCategory allBlogCategory = new BlogCategory();
-					allBlogCategory.setName("全部");
-					blogCategoryList.add(0, allBlogCategory);
+					if (typeElements != null) {
+						// 若发现新的分类，清除以前的分类
+						blogCategoryList.clear();
+						BlogCategory allBlogCategory = new BlogCategory();
+						allBlogCategory.setName("全部");
+						blogCategoryList.add(0, allBlogCategory);
 
-					for (Element typeElement : typeElements) {
-						BlogCategory blogCategory = new BlogCategory();
-						String name = typeElement.select("a").text().trim().replace("【", "").replace("】", "");
-						String link = typeElement.select("a").attr("href");
-						blogCategory.setName(name.trim());
-						blogCategory.setLink(link.trim());
+						for (Element typeElement : typeElements) {
+							BlogCategory blogCategory = new BlogCategory();
+							String name = typeElement.select("a").text().trim().replace("【", "").replace("】", "");
+							String link = typeElement.select("a").attr("href");
+							blogCategory.setName(name.trim());
+							blogCategory.setLink(link.trim());
 
-						blogCategoryList.add(blogCategory);
+							blogCategoryList.add(blogCategory);
+						}
+
 					}
-
+					break;
 				}
-				break;
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
+
 		}
 
 		return list;
@@ -467,18 +473,18 @@ public class JsoupUtil {
 		List<Blogger> list = new ArrayList<Blogger>();
 		Document doc = Jsoup.parse(str);
 		Elements bloggerList = doc.getElementsByClass("list_3");
-		
+
 		Element ulElement = bloggerList.select("ul").get(0);
 		Elements liElements = ulElement.select("li");
 		for (Element element : liElements) {
 			Blogger blogger = new Blogger();
 			Element bloggerElement = element.select("dl").get(0).select("dt").get(0).select("a").get(0);
 			String url = bloggerElement.attr("href");
-			
+
 			Element imgElement = bloggerElement.select("img").get(0);
 			String title = imgElement.attr("alt");
 			String imgUrl = imgElement.attr("src");
-			
+
 			blogger.setLink(url);
 			blogger.setTitle(title);
 			blogger.setImgUrl(imgUrl);
