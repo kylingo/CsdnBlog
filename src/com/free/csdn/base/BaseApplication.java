@@ -4,11 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.app.Application;
-
 import com.free.csdn.config.CacheManager;
 import com.free.csdn.util.CrashHandler;
+import com.tencent.bugly.crashreport.CrashReport;
+
+import android.app.Activity;
+import android.app.Application;
 
 /**
  * 应用Application类
@@ -41,7 +42,9 @@ public class BaseApplication extends Application {
 	private void init() {
 		// TODO Auto-generated method stub
 		initImageLoader();
-		initCrashHandler();
+
+		// 使用腾讯BUGLY上传崩溃信息
+		initCrashReport();
 	}
 
 	/**
@@ -52,12 +55,20 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * 初始化CrashHandler
+	 * 初始化CrashHandler(保存在本地)
 	 */
+	@SuppressWarnings("unused")
 	private void initCrashHandler() {
 		CrashHandler crashHandler = CrashHandler.getInstance();
 		crashHandler.init(this);
 		Thread.currentThread().setUncaughtExceptionHandler(crashHandler);
+	}
+
+	/**
+	 * 初始化崩溃上传(腾讯BUGLY)
+	 */
+	private void initCrashReport() {
+		CrashReport.initCrashReport(this, "900007710", false);
 	}
 
 	/**
