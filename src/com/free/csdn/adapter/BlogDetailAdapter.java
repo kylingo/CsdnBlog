@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.free.csdn.R;
-import com.free.csdn.bean.Blog;
 import com.free.csdn.config.AppConstants;
+import com.free.csdn.temp.Blog;
 import com.free.csdn.util.FileUtils;
 import com.free.csdn.util.ImageLoaderUtils;
 import com.free.csdn.util.MyTagHandler;

@@ -4,6 +4,7 @@ import java.io.File;
 
 import com.free.csdn.R;
 import com.free.csdn.base.BaseActivity;
+import com.free.csdn.base.BaseApplication;
 import com.free.csdn.config.CacheManager;
 import com.free.csdn.lib.umeng.CustomActivity;
 import com.free.csdn.task.FileCalculateAsyncTask;
@@ -284,7 +285,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onConfirm(String result) {
 				// TODO Auto-generated method stub
-				MyApplication.getInstance().onTerminate();
+				BaseApplication.getInstance().onTerminate();
 			}
 		});
 		dialog.show();

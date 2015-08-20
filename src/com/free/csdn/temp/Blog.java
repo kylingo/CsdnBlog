@@ -1,5 +1,6 @@
-package com.free.csdn.bean;
+package com.free.csdn.temp;
 
+import com.free.csdn.bean.BaseEntity;
 import com.lidroid.xutils.db.annotation.Column;
 
 public class Blog extends BaseEntity{

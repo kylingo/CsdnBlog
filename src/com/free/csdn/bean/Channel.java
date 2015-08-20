@@ -3,7 +3,7 @@ package com.free.csdn.bean;
 import com.lidroid.xutils.db.annotation.Column;
 
 /**
- *
+ * 频道分类
  * @author tangqi
  * @data 2015年8月9日下午2:21:54
  */

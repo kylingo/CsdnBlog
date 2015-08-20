@@ -6,7 +6,7 @@ import java.util.List;
 import com.free.csdn.R;
 import com.free.csdn.adapter.DrawerAdapter;
 import com.free.csdn.base.BaseFragmentActivity;
-import com.free.csdn.bean.DrawerItem;
+import com.free.csdn.bean.DrawerInfo;
 import com.free.csdn.fragment.BloggerFragment;
 import com.free.csdn.view.CircleImageView;
 import com.free.csdn.view.drawerlayout.ActionBarDrawerToggle;
@@ -160,9 +160,9 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	 * 初始化侧滑ListView
 	 */
 	private void initDrawerList() {
-		List<DrawerItem> list = new ArrayList<DrawerItem>();
+		List<DrawerInfo> list = new ArrayList<DrawerInfo>();
 		for (int i = 0; i < mMenuTitles.length; i++) {
-			DrawerItem drawerItem = new DrawerItem();
+			DrawerInfo drawerItem = new DrawerInfo();
 			drawerItem.setName(mMenuTitles[i]);
 			drawerItem.setResId(mResId[i]);
 			list.add(drawerItem);

@@ -1,4 +1,4 @@
-package com.free.csdn.bean;
+package com.free.csdn.temp;
 
 /**
  * 页面实体类

@@ -1,6 +1,5 @@
 package com.free.csdn.base;
 
-import com.free.csdn.activity.MyApplication;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
@@ -18,7 +17,7 @@ public class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		MyApplication.getInstance().addActivity(this);
+		BaseApplication.getInstance().addActivity(this);
 	}
 
 	@Override

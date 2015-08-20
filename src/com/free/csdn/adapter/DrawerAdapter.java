@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.free.csdn.R;
-import com.free.csdn.bean.DrawerItem;
+import com.free.csdn.bean.DrawerInfo;
 
 /**
  * 侧滑列表
@@ -24,16 +24,16 @@ import com.free.csdn.bean.DrawerItem;
 public class DrawerAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<DrawerItem> list;
+	private List<DrawerInfo> list;
 	private int selection = -1;
 
-	public DrawerAdapter(Context context, List<DrawerItem> list) {
+	public DrawerAdapter(Context context, List<DrawerInfo> list) {
 		super();
 		this.context = context;
 		this.list = list;
 	}
 
-	public void setList(List<DrawerItem> list) {
+	public void setList(List<DrawerInfo> list) {
 		this.list = list;
 	}
 
@@ -42,7 +42,7 @@ public class DrawerAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public DrawerItem getItem(int position) {
+	public DrawerInfo getItem(int position) {
 		return list.get(position);
 	}
 

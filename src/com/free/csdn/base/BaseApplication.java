@@ -1,4 +1,4 @@
-package com.free.csdn.activity;
+package com.free.csdn.base;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,15 +17,15 @@ import com.free.csdn.util.CrashHandler;
  * @data 2015年7月8日下午11:47:10
  */
 
-public class MyApplication extends Application {
+public class BaseApplication extends Application {
 
-	private static MyApplication mInstance;
+	private static BaseApplication mInstance;
 	private List<Activity> mActivities = new ArrayList<Activity>();
 
 	// 单例模式中获取唯一的ExitApplication 实例
-	public static MyApplication getInstance() {
+	public static BaseApplication getInstance() {
 		if (null == mInstance) {
-			mInstance = new MyApplication();
+			mInstance = new BaseApplication();
 		}
 		return mInstance;
 

@@ -1,13 +1,13 @@
 package com.free.csdn.bean;
 
 /**
- * 侧滑
+ * 主页侧滑-ListItem
  * 
  * @author tangqi
  * @data 2015年8月13日下午11:46:39
  */
 
-public class DrawerItem extends BaseEntity {
+public class DrawerInfo extends BaseEntity {
 
 	private static final long serialVersionUID = -887156398580286575L;
 
