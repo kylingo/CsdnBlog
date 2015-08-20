@@ -188,13 +188,13 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
-				mListView.setRefreshTime(DateUtil.getDate()); // 设置刷新时间
+				mListView.setRefreshTime(DateUtil.getDate());
 				List<Comment> list = mDb.query(mPage);
 
 				if (list != null) {
 					mAdapter.setList(list);
 					mAdapter.notifyDataSetChanged();
-					mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
+					mListView.setPullLoadEnable(BlogCommentActivity.this);
 					mListView.setRefreshTime(DateUtil.getDate());
 					mTvComment.setText(mAdapter.getCount() + "条");
 				} else {

@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -39,8 +38,8 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 		OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
-	private BlogListAdapter mAdapter;// 列表适配器
-	private ImageView mReLoadImageView; // 重新加载的图片
+	private BlogListAdapter mAdapter;
+	private ImageView mReLoadImageView;
 	private ProgressBar mPbLoading;
 
 	private TextView mTvTitle;
@@ -90,10 +89,9 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	 */
 	private void initListView() {
 		mAdapter = new BlogListAdapter(this);
-		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
+		mListView.setPullRefreshEnable(this);
 		mListView.NotRefreshAtBegin();
-		mListView.setAdapter(mAdapter);// 设置适配器
-		// 设置列表项点击事件
+		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(this);
 
 		// 先预加载数据，再请求最新数据
@@ -119,15 +117,14 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		// // 获得博客列表项
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
 		Intent i = new Intent();
 		i.setClass(BlogCollectActivity.this, BlogContentActivity.class);
 		i.putExtra("blogItem", item);
 		startActivity(i);
+		
 		// 动画过渡
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
-		Log.e("position", "" + position);
 	}
 
 	@Override

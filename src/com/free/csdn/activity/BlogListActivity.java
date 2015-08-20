@@ -332,6 +332,9 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		}
 	};
 
+	/**
+	 * 查询当前所有分类
+	 */
 	private void queryCategory() {
 		new Thread(new Runnable() {
 

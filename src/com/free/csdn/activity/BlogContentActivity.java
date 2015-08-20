@@ -47,8 +47,8 @@ import android.widget.ToggleButton;
  *
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class BlogContentActivity extends BaseActivity implements OnResponseListener,
-		OnClickListener, OnCheckedChangeListener {
+public class BlogContentActivity extends BaseActivity
+		implements OnResponseListener, OnClickListener, OnCheckedChangeListener {
 	private WebView mWebView = null;
 	private ProgressBar mProgressBar; // 进度条
 	private ImageView mReLoadImageView; // 重新加载的图片
@@ -226,7 +226,9 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		startActivity(Intent.createChooser(intent, "CSDN博客分享"));
 	}
 
-	// 更多
+	/**
+	 * 更多
+	 */
 	private void more() {
 
 	}
@@ -375,8 +377,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 			super.onPageFinished(paramWebView, paramString);
 		}
 
-		public void onReceivedError(WebView paramWebView, int paramInt, String paramString1,
-				String paramString2) {
+		public void onReceivedError(WebView paramWebView, int paramInt, String paramString1, String paramString2) {
 			super.onReceivedError(paramWebView, paramInt, paramString1, paramString2);
 		}
 
