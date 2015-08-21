@@ -32,18 +32,18 @@ import android.util.Log;
  */
 @SuppressWarnings("deprecation")
 public class JsoupUtil {
-	
+
 	public static boolean contentFirstPage = true;
-	public static boolean contentLastPage = true; 
-	public static boolean multiPages = false; 
-	private static final String BLOG_URL = "http://blog.csdn.net"; 
+	public static boolean contentLastPage = true;
+	public static boolean multiPages = false;
+	private static final String BLOG_URL = "http://blog.csdn.net";
 
 	public static void resetPages() {
 		contentFirstPage = true;
 		contentLastPage = true;
 		multiPages = false;
 	}
-	
+
 	/**
 	 * 获取博主简易信息
 	 * 
@@ -160,7 +160,10 @@ public class JsoupUtil {
 		if (TextUtils.isEmpty(paramString)) {
 			return null;
 		}
+
 		Element localElement1 = Jsoup.parse(paramString).getElementsByClass("details").get(0);
+
+		// 获取详情
 		localElement1.select("script").remove();
 		if (localElement1.getElementById("digg") != null) {
 			localElement1.getElementById("digg").remove();
@@ -178,6 +181,28 @@ public class JsoupUtil {
 			localElement2.attr("class", "brush: java; gutter: false;");
 			Log.i("CSNDBlog_JsoupUtil", "codeNode.text()" + localElement2.text());
 		}
+	}
+
+	/**
+	 * 获取博客详情内容
+	 * 
+	 * @param paramString
+	 * @return
+	 */
+	public static String getTitle(String paramString) {
+		if (TextUtils.isEmpty(paramString)) {
+			return null;
+		}
+
+		Element localElement1 = Jsoup.parse(paramString).getElementsByClass("details").get(0);
+		Element titleElement = localElement1.getElementsByClass("article_title").get(0);
+		try {
+			return titleElement.select("h1").get(0).select("span").get(0).select("a").get(0).text();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -285,7 +310,7 @@ public class JsoupUtil {
 		}
 		Document doc = Jsoup.parse(str);
 		Element profile = doc.getElementsByClass("panel").get(0);
-		
+
 		Element profileBody = profile.select("ul.panel_body.profile").get(0);
 		Element userface = profileBody.getElementById("blog_userface");
 		String userfaceLink = userface.select("a").select("img").attr("src"); // 得到头像链接
@@ -328,7 +353,7 @@ public class JsoupUtil {
 	 * @return
 	 */
 	@Deprecated
-	public static List<Blog> getContent(String url, String str) {
+	public static List<Blog> getDetail(String url, String str) {
 		List<Blog> list = new ArrayList<Blog>();
 
 		// 获取文档内容

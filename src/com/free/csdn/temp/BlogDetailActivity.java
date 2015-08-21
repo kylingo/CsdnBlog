@@ -168,7 +168,7 @@ public class BlogDetailActivity extends BaseActivity implements IXListViewLoadMo
 					return AppConstants.DEF_RESULT_CODE.ERROR;
 				}
 			}
-			List<Blog> blogList = JsoupUtil.getContent(url, temp);
+			List<Blog> blogList = JsoupUtil.getDetail(url, temp);
 			blogDetailAdapter.setList(blogList);
 
 			// 缓存数据

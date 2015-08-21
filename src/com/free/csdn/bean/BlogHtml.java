@@ -17,7 +17,13 @@ public class BlogHtml extends BaseEntity {
 	private String url;// 地址
 
 	@Column(column = "html")
-	private String html; // 标题
+	private String html; // 内容
+	
+	@Column(column = "title")
+	private String title; // 标题
+	
+	@Column(column = "updateTime")
+	private long updateTime; // 更新时间 
 
 	@Column(column = "")
 	private String reserve; // 保留
@@ -44,6 +50,22 @@ public class BlogHtml extends BaseEntity {
 
 	public void setReserve(String reserve) {
 		this.reserve = reserve;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public long getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
 	}
 
 }

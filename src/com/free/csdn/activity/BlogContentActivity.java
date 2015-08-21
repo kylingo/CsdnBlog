@@ -1,22 +1,11 @@
 package com.free.csdn.activity;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
-
-import com.free.csdn.R;
-import com.free.csdn.base.BaseActivity;
-import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.bean.BlogItem;
-import com.free.csdn.db.BlogCollectDao;
-import com.free.csdn.db.BlogContentDao;
-import com.free.csdn.db.impl.BlogCollectDaoImpl;
-import com.free.csdn.db.impl.BlogContentDaoImpl;
-import com.free.csdn.task.HttpAsyncTask;
-import com.free.csdn.task.OnResponseListener;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -39,6 +28,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
+import com.free.csdn.bean.BlogHtml;
+import com.free.csdn.bean.BlogItem;
+import com.free.csdn.db.BlogCollectDao;
+import com.free.csdn.db.BlogContentDao;
+import com.free.csdn.db.impl.BlogCollectDaoImpl;
+import com.free.csdn.db.impl.BlogContentDaoImpl;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.LogUtil;
+import com.free.csdn.util.ToastUtil;
+
 /**
  * 博客详细内容界面
  * 
@@ -47,8 +50,8 @@ import android.widget.ToggleButton;
  *
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class BlogContentActivity extends BaseActivity
-		implements OnResponseListener, OnClickListener, OnCheckedChangeListener {
+public class BlogContentActivity extends BaseActivity implements OnResponseListener, OnClickListener,
+		OnCheckedChangeListener {
 	private WebView mWebView = null;
 	private ProgressBar mProgressBar; // 进度条
 	private ImageView mReLoadImageView; // 重新加载的图片
@@ -58,13 +61,16 @@ public class BlogContentActivity extends BaseActivity
 	private ImageView mMoreBtn;
 	private ToggleButton mCollectBtn;
 
-	private BlogCollectDao db;
-	private BlogItem blogItem;
+	private BlogCollectDao mDb;
+	private BlogItem mBlogItem;
 	public String mTitle;
 	private String mUrl;
 	private String mFileName;
 	private static final int MSG_RELOAD_DATA = 1000;
 	private boolean isFirstCheck = false;
+
+	// 记录浏览记录
+	private List<String> mHistoryUrlList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +87,13 @@ public class BlogContentActivity extends BaseActivity
 
 	// 初始化
 	private void init() {
-		db = new BlogCollectDaoImpl(this);
+		mDb = new BlogCollectDaoImpl(this);
+		mHistoryUrlList = new ArrayList<String>();
 
-		blogItem = (BlogItem) getIntent().getSerializableExtra("blogItem");
-		if (blogItem != null) {
-			mUrl = blogItem.getLink();
-			mTitle = blogItem.getTitle();
+		mBlogItem = (BlogItem) getIntent().getSerializableExtra("blogItem");
+		if (mBlogItem != null) {
+			mUrl = mBlogItem.getLink();
+			mTitle = mBlogItem.getTitle();
 			mFileName = mUrl.substring(mUrl.lastIndexOf("/") + 1);
 		}
 	}
@@ -145,11 +152,11 @@ public class BlogContentActivity extends BaseActivity
 
 		if (isChecked) {
 			ToastUtil.show(this, "收藏成功");
-			blogItem.setUpdateTime(System.currentTimeMillis());
-			db.insert(blogItem);
+			mBlogItem.setUpdateTime(System.currentTimeMillis());
+			mDb.insert(mBlogItem);
 		} else {
 			ToastUtil.show(this, "取消收藏");
-			db.delete(blogItem);
+			mDb.delete(mBlogItem);
 		}
 	}
 
@@ -198,7 +205,7 @@ public class BlogContentActivity extends BaseActivity
 	 * @return
 	 */
 	private boolean isCollect() {
-		if (null != db.query(blogItem.getLink())) {
+		if (null != mDb.query(mBlogItem.getLink())) {
 			return true;
 		}
 		return false;
@@ -242,10 +249,18 @@ public class BlogContentActivity extends BaseActivity
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
-		// webView.goBack();// WEBVIEW返回前一个页面
-		// return true;
-		// }
+		if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
+			// WEBVIEW返回前一个页面
+			mWebView.goBack();
+
+			// 处理历史加载页面
+			if (mHistoryUrlList != null && mHistoryUrlList.size() > 0) {
+				int lastHistoryIndex = mHistoryUrlList.size() - 1;
+				getData(mHistoryUrlList.get(lastHistoryIndex));
+				mHistoryUrlList.remove(lastHistoryIndex);
+				return true;
+			}
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -266,9 +281,12 @@ public class BlogContentActivity extends BaseActivity
 	@Override
 	public void onResponse(String resultString) {
 		// TODO Auto-generated method stub
-		String html = adjustPicSize(JsoupUtil.getContent(resultString));
+		mTitle = JsoupUtil.getTitle(resultString);
+		String content = JsoupUtil.getContent(resultString);
+		String html = adjustPicSize(content);
 		loadHtml(html);
 		saveDb(html);
+		LogUtil.log("onResponse mTitle:"+mTitle);
 	}
 
 	/**
@@ -299,6 +317,8 @@ public class BlogContentActivity extends BaseActivity
 		BlogHtml blogHtml = new BlogHtml();
 		blogHtml.setUrl(mUrl);
 		blogHtml.setHtml(html);
+		blogHtml.setTitle(mTitle);
+		blogHtml.setUpdateTime(System.currentTimeMillis());
 		blogHtml.setReserve("");
 
 		BlogContentDao blogContentDb = new BlogContentDaoImpl(this, mUrl);
@@ -306,7 +326,7 @@ public class BlogContentActivity extends BaseActivity
 	}
 
 	/**
-	 * 适应 页面
+	 * 适应页面
 	 * 
 	 * @param paramString
 	 * @return
@@ -329,6 +349,8 @@ public class BlogContentActivity extends BaseActivity
 		BlogContentDao blogContentDb = new BlogContentDaoImpl(this, url);
 		BlogHtml blogHtml = blogContentDb.query(url);
 		if (blogHtml != null) {
+			mTitle = blogHtml.getTitle();
+			LogUtil.log("getData mTitle:"+mTitle);
 			loadHtml(blogHtml.getHtml());
 		} else {
 			requestData(url);
@@ -419,6 +441,10 @@ public class BlogContentActivity extends BaseActivity
 			// }
 			//
 			if ((paramString.matches("http://blog.csdn.net/(\\w+)/article/details/(\\d+)"))) {
+				// 将当前浏览页面加入历史记录
+				mHistoryUrlList.add(mUrl);
+
+				// 加载新的页面
 				mUrl = paramString;
 				getData(paramString);
 				return false;
