@@ -24,7 +24,6 @@ public class CacheManager {
 	public static String getExternalCachePath(Context context) {
 		return FileUtils.getExternalCacheDir(context);
 	}
-	
 
 	/**
 	 * 获取博客收藏数据库目录
@@ -33,7 +32,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBloggerCollectDbPath(Context context) {
-		return FileUtils.getExternalCacheDir(context) + File.separator + "BlogCollect";
+		return getExternalCachePath(context) + File.separator + "BlogCollect";
 	}
 
 	/**
@@ -43,7 +42,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBloggerDbPath(Context context) {
-		return FileUtils.getExternalCacheDir(context) + File.separator + "Blogger";
+		return getExternalCachePath(context) + File.separator + "Blogger";
 	}
 
 	/**
@@ -53,7 +52,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBlogListDbPath(Context context) {
-		return FileUtils.getExternalCacheDir(context) + File.separator + "BlogList";
+		return getExternalCachePath(context) + File.separator + "BlogList";
 	}
 
 	/**
@@ -63,7 +62,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBlogContentDbPath(Context context) {
-		return FileUtils.getExternalCacheDir(context) + File.separator + "BlogContent";
+		return getExternalCachePath(context) + File.separator + "BlogContent";
 	}
 
 	/**
@@ -73,7 +72,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getBlogCommentDbPath(Context context) {
-		return FileUtils.getExternalCacheDir(context) + File.separator + "CommentList";
+		return getExternalCachePath(context) + File.separator + "CommentList";
 	}
 
 	/**
@@ -82,8 +81,7 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getAppCachePath(Context context) {
-		return FileUtils.getExternalCacheDir(context) + File.separator + "App" + File.separator
-				+ "Cache";
+		return getExternalCachePath(context) + File.separator + "App" + File.separator + "Cache";
 	}
 
 	/**
@@ -93,7 +91,6 @@ public class CacheManager {
 	 * @return
 	 */
 	public static String getAppDatabasePath(Context context) {
-		return FileUtils.getExternalCacheDir(context) + File.separator + "App" + File.separator
-				+ "DataBase";
+		return getExternalCachePath(context) + File.separator + "App" + File.separator + "DataBase";
 	}
 }

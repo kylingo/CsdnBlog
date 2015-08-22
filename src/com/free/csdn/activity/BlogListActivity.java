@@ -12,7 +12,7 @@ import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.config.AppConstants;
 import com.free.csdn.db.BlogItemDao;
-import com.free.csdn.db.impl.BlogItemDaoImpl;
+import com.free.csdn.db.DaoFactory;
 import com.free.csdn.task.HttpAsyncTask;
 import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.DateUtil;
@@ -66,7 +66,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	private String mUserId;
 	private int mPage = 1;
 	private Blogger mBlogger;
-	private BlogItemDao mBlogListDb;
+	private BlogItemDao mBlogItemDao;
 	private List<BlogCategory> mBlogCategoryList = new ArrayList<BlogCategory>();
 	private String mCategory = AppConstants.BLOG_CATEGORY_ALL;
 	private String mBaseUrl = "";
@@ -92,7 +92,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	private void initData() {
 		mBlogger = (Blogger) getIntent().getSerializableExtra("blogger");
 		mUserId = mBlogger.getUserId();
-		mBlogListDb = new BlogItemDaoImpl(this, mUserId);
+		mBlogItemDao = DaoFactory.getInstance().getBlogItemDao(this, mUserId);
 
 		mBaseUrl = URLUtil.getBlogDefaultUrl(mUserId);
 		queryCategory();
@@ -341,7 +341,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				List<BlogCategory> blogCategoryList = mBlogListDb.queryCategory();
+				List<BlogCategory> blogCategoryList = mBlogItemDao.queryCategory();
 				if (blogCategoryList != null) {
 					mBlogCategoryList.addAll(blogCategoryList);
 				}
@@ -360,10 +360,10 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mBlogListDb.insert(mCategory, list);
+				mBlogItemDao.insert(mCategory, list);
 
 				if (mBlogCategoryList != null) {
-					mBlogListDb.insertCategory(mBlogCategoryList);
+					mBlogItemDao.insertCategory(mBlogCategoryList);
 				}
 			}
 		}).start();
@@ -377,7 +377,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
-				List<BlogItem> list = mBlogListDb.query(mCategory, mPage);
+				List<BlogItem> list = mBlogItemDao.query(mCategory, mPage);
 
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);

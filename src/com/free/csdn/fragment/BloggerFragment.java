@@ -4,9 +4,29 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
+import com.free.csdn.R;
+import com.free.csdn.activity.BlogListActivity;
+import com.free.csdn.adapter.BloggerListAdapter;
+import com.free.csdn.base.BaseFragment;
+import com.free.csdn.bean.Blogger;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.config.BloggerManager;
+import com.free.csdn.config.CategoryManager.CategoryName;
+import com.free.csdn.config.CategoryManager.CategoryType;
+import com.free.csdn.db.BloggerDao;
+import com.free.csdn.db.DaoFactory;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.ToastUtil;
+import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
+import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
+import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
+import com.free.csdn.view.dialog.BloggerAddDialog;
+import com.free.csdn.view.dialog.BloggerOperationDialog;
+import com.free.csdn.view.dialog.LoadingDialog;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,27 +43,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-
-import com.free.csdn.R;
-import com.free.csdn.activity.BlogListActivity;
-import com.free.csdn.adapter.BloggerListAdapter;
-import com.free.csdn.base.BaseFragment;
-import com.free.csdn.bean.Blogger;
-import com.free.csdn.config.AppConstants;
-import com.free.csdn.config.BloggerManager;
-import com.free.csdn.db.BloggerDao;
-import com.free.csdn.db.impl.BloggerDaoImpl;
-import com.free.csdn.task.HttpAsyncTask;
-import com.free.csdn.task.OnResponseListener;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
-import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
-import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
-import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
-import com.free.csdn.view.dialog.BloggerAddDialog;
-import com.free.csdn.view.dialog.BloggerOperationDialog;
-import com.free.csdn.view.dialog.LoadingDialog;
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 
 /**
  * 博主列表
@@ -53,8 +55,8 @@ import com.free.csdn.view.dialog.LoadingDialog;
  *
  */
 @SuppressLint("HandlerLeak")
-public class BloggerFragment extends BaseFragment implements OnItemClickListener,
-		OnItemLongClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+public class BloggerFragment extends BaseFragment
+		implements OnItemClickListener, OnItemLongClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private View mRootView;
 	private XListView mListView;
@@ -65,7 +67,8 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 	private HashMap<String, String> mAddBloggerItem = null;
 	private BloggerDao mBloggerDao = null;
 	private String mNewUserId = null;
-	private String mType = BloggerDao.TYPE_ANDROID;
+	private String mCategory = CategoryName.MOBILE;
+	private String mType = CategoryType.ANDROID;
 
 	private static final int MSG_ADD_SUCCESS = 1000;
 	private static final int MSG_ADD_FAILURE = 1001;
@@ -90,7 +93,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 
 	private void initView(View view) {
 		// TODO Auto-generated method stub
-		mBloggerDao = new BloggerDaoImpl(getActivity(), mType);
+		mBloggerDao = DaoFactory.getInstance().getBloggerDao(getActivity(), mType);
 		new BloggerManager().init(getActivity(), mBloggerDao, mType);
 		mBloggerList = mBloggerDao.queryAll();
 
@@ -254,7 +257,7 @@ public class BloggerFragment extends BaseFragment implements OnItemClickListener
 		blogger.setImgUrl(mAddBloggerItem.get("imgUrl"));
 		blogger.setLink(AppConstants.CSDN_BASE_URL + mNewUserId);
 		blogger.setType(mType);
-		blogger.setCategory(BloggerDao.CATEGORY_MOBILE);
+		blogger.setCategory(mCategory);
 		blogger.setIsTop(0);
 		blogger.setIsNew(1);
 		blogger.setUpdateTime(System.currentTimeMillis());

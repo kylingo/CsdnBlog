@@ -60,7 +60,7 @@ public class Blogger extends BaseEntity {
 	 */
 	@Column(column = "isNew")
 	private int isNew;
-	
+
 	/**
 	 * 是否置顶
 	 */

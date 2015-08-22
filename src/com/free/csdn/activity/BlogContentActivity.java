@@ -7,6 +7,20 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
+import com.free.csdn.R;
+import com.free.csdn.base.BaseActivity;
+import com.free.csdn.bean.BlogHtml;
+import com.free.csdn.bean.BlogItem;
+import com.free.csdn.db.BlogCollectDao;
+import com.free.csdn.db.BlogContentDao;
+import com.free.csdn.db.DaoFactory;
+import com.free.csdn.db.impl.BlogContentDaoImpl;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.LogUtil;
+import com.free.csdn.util.ToastUtil;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,20 +42,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.free.csdn.R;
-import com.free.csdn.base.BaseActivity;
-import com.free.csdn.bean.BlogHtml;
-import com.free.csdn.bean.BlogItem;
-import com.free.csdn.db.BlogCollectDao;
-import com.free.csdn.db.BlogContentDao;
-import com.free.csdn.db.impl.BlogCollectDaoImpl;
-import com.free.csdn.db.impl.BlogContentDaoImpl;
-import com.free.csdn.task.HttpAsyncTask;
-import com.free.csdn.task.OnResponseListener;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.LogUtil;
-import com.free.csdn.util.ToastUtil;
-
 /**
  * 博客详细内容界面
  * 
@@ -61,7 +61,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	private ImageView mMoreBtn;
 	private ToggleButton mCollectBtn;
 
-	private BlogCollectDao mDb;
+	private BlogCollectDao mBlogCollectDao;
 	private BlogItem mBlogItem;
 	public String mTitle;
 	private String mUrl;
@@ -87,7 +87,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	// 初始化
 	private void init() {
-		mDb = new BlogCollectDaoImpl(this);
+		mBlogCollectDao = DaoFactory.getInstance().getBlogCollectDao(this);
 		mHistoryUrlList = new ArrayList<String>();
 
 		mBlogItem = (BlogItem) getIntent().getSerializableExtra("blogItem");
@@ -153,10 +153,10 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		if (isChecked) {
 			ToastUtil.show(this, "收藏成功");
 			mBlogItem.setUpdateTime(System.currentTimeMillis());
-			mDb.insert(mBlogItem);
+			mBlogCollectDao.insert(mBlogItem);
 		} else {
 			ToastUtil.show(this, "取消收藏");
-			mDb.delete(mBlogItem);
+			mBlogCollectDao.delete(mBlogItem);
 		}
 	}
 
@@ -205,7 +205,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	 * @return
 	 */
 	private boolean isCollect() {
-		if (null != mDb.query(mBlogItem.getLink())) {
+		if (null != mBlogCollectDao.query(mBlogItem.getLink())) {
 			return true;
 		}
 		return false;

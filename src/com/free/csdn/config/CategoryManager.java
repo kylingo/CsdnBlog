@@ -10,48 +10,82 @@ package com.free.csdn.config;
 public class CategoryManager {
 
 	/**
-	 * 移动开发
+	 * 博客分类
+	 * 
+	 * @author Frank
+	 *
 	 */
-	public final static String CATEGORY_MOBIE_URL = "http://blog.csdn.net/mobile/experts.html";
+	public class CategoryName {
+		public static final String MOBILE = "移动开发";
+		public static final String WEB = "WEB前端";
+		public static final String ENTERPRISE = "架构设计";
+		public static final String CODE = "编程语言";
+		public static final String WWW = "互联网";
+		public static final String DATABASE = "数据库";
+		public static final String SYSTEM = "系统运维";
+		public static final String CLOUD = "云计算";
+		public static final String SOFTWARE = "研发管理";
+	}
 
 	/**
-	 * WEB前端
+	 * 博主类别（细分）
 	 */
-	public final static String CATEGORY_WEB_URL = "http://blog.csdn.net/web/experts.html";
+	public class CategoryType {
+		public static final String ANDROID = "android";
+	}
 
 	/**
-	 * 架构设计
+	 * 博客分类URL
+	 * 
+	 * @author Frank
+	 *
 	 */
-	public final static String CATEGORY_ENTERPRISE_URL = "http://blog.csdn.net/enterprise/experts.html";
 
-	/**
-	 * 编程语言
-	 */
-	public final static String CATEGORY_CODE_URL = "http://blog.csdn.net/code/experts.html";
+	public class CategoryUrl {
+		/**
+		 * 移动开发
+		 */
+		public final static String MOBILE = "http://blog.csdn.net/mobile/experts.html";
 
-	/**
-	 * 互联网
-	 */
-	public final static String CATEGORY_WWWW_URL = "http://blog.csdn.net/www/experts.html";
+		/**
+		 * WEB前端
+		 */
+		public final static String WEB = "http://blog.csdn.net/web/experts.html";
 
-	/**
-	 * 数据库
-	 */
-	public final static String CATEGORY_DATABASE_URL = "http://blog.csdn.net/database/experts.html";
+		/**
+		 * 架构设计
+		 */
+		public final static String ENTERPRISE = "http://blog.csdn.net/enterprise/experts.html";
 
-	/**
-	 * 系统运维
-	 */
-	public final static String CATEGORY_SYSTEM_URL = "http://blog.csdn.net/system/experts.html";
+		/**
+		 * 编程语言
+		 */
+		public final static String CODE = "http://blog.csdn.net/code/experts.html";
 
-	/**
-	 * 云计算
-	 */
-	public final static String CATEGORY_CLOUD_URL = "http://blog.csdn.net/cloud/experts.html";
+		/**
+		 * 互联网
+		 */
+		public final static String WWW = "http://blog.csdn.net/www/experts.html";
 
-	/**
-	 * 研发管理
-	 */
-	public final static String CATEGORY_SOFTWARE_URL = "http://blog.csdn.net/software/experts.html";
+		/**
+		 * 数据库
+		 */
+		public final static String DATABASE = "http://blog.csdn.net/database/experts.html";
+
+		/**
+		 * 系统运维
+		 */
+		public final static String SYSTEM = "http://blog.csdn.net/system/experts.html";
+
+		/**
+		 * 云计算
+		 */
+		public final static String CLOUD = "http://blog.csdn.net/cloud/experts.html";
+
+		/**
+		 * 研发管理
+		 */
+		public final static String SOFTWARE = "http://blog.csdn.net/software/experts.html";
+	}
 
 }

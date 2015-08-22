@@ -3,9 +3,21 @@ package com.free.csdn.activity;
 import java.util.Collections;
 import java.util.List;
 
-import me.maxwin.view.IXListViewLoadMore;
-import me.maxwin.view.IXListViewRefreshListener;
-import me.maxwin.view.XListView;
+import com.free.csdn.R;
+import com.free.csdn.adapter.CommentAdapter;
+import com.free.csdn.base.BaseActivity;
+import com.free.csdn.bean.Comment;
+import com.free.csdn.bean.CommentComparator;
+import com.free.csdn.config.AppConstants;
+import com.free.csdn.db.BlogCommentDao;
+import com.free.csdn.db.DaoFactory;
+import com.free.csdn.task.HttpAsyncTask;
+import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.ToastUtil;
+import com.free.csdn.util.URLUtil;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,21 +28,9 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.free.csdn.R;
-import com.free.csdn.adapter.CommentAdapter;
-import com.free.csdn.base.BaseActivity;
-import com.free.csdn.bean.Comment;
-import com.free.csdn.bean.CommentComparator;
-import com.free.csdn.config.AppConstants;
-import com.free.csdn.db.BlogCommentDao;
-import com.free.csdn.db.impl.BlogCommentDaoImpl;
-import com.free.csdn.task.HttpAsyncTask;
-import com.free.csdn.task.OnResponseListener;
-import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.ToastUtil;
-import com.free.csdn.util.URLUtil;
+import me.maxwin.view.IXListViewLoadMore;
+import me.maxwin.view.IXListViewRefreshListener;
+import me.maxwin.view.XListView;
 
 /**
  * 博客评论列表
@@ -52,7 +52,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 	private String mFileName;
 	private int mPage = 1;
 	private int mPageSize = 20;
-	private BlogCommentDao mDb;
+	private BlogCommentDao mBlogCommentDao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 		mFileName = getIntent().getExtras().getString("filename"); // 获得文件名
 		mAdapter = new CommentAdapter(this);
 
-		mDb = new BlogCommentDaoImpl(this, mFileName);
+		mBlogCommentDao = DaoFactory.getInstance().getBlogCommentDao(this, mFileName);
 	}
 
 	private void initComponent() {
@@ -175,7 +175,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mDb.insert(list);
+				mBlogCommentDao.insert(list);
 			}
 		}).start();
 
@@ -189,7 +189,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
 				mListView.setRefreshTime(DateUtil.getDate());
-				List<Comment> list = mDb.query(mPage);
+				List<Comment> list = mBlogCommentDao.query(mPage);
 
 				if (list != null) {
 					mAdapter.setList(list);

@@ -14,16 +14,6 @@ import com.free.csdn.bean.Blogger;
 public interface BloggerDao {
 
 	/**
-	 * 博主类别（大方向）
-	 */
-	public static final String CATEGORY_MOBILE = "移动开发";
-
-	/**
-	 * 博主类别（细分）
-	 */
-	public static final String TYPE_ANDROID = "android";
-
-	/**
 	 * 插入博主
 	 * 
 	 * @param blogger
@@ -86,6 +76,6 @@ public interface BloggerDao {
 	 * 初始化博客数据库
 	 * @param type
 	 */
-	void init(String type);
+	public void init(String type);
 
 }

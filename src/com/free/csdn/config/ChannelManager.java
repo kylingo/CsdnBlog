@@ -7,6 +7,8 @@ import android.content.Context;
 
 import com.free.csdn.R;
 import com.free.csdn.bean.Channel;
+import com.free.csdn.config.CategoryManager.CategoryName;
+import com.free.csdn.config.CategoryManager.CategoryUrl;
 
 /**
  * 频道管理
@@ -17,16 +19,19 @@ import com.free.csdn.bean.Channel;
 
 public class ChannelManager {
 	
-	String[] mChannelNameArray = { "移动开发", "Web前端", "架构设计", "编程语言", "互联网", "数据库", "系统运维", "云计算", "研发管理" };
+	String[] mChannelNameArray = { CategoryName.MOBILE, CategoryName.WEB,
+			CategoryName.ENTERPRISE, CategoryName.CODE, CategoryName.WWW,
+			CategoryName.DATABASE, CategoryName.SYSTEM, CategoryName.CLOUD,
+			CategoryName.SOFTWARE};
 
 	int[] mResourceId = { R.drawable.logo_dropbox, R.drawable.logo_evernote, R.drawable.logo_googleplus,
 			R.drawable.logo_neteasemicroblog, R.drawable.logo_yixinmoments, R.drawable.logo_pinterest,
 			R.drawable.logo_sohumicroblog, R.drawable.logo_twitter, R.drawable.logo_vkontakte, R.drawable.logo_yixin };
 
-	String[] mUrls = { CategoryManager.CATEGORY_MOBIE_URL, CategoryManager.CATEGORY_WEB_URL,
-			CategoryManager.CATEGORY_ENTERPRISE_URL, CategoryManager.CATEGORY_CODE_URL, CategoryManager.CATEGORY_WWWW_URL,
-			CategoryManager.CATEGORY_DATABASE_URL, CategoryManager.CATEGORY_SYSTEM_URL, CategoryManager.CATEGORY_CLOUD_URL,
-			CategoryManager.CATEGORY_SOFTWARE_URL, };
+	String[] mUrls = { CategoryUrl.MOBILE, CategoryUrl.WEB,
+			CategoryUrl.ENTERPRISE, CategoryUrl.CODE, CategoryUrl.WWW,
+			CategoryUrl.DATABASE, CategoryUrl.SYSTEM, CategoryUrl.CLOUD,
+			CategoryUrl.SOFTWARE, };
 
 	public ChannelManager(Context context) {
 		// TODO Auto-generated constructor stub

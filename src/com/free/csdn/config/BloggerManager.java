@@ -3,6 +3,7 @@ package com.free.csdn.config;
 import android.content.Context;
 
 import com.free.csdn.bean.Blogger;
+import com.free.csdn.config.CategoryManager.CategoryName;
 import com.free.csdn.db.BloggerDao;
 import com.free.csdn.util.SpfUtils;
 
@@ -35,7 +36,7 @@ public class BloggerManager {
 		blogger.setType(array[5]);
 		blogger.setIsTop(0);
 		blogger.setIsNew(0);
-		blogger.setCategory(BloggerDao.CATEGORY_MOBILE);
+		blogger.setCategory(CategoryName.MOBILE);
 		blogger.setUpdateTime(System.currentTimeMillis());
 
 		bloggerDb.insert(blogger);

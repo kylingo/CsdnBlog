@@ -8,7 +8,7 @@ import com.free.csdn.base.BaseActivity;
 import com.free.csdn.bean.BlogItem;
 import com.free.csdn.config.AppConstants;
 import com.free.csdn.db.BlogCollectDao;
-import com.free.csdn.db.impl.BlogCollectDaoImpl;
+import com.free.csdn.db.DaoFactory;
 import com.free.csdn.util.DateUtil;
 
 import android.annotation.SuppressLint;
@@ -34,8 +34,8 @@ import me.maxwin.view.XListView;
  * @data 2015年7月8日下午9:20:20
  *
  */
-public class BlogCollectActivity extends BaseActivity implements OnItemClickListener,
-		OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogCollectActivity extends BaseActivity
+		implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;
@@ -45,7 +45,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	private TextView mTvTitle;
 	private int mPage = 1;
 	private int mPageSize = 20;
-	private BlogCollectDao mBb;
+	private BlogCollectDao mBlogCollectDao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	}
 
 	private void initData() {
-		mBb = new BlogCollectDaoImpl(this);
+		mBlogCollectDao = DaoFactory.getInstance().getBlogCollectDao(this);
 	}
 
 	private void initView() {
@@ -122,7 +122,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 		i.setClass(BlogCollectActivity.this, BlogContentActivity.class);
 		i.putExtra("blogItem", item);
 		startActivity(i);
-		
+
 		// 动画过渡
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
 	}
@@ -131,8 +131,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
 		mPage++;
-		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA,
-				AppConstants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA, AppConstants.MSG_PRELOAD_DATA);
 	}
 
 	@Override
@@ -143,8 +142,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 
 	private void refresh() {
 		mPage = 1;
-		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA,
-				AppConstants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA, AppConstants.MSG_PRELOAD_DATA);
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -154,7 +152,7 @@ public class BlogCollectActivity extends BaseActivity implements OnItemClickList
 			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
-				List<BlogItem> list = mBb.query(mPage, mPageSize);
+				List<BlogItem> list = mBlogCollectDao.query(mPage, mPageSize);
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
 					mAdapter.notifyDataSetChanged();
