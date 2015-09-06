@@ -27,6 +27,21 @@
 考虑后续功能点比较多，有任何需求或想法都可以通过以上方式联系我。</br>
 期待您的意见，或者加入！
 
+###首页
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/1.jpeg)
+
+###博客列表
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/2.jpeg)
+
+###博客详情
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/3.jpeg)
+
+###博客分类
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/4.jpeg)
+
+###设置
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/5.jpeg)
+
 
 
 
