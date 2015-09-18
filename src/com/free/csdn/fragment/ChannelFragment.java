@@ -3,17 +3,16 @@ package com.free.csdn.fragment;
 import java.util.List;
 
 import com.free.csdn.R;
+import com.free.csdn.activity.ChannelDetailActivity;
 import com.free.csdn.adapter.ChannelListAdapter;
 import com.free.csdn.base.BaseFragment;
 import com.free.csdn.bean.Channel;
 import com.free.csdn.config.ChannelManager;
-import com.free.csdn.task.HttpAsyncTask;
-import com.free.csdn.task.OnResponseListener;
+import com.free.csdn.config.ExtraString;
 import com.free.csdn.util.DateUtil;
-import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.LogUtil;
 import com.free.csdn.util.ToastUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -34,8 +33,8 @@ import me.maxwin.view.XListView;
  * @data 2015年8月9日上午11:07:09
  */
 
-public class ChannelFragment extends BaseFragment implements OnItemClickListener, OnItemLongClickListener,
-		IXListViewRefreshListener, IXListViewLoadMore {
+public class ChannelFragment extends BaseFragment
+		implements OnItemClickListener, OnItemLongClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private View rootView;
 	private XListView mListView;
@@ -118,25 +117,11 @@ public class ChannelFragment extends BaseFragment implements OnItemClickListener
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		ToastUtil.showCenter(getActivity(), getActivity().getString(R.string.coming_soon));
+		Channel channel = (Channel) parent.getAdapter().getItem(position);
 
-		final Channel channel = (Channel) parent.getAdapter().getItem(position);
-		String url = channel.getUrl();
-		HttpAsyncTask asyncTask = new HttpAsyncTask(getActivity());
-		asyncTask.execute(url);
-		asyncTask.setOnResponseListener(new OnResponseListener() {
-
-			@Override
-			public void onResponse(String resultString) {
-				// TODO Auto-generated method stub
-				LogUtil.log("resultString:" + resultString);
-				if(resultString != null){
-					JsoupUtil.getBloggerList(channel.getChannelName(), resultString);
-				}
-				
-			}
-		});
-
+		Intent intent = new Intent(getActivity(), ChannelDetailActivity.class);
+		intent.putExtra(ExtraString.CHANNEL, channel);
+		startActivity(intent);
 	}
 
 }

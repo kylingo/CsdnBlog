@@ -265,7 +265,6 @@ public class BloggerFragment extends BaseFragment
 
 		mBloggerList = mBloggerDao.queryAll();
 		mAdapter.setList(mBloggerList);
-		mAdapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -287,8 +286,6 @@ public class BloggerFragment extends BaseFragment
 
 		mBloggerList = mBloggerDao.queryAll();
 		mAdapter.setList(mBloggerList);
-		mAdapter.notifyDataSetChanged();
-
 	}
 
 	/**
@@ -301,7 +298,6 @@ public class BloggerFragment extends BaseFragment
 
 		mBloggerList = mBloggerDao.queryAll();
 		mAdapter.setList(mBloggerList);
-		mAdapter.notifyDataSetChanged();
 
 		ToastUtil.show(getActivity(), "删除成功");
 	}

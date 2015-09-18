@@ -8,6 +8,7 @@ import com.free.csdn.adapter.DrawerAdapter;
 import com.free.csdn.base.BaseFragmentActivity;
 import com.free.csdn.bean.DrawerInfo;
 import com.free.csdn.fragment.BloggerFragment;
+import com.free.csdn.fragment.ChannelFragment;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.view.CircleImageView;
 import com.free.csdn.view.drawerlayout.ActionBarDrawerToggle;
@@ -56,17 +57,13 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 	public static FragmentManager mFragmentManager;
 	private Boolean isOpen = false;
-	private String[] mMenuTitles = { "首页",
-			// "频道",
-			"收藏", "关于", "设置" };
-	private int[] mResId = { R.drawable.me_06,
-			// R.drawable.me_03,
-			R.drawable.me_02, R.drawable.me_04, R.drawable.me_05 };
+	private String[] mMenuTitles = { "首页", "频道", "收藏", "关于", "设置" };
+	private int[] mResId = { R.drawable.me_06, R.drawable.me_03, R.drawable.me_02, R.drawable.me_04, R.drawable.me_05 };
 	private long mExitTime;
 	private final static long TIME_DIFF = 2 * 1000;
 
 	private BloggerFragment mBloggerFragment = null;
-	// private ChannelFragment channelFragment = null;
+	private ChannelFragment channelFragment = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +134,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 				return false;
 			}
 		};
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mDrawerArrow, R.string.drawer_open,
-				R.string.drawer_close) {
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mDrawerArrow, R.string.drawer_open, R.string.drawer_close) {
 
 			public void onDrawerClosed(View view) {
 				super.onDrawerClosed(view);
@@ -185,24 +181,24 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 					adapter.setSelectionPosition(position);
 					break;
 
-				// case 1:
-				// if (channelFragment == null) {
-				// channelFragment = new ChannelFragment();
-				// }
-				// initFragment(channelFragment);
-				// setTitle(mMenuTitles[position]);
-				// adapter.setSelectionPosition(position);
-				// break;
-
 				case 1:
-					intent = new Intent(MainActivity.this, BlogCollectActivity.class);
+					if (channelFragment == null) {
+						channelFragment = new ChannelFragment();
+					}
+					initFragment(channelFragment);
+					setTitle(mMenuTitles[position]);
+					adapter.setSelectionPosition(position);
 					break;
 
 				case 2:
-					intent = new Intent(MainActivity.this, AboutActivity.class);
+					intent = new Intent(MainActivity.this, BlogCollectActivity.class);
 					break;
 
 				case 3:
+					intent = new Intent(MainActivity.this, AboutActivity.class);
+					break;
+
+				case 4:
 					intent = new Intent(MainActivity.this, SettingsActivity.class);
 					break;
 				}

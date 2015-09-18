@@ -36,6 +36,7 @@ public class BloggerListAdapter extends BaseAdapter {
 
 	public void setList(List<Blogger> list) {
 		this.list = list;
+		notifyDataSetChanged();
 	}
 
 	public int getCount() {

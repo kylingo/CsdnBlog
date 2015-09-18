@@ -56,8 +56,7 @@ public class JsoupUtil {
 
 		String str = "";
 		try {
-			Element localElement1 = localDocument.getElementsByClass("panel").get(0).select("ul.panel_body.profile")
-					.get(0);
+			Element localElement1 = localDocument.getElementsByClass("panel").get(0).select("ul.panel_body.profile").get(0);
 			str = localElement1.getElementById("blog_userface").select("a").select("img").attr("src");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -217,23 +216,27 @@ public class JsoupUtil {
 		Document doc = Jsoup.parse(str);
 		Elements bloggerList = doc.getElementsByClass("list_3");
 
-		Element ulElement = bloggerList.select("ul").get(0);
-		Elements liElements = ulElement.select("li");
-		for (Element element : liElements) {
-			Blogger blogger = new Blogger();
-			Element bloggerElement = element.select("dl").get(0).select("dt").get(0).select("a").get(0);
-			String url = bloggerElement.attr("href");
+		Elements ulElements = bloggerList.select("ul");
+		for (Element ulElement : ulElements) {
+			Elements liElements = ulElement.select("li");
+			for (Element element : liElements) {
+				Blogger blogger = new Blogger();
+				Element bloggerElement = element.select("dl").get(0).select("dt").get(0).select("a").get(0);
+				String url = bloggerElement.attr("href");
 
-			Element imgElement = bloggerElement.select("img").get(0);
-			String title = imgElement.attr("alt");
-			String imgUrl = imgElement.attr("src");
+				Element imgElement = bloggerElement.select("img").get(0);
+				String title = imgElement.attr("alt");
+				String imgUrl = imgElement.attr("src");
 
-			blogger.setLink(url);
-			blogger.setTitle(title);
-			blogger.setImgUrl(imgUrl);
-			blogger.setCategory(category);
-			list.add(blogger);
+				blogger.setUserId(url.replace(AppConstants.CSDN_BASE_URL, ""));
+				blogger.setLink(url);
+				blogger.setTitle(title);
+				blogger.setImgUrl(imgUrl);
+				blogger.setCategory(category);
+				list.add(blogger);
+			}
 		}
+
 		return list;
 	}
 

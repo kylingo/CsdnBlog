@@ -52,8 +52,7 @@ import me.maxwin.view.XListView;
  *
  */
 @SuppressLint("InflateParams")
-public class BlogListActivity extends BaseActivity implements OnItemClickListener, OnClickListener,
-		IXListViewRefreshListener, IXListViewLoadMore {
+public class BlogListActivity extends BaseActivity implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private XListView mListView;
 	private BlogListAdapter mAdapter;
