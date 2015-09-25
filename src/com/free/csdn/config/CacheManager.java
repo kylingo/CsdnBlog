@@ -76,6 +76,16 @@ public class CacheManager {
 	}
 
 	/**
+	 * 获取某频道博主数据库目录
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static String getChannelBloggerDbPath(Context context) {
+		return getExternalCachePath(context) + File.separator + "ChannelBlogger";
+	}
+
+	/**
 	 * 获取WebView缓存目录
 	 * 
 	 * @return

@@ -1,11 +1,13 @@
 /** Copyright © 2015-2020 100msh.com All Rights Reserved */
 package com.free.csdn.db;
 
+import com.free.csdn.bean.Channel;
 import com.free.csdn.db.impl.BlogCollectDaoImpl;
 import com.free.csdn.db.impl.BlogCommentDaoImpl;
 import com.free.csdn.db.impl.BlogContentDaoImpl;
 import com.free.csdn.db.impl.BlogItemDaoImpl;
 import com.free.csdn.db.impl.BloggerDaoImpl;
+import com.free.csdn.db.impl.ChannelBloggerDaoImpl;
 
 import android.content.Context;
 
@@ -84,5 +86,16 @@ public class DaoFactory {
 	 */
 	public BlogCommentDao getBlogCommentDao(Context context, String filename) {
 		return new BlogCommentDaoImpl(context, filename);
+	}
+
+	/**
+	 * 获取某频道-博客专家数据库
+	 * 
+	 * @param context
+	 * @param channel
+	 * @return
+	 */
+	public ChannelBloggerDao getChannelBloggerDao(Context context, Channel channel) {
+		return new ChannelBloggerDaoImpl(context, channel);
 	}
 }

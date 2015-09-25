@@ -4,6 +4,7 @@ import com.lidroid.xutils.db.annotation.Column;
 
 /**
  * 频道分类
+ * 
  * @author tangqi
  * @data 2015年8月9日下午2:21:54
  */
@@ -15,21 +16,25 @@ public class Channel extends BaseEntity {
 	/**
 	 * 频道名
 	 */
+	@Column(column = "channelName")
 	private String channelName;
 
 	/**
 	 * 频道图标地址
 	 */
+	@Column(column = "imgUrl")
 	private String imgUrl;
 
 	/**
 	 * 频道图标ID（本地）
 	 */
+	@Column(column = "imgResourceId")
 	private int imgResourceId;
 
 	/**
 	 * 资源地址
 	 */
+	@Column(column = "url")
 	private String url;
 
 	/**
@@ -41,6 +46,7 @@ public class Channel extends BaseEntity {
 	/**
 	 * 保留
 	 */
+	@Column(column = "reserve")
 	private String reserve;
 
 	public String getChannelName() {
