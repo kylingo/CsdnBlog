@@ -69,7 +69,6 @@ public class JsoupUtil {
 		localHashMap.put("description", localElements.select("h3").text());
 		localHashMap.put("imgUrl", str);
 		return localHashMap;
-		// }
 	}
 
 	/**

@@ -91,6 +91,14 @@ public class BloggerManager {
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
+		array[0] = "coder_pig";
+		array[1] = "庄培杰";
+		array[2] = "时间一天天过去，我们终会因我们的努力或堕落变得丰富或苍白";
+		array[3] = "http://avatar.csdn.net/C/2/C/1_zpj779878443.jpg";
+		array[4] = "http://blog.csdn.net/coder_pig";
+		array[5] = type;
+		insertBlogger(bloggerDb, blogger, array);
+		
 		array[0] = "gao_chun";
 		array[1] = "高纯";
 		array[2] = "一 大 坨 代 码 ！";
