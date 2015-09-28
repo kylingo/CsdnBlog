@@ -35,23 +35,23 @@
 
 ###应用截图
 ###首页
-![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/1.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/1.png)
 
 </br>
 ###博客列表
-![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/2.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/2.png)
 
 </br>
 ###博客详情
-![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/3.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/3.png)
 
 </br>
 ###博客分类
-![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/4.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/4.png)
 
 </br>
 ###设置
-![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshot/5.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/5.png)
 
 
 
