@@ -18,13 +18,12 @@ import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.LogUtil;
 import com.free.csdn.util.ToastUtil;
-import com.free.csdn.view.dialog.BloggerOperationDialog;
 import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
 import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
+import com.free.csdn.view.dialog.BloggerOperationDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -60,9 +59,7 @@ public class ChannelDetailActivity extends BaseActivity
 
 		initData();
 		initView();
-
-		queryDb();
-		// getData();
+		queryDb(true);
 	}
 
 	private void initData() {
@@ -89,78 +86,6 @@ public class ChannelDetailActivity extends BaseActivity
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(this);
 		mListView.setOnItemLongClickListener(this);
-	}
-
-	/**
-	 * 查询数据库
-	 */
-	private void queryDb() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				final List<Blogger> list = mChannelBloggerDao.queryAll();
-				if (list != null && list.size() != 0) {
-					runOnUiThread(new Runnable() {
-
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							mAdapter.setList(list);
-						}
-					});
-
-				} else {
-					getData();
-				}
-			}
-		}).start();
-	}
-
-	/**
-	 * 获取数据
-	 */
-	private void getData() {
-		if (mChannel != null) {
-			String url = mChannel.getUrl();
-			HttpAsyncTask asyncTask = new HttpAsyncTask(this);
-			asyncTask.execute(url);
-			asyncTask.setOnResponseListener(new OnResponseListener() {
-
-				@Override
-				public void onResponse(String resultString) {
-					// TODO Auto-generated method stub
-					if (resultString != null) {
-						List<Blogger> bloggerList = JsoupUtil.getBloggerList(mChannel.getChannelName(), resultString);
-						if (bloggerList != null) {
-							LogUtil.log("bloggerList size：" + bloggerList.size());
-							mAdapter.setList(bloggerList);
-							saveDB(bloggerList);
-						}
-					} else {
-						ToastUtil.show(ChannelDetailActivity.this, "数据请求失败");
-					}
-				}
-			});
-		}
-	}
-
-	/**
-	 * 保存数据库
-	 * 
-	 * @param list
-	 */
-	private void saveDB(final List<Blogger> list) {
-
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				mChannelBloggerDao.insert(list);
-			}
-		}).start();
-
 	}
 
 	@Override
@@ -211,6 +136,94 @@ public class ChannelDetailActivity extends BaseActivity
 		dialog.show();
 		return true;
 	}
+	
+	/**
+	 * 查询数据库
+	 * 
+	 * @param isRequest
+	 */
+	private void queryDb(final boolean isRequest) {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				final List<Blogger> list = mChannelBloggerDao.queryAll();
+				if (list != null && list.size() != 0) {
+					// 数据库有数据，则更新UI
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							mAdapter.setList(list);
+						}
+					});
+				} else {
+					// 否则请求数据
+					if (isRequest) {
+						requestData();
+					}
+				}
+
+			}
+		}).start();
+	}
+
+	/**
+	 * 请求数据
+	 */
+	private void requestData() {
+		if (mChannel != null) {
+			String url = mChannel.getUrl();
+			HttpAsyncTask asyncTask = new HttpAsyncTask(this);
+			asyncTask.execute(url);
+			asyncTask.setOnResponseListener(new OnResponseListener() {
+
+				@Override
+				public void onResponse(String resultString) {
+					// TODO Auto-generated method stub
+					if (resultString != null) {
+						List<Blogger> bloggerList = JsoupUtil.getBloggerList(mChannel.getChannelName(), resultString);
+						if (bloggerList != null) {
+							LogUtil.log("bloggerList size：" + bloggerList.size());
+							mAdapter.setList(bloggerList);
+							saveDB(bloggerList);
+						}
+					} else {
+						ToastUtil.show(ChannelDetailActivity.this, "数据请求失败");
+					}
+
+					updateListView();
+				}
+			});
+		}
+	}
+
+	/**
+	 * 更新ListView的刷新、加载状态
+	 */
+	protected void updateListView() {
+		// TODO Auto-generated method stub
+		mListView.stopRefresh(DateUtil.getDate());
+	}
+
+	/**
+	 * 保存数据库
+	 * 
+	 * @param list
+	 */
+	private void saveDB(final List<Blogger> list) {
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				mChannelBloggerDao.deleteAll();
+				mChannelBloggerDao.insert(list);
+			}
+		}).start();
+
+	}
 
 	/**
 	 * 置顶博主
@@ -228,9 +241,7 @@ public class ChannelDetailActivity extends BaseActivity
 
 		blogger.setUpdateTime(System.currentTimeMillis());
 		mChannelBloggerDao.insert(blogger);
-
-		mBloggerList = mChannelBloggerDao.queryAll();
-		mAdapter.setList(mBloggerList);
+		queryDb(false);
 	}
 
 	/**
@@ -239,25 +250,21 @@ public class ChannelDetailActivity extends BaseActivity
 	 * @param blogger
 	 */
 	private void deleleBlogger(Blogger blogger) {
-		mChannelBloggerDao.delete(blogger);
-
-		mBloggerList = mChannelBloggerDao.queryAll();
-		mAdapter.setList(mBloggerList);
-
-		ToastUtil.show(this, "删除成功");
+		if (blogger != null) {
+			ToastUtil.show(this, "删除成功");
+			mChannelBloggerDao.delete(blogger);
+			queryDb(false);
+		} else {
+			ToastUtil.show(this, "删除失败");
+		}
 	}
 
+	/**
+	 * 刷新
+	 */
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				mListView.stopRefresh(DateUtil.getDate());
-			}
-		}, 1000);
+		requestData();
 	}
-
 }

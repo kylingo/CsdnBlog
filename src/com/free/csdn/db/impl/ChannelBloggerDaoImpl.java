@@ -3,7 +3,6 @@ package com.free.csdn.db.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.free.csdn.bean.BlogItem;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.bean.Channel;
 import com.free.csdn.config.CacheManager;
@@ -52,16 +51,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 
 	public void insert(List<Blogger> list) {
 		try {
-			for (int i = 0; i < list.size(); i++) {
-				Blogger blogger = list.get(i);
-				BlogItem findItem = db.findFirst(Selector.from(Blogger.class).where("userId", "=", blogger.getUserId()));
-				if (findItem != null) {
-					db.update(blogger, WhereBuilder.b("userId", "=", blogger.getUserId()));
-				} else {
-					db.save(blogger);
-				}
-			}
-
+			db.saveOrUpdateAll(list);
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,7 +99,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 	public List<Blogger> query(int pageIndex, int pageSize) {
 		List<Blogger> list = null;
 		try {
-			list = db.findAll(Selector.from(BlogItem.class).orderBy("isNew", true).limit(pageSize).offset(pageIndex * pageSize));
+			list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true).limit(pageSize).offset(pageIndex * pageSize));
 			return list;
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
@@ -131,6 +121,17 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 	public void deleteAll(List<Blogger> list) {
 		try {
 			db.delete(list);
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		try {
+			db.deleteAll(Blogger.class);
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

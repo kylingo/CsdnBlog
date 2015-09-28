@@ -49,7 +49,7 @@ public interface ChannelBloggerDao {
 	 * @param page
 	 * @return
 	 */
-	List<Blogger> query( int pageIndex, int pageSize);
+	List<Blogger> query(int pageIndex, int pageSize);
 
 	/**
 	 * 删除博主
@@ -64,4 +64,9 @@ public interface ChannelBloggerDao {
 	 * @param list
 	 */
 	public void deleteAll(List<Blogger> list);
+
+	/**
+	 * 删除所有博主
+	 */
+	public void deleteAll();
 }
