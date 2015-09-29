@@ -58,7 +58,7 @@ public class BloggerManager {
 	 */
 	public void init(Context context, BloggerDao bloggerDb, String type) {
 
-		if (!((Boolean) SpfUtils.get(context, "isFirst", true)))
+		if (!((Boolean) SpfUtils.get(context, ExtraString.IS_FIRST, true)))
 			return;
 
 		deleteAllBlogger(bloggerDb, type);
@@ -98,7 +98,7 @@ public class BloggerManager {
 		array[4] = "http://blog.csdn.net/coder_pig";
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
-		
+
 		array[0] = "gao_chun";
 		array[1] = "高纯";
 		array[2] = "一 大 坨 代 码 ！";
@@ -515,6 +515,7 @@ public class BloggerManager {
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
-		SpfUtils.put(context, "isFirst", false);
+		SpfUtils.put(context, ExtraString.IS_FIRST, false);
+		SpfUtils.put(context, ExtraString.BLOG_TYPE, type);
 	}
 }

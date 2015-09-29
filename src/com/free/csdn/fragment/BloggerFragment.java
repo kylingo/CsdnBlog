@@ -12,13 +12,14 @@ import com.free.csdn.bean.Blogger;
 import com.free.csdn.config.AppConstants;
 import com.free.csdn.config.BloggerManager;
 import com.free.csdn.config.CategoryManager.CategoryName;
-import com.free.csdn.config.CategoryManager.CategoryType;
+import com.free.csdn.config.ExtraString;
 import com.free.csdn.db.BloggerDao;
 import com.free.csdn.db.DaoFactory;
 import com.free.csdn.task.HttpAsyncTask;
 import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
+import com.free.csdn.util.SpfUtils;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
 import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
@@ -67,8 +68,8 @@ public class BloggerFragment extends BaseFragment
 	private HashMap<String, String> mAddBloggerItem = null;
 	private BloggerDao mBloggerDao = null;
 	private String mNewUserId = null;
-	private String mCategory = CategoryName.MOBILE;
-	private String mType = CategoryType.ANDROID;
+	private String mCategory = CategoryName.MOBILE;// 这个属性暂未使用
+	private String mType = CategoryName.ANDROID;
 
 	private static final int MSG_ADD_SUCCESS = 1000;
 	private static final int MSG_ADD_FAILURE = 1001;
@@ -87,16 +88,21 @@ public class BloggerFragment extends BaseFragment
 			parent.removeView(mRootView);
 		}
 
+		initData();
 		initView(mRootView);
 		return mRootView;
 	}
 
-	private void initView(View view) {
+	private void initData() {
 		// TODO Auto-generated method stub
+		mType = (String) SpfUtils.get(getActivity(), ExtraString.BLOG_TYPE, CategoryName.ANDROID);
 		mBloggerDao = DaoFactory.getInstance().getBloggerDao(getActivity(), mType);
 		new BloggerManager().init(getActivity(), mBloggerDao, mType);
 		mBloggerList = mBloggerDao.queryAll();
+	}
 
+	private void initView(View view) {
+		// TODO Auto-generated method stub
 		mListView = (XListView) view.findViewById(R.id.listView);
 		mAdapter = new BloggerListAdapter(getActivity(), mBloggerList);
 		mListView.setPullRefreshEnable(this);// 设置可下拉刷新

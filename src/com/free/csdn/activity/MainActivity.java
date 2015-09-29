@@ -16,7 +16,6 @@ import com.free.csdn.view.drawerlayout.DrawerArrowDrawable;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -30,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -42,7 +42,7 @@ import android.widget.TextView;
  * @author tangqi
  * @data 2015年8月12日下午10:46:07
  */
-public class MainActivity extends BaseFragmentActivity implements OnClickListener {
+public class MainActivity extends BaseFragmentActivity implements OnClickListener, OnItemClickListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -63,7 +63,8 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	private final static long TIME_DIFF = 2 * 1000;
 
 	private BloggerFragment mBloggerFragment = null;
-	private ChannelFragment channelFragment = null;
+	private ChannelFragment mChannelFragment = null;
+	private DrawerAdapter mDrawerAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -163,54 +164,54 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 			drawerItem.setResId(mResId[i]);
 			list.add(drawerItem);
 		}
-		final DrawerAdapter adapter = new DrawerAdapter(this, list);
-		mDrawerList.setAdapter(adapter);
-		adapter.setSelectionPosition(0);
-		mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@SuppressLint({ "ResourceAsColor", "Recycle" })
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Intent intent = null;
-				switch (position) {
-				case 0:
-					if (mBloggerFragment == null) {
-						mBloggerFragment = new BloggerFragment();
-					}
-					initFragment(mBloggerFragment);
-					setTitle(mMenuTitles[position]);
-					adapter.setSelectionPosition(position);
-					break;
+		mDrawerAdapter = new DrawerAdapter(this, list);
+		mDrawerList.setAdapter(mDrawerAdapter);
+		mDrawerAdapter.setSelectionPosition(0);
+		mDrawerList.setOnItemClickListener(this);
+	}
 
-				case 1:
-					if (channelFragment == null) {
-						channelFragment = new ChannelFragment();
-					}
-					initFragment(channelFragment);
-					setTitle(mMenuTitles[position]);
-					adapter.setSelectionPosition(position);
-					break;
-
-				case 2:
-					intent = new Intent(MainActivity.this, BlogCollectActivity.class);
-					break;
-
-				case 3:
-					intent = new Intent(MainActivity.this, AboutActivity.class);
-					break;
-
-				case 4:
-					intent = new Intent(MainActivity.this, SettingsActivity.class);
-					break;
-				}
-
-				if (intent != null) {
-					startActivity(intent);
-				} else {
-					mDrawerLayout.closeDrawers();
-					isOpen = false;
-				}
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		// TODO Auto-generated method stub
+		Intent intent = null;
+		switch (position) {
+		case 0:
+			if (mBloggerFragment == null) {
+				mBloggerFragment = new BloggerFragment();
 			}
-		});
+			initFragment(mBloggerFragment);
+			setTitle(mMenuTitles[position]);
+			mDrawerAdapter.setSelectionPosition(position);
+			break;
+
+		case 1:
+			if (mChannelFragment == null) {
+				mChannelFragment = new ChannelFragment();
+			}
+			initFragment(mChannelFragment);
+			setTitle(mMenuTitles[position]);
+			mDrawerAdapter.setSelectionPosition(position);
+			break;
+
+		case 2:
+			intent = new Intent(MainActivity.this, BlogCollectActivity.class);
+			break;
+
+		case 3:
+			intent = new Intent(MainActivity.this, AboutActivity.class);
+			break;
+
+		case 4:
+			intent = new Intent(MainActivity.this, SettingsActivity.class);
+			break;
+		}
+
+		if (intent != null) {
+			startActivity(intent);
+		} else {
+			mDrawerLayout.closeDrawers();
+			isOpen = false;
+		}
 	}
 
 	@Override
@@ -298,4 +299,5 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 		return super.onKeyDown(keyCode, event);
 	}
+
 }

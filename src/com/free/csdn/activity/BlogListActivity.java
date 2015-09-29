@@ -106,6 +106,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		mBackBtn.setOnClickListener(this);
 		mMenuBtn.setOnClickListener(this);
 		mMenuBtn.setVisibility(View.VISIBLE);
+		mMenuBtn.setImageResource(R.drawable.ic_menu);
 
 		if (mBlogger != null) {
 			setDefaultTitle();

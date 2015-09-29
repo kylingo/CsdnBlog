@@ -79,7 +79,13 @@ public class BloggerListAdapter extends BaseAdapter {
 			holder.tvBlogTitle.setText(getItem(position).getTitle());
 			holder.tvBlogTitle.setTextColor(context.getResources().getColor(R.color.black_text));
 		}
-		holder.tvBlogDesc.setText(getItem(position).getDescription());
+
+		if (!TextUtils.isEmpty(getItem(position).getDescription())) {
+			holder.tvBlogDesc.setVisibility(View.VISIBLE);
+			holder.tvBlogDesc.setText(getItem(position).getDescription());
+		} else {
+			holder.tvBlogDesc.setVisibility(View.GONE);
+		}
 
 		return convertView;
 	}

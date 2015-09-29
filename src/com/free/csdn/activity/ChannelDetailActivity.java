@@ -10,17 +10,19 @@ import com.free.csdn.base.BaseActivity;
 import com.free.csdn.bean.Blogger;
 import com.free.csdn.bean.Channel;
 import com.free.csdn.config.ExtraString;
-import com.free.csdn.db.ChannelBloggerDao;
+import com.free.csdn.db.BloggerDao;
 import com.free.csdn.db.DaoFactory;
 import com.free.csdn.task.HttpAsyncTask;
 import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.LogUtil;
+import com.free.csdn.util.SpfUtils;
 import com.free.csdn.util.ToastUtil;
+import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
 import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
 import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
 import com.free.csdn.view.dialog.BloggerOperationDialog;
+import com.free.csdn.view.dialog.SelectionDialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +50,7 @@ public class ChannelDetailActivity extends BaseActivity
 
 	private List<Blogger> mBloggerList;
 	private BloggerListAdapter mAdapter;
-	private ChannelBloggerDao mChannelBloggerDao;
+	private BloggerDao mBloggerDao;
 	private Channel mChannel;
 
 	@Override
@@ -64,7 +66,7 @@ public class ChannelDetailActivity extends BaseActivity
 
 	private void initData() {
 		mChannel = (Channel) getIntent().getSerializableExtra(ExtraString.CHANNEL);
-		mChannelBloggerDao = DaoFactory.getInstance().getChannelBloggerDao(this, mChannel);
+		mBloggerDao = DaoFactory.getInstance().getBloggerDao(this, mChannel.getChannelName());
 	}
 
 	private void initView() {
@@ -74,8 +76,12 @@ public class ChannelDetailActivity extends BaseActivity
 			mTitleView.setText(mChannel.getChannelName());
 		}
 		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
+		ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
 		mBackBtn.setVisibility(View.VISIBLE);
 		mBackBtn.setOnClickListener(this);
+		mMenuBtn.setVisibility(View.VISIBLE);
+		mMenuBtn.setImageResource(R.drawable.ic_yes);
+		mMenuBtn.setOnClickListener(this);
 
 		mListView = (XListView) findViewById(R.id.listView);
 		mBloggerList = new ArrayList<Blogger>();
@@ -96,9 +102,32 @@ public class ChannelDetailActivity extends BaseActivity
 			finish();
 			break;
 
+		case R.id.btn_menu:
+			showMenu();
+			break;
+
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 设置为默认频道
+	 */
+	private void showMenu() {
+		// TODO Auto-generated method stub
+		SelectionDialog dialog = new SelectionDialog(this, "设置【" + mChannel.getChannelName() + "】为默认频道？");
+		dialog.setOnConfirmListener(new OnConfirmListener() {
+
+			@Override
+			public void onConfirm(String result) {
+				// TODO Auto-generated method stub
+				SpfUtils.put(ChannelDetailActivity.this, ExtraString.BLOG_TYPE, mChannel.getChannelName());
+				ToastUtil.show(ChannelDetailActivity.this, "设置成功");
+				finish();
+			}
+		});
+		dialog.show();
 	}
 
 	@Override
@@ -106,7 +135,6 @@ public class ChannelDetailActivity extends BaseActivity
 		// TODO Auto-generated method stub
 		Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
 		Intent intent = new Intent(this, BlogListActivity.class);
-		LogUtil.log("blogger userId:" + blogger.getUserId());
 		intent.putExtra("blogger", blogger);
 		startActivity(intent);
 	}
@@ -136,7 +164,7 @@ public class ChannelDetailActivity extends BaseActivity
 		dialog.show();
 		return true;
 	}
-	
+
 	/**
 	 * 查询数据库
 	 * 
@@ -148,7 +176,7 @@ public class ChannelDetailActivity extends BaseActivity
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final List<Blogger> list = mChannelBloggerDao.queryAll();
+				final List<Blogger> list = mBloggerDao.queryAll();
 				if (list != null && list.size() != 0) {
 					// 数据库有数据，则更新UI
 					runOnUiThread(new Runnable() {
@@ -185,7 +213,6 @@ public class ChannelDetailActivity extends BaseActivity
 					if (resultString != null) {
 						List<Blogger> bloggerList = JsoupUtil.getBloggerList(mChannel.getChannelName(), resultString);
 						if (bloggerList != null) {
-							LogUtil.log("bloggerList size：" + bloggerList.size());
 							mAdapter.setList(bloggerList);
 							saveDB(bloggerList);
 						}
@@ -218,8 +245,8 @@ public class ChannelDetailActivity extends BaseActivity
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mChannelBloggerDao.deleteAll();
-				mChannelBloggerDao.insert(list);
+				mBloggerDao.deleteAll();
+				mBloggerDao.insert(list);
 			}
 		}).start();
 
@@ -240,7 +267,7 @@ public class ChannelDetailActivity extends BaseActivity
 		}
 
 		blogger.setUpdateTime(System.currentTimeMillis());
-		mChannelBloggerDao.insert(blogger);
+		mBloggerDao.insert(blogger);
 		queryDb(false);
 	}
 
@@ -252,7 +279,7 @@ public class ChannelDetailActivity extends BaseActivity
 	private void deleleBlogger(Blogger blogger) {
 		if (blogger != null) {
 			ToastUtil.show(this, "删除成功");
-			mChannelBloggerDao.delete(blogger);
+			mBloggerDao.delete(blogger);
 			queryDb(false);
 		} else {
 			ToastUtil.show(this, "删除失败");

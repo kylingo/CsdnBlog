@@ -18,7 +18,6 @@ import com.free.csdn.db.impl.BlogContentDaoImpl;
 import com.free.csdn.task.HttpAsyncTask;
 import com.free.csdn.task.OnResponseListener;
 import com.free.csdn.util.JsoupUtil;
-import com.free.csdn.util.LogUtil;
 import com.free.csdn.util.ToastUtil;
 
 import android.annotation.SuppressLint;
@@ -286,7 +285,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		String html = adjustPicSize(content);
 		loadHtml(html);
 		saveDb(html);
-		LogUtil.log("onResponse mTitle:"+mTitle);
 	}
 
 	/**
@@ -350,7 +348,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		BlogHtml blogHtml = blogContentDb.query(url);
 		if (blogHtml != null) {
 			mTitle = blogHtml.getTitle();
-			LogUtil.log("getData mTitle:"+mTitle);
 			loadHtml(blogHtml.getHtml());
 		} else {
 			requestData(url);

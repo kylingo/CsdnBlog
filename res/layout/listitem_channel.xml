@@ -18,12 +18,21 @@
 
     <TextView
         android:id="@+id/tvChannel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_weight="1"
+        android:gravity="left"
         android:singleLine="true"
         android:text="@string/channel_name"
         android:textColor="@color/black_text"
         android:textSize="@dimen/content_size" />
+
+    <ImageView
+        android:id="@+id/imvChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="10dip"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_yes" />
 
 </LinearLayout>

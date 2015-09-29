@@ -18,20 +18,16 @@ import com.free.csdn.config.CategoryManager.CategoryUrl;
  */
 
 public class ChannelManager {
-	
-	String[] mChannelNameArray = { CategoryName.MOBILE, CategoryName.WEB,
-			CategoryName.ENTERPRISE, CategoryName.CODE, CategoryName.WWW,
-			CategoryName.DATABASE, CategoryName.SYSTEM, CategoryName.CLOUD,
-			CategoryName.SOFTWARE};
 
-	int[] mResourceId = { R.drawable.logo_dropbox, R.drawable.logo_evernote, R.drawable.logo_googleplus,
-			R.drawable.logo_neteasemicroblog, R.drawable.logo_yixinmoments, R.drawable.logo_pinterest,
-			R.drawable.logo_sohumicroblog, R.drawable.logo_twitter, R.drawable.logo_vkontakte, R.drawable.logo_yixin };
+	String[] mChannelNameArray = { CategoryName.ANDROID, CategoryName.MOBILE, CategoryName.WEB, CategoryName.ENTERPRISE, CategoryName.CODE,
+			CategoryName.WWW, CategoryName.DATABASE, CategoryName.SYSTEM, CategoryName.CLOUD, CategoryName.SOFTWARE };
 
-	String[] mUrls = { CategoryUrl.MOBILE, CategoryUrl.WEB,
-			CategoryUrl.ENTERPRISE, CategoryUrl.CODE, CategoryUrl.WWW,
-			CategoryUrl.DATABASE, CategoryUrl.SYSTEM, CategoryUrl.CLOUD,
-			CategoryUrl.SOFTWARE, };
+	int[] mResourceId = { R.drawable.logo_dropbox, R.drawable.logo_evernote, R.drawable.logo_googleplus, R.drawable.logo_neteasemicroblog,
+			R.drawable.logo_yixinmoments, R.drawable.logo_pinterest, R.drawable.logo_sohumicroblog, R.drawable.logo_twitter,
+			R.drawable.logo_vkontakte, R.drawable.logo_yixin };
+
+	String[] mUrls = { CategoryUrl.ANDROID, CategoryUrl.MOBILE, CategoryUrl.WEB, CategoryUrl.ENTERPRISE, CategoryUrl.CODE, CategoryUrl.WWW,
+			CategoryUrl.DATABASE, CategoryUrl.SYSTEM, CategoryUrl.CLOUD, CategoryUrl.SOFTWARE, };
 
 	public ChannelManager(Context context) {
 		// TODO Auto-generated constructor stub

@@ -24,6 +24,7 @@ public class ChannelListAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<Channel> list;
+	private String checkType = null;
 
 	public ChannelListAdapter(Context context, List<Channel> list) {
 		super();
@@ -55,21 +56,33 @@ public class ChannelListAdapter extends BaseAdapter {
 			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_channel, null);
 			holder = new ViewHolder();
 			holder.imvChannel = (ImageView) convertView.findViewById(R.id.imvChannel);
+			holder.imvChecked = (ImageView) convertView.findViewById(R.id.imvChecked);
 			holder.tvChannel = (TextView) convertView.findViewById(R.id.tvChannel);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		
+
 		holder.tvChannel.setText(getItem(position).getChannelName());
 		holder.imvChannel.setImageResource(getItem(position).getImgResourceId());
+
+		if (getItem(position).getChannelName().equals(checkType)) {
+			holder.imvChecked.setVisibility(View.VISIBLE);
+		} else {
+			holder.imvChecked.setVisibility(View.GONE);
+		}
 
 		return convertView;
 	}
 
+	public void setCheckType(String checkType) {
+		this.checkType = checkType;
+		notifyDataSetChanged();
+	}
+
 	static class ViewHolder {
-		ImageView imvChannel;
+		ImageView imvChannel, imvChecked;
 		TextView tvChannel;
 	}
 

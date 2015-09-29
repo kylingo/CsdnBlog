@@ -7,10 +7,14 @@ import com.free.csdn.activity.ChannelDetailActivity;
 import com.free.csdn.adapter.ChannelListAdapter;
 import com.free.csdn.base.BaseFragment;
 import com.free.csdn.bean.Channel;
+import com.free.csdn.config.CategoryManager.CategoryName;
 import com.free.csdn.config.ChannelManager;
 import com.free.csdn.config.ExtraString;
 import com.free.csdn.util.DateUtil;
+import com.free.csdn.util.SpfUtils;
 import com.free.csdn.util.ToastUtil;
+import com.free.csdn.view.dialog.SelectionDialog;
+import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -80,6 +84,20 @@ public class ChannelFragment extends BaseFragment
 	}
 
 	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		refresh();
+		
+	}
+
+	private void refresh() {
+		// TODO Auto-generated method stub
+		String type = (String) SpfUtils.get(getActivity(), ExtraString.BLOG_TYPE, CategoryName.ANDROID);
+		mAdapter.setCheckType(type);
+	}
+
+	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
 		new Handler().postDelayed(new Runnable() {
@@ -87,8 +105,7 @@ public class ChannelFragment extends BaseFragment
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				mListView.setRefreshTime(DateUtil.getDate());
-				mListView.stopRefresh();
+				mListView.stopRefresh(DateUtil.getDate());
 				ToastUtil.showCenter(getActivity(), getActivity().getString(R.string.refresh_complete));
 			}
 		}, 1000);
@@ -111,7 +128,20 @@ public class ChannelFragment extends BaseFragment
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
-		return false;
+		final Channel channel = (Channel) parent.getAdapter().getItem(position);
+		SelectionDialog dialog = new SelectionDialog(getActivity(), "设置【" + channel.getChannelName() + "】为默认频道？");
+		dialog.setOnConfirmListener(new OnConfirmListener() {
+
+			@Override
+			public void onConfirm(String result) {
+				// TODO Auto-generated method stub
+				ToastUtil.show(getActivity(), "设置成功");
+				SpfUtils.put(getActivity(), ExtraString.BLOG_TYPE, channel.getChannelName());
+				refresh();
+			}
+		});
+		dialog.show();
+		return true;
 	}
 
 	@Override

@@ -231,6 +231,7 @@ public class JsoupUtil {
 				blogger.setLink(url);
 				blogger.setTitle(title);
 				blogger.setImgUrl(imgUrl);
+				blogger.setType(category);
 				blogger.setCategory(category);
 				list.add(blogger);
 			}

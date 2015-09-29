@@ -16,6 +16,7 @@ public class CategoryManager {
 	 *
 	 */
 	public class CategoryName {
+		public static final String ANDROID = "android";
 		public static final String MOBILE = "移动开发";
 		public static final String WEB = "WEB前端";
 		public static final String ENTERPRISE = "架构设计";
@@ -28,13 +29,6 @@ public class CategoryManager {
 	}
 
 	/**
-	 * 博主类别（细分）
-	 */
-	public class CategoryType {
-		public static final String ANDROID = "android";
-	}
-
-	/**
 	 * 博客分类URL
 	 * 
 	 * @author Frank
@@ -42,6 +36,12 @@ public class CategoryManager {
 	 */
 
 	public class CategoryUrl {
+
+		/**
+		 * Android
+		 */
+		public final static String ANDROID = "http://blog.csdn.net/mobile/experts.html";
+
 		/**
 		 * 移动开发
 		 */

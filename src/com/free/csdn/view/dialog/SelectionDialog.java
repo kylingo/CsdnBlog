@@ -117,7 +117,7 @@ public class SelectionDialog extends Dialog {
 	 * 
 	 * @param dialogListener
 	 */
-	public void setOnCancleistener(OnCancleListener OnCancleListener) {
+	public void setOnCancleListener(OnCancleListener OnCancleListener) {
 		this.mOnCancleListener = OnCancleListener;
 	}
 

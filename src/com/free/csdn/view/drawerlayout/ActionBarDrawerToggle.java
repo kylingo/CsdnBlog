@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-
 @SuppressWarnings("deprecation")
 public class ActionBarDrawerToggle extends android.support.v4.app.ActionBarDrawerToggle {
 
@@ -28,13 +27,13 @@ public class ActionBarDrawerToggle extends android.support.v4.app.ActionBarDrawe
 	protected DrawerArrowDrawable mDrawerImage;
 	protected boolean animateEnabled;
 
-	public ActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout, int drawerImageRes,
-			int openDrawerContentDescRes, int closeDrawerContentDescRes) {
+	public ActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout, int drawerImageRes, int openDrawerContentDescRes,
+			int closeDrawerContentDescRes) {
 		super(activity, drawerLayout, drawerImageRes, openDrawerContentDescRes, closeDrawerContentDescRes);
 	}
 
-	public ActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout, DrawerArrowDrawable drawerImage,
-			int openDrawerContentDescRes, int closeDrawerContentDescRes) {
+	public ActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout, DrawerArrowDrawable drawerImage, int openDrawerContentDescRes,
+			int closeDrawerContentDescRes) {
 		super(activity, drawerLayout, R.drawable.ic_drawer, openDrawerContentDescRes, closeDrawerContentDescRes);
 		mActivity = activity;
 		mDrawerLayout = drawerLayout;
@@ -159,15 +158,14 @@ public class ActionBarDrawerToggle extends android.support.v4.app.ActionBarDrawe
 	protected void setActionBarDescription() {
 		if (mActivity != null && mActivity.getActionBar() != null) {
 			try {
-				Method setHomeActionContentDescription = ActionBar.class.getDeclaredMethod("setHomeActionContentDescription",
-						Integer.TYPE);
-				setHomeActionContentDescription.invoke(mActivity.getActionBar(), mDrawerLayout
-						.isDrawerOpen(GravityCompat.START) ? mOpenDrawerContentDescRes : mCloseDrawerContentDescRes);
+				Method setHomeActionContentDescription = ActionBar.class.getDeclaredMethod("setHomeActionContentDescription", Integer.TYPE);
+				setHomeActionContentDescription.invoke(mActivity.getActionBar(),
+						mDrawerLayout.isDrawerOpen(GravityCompat.START) ? mOpenDrawerContentDescRes : mCloseDrawerContentDescRes);
 				if (Build.VERSION.SDK_INT <= 19) {
 					mActivity.getActionBar().setSubtitle(mActivity.getActionBar().getSubtitle());
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				// e.printStackTrace();
 			}
 		}
 	}
