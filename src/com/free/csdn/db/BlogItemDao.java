@@ -28,6 +28,12 @@ public interface BlogItemDao {
 	 * @return
 	 */
 	public List<BlogItem> query(String category, int page);
+	
+	/**
+	 * 查询所有
+	 * @return
+	 */
+	public List<BlogItem> queryAll();
 
 	/**
 	 * 插入博客分类
@@ -42,4 +48,9 @@ public interface BlogItemDao {
 	 * @param list
 	 */
 	public List<BlogCategory> queryCategory();
+
+	/**
+	 * 删除所有
+	 */
+	public void deleteAll();
 }

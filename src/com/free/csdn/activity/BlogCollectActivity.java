@@ -155,7 +155,6 @@ public class BlogCollectActivity extends BaseActivity
 				List<BlogItem> list = mBlogCollectDao.query(mPage, mPageSize);
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
-					mAdapter.notifyDataSetChanged();
 					mListView.setPullLoadEnable(BlogCollectActivity.this);// 设置可上拉加载
 					mListView.setRefreshTime(DateUtil.getDate());
 					mListView.stopLoadMore();
@@ -163,7 +162,6 @@ public class BlogCollectActivity extends BaseActivity
 
 					mPbLoading.setVisibility(View.GONE);
 				}
-
 				break;
 
 			default:

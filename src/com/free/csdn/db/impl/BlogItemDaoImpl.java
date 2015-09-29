@@ -34,8 +34,7 @@ public class BlogItemDaoImpl implements BlogItemDao {
 		try {
 			for (int i = 0; i < list.size(); i++) {
 				BlogItem blogItem = list.get(i);
-				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("category", "=", category)
-						.and("link", "=", blogItem.getLink()));
+				BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("category", "=", category).and("link", "=", blogItem.getLink()));
 				if (findItem != null) {
 					db.update(blogItem, WhereBuilder.b("category", "=", category).and("link", "=", blogItem.getLink()));
 				} else {
@@ -55,8 +54,8 @@ public class BlogItemDaoImpl implements BlogItemDao {
 				// 全部分类
 				list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).and("isTop", "=", 1));
 				// 加上这句，可把置顶的文章在后面的地方不显示
-				List<BlogItem> normalList = db.findAll(Selector.from(BlogItem.class).where("category", "=", category)
-						.and("isTop", "!=", 1).orderBy("date", true).limit(page * 20));
+				List<BlogItem> normalList = db.findAll(
+						Selector.from(BlogItem.class).where("category", "=", category).and("isTop", "!=", 1).orderBy("date", true).limit(page * 20));
 				if (list != null) {
 					list.addAll(normalList);
 				} else {
@@ -64,8 +63,7 @@ public class BlogItemDaoImpl implements BlogItemDao {
 				}
 			} else {
 				// 其他分类
-				list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).orderBy("date", true)
-						.limit(page * 20));
+				list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).orderBy("date", true).limit(page * 20));
 			}
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
@@ -75,14 +73,24 @@ public class BlogItemDaoImpl implements BlogItemDao {
 		return list;
 	}
 
+	public List<BlogItem> queryAll() {
+		List<BlogItem> list = null;
+		try {
+			list = db.findAll(BlogItem.class);
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 	@Override
 	public void insertCategory(List<BlogCategory> blogCategoryList) {
 		// TODO Auto-generated method stub
 		try {
 			for (int i = 0; i < blogCategoryList.size(); i++) {
 				BlogCategory blogCategory = blogCategoryList.get(i);
-				BlogCategory findItem = db
-						.findFirst(Selector.from(BlogCategory.class).where("name", "=", blogCategory.getName()));
+				BlogCategory findItem = db.findFirst(Selector.from(BlogCategory.class).where("name", "=", blogCategory.getName()));
 				if (findItem != null) {
 					db.update(blogCategory, WhereBuilder.b("name", "=", blogCategory.getName()));
 				} else {
@@ -106,5 +114,16 @@ public class BlogItemDaoImpl implements BlogItemDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		try {
+			db.deleteAll(BlogItem.class);
+		} catch (DbException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

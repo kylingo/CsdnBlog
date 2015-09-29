@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -236,16 +235,12 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
-		// // 获得博客列表项
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
 		Intent i = new Intent();
 		i.setClass(BlogListActivity.this, BlogContentActivity.class);
 		i.putExtra("blogItem", item);
 		startActivity(i);
-		// 动画过渡
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
-		Log.e("position", "" + position);
 	}
 
 	@Override
@@ -306,7 +301,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 					} else {
 						mAdapter.addList(list);
 					}
-					mAdapter.notifyDataSetChanged();
 					mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
 
 					saveDB(list);
@@ -381,7 +375,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
-					mAdapter.notifyDataSetChanged();
 					mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
 					mListView.setRefreshTime(DateUtil.getDate());
 					mListView.stopRefresh();

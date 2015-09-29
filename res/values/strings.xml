@@ -36,7 +36,7 @@
     <string name="coming_soon">即将推出，敬请期待</string>
     <string name="refresh_complete">数据已更新</string>
     <string name="rank">排行榜</string>
-    <string name="hot_blog">热门文章</string>
+    <string name="hot_blog">热门博客</string>
     <string name="subscription">订阅</string>
     <string name="blog_expert">博客专家</string>
     <string name="blog_post">博客专栏</string>
@@ -61,9 +61,8 @@
     <string name="confirm_to_exit">确定要退出吗？</string>
     <string name="setttings_now_version">当前版本V</string>
     <string name="cache_size">0M</string>
-    
-     <string name="message_image_desc">Message Image</string>
-      <string name="action_new_conversation">新建会话</string>
-      <string name="contact_us">联系我们</string>
+    <string name="message_image_desc">Message Image</string>
+    <string name="action_new_conversation">新建会话</string>
+    <string name="contact_us">联系我们</string>
 
 </resources>

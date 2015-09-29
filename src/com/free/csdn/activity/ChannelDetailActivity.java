@@ -18,12 +18,15 @@ import com.free.csdn.util.DateUtil;
 import com.free.csdn.util.JsoupUtil;
 import com.free.csdn.util.SpfUtils;
 import com.free.csdn.util.ToastUtil;
+import com.free.csdn.view.dialog.BaseDialog.OnCancleListener;
 import com.free.csdn.view.dialog.BaseDialog.OnConfirmListener;
 import com.free.csdn.view.dialog.BaseDialog.OnDeleteListener;
 import com.free.csdn.view.dialog.BaseDialog.OnStickListener;
 import com.free.csdn.view.dialog.BloggerOperationDialog;
 import com.free.csdn.view.dialog.SelectionDialog;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -291,7 +294,35 @@ public class ChannelDetailActivity extends BaseActivity
 	 */
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
-		requestData();
+		// 处理刷新的问题
+		SelectionDialog dialog = new SelectionDialog(this, "刷新数据会导致以前的数据丢失，确定要执行吗？");
+		dialog.setOnConfirmListener(new OnConfirmListener() {
+
+			@Override
+			public void onConfirm(String result) {
+				// TODO Auto-generated method stub
+				requestData();
+			}
+		});
+		
+		dialog.setOnCancleListener(new OnCancleListener() {
+			
+			@Override
+			public void onCancle(String result) {
+				// TODO Auto-generated method stub
+				mListView.stopRefresh(DateUtil.getDate());
+			}
+		});
+		
+		dialog.setOnCancelListener(new OnCancelListener() {
+			
+			@Override
+			public void onCancel(DialogInterface arg0) {
+				// TODO Auto-generated method stub
+				mListView.stopRefresh(DateUtil.getDate());
+			}
+		});
+		
+		dialog.show();
 	}
 }

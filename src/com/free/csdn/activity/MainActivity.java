@@ -9,6 +9,7 @@ import com.free.csdn.base.BaseFragmentActivity;
 import com.free.csdn.bean.DrawerInfo;
 import com.free.csdn.fragment.BloggerFragment;
 import com.free.csdn.fragment.ChannelFragment;
+import com.free.csdn.fragment.HotFragment;
 import com.free.csdn.util.ToastUtil;
 import com.free.csdn.view.CircleImageView;
 import com.free.csdn.view.drawerlayout.ActionBarDrawerToggle;
@@ -57,13 +58,14 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 	public static FragmentManager mFragmentManager;
 	private Boolean isOpen = false;
-	private String[] mMenuTitles = { "首页", "频道", "收藏", "关于", "设置" };
-	private int[] mResId = { R.drawable.me_06, R.drawable.me_03, R.drawable.me_02, R.drawable.me_04, R.drawable.me_05 };
+	private String[] mMenuTitles = { "首页", "频道", "热门", "收藏", "关于", "设置" };
+	private int[] mResId = { R.drawable.me_06, R.drawable.me_03, R.drawable.find_04,R.drawable.me_02, R.drawable.me_04, R.drawable.me_05};
 	private long mExitTime;
 	private final static long TIME_DIFF = 2 * 1000;
 
 	private BloggerFragment mBloggerFragment = null;
 	private ChannelFragment mChannelFragment = null;
+	private HotFragment mHotFragment = null;
 	private DrawerAdapter mDrawerAdapter;
 
 	@Override
@@ -194,14 +196,23 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 			break;
 
 		case 2:
-			intent = new Intent(MainActivity.this, BlogCollectActivity.class);
+			if (mHotFragment == null) {
+				mHotFragment = new HotFragment();
+			}
+			initFragment(mHotFragment);
+			setTitle(mMenuTitles[position]);
+			mDrawerAdapter.setSelectionPosition(position);
 			break;
 
 		case 3:
-			intent = new Intent(MainActivity.this, AboutActivity.class);
+			intent = new Intent(MainActivity.this, BlogCollectActivity.class);
 			break;
 
 		case 4:
+			intent = new Intent(MainActivity.this, AboutActivity.class);
+			break;
+
+		case 5:
 			intent = new Intent(MainActivity.this, SettingsActivity.class);
 			break;
 		}

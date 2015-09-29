@@ -38,6 +38,7 @@ public class BlogListAdapter extends BaseAdapter {
 
 	public void setList(List<BlogItem> list) {
 		this.list = list;
+		notifyDataSetChanged();
 	}
 
 	public void addList(List<BlogItem> list) {

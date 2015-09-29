@@ -19,6 +19,7 @@ import com.free.csdn.bean.Blogger;
 import com.free.csdn.bean.BloggerDetail;
 import com.free.csdn.bean.Comment;
 import com.free.csdn.config.AppConstants;
+import com.free.csdn.config.AppConstants.BLOG_ICO_TYPE;
 import com.free.csdn.temp.Blog;
 
 import android.text.TextUtils;
@@ -146,6 +147,42 @@ public class JsoupUtil {
 		}
 
 		return list;
+	}
+
+	/**
+	 * 获取热门博客列表
+	 * 
+	 * @param category
+	 * @param str
+	 * @return
+	 */
+	public static List<BlogItem> getHotBlogList(String category, String str) {
+		List<BlogItem> list = new ArrayList<BlogItem>();
+		Document doc = Jsoup.parse(str);
+		Elements blogList = doc.getElementsByClass("blog_list");
+
+		for (Element blogItem : blogList) {
+			BlogItem item = new BlogItem();
+			String title = blogItem.select("h1").text();
+
+			String description = blogItem.select("dd").text();
+			String date = blogItem.getElementsByClass("about_info").get(0).text();
+			String link = blogItem.select("h1").select("a").attr("href");
+
+			item.setTitle(title);
+			item.setContent(description);
+			item.setDate(date);
+			item.setLink(link);
+			item.setCategory(category);
+			item.setIcoType(BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL);
+
+			// 没有图片
+			item.setImgLink(null);
+			list.add(item);
+		}
+
+		return list;
+
 	}
 
 	/**
