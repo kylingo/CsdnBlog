@@ -80,16 +80,16 @@ public class BloggerFragment extends BaseFragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		initData();
+
 		if (mRootView == null) {
 			mRootView = inflater.inflate(R.layout.fragment_blogger_list, container, false);
+			initView(mRootView);
 		}
 		ViewGroup parent = (ViewGroup) mRootView.getParent();
 		if (parent != null) {
 			parent.removeView(mRootView);
 		}
-
-		initData();
-		initView(mRootView);
 		return mRootView;
 	}
 
@@ -121,6 +121,13 @@ public class BloggerFragment extends BaseFragment
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);// 为了在Fragment中显示右上角的menu
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		mAdapter.setList(mBloggerList);
 	}
 
 	/**

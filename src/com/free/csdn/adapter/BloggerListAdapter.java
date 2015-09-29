@@ -40,7 +40,7 @@ public class BloggerListAdapter extends BaseAdapter {
 	}
 
 	public int getCount() {
-		return list.size();
+		return list == null ? 0 : list.size();
 	}
 
 	@Override

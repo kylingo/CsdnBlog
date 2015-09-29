@@ -49,13 +49,13 @@ public class ChannelFragment extends BaseFragment
 		// TODO Auto-generated method stub
 		if (rootView == null) {
 			rootView = inflater.inflate(R.layout.fragment_channel, container, false);
+			initView(rootView);
 		}
 		ViewGroup parent = (ViewGroup) rootView.getParent();
 		if (parent != null) {
 			parent.removeView(rootView);
 		}
 
-		initView(rootView);
 		return rootView;
 	}
 
