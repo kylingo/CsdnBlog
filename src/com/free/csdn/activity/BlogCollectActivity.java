@@ -41,8 +41,8 @@ public class BlogCollectActivity extends BaseActivity
 	private BlogListAdapter mAdapter;
 	private ImageView mReLoadImageView;
 	private ProgressBar mPbLoading;
-
 	private TextView mTvTitle;
+	
 	private int mPage = 1;
 	private int mPageSize = 20;
 	private BlogCollectDao mBlogCollectDao;

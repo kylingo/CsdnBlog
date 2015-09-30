@@ -60,8 +60,11 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 		TextView mTitleView = (TextView) view.findViewById(R.id.tv_title);
 		mTitleView.setText(R.string.hot_blog);
 
+		// 获取频道列表去掉第1个（Android）
 		ChannelManager channelManager = new ChannelManager(getActivity());
 		List<Channel> list = channelManager.getChannelList();
+		list.remove(0);
+		
 		mListView = (XListView) view.findViewById(R.id.listView);
 		mAdapter = new ChannelListAdapter(getActivity(), list);
 		mListView.setPullRefreshEnable(this);// 设置可下拉刷新

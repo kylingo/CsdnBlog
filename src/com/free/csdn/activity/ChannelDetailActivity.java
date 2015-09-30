@@ -304,25 +304,25 @@ public class ChannelDetailActivity extends BaseActivity
 				requestData();
 			}
 		});
-		
+
 		dialog.setOnCancleListener(new OnCancleListener() {
-			
+
 			@Override
 			public void onCancle(String result) {
 				// TODO Auto-generated method stub
 				mListView.stopRefresh(DateUtil.getDate());
 			}
 		});
-		
+
 		dialog.setOnCancelListener(new OnCancelListener() {
-			
+
 			@Override
 			public void onCancel(DialogInterface arg0) {
 				// TODO Auto-generated method stub
 				mListView.stopRefresh(DateUtil.getDate());
 			}
 		});
-		
+
 		dialog.show();
 	}
 }
