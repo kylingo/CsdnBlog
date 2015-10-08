@@ -1,11 +1,6 @@
-###项目依赖
-[https://github.com/studiotang/OneXListviewLibrary](https://github.com/studiotang/OneXListviewLibrary)
-
-###最新版本体验
-[点我下载](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/apk/CSDN%E5%8D%9A%E5%AE%A2V1.0.7.apk)
-
 ###关于软件
-这是一款可以随时查看CSDN博客的软件。</br>
+这是一款可以随时查看CSDN博客的开源软件。</br>
+欢迎Star或者Fork，这是对开源项目最大的支持。</br>
 目前只支持Android分类的博客，内置了五十余名Android博客专家。</br>
 功能列表：
 
@@ -19,9 +14,16 @@
 - 支持软件自动更新，升级
 - 无广告，无特殊权限，绿色安全环保
 - 软件最新版本1.0.7
+
+###项目依赖
+[https://github.com/studiotang/OneXListviewLibrary](https://github.com/studiotang/OneXListviewLibrary)
+
+###最新版本体验
+[点我下载](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/apk/CSDN%E5%8D%9A%E5%AE%A2V1.0.7.apk)
+
+
 	
 ###联系我们
-
 - 邮箱：[tangqi374@163.com](mailto:tangqi374@163.com)
 - QQ群：65644347
 
