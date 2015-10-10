@@ -19,7 +19,7 @@
 [https://github.com/studiotang/OneXListviewLibrary](https://github.com/studiotang/OneXListviewLibrary)
 
 ###最新版本体验
-[点我下载](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/apk/CSDN%E5%8D%9A%E5%AE%A2V1.0.7.apk)
+[点我下载](http://www.pgyer.com/csdn)
 
 
 	
