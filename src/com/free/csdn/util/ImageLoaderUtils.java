@@ -1,8 +1,13 @@
 package com.free.csdn.util;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.free.csdn.R;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -19,13 +24,12 @@ public class ImageLoaderUtils {
 	 * 加载图片
 	 * 
 	 * @param url
-	 * @param container
+	 * @param imageView
 	 */
-	public static void displayImg(String url, ImageView container) {
-		// Glide.with(myFragment).load(url).centerCrop().placeholder(R.drawable.loading_spinner)
-		// .crossFade().into(myImageView);
-		Glide.with(container.getContext()).load(url).centerCrop().crossFade()
-				.error(R.drawable.ic_default).into(container);
+	public static void displayImg(String url, ImageView imageView) {
+		Glide.with(imageView.getContext()).load(url).centerCrop().crossFade().placeholder(R.drawable.ic_default)
+				.error(R.drawable.ic_default).into(imageView);
+
 	}
 
 	/**
@@ -37,8 +41,31 @@ public class ImageLoaderUtils {
 	 *            默认占位图片
 	 */
 	public static void displayImg(String url, ImageView container, int defaultResId) {
-		Glide.with(container.getContext()).load(url).centerCrop().crossFade()
-				.placeholder(defaultResId).error(R.drawable.ic_default).into(container);
+		Glide.with(container.getContext()).load(url).centerCrop().crossFade().placeholder(defaultResId)
+				.error(R.drawable.ic_default).into(container);
+	}
+
+	/**
+	 * 加载圆形图片
+	 * 
+	 * @error 加载圆形图片或者其他自定义图片，需要作一些转化，详细请参考：
+	 *        <a herf="http://www.jianshu.com/p/4a3177b57949">
+	 * 
+	 * @param url
+	 * @param imageView
+	 */
+	public static void displayRoundImage(String url, final ImageView imageView) {
+		final Context context = imageView.getContext();
+		Glide.with(context).load(url).asBitmap().centerCrop().placeholder(R.drawable.ic_default)
+				.error(R.drawable.ic_default).into(new BitmapImageViewTarget(imageView) {
+					@Override
+					protected void setResource(Bitmap resource) {
+						RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory
+								.create(context.getResources(), resource);
+						// circularBitmapDrawable.setCircular(true);
+						imageView.setImageDrawable(circularBitmapDrawable);
+					}
+				});
 	}
 
 	/**
