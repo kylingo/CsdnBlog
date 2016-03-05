@@ -1,5 +1,6 @@
 ###关于软件
 这是一款可以随时查看CSDN博客的开源软件。</br>
+这是Eclipse版本，目前只维护[Android Studio 版本](https://github.com/studiotang/AndroidBlog)。
 欢迎Star或者Fork，这是对开源项目最大的支持。</br>
 目前只支持Android分类的博客，内置了五十余名Android博客专家。</br>
 功能列表：
