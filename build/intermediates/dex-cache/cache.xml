@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/exploded-aar/CsdnBlog/xListViewLib/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="86e0a9a1884fbcb6e85362f3c5fea5f56f9015c4">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/CsdnBlog-xListViewLib-unspecified_eded5cb0a68ddc87c23dba270b6d19af1c74cc38.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/gesture-imageview.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f35b84dbde468fe5e854415ff5489e5d5a94e36d">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/gesture-imageview_9337bed1ea58f841d608b740cc2a5dc2fa1755fb.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/bugly_1.2.3.8__release.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ab42e21d33d29850c095dd7f74746748a8f4a5f1">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/bugly_1.2.3.8__release_1433cd709f7daac091efe55bdb5005010c61e339.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/umeng-analytics-v5.5.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5d503ec571e2e98d972209afa203f94d11882c15">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/umeng-analytics-v5.5.3_ee27fb7b220b13c5c2bfbf3fc8b91e19f448aa71.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/umeng-update-v2.6.0.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7bfeea30c4995f90a4374ce4177772a4579f2797">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/umeng-update-v2.6.0.1_7f3e2c68e357b30d0094fa857bfbbed393f48281.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/swipemenulistview.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1ba624f40ee242ad5bb43933be9e1b113327dc91">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/swipemenulistview_59720f2e16e6c0e4d651b0ac2deef7a2b8b260fe.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/umeng-feedback-v5.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="993055275c65a58d47e98493d8028a74a0e1c06e">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/umeng-feedback-v5.4.0_a3923ba5cfcc1c60fa005aee17df9f20a1534c92.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/xutils.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="592de8e7a5999b3c9c908f536d04ee477eeb8cfb">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/xutils_c200b92d2beba6c7987f8608f028bd19c97d1e86.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/glide-3.6.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="86b122e640af09b0723e1fa44083c354ba6d9089">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/glide-3.6.1_57f8345b3468ab51d4a51efa7b91fe8e5b445941.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/android-support-v4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="33b27a8d2a5b87e6eb6c60e87a5374ffbfeacc3a">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/android-support-v4_5ac8ab9dd9c61eb3467a2559b7d6b38759495a7e.jar" />
+    </item>
+    <item
+        jar="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/libs/jsoup-1.8.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="580e4dd2a6125cc4037450b40623ac6a552c11df">
+        <dex dex="/Users/tangqi/Documents/workspace/studio/github/CsdnBlog/app/build/intermediates/pre-dexed/debug/jsoup-1.8.2_249795d6bc7203ed9a7c374f7c4807a54251e7b1.jar" />
+    </item>
+
+</items>

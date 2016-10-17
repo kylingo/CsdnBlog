@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.free.blog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk
+        android:minSdkVersion="14"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <application
+        android:name="com.free.blog.ui.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+        tools:replace="android:theme">
+        <activity
+            android:name="com.free.blog.ui.activity.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.HomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActionBarTheme">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.BlogListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.BlogContentActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.BlogCommentActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.AboutActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.ContactUsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.UpdateLogActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.SettingsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.BlogCollectActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.ChannelDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.free.blog.ui.activity.HotListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- umeng auto upgrade start -->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService">
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <activity
+            android:name="com.free.blog.domain.umeng.CustomActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55c0e89be0f55a4ee1006bc1"/>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID"/>
+
+        <!-- umeng auto upgrade end -->
+    </application>
+
+</manifest>
