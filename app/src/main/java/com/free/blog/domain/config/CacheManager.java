@@ -6,7 +6,6 @@ import com.free.blog.domain.util.FileUtils;
 
 import java.io.File;
 
-
 /**
  * App缓存管理
  * 
@@ -78,7 +77,11 @@ public class CacheManager {
 
 	/**
 	 * 获取某频道博主数据库目录
+<<<<<<< HEAD:app/src/main/java/com/free/blog/domain/config/CacheManager.java
 	 *
+=======
+	 * 
+>>>>>>> d2dccdf90bd8778950ee11a2171557beb0f56451:src/com/free/csdn/config/CacheManager.java
 	 * @param context
 	 * @return
 	 */

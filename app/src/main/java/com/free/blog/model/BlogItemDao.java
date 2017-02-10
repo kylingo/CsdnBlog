@@ -17,8 +17,6 @@ public interface BlogItemDao {
 
 	/**
 	 * 保存博客列表
-	 *
-	 * @param blogItemList
 	 */
 	public void insert(String category, List<BlogItem> blogItemList);
 
@@ -32,14 +30,13 @@ public interface BlogItemDao {
 
 	/**
 	 * 查询所有
+	 *
 	 * @return
 	 */
 	public List<BlogItem> queryAll();
 
 	/**
 	 * 插入博客分类
-	 *
-	 * @param blogCategoryList
 	 */
 	public void insertCategory(List<BlogCategory> blogCategoryList);
 

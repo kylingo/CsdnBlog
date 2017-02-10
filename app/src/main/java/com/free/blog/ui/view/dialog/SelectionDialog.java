@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 
-
 /**
  * 选择对话框
  * 

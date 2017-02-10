@@ -1,5 +1,4 @@
-/** Copyright © 2015-2020 100msh.com All Rights Reserved */
-package com.free.blog.model;
+package com.free.blog.model; /** Copyright © 2015-2020 100msh.com All Rights Reserved */
 
 import android.content.Context;
 
@@ -91,7 +90,6 @@ public class DaoFactory {
 
 	/**
 	 * 获取某频道-博客专家数据库
-	 *
 	 * @param context
 	 * @param channel
 	 * @return

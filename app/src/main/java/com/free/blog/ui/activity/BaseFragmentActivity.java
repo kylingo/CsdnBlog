@@ -7,6 +7,8 @@ import com.free.blog.ui.BaseApplication;
 import com.free.blog.ui.view.SystemBarTintManager;
 import com.umeng.analytics.MobclickAgent;
 
+import static com.free.blog.R.menu.main;
+
 /**
  * FragmentActivity-基类
  * 

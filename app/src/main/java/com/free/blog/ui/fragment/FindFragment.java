@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.free.blog.R;
 import com.free.blog.domain.util.ToastUtil;
 
-
 /**
  * 发现
  * 

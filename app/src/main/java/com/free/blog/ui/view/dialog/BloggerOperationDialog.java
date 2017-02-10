@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.free.blog.R;
 import com.free.blog.domain.bean.Blogger;
 
-
 /**
  * 博主相关操作
  * 

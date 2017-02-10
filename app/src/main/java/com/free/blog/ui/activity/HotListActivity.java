@@ -29,7 +29,6 @@ import com.free.blog.model.DaoFactory;
 import com.free.blog.ui.adapter.BlogListAdapter;
 
 import java.util.List;
-
 import me.maxwin.view.IXListViewRefreshListener;
 import me.maxwin.view.XListView;
 

@@ -4,7 +4,6 @@ package com.free.blog.model;
 import com.free.blog.domain.bean.Comment;
 
 import java.util.List;
-
 /**
  * 博客评论数据库
  * 

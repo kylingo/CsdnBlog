@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 
-
 /**
  * 加载对话框
  * 

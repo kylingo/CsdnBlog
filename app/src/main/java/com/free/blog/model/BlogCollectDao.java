@@ -4,7 +4,6 @@ package com.free.blog.model;
 import com.free.blog.domain.bean.BlogItem;
 
 import java.util.List;
-
 /**
  * 博客收藏-数据库定义
  * 

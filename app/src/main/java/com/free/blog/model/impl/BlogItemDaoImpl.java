@@ -127,4 +127,3 @@ public class BlogItemDaoImpl implements BlogItemDao {
 		}
 	}
 }
-

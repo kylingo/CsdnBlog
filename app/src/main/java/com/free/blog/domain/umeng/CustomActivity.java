@@ -30,7 +30,6 @@ import com.umeng.fb.model.Reply;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 /**
  * 自定义反馈界面
  * 

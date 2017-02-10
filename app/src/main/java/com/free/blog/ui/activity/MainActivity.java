@@ -33,7 +33,6 @@ import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * 侧滑风格主Activity
  * 
@@ -214,6 +213,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 				}
 			}
 		});
+
 	}
 
 	@Override

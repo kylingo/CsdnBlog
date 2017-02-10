@@ -1,6 +1,5 @@
 package com.free.blog.model;
 
-
 import com.free.blog.domain.bean.BlogHtml;
 
 /**

@@ -4,7 +4,6 @@ import com.free.blog.domain.bean.Blogger;
 
 import java.util.List;
 
-
 /**
  * 博主数据库
  * 
@@ -46,8 +45,6 @@ public interface ChannelBloggerDao {
 	/**
 	 * 查询博主（分页）
 	 * 
-	 * @param pageIndex
-	 * @param pageSize
 	 * @return
 	 */
 	List<Blogger> query(int pageIndex, int pageSize);

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 
-
 /**
  * 关于
  * 
