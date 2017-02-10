@@ -1,5 +1,5 @@
-<<<<<<< HEAD
-### V1.0.9更新计划
+
+### V1.1.0更新计划
 * 增加收藏标签和搜索 TODO
 * 更新最新博主列表 TODO
 * 增加文章是否已读标识 TODO
@@ -8,19 +8,14 @@
 
 ###关于软件
 这是一款可以随时查看CSDN博客的开源软件。  
-目前只维护Android Studio 版本，[Eclipse版本](https://github.com/studiotang/FreeCsdn)请点击这里。  
 欢迎Star或者Fork，这是对开源项目最大的支持。  
 目前支持CSDN所有分类的博客，推荐前五十余名Android博客专家。  
-=======
-###关于版本
-这是Eclipse版本，目前只维护Android Studio版本。
-AS版开发分支为：[dev](https://github.com/studiotang/FreeCsdn/tree/dev).
 
 ###关于软件
 这是一款可以随时查看CSDN博客的开源软件。</br>
 欢迎Star或者Fork，这是对开源项目最大的支持。</br>
 目前只支持Android分类的博客，内置了五十余名Android博客专家。</br>
->>>>>>> d2dccdf90bd8778950ee11a2171557beb0f56451
+
 功能列表：
 - 查看博客专家列表【默认添加50名CSDN博客专家】
 - 自定义添加、删除博主，置顶博主
