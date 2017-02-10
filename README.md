@@ -12,9 +12,9 @@
 目前支持CSDN所有分类的博客，推荐前五十余名Android博客专家。  
 
 ###关于软件
-这是一款可以随时查看CSDN博客的开源软件。</br>
-欢迎Star或者Fork，这是对开源项目最大的支持。</br>
-目前只支持Android分类的博客，内置了五十余名Android博客专家。</br>
+这是一款可以随时查看CSDN博客的开源软件。  
+欢迎Star或者Fork，这是对开源项目最大的支持。  
+目前只支持Android分类的博客，内置了五十余名Android博客专家。  
 
 功能列表：
 - 查看博客专家列表【默认添加50名CSDN博客专家】
@@ -45,23 +45,23 @@
 
 ###应用截图
 ###首页
-![](https://raw.githubusercontent.com/studiotang/AndroidBlog/master/screenshots/1.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/1.png)
 
-</br>
+
 ###博客列表
-![](https://raw.githubusercontent.com/studiotang/AndroidBlog/master/screenshots/2.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/2.png)
 
-</br>
+
 ###博客详情
-![](https://raw.githubusercontent.com/studiotang/AndroidBlog/master/screenshots/3.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/3.png)
 
-</br>
+
 ###博客分类
-![](https://raw.githubusercontent.com/studiotang/AndroidBlog/master/screenshots/4.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/4.png)
 
-</br>
+
 ###设置
-![](https://raw.githubusercontent.com/studiotang/AndroidBlog/master/screenshots/5.png)
+![](https://raw.githubusercontent.com/studiotang/FreeCsdn/master/screenshots/5.png)
 
 
 
