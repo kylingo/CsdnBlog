@@ -4,7 +4,7 @@ package com.free.blog.domain.config;
  * 全局常量
  *
  * @author tangqi
- * @data 2015年7月20日下午10:42:07
+ * @since 2015年7月20日下午10:42:07
  */
 public class AppConstants {
 

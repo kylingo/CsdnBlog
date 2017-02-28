@@ -18,7 +18,7 @@ import java.util.List;
  * 博客列表-数据库实现
  *
  * @author tangqi
- * @data 2015年8月7日下午10:39:22
+ * @since 2015年8月7日下午10:39:22
  */
 
 public class BlogItemDaoImpl implements BlogItemDao {

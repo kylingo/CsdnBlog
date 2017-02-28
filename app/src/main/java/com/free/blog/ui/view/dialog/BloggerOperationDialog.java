@@ -12,7 +12,7 @@ import com.free.blog.domain.bean.Blogger;
  * 博主相关操作
  * 
  * @author tangqi
- * @data 2015年8月8日下午9:54:05
+ * @since 2015年8月8日下午9:54:05
  */
 
 public class BloggerOperationDialog extends BaseDialog implements View.OnClickListener {

@@ -13,7 +13,7 @@ import com.free.blog.R;
  * 关于
  * 
  * @author tangqi
- * @data 2015年8月9日下午11:09:57
+ * @since 2015年8月9日下午11:09:57
  */
 
 public class AboutActivity extends BaseActivity {

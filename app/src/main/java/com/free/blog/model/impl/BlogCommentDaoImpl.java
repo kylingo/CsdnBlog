@@ -15,7 +15,7 @@ import java.util.List;
  * 博客评论-数据库实现
  * 
  * @author tangqi
- * @data 2015年8月7日下午11:53:19
+ * @since 2015年8月7日下午11:53:19
  */
 
 public class BlogCommentDaoImpl implements BlogCommentDao {

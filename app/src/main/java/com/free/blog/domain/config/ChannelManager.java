@@ -14,7 +14,7 @@ import java.util.List;
  * 频道管理
  *
  * @author tangqi
- * @data 2015年8月9日下午2:27:17
+ * @since 2015年8月9日下午2:27:17
  */
 
 public class ChannelManager {

@@ -8,7 +8,7 @@ import java.util.List;
  * 博客收藏-数据库定义
  * 
  * @author tangqi
- * @data 2015年8月7日下午11:19:46
+ * @since 2015年8月7日下午11:19:46
  */
 
 public interface BlogCollectDao {

@@ -4,7 +4,7 @@ package com.free.blog.domain.bean;
  * 评论实体类
  * 
  * @author tangqi
- * @data 2015年8月6日下午09:28:30
+ * @since 2015年8月6日下午09:28:30
  */
 public class Comment extends BaseEntity{
 	

@@ -20,7 +20,7 @@ import java.util.List;
  *  博客列表适配器
  * 
  * @author tangqi
- * @data 2015年8月9日下午2:01:25
+ * @since 2015年8月9日下午2:01:25
  */
 public class BlogListAdapter extends BaseAdapter {
 	private ViewHolder holder; // 视图容器

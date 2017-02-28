@@ -6,7 +6,7 @@ import com.free.blog.domain.bean.BlogHtml;
  * 博客内容-数据库
  * 
  * @author tangqi
- * @data 2015年8月7日下午11:47:16
+ * @since 2015年8月7日下午11:47:16
  */
 
 public interface BlogContentDao {

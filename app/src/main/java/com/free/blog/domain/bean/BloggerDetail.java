@@ -4,7 +4,7 @@ package com.free.blog.domain.bean;
  * 博主详情
  * 
  * @author tangqi
- * @data 2015年8月8日上午10:02:57
+ * @since 2015年8月8日上午10:02:57
  */
 
 public class BloggerDetail extends BaseEntity {

@@ -6,7 +6,7 @@ import android.content.Context;
 /**
  *
  * @author tangqi
- * @data 2015年8月8日下午4:26:32
+ * @since 2015年8月8日下午4:26:32
  */
 
 public class BaseDialog extends Dialog {

@@ -6,7 +6,7 @@ import com.lidroid.xutils.db.annotation.Column;
  * 博客分类（例如，移动开发、Web前端）
  *
  * @author tangqi
- * @data 2015年8月18日下午10:42:07
+ * @since 2015年8月18日下午10:42:07
  */
 public class BlogCategory extends BaseEntity {
 	private static final long serialVersionUID = -8366599113596257949L;

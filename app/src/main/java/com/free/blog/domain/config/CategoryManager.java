@@ -4,7 +4,7 @@ package com.free.blog.domain.config;
  * 分类管理
  * 
  * @author tangqi
- * @data 2015年8月19日下午9:53:12
+ * @since 2015年8月19日下午9:53:12
  */
 
 public class CategoryManager {

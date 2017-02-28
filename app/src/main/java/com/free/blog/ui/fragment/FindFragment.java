@@ -15,7 +15,7 @@ import com.free.blog.domain.util.ToastUtil;
  * 发现
  * 
  * @author tangqi
- * @data 2015年8月9日上午11:08:13
+ * @since 2015年8月9日上午11:08:13
  */
 
 public class FindFragment extends BaseFragment implements OnClickListener {

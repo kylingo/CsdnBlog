@@ -11,7 +11,7 @@ import com.free.blog.model.BloggerDao;
  * Andoird博主管理
  * 
  * @author tangqi
- * @data 2015年7月9日下午4:41:18
+ * @since 2015年7月9日下午4:41:18
  */
 
 public class BloggerManager {

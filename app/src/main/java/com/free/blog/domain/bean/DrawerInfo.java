@@ -4,7 +4,7 @@ package com.free.blog.domain.bean;
  * 主页侧滑-ListItem
  * 
  * @author tangqi
- * @data 2015年8月13日下午11:46:39
+ * @since 2015年8月13日下午11:46:39
  */
 
 public class DrawerInfo extends BaseEntity {

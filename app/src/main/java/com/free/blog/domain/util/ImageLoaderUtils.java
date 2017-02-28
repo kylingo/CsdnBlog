@@ -16,7 +16,7 @@ import com.free.blog.R;
  *
  * @info 使用Glide加载图片
  * @author tangqi
- * @data 2015年8月15日上午9:41:15
+ * @since 2015年8月15日上午9:41:15
  */
 public class ImageLoaderUtils {
 

@@ -37,7 +37,7 @@ import java.util.List;
  * 侧滑风格主Activity
  * 
  * @author tangqi
- * @data 2015年8月12日下午10:46:07
+ * @since 2015年8月12日下午10:46:07
  */
 public class MainActivity extends BaseFragmentActivity implements OnClickListener {
 

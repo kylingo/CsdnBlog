@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 /**
  *
  * @author  tangqi
- * @data    2015年8月8日下午2:41:44
+ * @since    2015年8月8日下午2:41:44
  */
 
 public class SpfUtils  

@@ -7,7 +7,7 @@ import android.widget.EditText;
 /**
  *
  * @author  tangqi
- * @data    2015年8月8日下午8:48:15
+ * @since    2015年8月8日下午8:48:15
  */
 
 public class KeyBoardUtils  

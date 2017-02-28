@@ -8,7 +8,7 @@ import com.lidroid.xutils.db.annotation.Column;
  * 实体类--基类
  *
  * @author tangqi
- * @data 2015年8月01日下午10:42:07
+ * @since 2015年8月01日下午10:42:07
  */
 public abstract class BaseEntity implements Serializable {
 

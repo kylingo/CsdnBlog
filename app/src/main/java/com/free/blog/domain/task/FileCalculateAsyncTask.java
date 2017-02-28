@@ -12,7 +12,7 @@ import java.io.File;
  * 计算文件目录大小-Task
  *
  * @author tangqi
- * @data 2015年8月15日下午9:38:04
+ * @since 2015年8月15日下午9:38:04
  */
 public class FileCalculateAsyncTask extends AsyncTask<File, Void, Long> {
 

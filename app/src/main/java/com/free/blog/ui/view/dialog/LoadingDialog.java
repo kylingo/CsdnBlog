@@ -11,7 +11,7 @@ import com.free.blog.R;
  * 加载对话框
  * 
  * @author tangqi
- * @data 2015年8月8日下午5:16:41
+ * @since 2015年8月8日下午5:16:41
  */
 
 public class LoadingDialog extends ProgressDialog {

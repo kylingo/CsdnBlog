@@ -10,7 +10,7 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Activity-基类
  * @author tangqi
- * @data 2015年7月8日下午9:20:10
+ * @since 2015年7月8日下午9:20:10
  */
 
 public class BaseActivity extends Activity {

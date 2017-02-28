@@ -15,7 +15,7 @@ import java.util.List;
  * 应用Application类
  * 
  * @author tangqi
- * @data 2015年7月8日下午11:47:10
+ * @since 2015年7月8日下午11:47:10
  */
 
 public class BaseApplication extends Application {

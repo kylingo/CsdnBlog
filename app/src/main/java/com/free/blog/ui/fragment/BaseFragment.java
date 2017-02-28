@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * Fragment-基类
  * 
  * @author tangqi
- * @data 2015年8月9日上午10:28:46
+ * @since 2015年8月9日上午10:28:46
  */
 
 public class BaseFragment extends Fragment {

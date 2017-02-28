@@ -20,7 +20,7 @@ import java.util.List;
  * 博主列表
  * 
  * @author tangqi
- * @data 2015年8月9日下午2:01:25
+ * @since 2015年8月9日下午2:01:25
  */
 
 public class BloggerListAdapter extends BaseAdapter {

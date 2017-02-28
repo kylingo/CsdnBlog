@@ -18,7 +18,7 @@ import java.util.List;
  * 某频道博客专家-数据库实现
  * 
  * @author tangqi
- * @data 2015年9月25日下午16:50:35
+ * @since 2015年9月25日下午16:50:35
  */
 
 public class ChannelBloggerDaoImpl implements ChannelBloggerDao {

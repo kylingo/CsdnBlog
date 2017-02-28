@@ -23,7 +23,7 @@ import java.util.List;
  *  评论列表适配器
  * 
  * @author tangqi
- * @data 2015年8月9日下午4:01:25
+ * @since 2015年8月9日下午4:01:25
  */
 public class CommentAdapter extends BaseAdapter {
 	private ViewHolder holder;

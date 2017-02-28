@@ -52,7 +52,7 @@ import me.maxwin.view.XListView;
  * 博主列表
  *
  * @author tangqi
- * @data 2015年7月8日下午9:20:20
+ * @since 2015年7月8日下午9:20:20
  */
 @SuppressLint("HandlerLeak")
 public class BloggerFragment extends BaseFragment

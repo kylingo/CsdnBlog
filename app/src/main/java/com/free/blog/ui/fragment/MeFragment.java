@@ -20,7 +20,7 @@ import com.free.blog.ui.activity.SettingsActivity;
  * 个人中心
  *
  * @author tangqi
- * @data 2015年8月9日上午11:08:36
+ * @since 2015年8月9日上午11:08:36
  */
 
 public class MeFragment extends BaseFragment implements OnClickListener {

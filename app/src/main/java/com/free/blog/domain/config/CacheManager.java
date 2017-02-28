@@ -10,7 +10,7 @@ import java.io.File;
  * App缓存管理
  * 
  * @author tangqi
- * @data 2015年8月8日上午11:35:33
+ * @since 2015年8月8日上午11:35:33
  */
 
 public class CacheManager {

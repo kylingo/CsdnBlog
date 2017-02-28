@@ -6,7 +6,7 @@ import com.lidroid.xutils.db.annotation.Column;
  * 博主简介
  * 
  * @author tangqi
- * @data 2015年7月8日
+ * @since 2015年7月8日
  */
 
 public class Blogger extends BaseEntity {

@@ -8,7 +8,7 @@ import java.util.List;
  * 博主数据库
  * 
  * @author tangqi
- * @data 2015年8月8日下午12:59:26
+ * @since 2015年8月8日下午12:59:26
  */
 
 public interface ChannelBloggerDao {

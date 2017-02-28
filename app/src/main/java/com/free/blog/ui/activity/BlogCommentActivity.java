@@ -36,7 +36,7 @@ import me.maxwin.view.XListView;
  * 博客评论列表
  * 
  * @author tangqi
- * @data 2015年7月20日下午8:20:20
+ * @since 2015年7月20日下午8:20:20
  *
  */
 public class BlogCommentActivity extends BaseActivity implements IXListViewRefreshListener, IXListViewLoadMore {

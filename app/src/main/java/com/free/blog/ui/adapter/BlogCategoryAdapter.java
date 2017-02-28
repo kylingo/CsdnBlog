@@ -18,7 +18,7 @@ import java.util.List;
  * 博客分类
  * 
  * @author tangqi
- * @data 2015年8月9日下午2:01:25
+ * @since 2015年8月9日下午2:01:25
  */
 public class BlogCategoryAdapter extends BaseAdapter {
 

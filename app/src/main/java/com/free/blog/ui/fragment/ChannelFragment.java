@@ -34,7 +34,7 @@ import me.maxwin.view.XListView;
  * 频道
  *
  * @author tangqi
- * @data 2015年8月9日上午11:07:09
+ * @since 2015年8月9日上午11:07:09
  */
 
 public class ChannelFragment extends BaseFragment

@@ -19,7 +19,7 @@ import java.util.List;
  * 频道列表
  *
  * @author tangqi
- * @data 2015年8月9日下午2:01:25
+ * @since 2015年8月9日下午2:01:25
  */
 public class ChannelListAdapter extends BaseAdapter {
 

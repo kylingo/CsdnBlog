@@ -34,7 +34,7 @@ import java.io.File;
  * 设置
  * 
  * @author tangqi
- * @data 2015年8月15日下午6:35:57
+ * @since 2015年8月15日下午6:35:57
  */
 
 public class SettingsActivity extends BaseActivity implements OnClickListener {

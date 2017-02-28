@@ -31,7 +31,7 @@ import me.maxwin.view.XListView;
  * 博客收藏列表
  * 
  * @author tangqi
- * @data 2015年7月8日下午9:20:20
+ * @since 2015年7月8日下午9:20:20
  *
  */
 public class BlogCollectActivity extends BaseActivity

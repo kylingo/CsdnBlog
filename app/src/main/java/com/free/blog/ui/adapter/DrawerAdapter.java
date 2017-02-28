@@ -19,7 +19,7 @@ import java.util.List;
  * 侧滑列表
  * 
  * @author tangqi
- * @data 2015年8月9日下午2:01:25
+ * @since 2015年8月9日下午2:01:25
  */
 public class DrawerAdapter extends BaseAdapter {
 

@@ -14,7 +14,7 @@ import com.free.blog.R;
  * 更新日志
  *
  * @author  tangqi
- * @data    2015年8月15日下午10:05:51
+ * @since    2015年8月15日下午10:05:51
  */
 public class UpdateLogActivity extends BaseActivity {
 

@@ -8,7 +8,7 @@ import java.util.List;
  * 博客评论数据库
  * 
  * @author tangqi
- * @data 2015年8月7日下午11:58:31
+ * @since 2015年8月7日下午11:58:31
  */
 
 public interface BlogCommentDao {

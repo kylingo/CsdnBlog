@@ -7,7 +7,7 @@ import com.free.blog.domain.config.AppConstants;
  * URL工具
  *
  * @author tangqi
- * @data 2015年7月8日下午9:20:20
+ * @since 2015年7月8日下午9:20:20
  */
 public class URLUtil {
 

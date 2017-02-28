@@ -15,7 +15,7 @@ import com.free.blog.domain.util.VersionUtil;
  * 闪屏页面
  *
  * @author tangqi
- * @data 2015年8月15日下午10:10:51
+ * @since 2015年8月15日下午10:10:51
  */
 public class SplashActivity extends BaseActivity {
 	private TextView mTvVersion;

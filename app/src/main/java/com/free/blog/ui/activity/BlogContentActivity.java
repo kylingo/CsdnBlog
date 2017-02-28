@@ -44,7 +44,7 @@ import java.util.List;
  * 博客详细内容界面
  * 
  * @author tangqi
- * @data 2015年7月20日下午9:20:20
+ * @since 2015年7月20日下午9:20:20
  *
  */
 @SuppressLint("SetJavaScriptEnabled")

@@ -13,7 +13,7 @@ import static com.free.blog.R.menu.main;
  * FragmentActivity-基类
  * 
  * @author tangqi
- * @data 2015年8月10日上午12:07:57
+ * @since 2015年8月10日上午12:07:57
  */
 
 public class BaseFragmentActivity extends FragmentActivity {
