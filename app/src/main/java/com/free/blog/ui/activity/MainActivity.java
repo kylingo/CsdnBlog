@@ -244,7 +244,6 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 
 	}
 

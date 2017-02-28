@@ -20,7 +20,6 @@ public class AboutActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 
@@ -28,7 +27,6 @@ public class AboutActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		// TODO Auto-generated method stub
 		TextView mTitleView = (TextView) findViewById(R.id.tv_title);
 		mTitleView.setText("关于");
 
@@ -38,7 +36,6 @@ public class AboutActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});

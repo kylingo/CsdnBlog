@@ -1,9 +1,5 @@
 package com.youxiachai.onexlistview;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
-import me.maxwin.view.XListView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -26,6 +22,11 @@ import com.emilsjolander.components.stickylistheaders.AdapterWrapper;
 import com.emilsjolander.components.stickylistheaders.SectionIndexerAdapterWrapper;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 import com.emilsjolander.components.stickylistheaders.WrapperView;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+
+import me.maxwin.view.XListView;
 
 /**
  * @author youxiachai
@@ -579,8 +580,7 @@ public class XStickyListHeadersView extends XListView implements
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

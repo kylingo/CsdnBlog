@@ -100,7 +100,6 @@ public class BlogCollectActivity extends BaseActivity
 
 	@Override
 	public void onClick(View view) {
-		// TODO Auto-generated method stub
 		switch (view.getId()) {
 		case R.id.btn_back:
 			finish();
@@ -116,7 +115,6 @@ public class BlogCollectActivity extends BaseActivity
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
 		Intent i = new Intent();
 		i.setClass(BlogCollectActivity.this, BlogContentActivity.class);
@@ -129,14 +127,12 @@ public class BlogCollectActivity extends BaseActivity
 
 	@Override
 	public void onLoadMore() {
-		// TODO Auto-generated method stub
 		mPage++;
 		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA, AppConstants.MSG_PRELOAD_DATA);
 	}
 
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
 		refresh();
 	}
 
@@ -149,7 +145,6 @@ public class BlogCollectActivity extends BaseActivity
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
 				List<BlogItem> list = mBlogCollectDao.query(mPage, mPageSize);

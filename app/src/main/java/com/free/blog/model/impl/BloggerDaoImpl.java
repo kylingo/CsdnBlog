@@ -127,11 +127,9 @@ public class BloggerDaoImpl implements BloggerDao {
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
 		try {
 			db.deleteAll(Blogger.class);
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -23,7 +23,6 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 	private DbUtils db;
 
 	public BlogCommentDaoImpl(Context context, String filename) {
-		// TODO Auto-generated method stub
 		db = DbUtils.create(context, CacheManager.getBlogCommentDbPath(context),
 				filename + "_comment");
 	}

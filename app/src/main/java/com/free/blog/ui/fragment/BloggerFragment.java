@@ -80,7 +80,6 @@ public class BloggerFragment extends BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        // TODO Auto-generated method stub
         initData();
 
         if (mRootView == null) {
@@ -95,7 +94,6 @@ public class BloggerFragment extends BaseFragment
     }
 
     private void initData() {
-        // TODO Auto-generated method stub
         mType = (String) SpfUtils.get(getActivity(), ExtraString.BLOG_TYPE, CategoryManager
                 .CategoryName.ANDROID);
         mBloggerDao = DaoFactory.getInstance().getBloggerDao(getActivity(), mType);
@@ -127,14 +125,12 @@ public class BloggerFragment extends BaseFragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);// 为了在Fragment中显示右上角的menu
     }
 
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         mAdapter.setList(mBloggerList);
     }
@@ -182,7 +178,6 @@ public class BloggerFragment extends BaseFragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO Auto-generated method stub
         Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
         Intent intent = new Intent(getActivity(), BlogListActivity.class);
         intent.putExtra("blogger", blogger);
@@ -191,14 +186,12 @@ public class BloggerFragment extends BaseFragment
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO Auto-generated method stub
         final Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
         BloggerOperationDialog dialog = new BloggerOperationDialog(getActivity(), blogger);
         dialog.setOnDeleteListener(new BaseDialog.OnDeleteListener() {
 
             @Override
             public void onDelete(String result) {
-                // TODO Auto-generated method stub
                 deleleBlogger(blogger);
             }
         });
@@ -207,7 +200,6 @@ public class BloggerFragment extends BaseFragment
 
             @Override
             public void onStick(String result) {
-                // TODO Auto-generated method stub
                 stickBlogger(blogger);
             }
         });
@@ -233,7 +225,6 @@ public class BloggerFragment extends BaseFragment
 
             @Override
             public void onConfirm(String result) {
-                // TODO Auto-generated method stub
                 if (TextUtils.isEmpty(result)) {
                     mHandler.sendEmptyMessage(MSG_ADD_EMPTY);
                     return;
@@ -267,7 +258,6 @@ public class BloggerFragment extends BaseFragment
         httpAsyncTask.setOnResponseListener(new OnResponseListener() {
             @Override
             public void onResponse(String resultString) {
-                // TODO Auto-generated method stub
                 if (TextUtils.isEmpty(resultString)) {
                     mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
                 } else {
@@ -337,8 +327,6 @@ public class BloggerFragment extends BaseFragment
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-
             if (msg.what != MSG_ADD_BLOG && mProgressdialog != null && mProgressdialog.isShowing
                     ()) {
                 mProgressdialog.dismiss();
@@ -377,12 +365,10 @@ public class BloggerFragment extends BaseFragment
 
     @Override
     public void onLoadMore() {
-        // TODO Auto-generated method stub
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 mListView.stopLoadMore(" -- THE END --");
             }
         }, 1000);
@@ -390,12 +376,10 @@ public class BloggerFragment extends BaseFragment
 
     @Override
     public void onRefresh() {
-        // TODO Auto-generated method stub
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 mListView.stopRefresh(DateUtil.getDate());
             }
         }, 1000);

@@ -41,7 +41,6 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		if (rootView == null) {
 			// 防止Fragment的View被多次初始化
 			rootView = inflater.inflate(R.layout.fragment_channel, container, false);
@@ -76,12 +75,10 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				mListView.stopRefresh(DateUtil.getDate());
 				ToastUtil.showCenter(getActivity(), getActivity().getString(R.string
 						.refresh_complete));
@@ -91,12 +88,10 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 
 	@Override
 	public void onLoadMore() {
-		// TODO Auto-generated method stub
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				mListView.stopLoadMore("暂无更多数据");
 			}
 		}, 1000);
@@ -104,7 +99,6 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
 		Channel channel = (Channel) parent.getAdapter().getItem(position);
 
 		Intent intent = new Intent(getActivity(), HotListActivity.class);

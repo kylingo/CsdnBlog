@@ -47,7 +47,6 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
@@ -91,7 +90,6 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 	 */
 	@Override
 	public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-		// TODO Auto-generated method stub
 		FragmentTransaction mTransaction = getSupportFragmentManager().beginTransaction();
 		mTransaction.hide(getSupportFragmentManager().findFragmentByTag(mFormerTag));
 

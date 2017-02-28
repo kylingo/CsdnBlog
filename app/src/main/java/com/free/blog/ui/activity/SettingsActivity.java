@@ -55,14 +55,12 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 		initView();
 	}
 
 	private void initView() {
-		// TODO Auto-generated method stub
 		TextView tvTitle = (TextView) findViewById(R.id.tv_title);
 		ImageView btnBack = (ImageView) findViewById(R.id.btn_back);
 		mTvCacheSize = (TextView) findViewById(R.id.tv_cache_size);
@@ -92,7 +90,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 
 		// 返回
@@ -144,8 +141,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 更新数据
 	 */
 	private void updateData() {
-		// TODO Auto-generated method stub
-
 		FileCalculateAsyncTask task = new FileCalculateAsyncTask(this);
 		mExternalCacheFile = new File(CacheManager.getExternalCachePath(SettingsActivity.this));
 		task.execute(mExternalCacheFile);
@@ -153,7 +148,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onResponse(String resultString) {
-				// TODO Auto-generated method stub
 				try {
 					mExternCacheSize = Long.valueOf(resultString);
 					mTvCacheSize.setText(FileUtils.formatSize(mExternCacheSize));
@@ -169,7 +163,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 检查更新
 	 */
 	private void checkUpgrade() {
-		// TODO Auto-generated method stub
 		if (NetUtil.isNetAvailable(this)) {
 			UmengUpdateAgent.forceUpdate(this);
 			UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
@@ -201,14 +194,11 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 清除缓存
 	 */
 	private void clearCache() {
-		// TODO Auto-generated method stub
 		SelectionDialog dialog = new SelectionDialog(this, "确定清除" + FileUtils.formatSize(mExternCacheSize) + "缓存吗？");
 		dialog.setOnConfirmListener(new BaseDialog.OnConfirmListener() {
 
 			@Override
 			public void onConfirm(String result) {
-				// TODO Auto-generated method stub
-
 				final LoadingDialog dialog = new LoadingDialog(SettingsActivity.this, "正在清理缓存");
 				dialog.show();
 				
@@ -218,7 +208,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 					@Override
 					public void onResponse(String resultString) {
-						// TODO Auto-generated method stub
 						dialog.dismiss();
 						ToastUtil.showCenter(SettingsActivity.this, "清理成功");
 						updateData();
@@ -233,7 +222,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 用户反馈
 	 */
 	private void feedback() {
-		// TODO Auto-generated method stub
 		// FeedbackAgent agent = new FeedbackAgent(this);
 		// agent.startFeedbackActivity();
 
@@ -250,7 +238,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 更新日志
 	 */
 	private void updateLog() {
-		// TODO Auto-generated method stub
 		startActivity(UpdateLogActivity.class);
 	}
 
@@ -258,7 +245,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 分享好友
 	 */
 	private void shareApp() {
-		// TODO Auto-generated method stub
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_TEXT, "CSDN博客之星，非常好用，赶紧去各大应用市场下载吧。");
@@ -269,7 +255,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 关于我们
 	 */
 	private void ContactUs() {
-		// TODO Auto-generated method stub
 		startActivity(ContactUsActivity.class);
 	}
 
@@ -277,13 +262,11 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 退出
 	 */
 	private void exit() {
-		// TODO Auto-generated method stub
 		SelectionDialog dialog = new SelectionDialog(this, getString(R.string.confirm_to_exit));
 		dialog.setOnConfirmListener(new BaseDialog.OnConfirmListener() {
 
 			@Override
 			public void onConfirm(String result) {
-				// TODO Auto-generated method stub
 				BaseApplication.getInstance().onTerminate();
 			}
 		});

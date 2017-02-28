@@ -20,7 +20,6 @@ public class UpdateLogActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_update_log);
 
@@ -28,7 +27,6 @@ public class UpdateLogActivity extends BaseActivity {
 	}	
 
 	private void initView() {
-		// TODO Auto-generated method stub
 		TextView mTitleView = (TextView) findViewById(R.id.tv_title);
 		mTitleView.setText("更新日志");
 
@@ -38,7 +36,6 @@ public class UpdateLogActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				finish();
 			}
 		});

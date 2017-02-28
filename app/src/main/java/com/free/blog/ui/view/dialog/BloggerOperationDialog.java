@@ -31,7 +31,6 @@ public class BloggerOperationDialog extends BaseDialog implements View.OnClickLi
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
 		TextView deleteView = (TextView) findViewById(R.id.tv_delete_blogger);
@@ -51,7 +50,6 @@ public class BloggerOperationDialog extends BaseDialog implements View.OnClickLi
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		dismiss();
 
 		switch (v.getId()) {

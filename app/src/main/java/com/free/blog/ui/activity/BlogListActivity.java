@@ -80,7 +80,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		if (mAsyncTask != null) {
 			mAsyncTask.cancel(true);
@@ -149,7 +148,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 	@Override
 	public void onClick(View view) {
-		// TODO Auto-generated method stub
 		switch (view.getId()) {
 			case R.id.btn_back:
 				finish();
@@ -168,7 +166,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	 * 显示PopWindow
 	 */
 	private void showMenu(View view) {
-		// TODO Auto-generated method stub
 		if (mPopupWindow == null) {
 			getPopupWindow(view);
 		}
@@ -197,7 +194,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// TODO Auto-generated method stub
 				mPopupWindow.dismiss();
 				if (position == 0) {
 					setDefaultTitle();
@@ -224,7 +220,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				mPopupWindow.dismiss();
 			}
 		});
@@ -245,13 +240,11 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 	@Override
 	public void onLoadMore() {
-		// TODO Auto-generated method stub
 		loadMore();
 	}
 
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
 		refresh();
 	}
 
@@ -290,7 +283,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 		@Override
 		public void onResponse(String resultString) {
-			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
 				List<BlogItem> list = JsoupUtil.getBlogItemList(mCategory, resultString, mBlogCategoryList);
@@ -334,7 +326,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				List<BlogCategory> blogCategoryList = mBlogItemDao.queryCategory();
 				if (blogCategoryList != null) {
 					mBlogCategoryList.addAll(blogCategoryList);
@@ -353,7 +344,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				mBlogItemDao.insert(mCategory, list);
 
 				if (mBlogCategoryList != null) {
@@ -368,7 +358,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			switch (msg.what) {
 				case AppConstants.MSG_PRELOAD_DATA:
 					List<BlogItem> list = mBlogItemDao.query(mCategory, mPage);

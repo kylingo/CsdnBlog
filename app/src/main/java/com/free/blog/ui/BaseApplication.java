@@ -34,13 +34,11 @@ public class BaseApplication extends Application {
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		init();
 	}
 
 	private void init() {
-		// TODO Auto-generated method stub
 		initImageLoader();
 
 		// 使用腾讯BUGLY上传崩溃信息
@@ -76,13 +74,11 @@ public class BaseApplication extends Application {
 	 */
 	@Override
 	public File getCacheDir() {
-		// TODO Auto-generated method stub
 		return new File(CacheManager.getAppCachePath(this));
 	}
 
 	@Override
 	public File getDatabasePath(String name) {
-		// TODO Auto-generated method stub
 		return new File(CacheManager.getAppDatabasePath(this));
 	}
 

@@ -48,7 +48,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 
 	@Override
 	public void insert(BlogItem blogItem) {
-		// TODO Auto-generated method stub
 		try {
 			BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("link", "=", blogItem.getLink()));
 			if (findItem != null) {
@@ -64,7 +63,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 
 	@Override
 	public void delete(BlogItem blogItem) {
-		// TODO Auto-generated method stub
 		try {
 			BlogItem findItem = db.findFirst(Selector.from(BlogItem.class).where("link", "=", blogItem.getLink()));
 			if (findItem != null) {
@@ -78,7 +76,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 
 	@Override
 	public BlogItem query(String link) {
-		// TODO Auto-generated method stub
 		try {
 			return db.findFirst(Selector.from(BlogItem.class).where("link", "=", link));
 		} catch (DbException e) {
@@ -90,7 +87,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 
 	@Override
 	public List<BlogItem> query(int page, int pageSize) {
-		// TODO Auto-generated method stub
 		try {
 			return db.findAll(Selector.from(BlogItem.class).orderBy("updateTime", true).limit(page * pageSize));
 		} catch (DbException e) {

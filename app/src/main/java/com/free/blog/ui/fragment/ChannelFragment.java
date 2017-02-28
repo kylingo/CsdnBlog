@@ -48,7 +48,6 @@ public class ChannelFragment extends BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        // TODO Auto-generated method stub
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_channel, container, false);
             initView(rootView);
@@ -80,14 +79,12 @@ public class ChannelFragment extends BaseFragment
 
     @Override
     public void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         refresh();
 
     }
 
     private void refresh() {
-        // TODO Auto-generated method stub
         String type = (String) SpfUtils.get(getActivity(), ExtraString.BLOG_TYPE, CategoryManager
                 .CategoryName.ANDROID);
         mAdapter.setCheckType(type);
@@ -95,12 +92,10 @@ public class ChannelFragment extends BaseFragment
 
     @Override
     public void onRefresh() {
-        // TODO Auto-generated method stub
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 mListView.stopRefresh(DateUtil.getDate());
                 ToastUtil.showCenter(getActivity(), getActivity().getString(R.string
                         .refresh_complete));
@@ -110,12 +105,10 @@ public class ChannelFragment extends BaseFragment
 
     @Override
     public void onLoadMore() {
-        // TODO Auto-generated method stub
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 mListView.stopLoadMore("暂无更多数据");
             }
         }, 1000);
@@ -123,7 +116,6 @@ public class ChannelFragment extends BaseFragment
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO Auto-generated method stub
         final Channel channel = (Channel) parent.getAdapter().getItem(position);
         SelectionDialog dialog = new SelectionDialog(getActivity(), "设置【" + channel
                 .getChannelName() + "】为默认频道？");
@@ -131,7 +123,6 @@ public class ChannelFragment extends BaseFragment
 
             @Override
             public void onConfirm(String result) {
-                // TODO Auto-generated method stub
                 ToastUtil.show(getActivity(), "设置成功");
                 SpfUtils.put(getActivity(), ExtraString.BLOG_TYPE, channel.getChannelName());
                 refresh();
@@ -143,7 +134,6 @@ public class ChannelFragment extends BaseFragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO Auto-generated method stub
         Channel channel = (Channel) parent.getAdapter().getItem(position);
 
         Intent intent = new Intent(getActivity(), ChannelDetailActivity.class);

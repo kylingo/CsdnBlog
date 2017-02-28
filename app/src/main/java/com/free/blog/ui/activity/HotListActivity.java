@@ -55,7 +55,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_bloglist);
@@ -78,7 +77,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	}
 
 	private void initView() {
-		// TODO Auto-generated method stub
 		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setOnClickListener(this);
 
@@ -102,7 +100,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	}
 
 	private void initListView() {
-		// TODO Auto-generated method stub
 		mListView = (XListView) findViewById(R.id.listView_blog);
 		mAdapter = new BlogListAdapter(this);
 
@@ -115,7 +112,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 
 	@Override
 	public void onClick(View view) {
-		// TODO Auto-generated method stub
 		switch (view.getId()) {
 		case R.id.btn_back:
 			finish();
@@ -128,7 +124,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-		// TODO Auto-generated method stub
 		BlogItem item = (BlogItem) arg0.getAdapter().getItem(position);
 		Intent i = new Intent();
 		i.setClass(HotListActivity.this, BlogContentActivity.class);
@@ -139,7 +134,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 
 	@Override
 	public void onRefresh() {
-		// TODO Auto-generated method stub
 		requestData();
 	}
 
@@ -173,8 +167,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	 * 请求数据
 	 */
 	protected void requestData() {
-		// TODO Auto-generated method stub
-
 		mAsyncTask = new HttpAsyncTask(this);
 		mAsyncTask.execute(mUrl);
 		mAsyncTask.setOnResponseListener(new OnResponseListener() {
@@ -212,7 +204,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				mBlogItemDao.deleteAll();
 				mBlogItemDao.insert(mChannelName, blogList);
 			}

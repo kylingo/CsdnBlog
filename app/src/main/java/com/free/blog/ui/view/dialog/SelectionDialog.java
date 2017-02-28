@@ -44,7 +44,6 @@ public class SelectionDialog extends BaseDialog {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dialog_selection);
 		initView();
@@ -76,7 +75,6 @@ public class SelectionDialog extends BaseDialog {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				dismiss();
 
 				if (mOnCancleListener != null) {
@@ -90,7 +88,6 @@ public class SelectionDialog extends BaseDialog {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
 				dismiss();
 
 				if (mOnConfirmListener != null) {
@@ -123,7 +120,6 @@ public class SelectionDialog extends BaseDialog {
 	 */
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
 		Point size = new Point();
 		wm.getDefaultDisplay().getSize(size);

@@ -136,7 +136,6 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 
 		@Override
 		public void onResponse(String resultString) {
-			// TODO Auto-generated method stub
 			// 解析html页面获取列表
 			if (resultString != null) {
 				List<Comment> list = JsoupUtil.getBlogCommentList(resultString, mPage, mPageSize);
@@ -174,7 +173,6 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				mBlogCommentDao.insert(list);
 			}
 		}).start();
@@ -185,7 +183,6 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
 				mListView.setRefreshTime(DateUtil.getDate());

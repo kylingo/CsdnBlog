@@ -140,8 +140,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		// TODO Auto-generated method stub
-
 		// 屏蔽第一次也会进来的问题
 		if (isFirstCheck) {
 			isFirstCheck = false;
@@ -160,7 +158,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btn_back:
 			finish();
@@ -224,7 +221,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	 * 分享
 	 */
 	private void share() {
-		// TODO Auto-generated method stub
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		intent.setType("text/plain");
 		intent.putExtra(Intent.EXTRA_TEXT, mTitle + "：" + "\n" + mUrl);
@@ -266,7 +262,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	 * 加载数据
 	 */
 	private void requestData(String url) {
-		// TODO Auto-generated method stub
 		mProgressBar.setVisibility(View.VISIBLE);
 		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(this);
 		httpAsyncTask.execute(url);
@@ -278,7 +273,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	 */
 	@Override
 	public void onResponse(String resultString) {
-		// TODO Auto-generated method stub
 		mTitle = JsoupUtil.getTitle(resultString);
 		String content = JsoupUtil.getContent(resultString);
 		String html = adjustPicSize(content);
@@ -358,7 +352,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			// TODO Auto-generated method stub
 			switch (msg.what) {
 			case MSG_RELOAD_DATA:
 				getData(mUrl);
@@ -385,7 +378,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 		@Override
 		public void onPageStarted(WebView view, String url, Bitmap favicon) {
-			// TODO Auto-generated method stub
 			super.onPageStarted(view, url, favicon);
 		}
 

@@ -27,21 +27,18 @@ public class MeFragment extends BaseFragment implements OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        // TODO Auto-generated method stub
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         initView(view);
         return view;
     }
 
     private void initView(View view) {
-        // TODO Auto-generated method stub
         TextView mTitleView = (TextView) view.findViewById(R.id.tv_title);
         mTitleView.setText(R.string.user_center);
 
@@ -60,7 +57,6 @@ public class MeFragment extends BaseFragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-        // TODO Auto-generated method stub
         Intent intent = null;
 
         switch (v.getId()) {

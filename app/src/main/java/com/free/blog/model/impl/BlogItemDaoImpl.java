@@ -86,7 +86,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
 
 	@Override
 	public void insertCategory(List<BlogCategory> blogCategoryList) {
-		// TODO Auto-generated method stub
 		try {
 			for (int i = 0; i < blogCategoryList.size(); i++) {
 				BlogCategory blogCategory = blogCategoryList.get(i);
@@ -105,7 +104,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
 
 	@Override
 	public List<BlogCategory> queryCategory() {
-		// TODO Auto-generated method stub
 		List<BlogCategory> list = null;
 		try {
 			list = db.findAll(Selector.from(BlogCategory.class));
@@ -118,11 +116,9 @@ public class BlogItemDaoImpl implements BlogItemDao {
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
 		try {
 			db.deleteAll(BlogItem.class);
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

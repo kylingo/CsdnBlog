@@ -55,7 +55,6 @@ public class ChannelDetailActivity extends BaseActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_detail);
 
@@ -70,7 +69,6 @@ public class ChannelDetailActivity extends BaseActivity
     }
 
     private void initView() {
-        // TODO Auto-generated method stub
         if (mChannel != null) {
             TextView mTitleView = (TextView) findViewById(R.id.tv_title);
             mTitleView.setText(mChannel.getChannelName());
@@ -96,7 +94,6 @@ public class ChannelDetailActivity extends BaseActivity
 
     @Override
     public void onClick(View view) {
-        // TODO Auto-generated method stub
         switch (view.getId()) {
             case R.id.btn_back:
                 finish();
@@ -115,13 +112,11 @@ public class ChannelDetailActivity extends BaseActivity
      * 设置为默认频道
      */
     private void showMenu() {
-        // TODO Auto-generated method stub
         SelectionDialog dialog = new SelectionDialog(this, "设置【" + mChannel.getChannelName() + "】为默认频道？");
         dialog.setOnConfirmListener(new BaseDialog.OnConfirmListener() {
 
             @Override
             public void onConfirm(String result) {
-                // TODO Auto-generated method stub
                 SpfUtils.put(ChannelDetailActivity.this, ExtraString.BLOG_TYPE, mChannel
                         .getChannelName());
                 ToastUtil.show(ChannelDetailActivity.this, "设置成功");
@@ -133,7 +128,6 @@ public class ChannelDetailActivity extends BaseActivity
     }
 
     public void onItemClick(AdapterView<?> parent, View arg1, int position, long arg3) {
-        // TODO Auto-generated method stub
         Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
         Intent intent = new Intent(this, BlogListActivity.class);
         intent.putExtra("blogger", blogger);
@@ -141,14 +135,12 @@ public class ChannelDetailActivity extends BaseActivity
     }
 
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO Auto-generated method stub
         final Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
         BloggerOperationDialog dialog = new BloggerOperationDialog(this, blogger);
         dialog.setOnDeleteListener(new BaseDialog.OnDeleteListener() {
 
             @Override
             public void onDelete(String result) {
-                // TODO Auto-generated method stub
                 deleleBlogger(blogger);
             }
         });
@@ -157,7 +149,6 @@ public class ChannelDetailActivity extends BaseActivity
 
             @Override
             public void onStick(String result) {
-                // TODO Auto-generated method stub
                 stickBlogger(blogger);
             }
         });
@@ -175,14 +166,12 @@ public class ChannelDetailActivity extends BaseActivity
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 final List<Blogger> list = mBloggerDao.queryAll();
                 if (list != null && list.size() != 0) {
                     // 数据库有数据，则更新UI
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            // TODO Auto-generated method stub
                             mAdapter.setList(list);
                         }
                     });
@@ -209,7 +198,6 @@ public class ChannelDetailActivity extends BaseActivity
 
                 @Override
                 public void onResponse(String resultString) {
-                    // TODO Auto-generated method stub
                     if (resultString != null) {
                         List<Blogger> bloggerList = JsoupUtil.getBloggerList(mChannel
                                 .getChannelName(), resultString);
@@ -231,7 +219,6 @@ public class ChannelDetailActivity extends BaseActivity
      * 更新ListView的刷新、加载状态
      */
     protected void updateListView() {
-        // TODO Auto-generated method stub
         mListView.stopRefresh(DateUtil.getDate());
     }
 
@@ -245,7 +232,6 @@ public class ChannelDetailActivity extends BaseActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 mBloggerDao.deleteAll();
                 mBloggerDao.insert(list);
             }
@@ -298,7 +284,6 @@ public class ChannelDetailActivity extends BaseActivity
 
             @Override
             public void onConfirm(String result) {
-                // TODO Auto-generated method stub
                 requestData();
             }
         });
@@ -307,7 +292,6 @@ public class ChannelDetailActivity extends BaseActivity
 
             @Override
             public void onCancle(String result) {
-                // TODO Auto-generated method stub
                 mListView.stopRefresh(DateUtil.getDate());
             }
         });
