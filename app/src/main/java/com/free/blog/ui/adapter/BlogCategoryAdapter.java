@@ -51,7 +51,7 @@ public class BlogCategoryAdapter extends BaseAdapter {
 
 	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
+		ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_blogtype, null);
 			holder = new ViewHolder();
@@ -67,17 +67,18 @@ public class BlogCategoryAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	@SuppressWarnings("unused")
 	public void setSelectionPosition(int selection) {
 		this.selection = selection;
 		notifyDataSetChanged();
 	}
 
+	@SuppressWarnings("unused")
 	public int getSelectionPosition() {
 		return this.selection;
 	}
 
-	static class ViewHolder {
+	private static class ViewHolder {
 		TextView tvName;
 	}
-
 }

@@ -23,15 +23,12 @@ import java.util.List;
  * @since 2015年8月9日下午2:01:25
  */
 public class BlogListAdapter extends BaseAdapter {
-	private ViewHolder holder; // 视图容器
 	private LayoutInflater layoutInflater; // 布局加载器
-	private Context context; // 上下文对象
 	private List<BlogItem> list; // 博客列表
 
 	public BlogListAdapter(Context context) {
 		super();
-		this.context = context;
-		layoutInflater = LayoutInflater.from(this.context);
+		layoutInflater = LayoutInflater.from(context);
 		list = new ArrayList<BlogItem>();
 
 	}
@@ -53,6 +50,7 @@ public class BlogListAdapter extends BaseAdapter {
 		return list;
 	}
 
+	@SuppressWarnings("unused")
 	public void removeItem(int position) {
 		if (list.size() > 0) {
 			list.remove(position);
@@ -77,6 +75,7 @@ public class BlogListAdapter extends BaseAdapter {
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder;
 		if (null == convertView) {
 			// 装载布局文件blog_list_item.xml
 			convertView = layoutInflater.inflate(R.layout.listitem_blog, null);
@@ -90,11 +89,12 @@ public class BlogListAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();// 通过getTag的方法将数据取出来
 		}
+
 		BlogItem item = list.get(position); // 获取当前数据
 		if (null != item) {
 			// 显示标题内容
 			holder.title.setText(item.getTitle());
-			holder.content.setText("\b\b\b\b\b\b\b" + item.getContent());
+			holder.content.setText(String.format("\b\b\b\b\b\b\b%s", item.getContent()));
 			holder.date.setText(item.getDate());
 			holder.img.setVisibility(View.VISIBLE);
 

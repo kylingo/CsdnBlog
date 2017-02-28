@@ -1,4 +1,3 @@
-/** Copyright © 2015-2020 100msh.com All Rights Reserved */
 package com.free.blog.ui.activity;
 
 import android.content.Intent;
@@ -20,9 +19,9 @@ import com.free.blog.domain.config.CategoryManager;
 import com.free.blog.domain.config.ExtraString;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
-import com.free.blog.domain.util.DateUtil;
-import com.free.blog.domain.util.JsoupUtil;
-import com.free.blog.domain.util.NetUtil;
+import com.free.blog.domain.util.DateUtils;
+import com.free.blog.domain.util.JsoupUtils;
+import com.free.blog.domain.util.NetUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.model.BlogItemDao;
 import com.free.blog.model.DaoFactory;
@@ -45,11 +44,9 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	private ImageView mReLoadImageView;
 	private ProgressBar mPbLoading;
 
-	private Channel mChannel;
 	private String mChannelName;
 	private String mUrl;
 	private BlogItemDao mBlogItemDao;
-	private HttpAsyncTask mAsyncTask;
 	private BlogListAdapter mAdapter;
 	private List<BlogItem> mBlogList;
 
@@ -65,7 +62,7 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	}
 
 	private void initData() {
-		mChannel = (Channel) getIntent().getSerializableExtra(ExtraString.CHANNEL);
+		Channel mChannel = (Channel) getIntent().getSerializableExtra(ExtraString.CHANNEL);
 		if (mChannel != null) {
 			mChannelName = mChannel.getChannelName();
 			mUrl = mChannel.getUrl().replace("experts.html", "hot.html");
@@ -105,7 +102,7 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 
 		mListView.setPullRefreshEnable(this);
 		mListView.NotRefreshAtBegin();
-		mListView.setRefreshTime(DateUtil.getDate());
+		mListView.setRefreshTime(DateUtils.getDate());
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(this);
 	}
@@ -167,7 +164,7 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	 * 请求数据
 	 */
 	protected void requestData() {
-		mAsyncTask = new HttpAsyncTask(this);
+		HttpAsyncTask mAsyncTask = new HttpAsyncTask(this);
 		mAsyncTask.execute(mUrl);
 		mAsyncTask.setOnResponseListener(new OnResponseListener() {
 
@@ -175,15 +172,15 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 			public void onResponse(String resultString) {
 				mPbLoading.setVisibility(View.GONE);
 				mReLoadImageView.setVisibility(View.GONE);
-				mListView.stopRefresh(DateUtil.getDate());
+				mListView.stopRefresh(DateUtils.getDate());
 
 				if (!TextUtils.isEmpty(resultString)) {
-					mBlogList = JsoupUtil.getHotBlogList(AppConstants.BLOG_CATEGORY_ALL,
+					mBlogList = JsoupUtils.getHotBlogList(AppConstants.BLOG_CATEGORY_ALL,
 							resultString);
 					mAdapter.setList(mBlogList);
 					saveDb(mBlogList);
 				} else {
-					if (NetUtil.isNetAvailable(HotListActivity.this)) {
+					if (NetUtils.isNetAvailable(HotListActivity.this)) {
 						ToastUtil.show(HotListActivity.this, "暂无最新数据");
 					} else {
 						ToastUtil.show(HotListActivity.this, "网络已断开");
@@ -196,8 +193,6 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 
 	/**
 	 * 保存数据库
-	 * 
-	 * @param blogList
 	 */
 	private void saveDb(final List<BlogItem> blogList) {
 

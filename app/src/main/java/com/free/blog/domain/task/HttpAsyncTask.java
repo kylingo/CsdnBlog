@@ -3,7 +3,7 @@ package com.free.blog.domain.task;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.free.blog.domain.util.HttpUtil;
+import com.free.blog.domain.util.HttpUtils;
 
 
 /**
@@ -28,10 +28,7 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
 	@Override
 	protected String doInBackground(String... params) {
-		// 获取网页html数据
-		String result = HttpUtil.httpGet(params[0]);
-
-		return result;
+		return HttpUtils.httpGet(params[0]);
 	}
 
 	@Override
@@ -44,10 +41,6 @@ public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 				onResponseListener.onResponse(result);
 			}
 		}
-	}
-
-	public OnResponseListener getResponseListener() {
-		return onResponseListener;
 	}
 
 	public void setOnResponseListener(OnResponseListener onResponseListener) {

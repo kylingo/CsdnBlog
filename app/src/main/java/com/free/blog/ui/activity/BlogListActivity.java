@@ -25,12 +25,12 @@ import com.free.blog.domain.bean.Blogger;
 import com.free.blog.domain.config.AppConstants;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
-import com.free.blog.domain.util.DateUtil;
-import com.free.blog.domain.util.DisplayUtil;
-import com.free.blog.domain.util.JsoupUtil;
-import com.free.blog.domain.util.NetUtil;
+import com.free.blog.domain.util.DateUtils;
+import com.free.blog.domain.util.DisplayUtils;
+import com.free.blog.domain.util.JsoupUtils;
+import com.free.blog.domain.util.NetUtils;
 import com.free.blog.domain.util.ToastUtil;
-import com.free.blog.domain.util.URLUtil;
+import com.free.blog.domain.util.UrlUtils;
 import com.free.blog.model.BlogItemDao;
 import com.free.blog.model.DaoFactory;
 import com.free.blog.ui.adapter.BlogCategoryAdapter;
@@ -91,7 +91,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		mUserId = mBlogger.getUserId();
 		mBlogItemDao = DaoFactory.getInstance().getBlogItemDao(this, mUserId);
 
-		mBaseUrl = URLUtil.getBlogDefaultUrl(mUserId);
+		mBaseUrl = UrlUtils.getBlogDefaultUrl(mUserId);
 		queryCategory();
 	}
 
@@ -167,19 +167,17 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	 */
 	private void showMenu(View view) {
 		if (mPopupWindow == null) {
-			getPopupWindow(view);
+			getPopupWindow();
 		}
 
-		int xOffset = (int) getResources().getDimension(R.dimen.popwindow_bloglist_width) - DisplayUtil.dp2px(this, 40);
+		int xOffset = (int) getResources().getDimension(R.dimen.popwindow_bloglist_width) - DisplayUtils.dp2px(this, 40);
 		mPopupWindow.showAsDropDown(view, (-1) * xOffset, 0);
 	}
 
 	/**
 	 * 初始化PopupWindow
-	 *
-	 * @param view
 	 */
-	private void getPopupWindow(View view) {
+	private void getPopupWindow() {
 		View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_bloglist, null);
 
 		mPopupWindow = new PopupWindow(contentView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
@@ -198,7 +196,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 				if (position == 0) {
 					setDefaultTitle();
 					mCategory = AppConstants.BLOG_CATEGORY_ALL;
-					mBaseUrl = URLUtil.getBlogDefaultUrl(mUserId);
+					mBaseUrl = UrlUtils.getBlogDefaultUrl(mUserId);
 
 					mAdapter.clearList();
 					mPbLoading.setVisibility(View.VISIBLE);
@@ -207,7 +205,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 					BlogCategory blogCategory = ((BlogCategoryAdapter) parent.getAdapter()).getItem(position);
 					mTvUserId.setText(blogCategory.getName());
 					mCategory = blogCategory.getName();
-					mBaseUrl = URLUtil.getBlogCategoryUrl(blogCategory.getLink());
+					mBaseUrl = UrlUtils.getBlogCategoryUrl(blogCategory.getLink());
 
 					mAdapter.clearList();
 					mPbLoading.setVisibility(View.VISIBLE);
@@ -261,7 +259,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 	}
 
 	private void requestData() {
-		if (NetUtil.isNetAvailable(this)) {
+		if (NetUtils.isNetAvailable(this)) {
 			getData(mPage);
 		} else {
 			mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
@@ -274,7 +272,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		}
 
 		mAsyncTask = new HttpAsyncTask(this);
-		String url = URLUtil.getBlogListURL(mBaseUrl, page);
+		String url = UrlUtils.getBlogListURL(mBaseUrl, page);
 		mAsyncTask.execute(url);
 		mAsyncTask.setOnResponseListener(mOnResponseListener);
 	}
@@ -285,7 +283,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 		public void onResponse(String resultString) {
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<BlogItem> list = JsoupUtil.getBlogItemList(mCategory, resultString, mBlogCategoryList);
+				List<BlogItem> list = JsoupUtils.getBlogItemList(mCategory, resultString, mBlogCategoryList);
 
 				if (list != null && list.size() > 0) {
 					if (mPage == 1) {
@@ -313,7 +311,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 			}
 
 			mPbLoading.setVisibility(View.GONE);
-			mListView.stopRefresh(DateUtil.getDate());
+			mListView.stopRefresh(DateUtils.getDate());
 			mListView.stopLoadMore();
 		}
 	};
@@ -336,8 +334,6 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
 	/**
 	 * 保存数据库
-	 *
-	 * @param list
 	 */
 	private void saveDB(final List<BlogItem> list) {
 
@@ -365,7 +361,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 					if (list != null && list.size() != 0) {
 						mAdapter.setList(list);
 						mListView.setPullLoadEnable(BlogListActivity.this);// 设置可上拉加载
-						mListView.setRefreshTime(DateUtil.getDate());
+						mListView.setRefreshTime(DateUtils.getDate());
 						mListView.stopRefresh();
 						mListView.stopLoadMore();
 						mPbLoading.setVisibility(View.GONE);

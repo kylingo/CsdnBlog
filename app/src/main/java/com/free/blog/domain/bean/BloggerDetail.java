@@ -6,7 +6,7 @@ package com.free.blog.domain.bean;
  * @author tangqi
  * @since 2015年8月8日上午10:02:57
  */
-
+@SuppressWarnings("unused")
 public class BloggerDetail extends BaseEntity {
 
 	private static final long serialVersionUID = -6906903716539249845L;

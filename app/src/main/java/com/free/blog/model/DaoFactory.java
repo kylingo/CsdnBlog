@@ -1,4 +1,4 @@
-package com.free.blog.model; /** Copyright © 2015-2020 100msh.com All Rights Reserved */
+package com.free.blog.model;
 
 import android.content.Context;
 
@@ -15,7 +15,7 @@ import com.free.blog.model.impl.ChannelBloggerDaoImpl;
  * 数据库工厂类
  * 
  * @author Frank
- * @date 2015年8月22日上午10:26:06
+ * @since 2015年8月22日上午10:26:06
  */
 
 public class DaoFactory {
@@ -24,8 +24,6 @@ public class DaoFactory {
 
 	/**
 	 * 获取DaoFactory的实例
-	 * 
-	 * @return
 	 */
 	public static DaoFactory getInstance() {
 		if (mInstance == null) {
@@ -40,9 +38,6 @@ public class DaoFactory {
 
 	/**
 	 * 获取博主数据库
-	 * 
-	 * @param context
-	 * @return
 	 */
 	public BloggerDao getBloggerDao(Context context, String type) {
 		return new BloggerDaoImpl(context, type);
@@ -50,9 +45,6 @@ public class DaoFactory {
 
 	/**
 	 * 获取博客列表数据库
-	 * 
-	 * @param context
-	 * @return
 	 */
 	public BlogItemDao getBlogItemDao(Context context, String userId) {
 		return new BlogItemDaoImpl(context, userId);
@@ -60,9 +52,6 @@ public class DaoFactory {
 
 	/**
 	 * 获取博客内容数据库
-	 * 
-	 * @param context
-	 * @return
 	 */
 	public BlogContentDao getBlogContentDao(Context context, String url) {
 		return new BlogContentDaoImpl(context, url);
@@ -70,9 +59,6 @@ public class DaoFactory {
 
 	/**
 	 * 获取博客收藏数据库
-	 * 
-	 * @param context
-	 * @return
 	 */
 	public BlogCollectDao getBlogCollectDao(Context context) {
 		return new BlogCollectDaoImpl(context);
@@ -80,9 +66,6 @@ public class DaoFactory {
 
 	/**
 	 * 获取博客评论数据库
-	 * 
-	 * @param context
-	 * @return
 	 */
 	public BlogCommentDao getBlogCommentDao(Context context, String filename) {
 		return new BlogCommentDaoImpl(context, filename);
@@ -90,10 +73,8 @@ public class DaoFactory {
 
 	/**
 	 * 获取某频道-博客专家数据库
-	 * @param context
-	 * @param channel
-	 * @return
 	 */
+	@SuppressWarnings("unused")
 	public ChannelBloggerDao getChannelBloggerDao(Context context, Channel channel) {
 		return new ChannelBloggerDaoImpl(context, channel);
 	}

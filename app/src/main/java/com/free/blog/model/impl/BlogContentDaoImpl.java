@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.free.blog.domain.bean.BlogHtml;
 import com.free.blog.domain.config.CacheManager;
-import com.free.blog.domain.util.MD5;
+import com.free.blog.domain.util.Md5Utils;
 import com.free.blog.model.BlogContentDao;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -26,7 +26,7 @@ public class BlogContentDaoImpl implements BlogContentDao {
 		// TODO Auto-generated constructor stub
 		String urlMD5 = "url-md5";
 		try {
-			urlMD5 = MD5.getMD5(url);
+			urlMD5 = Md5Utils.getMD5(url);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,6 +35,7 @@ public class BlogContentDaoImpl implements BlogContentDao {
 				CacheManager.getBlogContentDbPath(context), urlMD5);
 	}
 
+	@Override
 	public void insert(BlogHtml blogHtml) {
 		BlogHtml findItem;
 		try {
@@ -51,10 +52,9 @@ public class BlogContentDaoImpl implements BlogContentDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return;
 	}
 
+	@Override
 	public BlogHtml query(String url) {
 		BlogHtml blogHtml = null;
 		try {

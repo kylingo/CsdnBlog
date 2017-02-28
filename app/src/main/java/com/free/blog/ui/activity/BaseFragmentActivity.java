@@ -3,11 +3,8 @@ package com.free.blog.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import com.free.blog.ui.BaseApplication;
-import com.free.blog.ui.view.SystemBarTintManager;
+import com.free.blog.MyApplication;
 import com.umeng.analytics.MobclickAgent;
-
-import static com.free.blog.R.menu.main;
 
 /**
  * FragmentActivity-基类
@@ -17,15 +14,11 @@ import static com.free.blog.R.menu.main;
  */
 
 public class BaseFragmentActivity extends FragmentActivity {
-	/**
-	 * 系统状态栏管理
-	 */
-	protected SystemBarTintManager mSystemBarTintManager;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		BaseApplication.getInstance().addActivity(this);
+		MyApplication.getInstance().addActivity(this);
 	}
 
 	@Override

@@ -23,7 +23,6 @@ public class BloggerOperationDialog extends BaseDialog implements View.OnClickLi
 
 	public BloggerOperationDialog(Context context, Blogger blogger) {
 		super(context, R.style.Theme_Light_FullScreenDialogAct);
-		// TODO Auto-generated constructor stub
 
 		this.mBlogger = blogger;
 		setContentView(R.layout.dialog_blogger_operation);
@@ -35,7 +34,7 @@ public class BloggerOperationDialog extends BaseDialog implements View.OnClickLi
 
 		TextView deleteView = (TextView) findViewById(R.id.tv_delete_blogger);
 		TextView stickView = (TextView) findViewById(R.id.tv_stick_blogger);
-		TextView cacleView = (TextView) findViewById(R.id.tv_cacle_operate);
+		TextView cancelView = (TextView) findViewById(R.id.tv_cancel_operate);
 
 		if (mBlogger.getIsTop() == 0) {
 			stickView.setText("置顶博主");
@@ -45,7 +44,7 @@ public class BloggerOperationDialog extends BaseDialog implements View.OnClickLi
 
 		deleteView.setOnClickListener(this);
 		stickView.setOnClickListener(this);
-		cacleView.setOnClickListener(this);
+		cancelView.setOnClickListener(this);
 	}
 
 	@Override
@@ -61,7 +60,7 @@ public class BloggerOperationDialog extends BaseDialog implements View.OnClickLi
 			mOnStickListener.onStick(null);
 			break;
 
-		case R.id.tv_cacle_operate:
+		case R.id.tv_cancel_operate:
 			// TODO
 			break;
 

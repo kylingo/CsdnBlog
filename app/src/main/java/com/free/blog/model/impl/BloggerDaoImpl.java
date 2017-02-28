@@ -33,6 +33,7 @@ public class BloggerDaoImpl implements BloggerDao {
 		this.db = DbUtils.create(context, "blogger_" + type);
 	}
 
+	@Override
 	public void insert(Blogger blogger) {
 		try {
 			Blogger findItem = db.findFirst(Selector.from(Blogger.class).where("userId", "=", blogger.getUserId()));
@@ -47,6 +48,7 @@ public class BloggerDaoImpl implements BloggerDao {
 		}
 	}
 
+	@Override
 	public void insert(List<Blogger> list) {
 		try {
 			db.saveOrUpdateAll(list);
@@ -56,6 +58,7 @@ public class BloggerDaoImpl implements BloggerDao {
 		}
 	}
 
+	@Override
 	public Blogger query(String userId) {
 		try {
 			return db.findFirst(Selector.from(Blogger.class).where("userId", "=", userId));
@@ -66,6 +69,7 @@ public class BloggerDaoImpl implements BloggerDao {
 		return null;
 	}
 
+	@Override
 	public List<Blogger> queryAll() {
 		try {
 			// // 最新的排最前面
@@ -94,8 +98,9 @@ public class BloggerDaoImpl implements BloggerDao {
 		return null;
 	}
 
+	@Override
 	public List<Blogger> query(int pageIndex, int pageSize) {
-		List<Blogger> list = null;
+		List<Blogger> list;
 		try {
 			list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true).limit(pageSize).offset(pageIndex * pageSize));
 			return list;
@@ -104,9 +109,10 @@ public class BloggerDaoImpl implements BloggerDao {
 			e.printStackTrace();
 		}
 
-		return list;
+		return null;
 	}
 
+	@Override
 	public void delete(Blogger blogger) {
 		try {
 			db.delete(blogger);
@@ -116,6 +122,7 @@ public class BloggerDaoImpl implements BloggerDao {
 		}
 	}
 
+	@Override
 	public void deleteAll(List<Blogger> list) {
 		try {
 			db.delete(list);

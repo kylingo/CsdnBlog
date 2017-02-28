@@ -17,7 +17,7 @@ import com.free.blog.domain.util.ToastUtil;
  * @author tangqi
  * @since 2015年8月9日上午11:08:13
  */
-
+@SuppressWarnings("unused")
 public class FindFragment extends BaseFragment implements OnClickListener {
 
 	@Override

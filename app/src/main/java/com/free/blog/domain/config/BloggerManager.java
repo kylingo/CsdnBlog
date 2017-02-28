@@ -8,7 +8,7 @@ import com.free.blog.model.BloggerDao;
 
 
 /**
- * Andoird博主管理
+ * Android博主管理
  * 
  * @author tangqi
  * @since 2015年7月9日下午4:41:18
@@ -18,10 +18,6 @@ public class BloggerManager {
 
 	/**
 	 * 执行插入数据库操作
-	 * 
-	 * @param bloggerDb
-	 * @param blogger
-	 * @param array
 	 */
 	private void insertBlogger(BloggerDao bloggerDb, Blogger blogger, String[] array) {
 		if (array == null || array.length < 6 || blogger == null || bloggerDb == null) {
@@ -44,24 +40,20 @@ public class BloggerManager {
 
 	/**
 	 * 删除所有博客
-	 * 
-	 * @param bloggerDb
 	 */
-	private void deleteAllBlogger(BloggerDao bloggerDb, String type) {
+	private void deleteAllBlogger(BloggerDao bloggerDb) {
 		bloggerDb.deleteAll();
 	}
 
 	/**
 	 * 初始化博主信息
-	 * 
-	 * @param context
 	 */
+	@SuppressWarnings("ConstantConditions")
 	public void init(Context context, BloggerDao bloggerDb, String type) {
-
-		if (!((Boolean) SpfUtils.get(context, "isFirst", true)))
+		if (!((Boolean) SpfUtils.get(context, ExtraString.IS_FIRST, true)))
 			return;
 
-		deleteAllBlogger(bloggerDb, type);
+		deleteAllBlogger(bloggerDb);
 		bloggerDb.init(type);
 
 		Blogger blogger = new Blogger();
@@ -515,6 +507,6 @@ public class BloggerManager {
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
-		SpfUtils.put(context, "isFirst", false);
+		SpfUtils.put(context, ExtraString.IS_FIRST, false);
 	}
 }

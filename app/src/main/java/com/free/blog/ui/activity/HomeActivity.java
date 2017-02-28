@@ -30,7 +30,6 @@ import com.umeng.update.UmengUpdateAgent;
  */
 public class HomeActivity extends BaseFragmentActivity implements OnCheckedChangeListener {
 
-	private RadioGroup mGroup;
 	private BloggerFragment mFirstFragment;
 	private ChannelFragment mSecondFragment;
 	private HotFragment mThirdFragment;
@@ -50,7 +49,7 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		mGroup = (RadioGroup) findViewById(R.id.main_radio);
+		RadioGroup mGroup = (RadioGroup) findViewById(R.id.main_radio);
 		mFirstFragment = new BloggerFragment();
 		mSecondFragment = new ChannelFragment();
 		mThirdFragment = new HotFragment();

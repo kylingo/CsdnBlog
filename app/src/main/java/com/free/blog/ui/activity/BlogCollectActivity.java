@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.free.blog.R;
 import com.free.blog.domain.bean.BlogItem;
 import com.free.blog.domain.config.AppConstants;
-import com.free.blog.domain.util.DateUtil;
+import com.free.blog.domain.util.DateUtils;
 import com.free.blog.model.BlogCollectDao;
 import com.free.blog.model.DaoFactory;
 import com.free.blog.ui.adapter.BlogListAdapter;
@@ -41,11 +41,9 @@ public class BlogCollectActivity extends BaseActivity
 	private BlogListAdapter mAdapter;
 	private ImageView mReLoadImageView;
 	private ProgressBar mPbLoading;
-	private TextView mTvTitle;
 
-	private int mPage = 1;
-	private int mPageSize = 20;
 	private BlogCollectDao mBlogCollectDao;
+	private int mPage = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +61,12 @@ public class BlogCollectActivity extends BaseActivity
 	private void initView() {
 		mListView = (XListView) findViewById(R.id.listView_blog);
 		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-		mTvTitle = (TextView) findViewById(R.id.tv_title);
+		TextView tvTitle = (TextView) findViewById(R.id.tv_title);
 		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setVisibility(View.VISIBLE);
 		mBackBtn.setOnClickListener(this);
 
-		mTvTitle.setText("博客收藏");
+		tvTitle.setText("博客收藏");
 		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
 		mReLoadImageView.setOnClickListener(new OnClickListener() {
 
@@ -151,9 +149,9 @@ public class BlogCollectActivity extends BaseActivity
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);
 					mListView.setPullLoadEnable(BlogCollectActivity.this);// 设置可上拉加载
-					mListView.setRefreshTime(DateUtil.getDate());
+					mListView.setRefreshTime(DateUtils.getDate());
 					mListView.stopLoadMore();
-					mListView.stopRefresh(DateUtil.getDate());
+					mListView.stopRefresh(DateUtils.getDate());
 
 					mPbLoading.setVisibility(View.GONE);
 				}

@@ -13,16 +13,11 @@ public interface BlogContentDao {
 
 	/**
 	 * 保存博客内容
-	 * 
-	 * @param blogHtml
 	 */
-	public void insert(BlogHtml blogHtml);
+	void insert(BlogHtml blogHtml);
 
 	/**
 	 * 获取博客内容
-	 * 
-	 * @param url
-	 * @return
 	 */
-	public BlogHtml query(String url);
+	BlogHtml query(String url);
 }

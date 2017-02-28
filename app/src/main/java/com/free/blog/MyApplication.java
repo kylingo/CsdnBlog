@@ -1,4 +1,4 @@
-package com.free.blog.ui;
+package com.free.blog;
 
 import android.app.Activity;
 import android.app.Application;
@@ -18,15 +18,15 @@ import java.util.List;
  * @since 2015年7月8日下午11:47:10
  */
 
-public class BaseApplication extends Application {
+public class MyApplication extends Application {
 
-	private static BaseApplication mInstance;
+	private static MyApplication mInstance;
 	private List<Activity> mActivities = new ArrayList<Activity>();
 
 	// 单例模式中获取唯一的ExitApplication 实例
-	public static BaseApplication getInstance() {
+	public static MyApplication getInstance() {
 		if (null == mInstance) {
-			mInstance = new BaseApplication();
+			mInstance = new MyApplication();
 		}
 		return mInstance;
 
@@ -41,7 +41,6 @@ public class BaseApplication extends Application {
 	private void init() {
 		initImageLoader();
 
-		// 使用腾讯BUGLY上传崩溃信息
 		initCrashReport();
 	}
 
@@ -84,8 +83,6 @@ public class BaseApplication extends Application {
 
 	/**
 	 * 把Activity加入历史堆栈
-	 * 
-	 * @param activity
 	 */
 	public void addActivity(Activity activity) {
 		mActivities.add(activity);

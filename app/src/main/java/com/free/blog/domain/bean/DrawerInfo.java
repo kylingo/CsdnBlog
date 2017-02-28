@@ -6,7 +6,7 @@ package com.free.blog.domain.bean;
  * @author tangqi
  * @since 2015年8月13日下午11:46:39
  */
-
+@SuppressWarnings("unused")
 public class DrawerInfo extends BaseEntity {
 
 	private static final long serialVersionUID = -887156398580286575L;

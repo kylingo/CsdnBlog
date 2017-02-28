@@ -18,23 +18,24 @@ import com.free.blog.R;
  */
 public class SelectionDialog extends BaseDialog {
 
-	private TextView tvTitle, tvMessage;
-	private Button btnCancle, btnConfirm;
+	private Button btnCancel, btnConfirm;
 	private String title, message, msgConfirm;
-	private OnConfirmListener mOnConfirmListener;// 确定监听
-	private OnCancleListener mOnCancleListener;// 取消监听
+	private OnConfirmListener mOnConfirmListener;
+	private OnCancelListener mOnCancelListener;
 
 	public SelectionDialog(Context context, String message) {
 		super(context, R.style.Theme_Light_FullScreenDialogAct);
 		this.message = message;
 	}
 
+	@SuppressWarnings("unused")
 	public SelectionDialog(Context context, String title, String message) {
 		super(context, R.style.Theme_Light_FullScreenDialogAct);
 		this.title = title;
 		this.message = message;
 	}
 
+	@SuppressWarnings("unused")
 	public SelectionDialog(Context context, String title, String message, String msgConfirm) {
 		super(context, R.style.Theme_Light_FullScreenDialogAct);
 		this.title = title;
@@ -52,9 +53,9 @@ public class SelectionDialog extends BaseDialog {
 
 	private void initView() {
 		btnConfirm = (Button) findViewById(R.id.btn_confirm_selection);
-		btnCancle = (Button) findViewById(R.id.btn_cancle);
-		tvTitle = (TextView) findViewById(R.id.tv_title);
-		tvMessage = (TextView) findViewById(R.id.tv_message);
+		btnCancel = (Button) findViewById(R.id.btn_cancle);
+		TextView tvTitle = (TextView) findViewById(R.id.tv_title);
+		TextView tvMessage = (TextView) findViewById(R.id.tv_message);
 		if (!TextUtils.isEmpty(title)) {
 			tvTitle.setText(title);
 		}
@@ -71,14 +72,14 @@ public class SelectionDialog extends BaseDialog {
 	private void initListener() {
 
 		// 取消按钮
-		btnCancle.setOnClickListener(new View.OnClickListener() {
+		btnCancel.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				dismiss();
 
-				if (mOnCancleListener != null) {
-					mOnCancleListener.onCancle(null);
+				if (mOnCancelListener != null) {
+					mOnCancelListener.onCancel(null);
 				}
 			}
 		});
@@ -99,8 +100,6 @@ public class SelectionDialog extends BaseDialog {
 
 	/**
 	 * 外部方法，设置确定监听器
-	 *
-	 * @param onConfirmListener
 	 */
 	public void setOnConfirmListener(OnConfirmListener onConfirmListener) {
 		this.mOnConfirmListener = onConfirmListener;
@@ -108,16 +107,15 @@ public class SelectionDialog extends BaseDialog {
 
 	/**
 	 * 外部方法，设置取消监听器
-	 * 
-	 * @param OnCancleListener
 	 */
-	public void setOnCancleistener(OnCancleListener OnCancleListener) {
-		this.mOnCancleListener = OnCancleListener;
+	public void setOnCancelListener(OnCancelListener OnCancelListener) {
+		this.mOnCancelListener = OnCancelListener;
 	}
 
 	/**
 	 * 外部方法，显示对话框
 	 */
+	@SuppressWarnings("ConstantConditions")
 	@Override
 	public void show() {
 		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -125,7 +123,7 @@ public class SelectionDialog extends BaseDialog {
 		wm.getDefaultDisplay().getSize(size);
 
 		super.show();
-		getWindow().setLayout((int) (size.x * 9 / 10), LayoutParams.WRAP_CONTENT);
+		getWindow().setLayout(size.x * 9 / 10, LayoutParams.WRAP_CONTENT);
 	}
 
 }

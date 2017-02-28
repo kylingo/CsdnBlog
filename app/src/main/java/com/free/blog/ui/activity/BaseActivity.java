@@ -3,8 +3,7 @@ package com.free.blog.ui.activity;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.free.blog.ui.BaseApplication;
-import com.free.blog.ui.view.SystemBarTintManager;
+import com.free.blog.MyApplication;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -15,15 +14,12 @@ import com.umeng.analytics.MobclickAgent;
 
 public class BaseActivity extends Activity {
 
-	/**
-	 * 系统状态栏管理
-	 */
-	protected SystemBarTintManager mSystemBarTintManager;
+	protected static final int mPageSize = 20;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		BaseApplication.getInstance().addActivity(this);
+		MyApplication.getInstance().addActivity(this);
 	}
 
 	@Override

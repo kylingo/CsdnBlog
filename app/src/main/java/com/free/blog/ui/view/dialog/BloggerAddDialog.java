@@ -20,7 +20,6 @@ public class BloggerAddDialog extends BaseDialog implements OnClickListener {
 
 	private Context mContext;
 	private EditText mUserIdView;
-	private TextView mConfirmView;
 	private OnConfirmListener mOnConfirmListener;
 
 	
@@ -31,7 +30,7 @@ public class BloggerAddDialog extends BaseDialog implements OnClickListener {
 
 		setContentView(R.layout.dialog_blogger_add);
 		mUserIdView = (EditText) this.findViewById(R.id.et_userid);
-		mConfirmView = (TextView) this.findViewById(R.id.btn_confirm);
+		TextView mConfirmView = (TextView) this.findViewById(R.id.btn_confirm);
 		mConfirmView.setOnClickListener(this);
 	}
 
@@ -40,7 +39,7 @@ public class BloggerAddDialog extends BaseDialog implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btn_confirm:
 			mOnConfirmListener.onConfirm(String.valueOf(mUserIdView.getText()));
-			KeyBoardUtils.closeKeybord(mUserIdView, mContext);
+			KeyBoardUtils.closeKeyboard(mUserIdView, mContext);
 			dismiss();
 			break;
 
@@ -53,12 +52,15 @@ public class BloggerAddDialog extends BaseDialog implements OnClickListener {
 	/**
 	 * 显示在底部
 	 */
+	@SuppressWarnings("unused")
 	public void showDialogBottom(float dimAmount) {
 		Window window = this.getWindow();
-		window.setGravity(Gravity.BOTTOM);
-		WindowManager.LayoutParams lp = window.getAttributes();
-		lp.dimAmount = dimAmount;
-		window.setAttributes(lp);
+		if (window != null) {
+			window.setGravity(Gravity.BOTTOM);
+			WindowManager.LayoutParams lp = window.getAttributes();
+			lp.dimAmount = dimAmount;
+			window.setAttributes(lp);
+		}
 		this.show();
 	}
 }

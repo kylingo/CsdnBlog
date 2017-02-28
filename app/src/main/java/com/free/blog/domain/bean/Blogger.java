@@ -4,11 +4,11 @@ import com.lidroid.xutils.db.annotation.Column;
 
 /**
  * 博主简介
- * 
+ *
  * @author tangqi
  * @since 2015年7月8日
  */
-
+@SuppressWarnings("unused")
 public class Blogger extends BaseEntity {
 
 	private static final long serialVersionUID = 6569781303855823679L;

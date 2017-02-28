@@ -1,4 +1,3 @@
-/** Copyright © 2015-2020 100msh.com All Rights Reserved */
 package com.free.blog.domain.bean;
 
 import java.util.Comparator;
@@ -7,7 +6,7 @@ import java.util.Comparator;
  * 评论列表-排序
  * 
  * @author tangqi
- * @date 2015年8月4日下午4:09:58
+ * @since 2015年8月4日下午4:09:58
  */
 
 public class CommentComparator implements Comparator<Comment> {

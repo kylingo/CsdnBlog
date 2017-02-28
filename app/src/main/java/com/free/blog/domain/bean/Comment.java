@@ -6,6 +6,7 @@ package com.free.blog.domain.bean;
  * @author tangqi
  * @since 2015年8月6日下午09:28:30
  */
+@SuppressWarnings("unused")
 public class Comment extends BaseEntity{
 	
 	private static final long serialVersionUID = -5378134161928918526L;
@@ -53,7 +54,7 @@ public class Comment extends BaseEntity{
 		this.content = content;
 	}
 
-	public String getParentId() {
+	String getParentId() {
 		return parentId;
 	}
 

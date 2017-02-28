@@ -27,6 +27,7 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 				filename + "_comment");
 	}
 
+	@Override
 	public void insert(List<Comment> list) {
 		try {
 			for (int i = 0; i < list.size(); i++) {
@@ -48,11 +49,11 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 		}
 	}
 
+	@Override
 	public List<Comment> query(int page) {
 		try {
-			List<Comment> list = db.findAll(Selector.from(Comment.class).limit(
+			return db.findAll(Selector.from(Comment.class).limit(
 					20 * page));
-			return list;
 		} catch (DbException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

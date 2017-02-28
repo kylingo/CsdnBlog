@@ -12,24 +12,20 @@ import com.free.blog.domain.bean.Blogger;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@SuppressWarnings("unused")
 public class BloggerDB extends SQLiteOpenHelper {
 	private static final String TAG = "BLOGGER DB";
-	// 数据库名称常量
-	private static final String DATABASE_NAME = "bloger.db";
-	// 数据库版本常量
-	private static final int DATABASE_VERSION = 1;
-	// 表名称常量
-	public static final String TABLES_NAME = "bloggerTable";
 
-	// 构造方法
+	private static final String DATABASE_NAME = "bloger.db";
+	private static final int DATABASE_VERSION = 1;
+	private static final String TABLES_NAME = "bloggerTable";
+
 	public BloggerDB(Context context) {
 		// 创建数据库
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		Log.e(TAG, "create database");
 	}
 
-	// 创建时调用，若数据库存在则不调用
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		Log.e(TAG, "oncreate DB");
@@ -39,19 +35,15 @@ public class BloggerDB extends SQLiteOpenHelper {
 				+ " TEXT" + ");");
 	}
 
-	// 版本更新时调用
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// 删除表
 		Log.e(TAG, "delete DB");
 		db.execSQL("DROP TABLE IF EXISTS bloggerTable");
-		onCreate(db);// 创建新表
+		onCreate(db);
 	}
 
 	/**
 	 * 插入数据
-	 * 
-	 * @param list
 	 */
 	public void insert(List<Blogger> list) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -70,8 +62,6 @@ public class BloggerDB extends SQLiteOpenHelper {
 
 	/**
 	 * 插入数据
-	 * 
-	 * @param list
 	 */
 	public void insert(Blogger blogger) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -105,9 +95,6 @@ public class BloggerDB extends SQLiteOpenHelper {
 
 	/**
 	 * 查询数据
-	 * 
-	 * @param blogType
-	 * @return
 	 */
 	public List<Blogger> query(String userId) {
 		List<Blogger> list = new ArrayList<Blogger>();
@@ -134,8 +121,6 @@ public class BloggerDB extends SQLiteOpenHelper {
 
 	/**
 	 * 查询所有的博主
-	 * 
-	 * @return
 	 */
 	public List<Blogger> SelectAllBlogger() {
 		ArrayList<Blogger> blogerList = new ArrayList<Blogger>();

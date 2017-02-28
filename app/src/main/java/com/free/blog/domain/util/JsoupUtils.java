@@ -30,31 +30,25 @@ import java.util.List;
  * @author tangqi
  * @since 2015年8月9日下午08:09:57
  */
-@SuppressWarnings("deprecation")
-public class JsoupUtil {
+@SuppressWarnings({"deprecation", "unused"})
+public class JsoupUtils {
 
-    public static boolean contentFirstPage = true;
-    public static boolean contentLastPage = true;
-    public static boolean multiPages = false;
     private static final String BLOG_URL = "http://blog.csdn.net";
 
     public static void resetPages() {
-        contentFirstPage = true;
-        contentLastPage = true;
-        multiPages = false;
+        boolean contentFirstPage = true;
+        boolean contentLastPage = true;
+        boolean multiPages = false;
     }
 
     /**
      * 获取博主简易信息
-     *
-     * @param paramString
-     * @return
      */
     public static HashMap<String, String> getBloggerItem(String paramString) {
         Document localDocument = Jsoup.parse(paramString);
         Elements localElements = localDocument.getElementsByClass("header");
 
-        String str = "";
+        String str;
         try {
             Element localElement1 = localDocument.getElementsByClass("panel").get(0).select("ul" +
                     ".panel_body.profile").get(0);
@@ -75,10 +69,6 @@ public class JsoupUtil {
 
     /**
      * 获取博客列表
-     *
-     * @param category
-     * @param str
-     * @return
      */
     public static List<BlogItem> getBlogItemList(String category, String str, List<BlogCategory>
 			blogCategoryList) {
@@ -154,10 +144,6 @@ public class JsoupUtil {
 
     /**
      * 获取热门博客列表
-     *
-     * @param category
-     * @param str
-     * @return
      */
     public static List<BlogItem> getHotBlogList(String category, String str) {
         List<BlogItem> list = new ArrayList<BlogItem>();
@@ -190,9 +176,6 @@ public class JsoupUtil {
 
     /**
      * 获取博客详情内容
-     *
-     * @param paramString
-     * @return
      */
     public static String getContent(String paramString) {
         if (TextUtils.isEmpty(paramString)) {
@@ -236,9 +219,6 @@ public class JsoupUtil {
 
     /**
      * 获取博客详情内容
-     *
-     * @param paramString
-     * @return
      */
     public static String getTitle(String paramString) {
         if (TextUtils.isEmpty(paramString)) {
@@ -258,10 +238,6 @@ public class JsoupUtil {
 
     /**
      * 获取博主列表(各大分类)
-     *
-     * @param category
-     * @param str
-     * @return
      */
     public static List<Blogger> getBloggerList(String category, String str) {
         List<Blogger> list = new ArrayList<Blogger>();
@@ -296,9 +272,6 @@ public class JsoupUtil {
 
     /**
      * 获取博文评论列表
-     *
-     * @param str json字符串
-     * @return
      */
     public static List<Comment> getBlogCommentList(String str, int pageIndex, int pageSize) {
         List<Comment> list = new ArrayList<Comment>();
@@ -355,9 +328,6 @@ public class JsoupUtil {
 
     /**
      * 获得博主个人详情资料
-     *
-     * @param str
-     * @return
      */
     public static BloggerDetail getBloggerInfo(String str) {
 
@@ -377,13 +347,13 @@ public class JsoupUtil {
 
         Elements rankLi = blog_rank.select("li");
         StringBuilder sb = new StringBuilder();
-        String rankStr = "";
+        String rankStr;
         for (Element rank : rankLi) {
             sb.append(rank.text()).append("|");
         }
         rankStr = sb.toString();
 
-        String statistics = "";
+        String statistics;
         StringBuilder sb2 = new StringBuilder();
         Elements blogLi = blog_statistics.select("li");
         for (Element info : blogLi) {
@@ -403,10 +373,6 @@ public class JsoupUtil {
 
     /**
      * 扒取传入url地址的博客详细内容
-     *
-     * @param url
-     * @param str
-     * @return
      */
     @Deprecated
     public static List<Blog> getDetail(String url, String str) {
@@ -487,6 +453,7 @@ public class JsoupUtil {
                         if (!img.parent().attr("href").equals("")) {
                             blogImgs.setImgLink(img.parent().attr("href"));
                             System.out.println("href=" + img.parent().attr("href"));
+                            //noinspection StatementWithEmptyBody
                             if (img.parent().parent().tagName().equals("p")) {
                                 // img.parent().parent().remove();
                             }
@@ -535,11 +502,8 @@ public class JsoupUtil {
 
     /**
      * 半角转换为全角 全角---指一个字符占用两个标准字符位置。 半角---指一字符占用一个标准的字符位置。
-     *
-     * @param input
-     * @return
      */
-    public static String ToDBC(String input) {
+    private static String ToDBC(String input) {
         char[] c = input.toCharArray();
         for (int i = 0; i < c.length; i++) {
             if (c[i] == 12288) {

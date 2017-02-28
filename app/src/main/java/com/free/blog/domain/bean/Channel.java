@@ -8,7 +8,7 @@ import com.lidroid.xutils.db.annotation.Column;
  * @author tangqi
  * @since 2015年8月9日下午2:21:54
  */
-
+@SuppressWarnings("unused")
 public class Channel extends BaseEntity {
 
 	private static final long serialVersionUID = 3205931841537722040L;

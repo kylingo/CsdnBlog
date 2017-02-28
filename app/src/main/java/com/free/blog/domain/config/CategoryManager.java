@@ -18,14 +18,14 @@ public class CategoryManager {
 	public class CategoryName {
 		public static final String ANDROID = "android";
 		public static final String MOBILE = "移动开发";
-		public static final String WEB = "WEB前端";
-		public static final String ENTERPRISE = "架构设计";
-		public static final String CODE = "编程语言";
-		public static final String WWW = "互联网";
-		public static final String DATABASE = "数据库";
-		public static final String SYSTEM = "系统运维";
-		public static final String CLOUD = "云计算";
-		public static final String SOFTWARE = "研发管理";
+		static final String WEB = "WEB前端";
+		static final String ENTERPRISE = "架构设计";
+		static final String CODE = "编程语言";
+		static final String WWW = "互联网";
+		static final String DATABASE = "数据库";
+		static final String SYSTEM = "系统运维";
+		static final String CLOUD = "云计算";
+		static final String SOFTWARE = "研发管理";
 	}
 
 	/**
@@ -35,56 +35,56 @@ public class CategoryManager {
 	 *
 	 */
 
-	public class CategoryUrl {
+	class CategoryUrl {
 		/**
 		 * Android
 		 */
-		public final static String ANDROID = "http://blog.csdn.net/mobile/experts.html";
+		final static String ANDROID = "http://blog.csdn.net/mobile/experts.html";
 
 		/**
 		 * 移动开发
 		 */
-		public final static String MOBILE = "http://blog.csdn.net/mobile/experts.html";
+		final static String MOBILE = "http://blog.csdn.net/mobile/experts.html";
 
 		/**
 		 * WEB前端
 		 */
-		public final static String WEB = "http://blog.csdn.net/web/experts.html";
+		final static String WEB = "http://blog.csdn.net/web/experts.html";
 
 		/**
 		 * 架构设计
 		 */
-		public final static String ENTERPRISE = "http://blog.csdn.net/enterprise/experts.html";
+		final static String ENTERPRISE = "http://blog.csdn.net/enterprise/experts.html";
 
 		/**
 		 * 编程语言
 		 */
-		public final static String CODE = "http://blog.csdn.net/code/experts.html";
+		final static String CODE = "http://blog.csdn.net/code/experts.html";
 
 		/**
 		 * 互联网
 		 */
-		public final static String WWW = "http://blog.csdn.net/www/experts.html";
+		final static String WWW = "http://blog.csdn.net/www/experts.html";
 
 		/**
 		 * 数据库
 		 */
-		public final static String DATABASE = "http://blog.csdn.net/database/experts.html";
+		final static String DATABASE = "http://blog.csdn.net/database/experts.html";
 
 		/**
 		 * 系统运维
 		 */
-		public final static String SYSTEM = "http://blog.csdn.net/system/experts.html";
+		final static String SYSTEM = "http://blog.csdn.net/system/experts.html";
 
 		/**
 		 * 云计算
 		 */
-		public final static String CLOUD = "http://blog.csdn.net/cloud/experts.html";
+		final static String CLOUD = "http://blog.csdn.net/cloud/experts.html";
 
 		/**
 		 * 研发管理
 		 */
-		public final static String SOFTWARE = "http://blog.csdn.net/software/experts.html";
+		final static String SOFTWARE = "http://blog.csdn.net/software/experts.html";
 	}
 
 }

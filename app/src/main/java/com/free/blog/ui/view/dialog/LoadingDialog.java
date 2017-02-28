@@ -36,19 +36,4 @@ public class LoadingDialog extends ProgressDialog {
 		TextView messageView = (TextView) findViewById(R.id.tv_loading_dialog);
 		messageView.setText(mMessage);
 	}
-
-	/**
-	 * 显示在底部
-	 */
-	public void showButtom() {
-		// WindowManager windowManager = ((Activity)
-		// mContext).getWindowManager();
-		// Display display = windowManager.getDefaultDisplay();
-		//
-		// WindowManager.LayoutParams lp = getWindow().getAttributes();
-		// lp.width = (int) (display.getWidth() * 0.8);
-		// getWindow().setAttributes(lp);
-		// super.show();
-	}
-
 }

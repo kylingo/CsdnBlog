@@ -54,7 +54,7 @@ public class BloggerListAdapter extends BaseAdapter {
 
 	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
+		ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_blogger, null);
 			holder = new ViewHolder();
@@ -73,7 +73,7 @@ public class BloggerListAdapter extends BaseAdapter {
 			holder.imvBlogger.setImageResource(R.drawable.ic_default);
 		}
 		if (getItem(position).getIsTop() == 1) {
-			holder.tvBlogTitle.setText(getItem(position).getTitle() + "\b[顶]");
+			holder.tvBlogTitle.setText(String.format("%s\b[顶]", getItem(position).getTitle()));
 			holder.tvBlogTitle.setTextColor(context.getResources().getColor(R.color.blue_text));
 		} else {
 			holder.tvBlogTitle.setText(getItem(position).getTitle());
@@ -90,7 +90,7 @@ public class BloggerListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	static class ViewHolder {
+	private static class ViewHolder {
 		CircleImageView imvBlogger;
 		TextView tvBlogTitle, tvBlogDesc;
 	}

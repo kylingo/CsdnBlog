@@ -52,7 +52,7 @@ public class DrawerAdapter extends BaseAdapter {
 
 	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
+		ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_drawer, null);
 			holder = new ViewHolder();
@@ -83,12 +83,13 @@ public class DrawerAdapter extends BaseAdapter {
 		this.selection = selection;
 		notifyDataSetChanged();
 	}
-	
+
+	@SuppressWarnings("unused")
 	public int getSelectionPosition(){
 		return this.selection;
 	}
 
-	static class ViewHolder {
+	private static class ViewHolder {
 		LinearLayout llDrawer;
 		ImageView imvDrawer;
 		TextView tvDrawer;

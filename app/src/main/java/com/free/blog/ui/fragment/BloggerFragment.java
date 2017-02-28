@@ -27,8 +27,8 @@ import com.free.blog.domain.config.CategoryManager;
 import com.free.blog.domain.config.ExtraString;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
-import com.free.blog.domain.util.DateUtil;
-import com.free.blog.domain.util.JsoupUtil;
+import com.free.blog.domain.util.DateUtils;
+import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.SpfUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.model.BloggerDao;
@@ -63,12 +63,11 @@ public class BloggerFragment extends BaseFragment
     private XListView mListView;
     private List<Blogger> mBloggerList;
     private BloggerListAdapter mAdapter;
-    private ProgressDialog mProgressdialog;
+    private ProgressDialog mProgressDialog;
 
     private HashMap<String, String> mAddBloggerItem = null;
     private BloggerDao mBloggerDao = null;
     private String mNewUserId = null;
-    private String mCategory = CategoryManager.CategoryName.MOBILE;// 这个属性暂未使用
     private String mType = CategoryManager.CategoryName.ANDROID;
 
     private static final int MSG_ADD_SUCCESS = 1000;
@@ -117,7 +116,7 @@ public class BloggerFragment extends BaseFragment
             mListView.setPullLoadEnable(this);// 设置可上拉加载
         }
         mListView.NotRefreshAtBegin();
-        mListView.setRefreshTime(DateUtil.getDate());
+        mListView.setRefreshTime(DateUtils.getDate());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
@@ -148,10 +147,7 @@ public class BloggerFragment extends BaseFragment
 
     /**
      * 设置菜单添加图标有效
-     *
-     * @param menu
-     * @param enable
-     * @说明 enable为true时，菜单添加图标有效，enable为false时无效。4.0系统默认无效
+     * enable为true时，菜单添加图标有效，enable为false时无效。4.0系统默认无效
      */
     private void setIconEnable(Menu menu, boolean enable) {
         try {
@@ -169,7 +165,7 @@ public class BloggerFragment extends BaseFragment
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_menu:
                 showCenterAddDialog();
                 break;
@@ -192,7 +188,7 @@ public class BloggerFragment extends BaseFragment
 
             @Override
             public void onDelete(String result) {
-                deleleBlogger(blogger);
+                deleteBlogger(blogger);
             }
         });
 
@@ -236,9 +232,9 @@ public class BloggerFragment extends BaseFragment
                 }
 
                 mNewUserId = result;
-                mProgressdialog = new LoadingDialog(getActivity(), "正在添加博客...");
-                mProgressdialog.setCancelable(false);
-                mProgressdialog.show();
+                mProgressDialog = new LoadingDialog(getActivity(), "正在添加博客...");
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
                 mHandler.sendEmptyMessageDelayed(MSG_ADD_BLOG, 1000);
             }
 
@@ -249,8 +245,6 @@ public class BloggerFragment extends BaseFragment
 
     /**
      * 请求博主数据
-     *
-     * @param result
      */
     private void requestData(String result) {
         HttpAsyncTask httpAsyncTask = new HttpAsyncTask(getActivity());
@@ -261,7 +255,7 @@ public class BloggerFragment extends BaseFragment
                 if (TextUtils.isEmpty(resultString)) {
                     mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
                 } else {
-                    mAddBloggerItem = JsoupUtil.getBloggerItem(resultString);
+                    mAddBloggerItem = JsoupUtils.getBloggerItem(resultString);
                     mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
                 }
             }
@@ -279,6 +273,7 @@ public class BloggerFragment extends BaseFragment
         blogger.setImgUrl(mAddBloggerItem.get("imgUrl"));
         blogger.setLink(AppConstants.CSDN_BASE_URL + mNewUserId);
         blogger.setType(mType);
+        String mCategory = CategoryManager.CategoryName.MOBILE;
         blogger.setCategory(mCategory);
         blogger.setIsTop(0);
         blogger.setIsNew(1);
@@ -291,8 +286,6 @@ public class BloggerFragment extends BaseFragment
 
     /**
      * 置顶博主
-     *
-     * @param blogger
      */
     private void stickBlogger(Blogger blogger) {
         if (blogger.getIsTop() == 1) {
@@ -312,10 +305,8 @@ public class BloggerFragment extends BaseFragment
 
     /**
      * 删除博主
-     *
-     * @param blogger
      */
-    private void deleleBlogger(Blogger blogger) {
+    private void deleteBlogger(Blogger blogger) {
         mBloggerDao.delete(blogger);
 
         mBloggerList = mBloggerDao.queryAll();
@@ -327,9 +318,9 @@ public class BloggerFragment extends BaseFragment
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what != MSG_ADD_BLOG && mProgressdialog != null && mProgressdialog.isShowing
+            if (msg.what != MSG_ADD_BLOG && mProgressDialog != null && mProgressDialog.isShowing
                     ()) {
-                mProgressdialog.dismiss();
+                mProgressDialog.dismiss();
             }
 
             switch (msg.what) {
@@ -380,7 +371,7 @@ public class BloggerFragment extends BaseFragment
 
             @Override
             public void run() {
-                mListView.stopRefresh(DateUtil.getDate());
+                mListView.stopRefresh(DateUtils.getDate());
             }
         }, 1000);
     }

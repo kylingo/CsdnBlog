@@ -17,10 +17,10 @@ import com.free.blog.domain.bean.CommentComparator;
 import com.free.blog.domain.config.AppConstants;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
-import com.free.blog.domain.util.DateUtil;
-import com.free.blog.domain.util.JsoupUtil;
+import com.free.blog.domain.util.DateUtils;
+import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.ToastUtil;
-import com.free.blog.domain.util.URLUtil;
+import com.free.blog.domain.util.UrlUtils;
 import com.free.blog.model.BlogCommentDao;
 import com.free.blog.model.DaoFactory;
 import com.free.blog.ui.adapter.CommentAdapter;
@@ -44,14 +44,12 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 	private XListView mListView;
 	private CommentAdapter mAdapter;
 	private ImageView mReLoadImageView;
-	private ImageView mBtnBack;
 	private TextView mTvComment;
 	private ProgressBar mPbLoading;
 
 	private HttpAsyncTask mAsyncTask;
 	private String mFileName;
 	private int mPage = 1;
-	private int mPageSize = 20;
 	private BlogCommentDao mBlogCommentDao;
 
 	@Override
@@ -84,8 +82,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 			}
 		});
 
-		mBtnBack = (ImageView) findViewById(R.id.btn_back);
-		mBtnBack.setOnClickListener(new OnClickListener() {
+		findViewById(R.id.btn_back).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -127,7 +124,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 		}
 
 		mAsyncTask = new HttpAsyncTask(this);
-		String url = URLUtil.getCommentListURL(mFileName, String.valueOf(page));
+		String url = UrlUtils.getCommentListURL(mFileName, String.valueOf(page));
 		mAsyncTask.execute(url);
 		mAsyncTask.setOnResponseListener(onResponseListener);
 	}
@@ -138,17 +135,17 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 		public void onResponse(String resultString) {
 			// 解析html页面获取列表
 			if (resultString != null) {
-				List<Comment> list = JsoupUtil.getBlogCommentList(resultString, mPage, mPageSize);
+				List<Comment> list = JsoupUtils.getBlogCommentList(resultString, mPage, mPageSize);
 				CommentComparator comparator = new CommentComparator();
 				Collections.sort(list, comparator);
 				if (mPage == 1) {
-					mAdapter.setList(list);
+					mAdapter.setData(list);
 				} else {
 					mAdapter.addList(list);
 				}
 				mAdapter.notifyDataSetChanged();
 				mListView.setPullLoadEnable(BlogCommentActivity.this);// 设置可上拉加载
-				mTvComment.setText(mAdapter.getCount() + "条");
+				mTvComment.setText(String.format("%s条", String.valueOf(mAdapter.getCount())));
 				saveDB(list);
 
 			} else {
@@ -158,15 +155,13 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 
 			mPbLoading.setVisibility(View.GONE);
 			mReLoadImageView.setVisibility(View.GONE);
-			mListView.stopRefresh(DateUtil.getDate());
+			mListView.stopRefresh(DateUtils.getDate());
 			mListView.stopLoadMore();
 		}
 	};
 
 	/**
 	 * 保存数据库
-	 * 
-	 * @param list
 	 */
 	private void saveDB(final List<Comment> list) {
 
@@ -181,19 +176,20 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 
 	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
+		@SuppressLint("DefaultLocale")
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case AppConstants.MSG_PRELOAD_DATA:
-				mListView.setRefreshTime(DateUtil.getDate());
+				mListView.setRefreshTime(DateUtils.getDate());
 				List<Comment> list = mBlogCommentDao.query(mPage);
 
 				if (list != null) {
-					mAdapter.setList(list);
+					mAdapter.setData(list);
 					mAdapter.notifyDataSetChanged();
 					mListView.setPullLoadEnable(BlogCommentActivity.this);
-					mListView.setRefreshTime(DateUtil.getDate());
-					mTvComment.setText(mAdapter.getCount() + "条");
+					mListView.setRefreshTime(DateUtils.getDate());
+					mTvComment.setText(String.format("%d条", mAdapter.getCount()));
 				} else {
 					// 不请求最新数据，让用户自己刷新或者加载
 					mPbLoading.setVisibility(View.VISIBLE);

@@ -35,6 +35,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 		this.db = DbUtils.create(context, CacheManager.getChannelBloggerDbPath(context), channel.getChannelName());
 	}
 
+	@Override
 	public void insert(Blogger blogger) {
 		try {
 			Blogger findItem = db.findFirst(Selector.from(Blogger.class).where("userId", "=", blogger.getUserId()));
@@ -49,6 +50,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 		}
 	}
 
+	@Override
 	public void insert(List<Blogger> list) {
 		try {
 			db.saveOrUpdateAll(list);
@@ -58,6 +60,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 		}
 	}
 
+	@Override
 	public Blogger query(String userId) {
 		try {
 			return db.findFirst(Selector.from(Blogger.class).where("userId", "=", userId));
@@ -68,6 +71,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 		return null;
 	}
 
+	@Override
 	public List<Blogger> queryAll() {
 		try {
 			// // 最新的排最前面
@@ -96,8 +100,9 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 		return null;
 	}
 
+	@Override
 	public List<Blogger> query(int pageIndex, int pageSize) {
-		List<Blogger> list = null;
+		List<Blogger> list;
 		try {
 			list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true).limit(pageSize).offset(pageIndex * pageSize));
 			return list;
@@ -106,9 +111,10 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 			e.printStackTrace();
 		}
 
-		return list;
+		return null;
 	}
 
+	@Override
 	public void delete(Blogger blogger) {
 		try {
 			db.delete(blogger);
@@ -118,6 +124,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 		}
 	}
 
+	@Override
 	public void deleteAll(List<Blogger> list) {
 		try {
 			db.delete(list);

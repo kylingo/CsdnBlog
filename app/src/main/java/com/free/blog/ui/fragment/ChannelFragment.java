@@ -16,7 +16,7 @@ import com.free.blog.domain.bean.Channel;
 import com.free.blog.domain.config.CategoryManager;
 import com.free.blog.domain.config.ChannelManager;
 import com.free.blog.domain.config.ExtraString;
-import com.free.blog.domain.util.DateUtil;
+import com.free.blog.domain.util.DateUtils;
 import com.free.blog.domain.util.SpfUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.ui.activity.ChannelDetailActivity;
@@ -64,14 +64,14 @@ public class ChannelFragment extends BaseFragment
         TextView mTitleView = (TextView) view.findViewById(R.id.tv_title);
         mTitleView.setText(R.string.change_type);
 
-        ChannelManager channelManager = new ChannelManager(getActivity());
+        ChannelManager channelManager = new ChannelManager();
         List<Channel> list = channelManager.getChannelList();
         mListView = (XListView) view.findViewById(R.id.listView);
         mAdapter = new ChannelListAdapter(getActivity(), list);
 //        mListView.setPullRefreshEnable(this);// 设置可下拉刷新
 //        mListView.setPullLoadEnable(this);
         mListView.NotRefreshAtBegin();
-        mListView.setRefreshTime(DateUtil.getDate());
+        mListView.setRefreshTime(DateUtils.getDate());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
@@ -96,7 +96,7 @@ public class ChannelFragment extends BaseFragment
 
             @Override
             public void run() {
-                mListView.stopRefresh(DateUtil.getDate());
+                mListView.stopRefresh(DateUtils.getDate());
                 ToastUtil.showCenter(getActivity(), getActivity().getString(R.string
                         .refresh_complete));
             }

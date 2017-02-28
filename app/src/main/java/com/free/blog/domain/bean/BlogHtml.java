@@ -8,7 +8,7 @@ import com.lidroid.xutils.db.annotation.Column;
  * @author tangqi
  * @since 2015年8月6日下午11:28:30
  */
-
+@SuppressWarnings("unused")
 public class BlogHtml extends BaseEntity {
 
 	private static final long serialVersionUID = -590113455366277508L;
@@ -25,7 +25,7 @@ public class BlogHtml extends BaseEntity {
 	@Column(column = "updateTime")
 	private long updateTime; // 更新时间 
 
-	@Column(column = "")
+	@Column(column = "reserve")
 	private String reserve; // 保留
 
 	public String getUrl() {

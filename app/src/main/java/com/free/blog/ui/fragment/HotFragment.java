@@ -1,4 +1,3 @@
-/** Copyright © 2015-2020 100msh.com All Rights Reserved */
 package com.free.blog.ui.fragment;
 
 import android.content.Intent;
@@ -15,7 +14,7 @@ import com.free.blog.R;
 import com.free.blog.domain.bean.Channel;
 import com.free.blog.domain.config.ChannelManager;
 import com.free.blog.domain.config.ExtraString;
-import com.free.blog.domain.util.DateUtil;
+import com.free.blog.domain.util.DateUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.ui.activity.HotListActivity;
 import com.free.blog.ui.adapter.ChannelListAdapter;
@@ -30,14 +29,13 @@ import me.maxwin.view.XListView;
  * 热门文章
  * 
  * @author Frank
- * @date 2015年9月29日下午2:36:45
+ * @since 2015年9月29日下午2:36:45
  */
 
 public class HotFragment extends BaseFragment implements OnItemClickListener, IXListViewRefreshListener, IXListViewLoadMore {
 
 	private View rootView;
 	private XListView mListView;
-	private ChannelListAdapter mAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,16 +57,16 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 		mTitleView.setText(R.string.hot_blog);
 
 		// 获取频道列表去掉第1个（Android）
-		ChannelManager channelManager = new ChannelManager(getActivity());
+		ChannelManager channelManager = new ChannelManager();
 		List<Channel> list = channelManager.getChannelList();
 		list.remove(0);
 		
 		mListView = (XListView) view.findViewById(R.id.listView);
-		mAdapter = new ChannelListAdapter(getActivity(), list);
+		ChannelListAdapter mAdapter = new ChannelListAdapter(getActivity(), list);
 //		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
 //		mListView.setPullLoadEnable(this);
 		mListView.NotRefreshAtBegin();
-		mListView.setRefreshTime(DateUtil.getDate());
+		mListView.setRefreshTime(DateUtils.getDate());
 		mListView.setAdapter(mAdapter);
 		mListView.setOnItemClickListener(this);
 	}
@@ -79,7 +77,7 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 
 			@Override
 			public void run() {
-				mListView.stopRefresh(DateUtil.getDate());
+				mListView.stopRefresh(DateUtils.getDate());
 				ToastUtil.showCenter(getActivity(), getActivity().getString(R.string
 						.refresh_complete));
 			}

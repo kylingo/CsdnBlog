@@ -11,46 +11,45 @@ import android.content.Context;
 
 public class BaseDialog extends Dialog {
 
+	@SuppressWarnings("unused")
 	public BaseDialog(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 
 	public BaseDialog(Context context, int theme) {
 		super(context, theme);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * 监听确定
 	 */
-	public abstract interface OnConfirmListener {
+	public interface OnConfirmListener {
 
-		public abstract void onConfirm(String result);
+		void onConfirm(String result);
 	}
 
 	/**
 	 * 监听取消
 	 */
-	public abstract interface OnCancleListener {
+	public interface OnCancelListener {
 
-		public abstract void onCancle(String result);
+		void onCancel(String result);
 	}
 	
 	/**
 	 * 监听删除
 	 */
-	public abstract interface OnDeleteListener {
+	public interface OnDeleteListener {
 
-		public abstract void onDelete(String result);
+		void onDelete(String result);
 	}
 
 	/**
 	 * 监听置顶
 	 */
-	public abstract interface OnStickListener {
+	public interface OnStickListener {
 
-		public abstract void onStick(String result);
+		void onStick(String result);
 	}
 
 }

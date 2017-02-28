@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.util.VersionUtil;
+import com.free.blog.domain.util.VersionUtils;
 
 /**
  * 闪屏页面
@@ -18,9 +18,7 @@ import com.free.blog.domain.util.VersionUtil;
  * @since 2015年8月15日下午10:10:51
  */
 public class SplashActivity extends BaseActivity {
-	private TextView mTvVersion;
 	private RelativeLayout mRvSplash;
-	private ImageView mIvLogo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +32,13 @@ public class SplashActivity extends BaseActivity {
 	 * 初始化
 	 */
 	private void initView() {
-		mIvLogo = (ImageView) findViewById(R.id.iv_logo);
-		mTvVersion = (TextView) findViewById(R.id.tv_version);
+		ImageView mIvLogo = (ImageView) findViewById(R.id.iv_logo);
+		TextView mTvVersion = (TextView) findViewById(R.id.tv_version);
 		mRvSplash = (RelativeLayout) findViewById(R.id.rl_splash);
 
 		mIvLogo.setImageResource(R.drawable.ic_launcher);
-		String str = VersionUtil.getVersionName(this);
-		mTvVersion.setText(getString(R.string.app_version) + str);
+		String str = VersionUtils.getVersionName(this);
+		mTvVersion.setText(String.format("%s%s", getString(R.string.app_version), str));
 	}
 
 	/**

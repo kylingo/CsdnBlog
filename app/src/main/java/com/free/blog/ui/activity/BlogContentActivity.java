@@ -26,12 +26,11 @@ import com.free.blog.domain.bean.BlogHtml;
 import com.free.blog.domain.bean.BlogItem;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
-import com.free.blog.domain.util.JsoupUtil;
+import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.model.BlogCollectDao;
 import com.free.blog.model.BlogContentDao;
 import com.free.blog.model.DaoFactory;
-import com.free.blog.model.impl.BlogContentDaoImpl;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -53,11 +52,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	private WebView mWebView = null;
 	private ProgressBar mProgressBar; // 进度条
 	private ImageView mReLoadImageView; // 重新加载的图片
-	private ImageView mBackBtn; // 回退按钮
-	private ImageView mCommemtBtn;
-	private ImageView mShareBtn;
-	private ImageView mMoreBtn;
-	private ToggleButton mCollectBtn;
 
 	private BlogCollectDao mBlogCollectDao;
 	private BlogItem mBlogItem;
@@ -103,12 +97,12 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 		mProgressBar = (ProgressBar) findViewById(R.id.blogContentPro);
 		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
-		mBackBtn = (ImageView) findViewById(R.id.btn_back);
+		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setVisibility(View.VISIBLE);
-		mCommemtBtn = (ImageView) findViewById(R.id.iv_comment);
-		mShareBtn = (ImageView) findViewById(R.id.iv_share);
-		mMoreBtn = (ImageView) findViewById(R.id.iv_more);
-		mCollectBtn = (ToggleButton) findViewById(R.id.tb_collect);
+		ImageView mCommemtBtn = (ImageView) findViewById(R.id.iv_comment);
+		ImageView mShareBtn = (ImageView) findViewById(R.id.iv_share);
+		ImageView mMoreBtn = (ImageView) findViewById(R.id.iv_more);
+		ToggleButton mCollectBtn = (ToggleButton) findViewById(R.id.tb_collect);
 
 		mReLoadImageView.setOnClickListener(this);
 		mBackBtn.setOnClickListener(this);
@@ -195,15 +189,10 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	}
 
 	/**
-	 * 判断是否收藏
-	 * 
-	 * @return
+	 * 是否收藏
 	 */
 	private boolean isCollect() {
-		if (null != mBlogCollectDao.query(mBlogItem.getLink())) {
-			return true;
-		}
-		return false;
+		return null != mBlogCollectDao.query(mBlogItem.getLink());
 	}
 
 	/**
@@ -236,10 +225,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	/**
 	 * 处理WebView返回
-	 * 
-	 * @param keyCode
-	 * @param event
-	 * @return
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -273,8 +258,8 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	 */
 	@Override
 	public void onResponse(String resultString) {
-		mTitle = JsoupUtil.getTitle(resultString);
-		String content = JsoupUtil.getContent(resultString);
+		mTitle = JsoupUtils.getTitle(resultString);
+		String content = JsoupUtils.getContent(resultString);
 		String html = adjustPicSize(content);
 		loadHtml(html);
 		saveDb(html);
@@ -282,8 +267,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	/**
 	 * 加载页面
-	 * 
-	 * @param html
 	 */
 	private void loadHtml(String html) {
 		if (!TextUtils.isEmpty(html)) {
@@ -298,8 +281,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 
 	/**
 	 * 保存数据库
-	 * 
-	 * @param html
 	 */
 	private void saveDb(String html) {
 		if (TextUtils.isEmpty(html)) {
@@ -312,15 +293,12 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		blogHtml.setUpdateTime(System.currentTimeMillis());
 		blogHtml.setReserve("");
 
-		BlogContentDao blogContentDb = new BlogContentDaoImpl(this, mUrl);
+		BlogContentDao blogContentDb = DaoFactory.getInstance().getBlogContentDao(this, mUrl);
 		blogContentDb.insert(blogHtml);
 	}
 
 	/**
 	 * 适应页面
-	 * 
-	 * @param paramString
-	 * @return
 	 */
 	private String adjustPicSize(String paramString) {
 		if (TextUtils.isEmpty(paramString)) {
@@ -337,7 +315,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	}
 
 	private void getData(String url) {
-		BlogContentDao blogContentDb = new BlogContentDaoImpl(this, url);
+		BlogContentDao blogContentDb = DaoFactory.getInstance().getBlogContentDao(this, url);
 		BlogHtml blogHtml = blogContentDb.query(url);
 		if (blogHtml != null) {
 			mTitle = blogHtml.getTitle();

@@ -52,7 +52,7 @@ public class ChannelListAdapter extends BaseAdapter {
 
 	@SuppressLint("InflateParams")
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
+		ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.listitem_channel, null);
 			holder = new ViewHolder();
@@ -82,7 +82,7 @@ public class ChannelListAdapter extends BaseAdapter {
 		notifyDataSetChanged();
 	}
 
-	static class ViewHolder {
+	private static class ViewHolder {
 		ImageView imvChannel, imvChecked;
 		TextView tvChannel;
 	}

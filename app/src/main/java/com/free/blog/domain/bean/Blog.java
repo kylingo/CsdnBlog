@@ -3,6 +3,7 @@ package com.free.blog.domain.bean;
 import com.lidroid.xutils.db.annotation.Column;
 
 @Deprecated
+@SuppressWarnings("unused")
 public class Blog extends BaseEntity{
 	private static final long serialVersionUID = -8366599113596257949L;
 

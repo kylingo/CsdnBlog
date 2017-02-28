@@ -8,6 +8,7 @@ import com.lidroid.xutils.db.annotation.Column;
  * @author tangqi
  * @since 2015年8月6日下午10:28:30
  */
+@SuppressWarnings("unused")
 public class BlogItem extends BaseEntity {
 
 	private static final long serialVersionUID = 3348273811892710379L;

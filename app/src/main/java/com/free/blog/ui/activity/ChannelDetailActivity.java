@@ -1,6 +1,3 @@
-/**
- * Copyright © 2015-2020 100msh.com All Rights Reserved
- */
 package com.free.blog.ui.activity;
 
 import android.content.Intent;
@@ -19,8 +16,8 @@ import com.free.blog.domain.bean.Channel;
 import com.free.blog.domain.config.ExtraString;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
-import com.free.blog.domain.util.DateUtil;
-import com.free.blog.domain.util.JsoupUtil;
+import com.free.blog.domain.util.DateUtils;
+import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.SpfUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.model.BloggerDao;
@@ -40,7 +37,7 @@ import me.maxwin.view.XListView;
  * 频道详情
  *
  * @author Frank
- * @date 2015年9月18日下午5:27:58
+ * @since 2015年9月18日下午5:27:58
  */
 
 public class ChannelDetailActivity extends BaseActivity
@@ -48,7 +45,6 @@ public class ChannelDetailActivity extends BaseActivity
 
     private XListView mListView;
 
-    private List<Blogger> mBloggerList;
     private BloggerListAdapter mAdapter;
     private BloggerDao mBloggerDao;
     private Channel mChannel;
@@ -82,11 +78,11 @@ public class ChannelDetailActivity extends BaseActivity
         mMenuBtn.setOnClickListener(this);
 
         mListView = (XListView) findViewById(R.id.listView);
-        mBloggerList = new ArrayList<Blogger>();
+        List<Blogger> mBloggerList = new ArrayList<Blogger>();
         mAdapter = new BloggerListAdapter(this, mBloggerList);
         mListView.setPullRefreshEnable(this);
         mListView.NotRefreshAtBegin();
-        mListView.setRefreshTime(DateUtil.getDate());
+        mListView.setRefreshTime(DateUtils.getDate());
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
@@ -141,7 +137,7 @@ public class ChannelDetailActivity extends BaseActivity
 
             @Override
             public void onDelete(String result) {
-                deleleBlogger(blogger);
+                deleteBlogger(blogger);
             }
         });
 
@@ -158,8 +154,6 @@ public class ChannelDetailActivity extends BaseActivity
 
     /**
      * 查询数据库
-     *
-     * @param isRequest
      */
     private void queryDb(final boolean isRequest) {
         new Thread(new Runnable() {
@@ -199,7 +193,7 @@ public class ChannelDetailActivity extends BaseActivity
                 @Override
                 public void onResponse(String resultString) {
                     if (resultString != null) {
-                        List<Blogger> bloggerList = JsoupUtil.getBloggerList(mChannel
+                        List<Blogger> bloggerList = JsoupUtils.getBloggerList(mChannel
                                 .getChannelName(), resultString);
                         if (bloggerList != null) {
                             mAdapter.setList(bloggerList);
@@ -219,13 +213,11 @@ public class ChannelDetailActivity extends BaseActivity
      * 更新ListView的刷新、加载状态
      */
     protected void updateListView() {
-        mListView.stopRefresh(DateUtil.getDate());
+        mListView.stopRefresh(DateUtils.getDate());
     }
 
     /**
      * 保存数据库
-     *
-     * @param list
      */
     private void saveDB(final List<Blogger> list) {
 
@@ -241,8 +233,6 @@ public class ChannelDetailActivity extends BaseActivity
 
     /**
      * 置顶博主
-     *
-     * @param blogger
      */
     private void stickBlogger(Blogger blogger) {
         if (blogger.getIsTop() == 1) {
@@ -260,10 +250,8 @@ public class ChannelDetailActivity extends BaseActivity
 
     /**
      * 删除博主
-     *
-     * @param blogger
      */
-    private void deleleBlogger(Blogger blogger) {
+    private void deleteBlogger(Blogger blogger) {
         if (blogger != null) {
             ToastUtil.show(this, "删除成功");
             mBloggerDao.delete(blogger);
@@ -288,11 +276,11 @@ public class ChannelDetailActivity extends BaseActivity
             }
         });
 
-        dialog.setOnCancleistener(new BaseDialog.OnCancleListener() {
+        dialog.setOnCancelListener(new BaseDialog.OnCancelListener() {
 
             @Override
-            public void onCancle(String result) {
-                mListView.stopRefresh(DateUtil.getDate());
+            public void onCancel(String result) {
+                mListView.stopRefresh(DateUtils.getDate());
             }
         });
 

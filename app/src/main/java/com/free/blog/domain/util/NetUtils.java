@@ -22,9 +22,9 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 @SuppressLint("DefaultLocale")
-public class NetUtil {
+public class NetUtils {
 	private static final String TAG = "MobileUtils";
-	public static final String DEFAULT_WIFI_ADDRESS = "00-00-00-00-00-00";
+	private static final String DEFAULT_WIFI_ADDRESS = "00-00-00-00-00-00";
 	public static final String WIFI = "Wi-Fi";
 	public static final String TWO_OR_THREE_G = "2G/3G";
 	public static final String UNKNOWN = "Unknown";
@@ -37,7 +37,6 @@ public class NetUtil {
 	/***
 	 * 获取当前网络类型
 	 * 
-	 * @param pContext
 	 * @return type[0] WIFI , TWO_OR_THREE_G , UNKNOWN type[0] SubtypeName
 	 */
 	public static String[] getNetworkState(Context pContext) {
@@ -208,7 +207,7 @@ public class NetUtil {
 		String imsi = getIMSI(context);
 		if (imsi != null) {
 			// 因为移动网络编号46000下的IMSI已经用完,�?��虚拟了一�?6002编号�?34/159号段使用了此编号
-			LogUtil.log("imsi", Log.INFO, imsi);
+			LogUtils.log("imsi", Log.INFO, imsi);
 			if (imsi.startsWith("46000") || imsi.startsWith("46002") || imsi.startsWith("46007")) {
 				return ProviderName.chinaMobile;
 			} else if (imsi.startsWith("46001")) {
@@ -270,19 +269,19 @@ public class NetUtil {
 		WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		List<ScanResult> wifiResults = wifiManager.getScanResults();
 		for (ScanResult wifi : wifiResults) {
-			LogUtil.log(TAG, Log.DEBUG, wifi.toString());
+			LogUtils.log(TAG, Log.DEBUG, wifi.toString());
 		}
 
 		TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-		LogUtil.log(TAG, Log.DEBUG, TelephonyManager.PHONE_TYPE_GSM + "----" + tm.getPhoneType());
+		LogUtils.log(TAG, Log.DEBUG, TelephonyManager.PHONE_TYPE_GSM + "----" + tm.getPhoneType());
 		List<NeighboringCellInfo> cellResults = tm.getNeighboringCellInfo();
 		for (NeighboringCellInfo cell : cellResults) {
-			LogUtil.log(TAG, Log.DEBUG, cell.getCid() + "-" + cell.getLac() + "-" + cell.getRssi() + "-" + cell.getPsc()
+			LogUtils.log(TAG, Log.DEBUG, cell.getCid() + "-" + cell.getLac() + "-" + cell.getRssi() + "-" + cell.getPsc()
 					+ "-" + cell.getNetworkType());
 		}
 
-		LogUtil.log(TAG, Log.DEBUG, getProviderName(context).getText());
+		LogUtils.log(TAG, Log.DEBUG, getProviderName(context).getText());
 	}
 
 	public static boolean isNetworkProvider(Context context) {

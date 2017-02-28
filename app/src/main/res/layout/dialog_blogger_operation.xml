@@ -30,7 +30,7 @@
         android:background="@color/line" />
 
     <TextView
-        android:id="@+id/tv_cacle_operate"
+        android:id="@+id/tv_cancel_operate"
         style="@style/TextView_Dialog_Blogger_Operation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

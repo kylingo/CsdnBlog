@@ -26,50 +26,48 @@ import java.util.List;
  * @since 2015年8月9日下午4:01:25
  */
 public class CommentAdapter extends BaseAdapter {
-	private ViewHolder holder;
-	private LayoutInflater layoutInflater;
-	private Context context;
-	private List<Comment> list;
+	private LayoutInflater mLayoutInflater;
+	private List<Comment> mData;
 
-	private String replyText;
-
-	public CommentAdapter(Context c) {
+	public CommentAdapter(Context context) {
 		super();
-		this.context = c;
-		layoutInflater = (LayoutInflater) LayoutInflater.from(this.context);
-		list = new ArrayList<Comment>();
+		mLayoutInflater = LayoutInflater.from(context);
+		mData = new ArrayList<Comment>();
 	}
 
-	public void setList(List<Comment> list) {
-		this.list = list;
+	public void setData(List<Comment> data) {
+		this.mData = data;
 	}
 
 	public void addList(List<Comment> list) {
-		this.list.addAll(list);
+		this.mData.addAll(list);
 	}
 
+	@SuppressWarnings("unused")
 	public void clearList() {
-		this.list.clear();
+		this.mData.clear();
 	}
 
-	public List<Comment> getList() {
-		return list;
+	@SuppressWarnings("unused")
+	public List<Comment> getmData() {
+		return mData;
 	}
 
+	@SuppressWarnings("unused")
 	public void removeItem(int position) {
-		if (list.size() > 0) {
-			list.remove(position);
+		if (mData.size() > 0) {
+			mData.remove(position);
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return list.size();
+		return mData.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return list.get(position);
+		return mData.get(position);
 	}
 
 	@Override
@@ -80,12 +78,13 @@ public class CommentAdapter extends BaseAdapter {
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Comment item = list.get(position); // 获取评论项
+		Comment item = mData.get(position); // 获取评论项
+		ViewHolder holder;
 		if (null == convertView) {
 			holder = new ViewHolder();
 			switch (item.getType()) {
 			case AppConstants.DEF_COMMENT_TYPE.PARENT: // 父项
-				convertView = layoutInflater.inflate(R.layout.listitem_comment, null);
+				convertView = mLayoutInflater.inflate(R.layout.listitem_comment, null);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.content = (TextView) convertView.findViewById(R.id.content);
 				holder.date = (TextView) convertView.findViewById(R.id.date);
@@ -95,13 +94,16 @@ public class CommentAdapter extends BaseAdapter {
 
 				break;
 			case AppConstants.DEF_COMMENT_TYPE.CHILD: // 子项
-				convertView = layoutInflater.inflate(R.layout.listitem_comment_child, null);
+				convertView = mLayoutInflater.inflate(R.layout.listitem_comment_child, null);
 				holder.name = (TextView) convertView.findViewById(R.id.name);
 				holder.content = (TextView) convertView.findViewById(R.id.content);
 				holder.date = (TextView) convertView.findViewById(R.id.date);
 				break;
 			}
-			convertView.setTag(holder);
+
+			if (convertView != null) {
+				convertView.setTag(holder);
+			}
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
@@ -118,7 +120,7 @@ public class CommentAdapter extends BaseAdapter {
 				break;
 			case AppConstants.DEF_COMMENT_TYPE.CHILD:
 				holder.name.setText(item.getUsername());
-				replyText = item.getContent().replace("[reply]", "【");
+				String replyText = item.getContent().replace("[reply]", "【");
 				replyText = replyText.replace("[/reply]", "】");
 				holder.content.setText(Html.fromHtml(replyText));
 				holder.date.setText(item.getPostTime());
@@ -137,7 +139,7 @@ public class CommentAdapter extends BaseAdapter {
 
 	@Override
 	public int getItemViewType(int position) {
-		switch (list.get(position).getType()) {
+		switch (mData.get(position).getType()) {
 		case AppConstants.DEF_COMMENT_TYPE.PARENT:
 			return 0;
 		case AppConstants.DEF_COMMENT_TYPE.CHILD:

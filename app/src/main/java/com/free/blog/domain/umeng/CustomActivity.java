@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.free.blog.R;
+import com.free.blog.domain.util.LogUtils;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.fb.SyncListener;
 import com.umeng.fb.model.Conversation;
@@ -39,16 +40,16 @@ import java.util.List;
 @SuppressLint({ "InflateParams", "SimpleDateFormat" })
 public class CustomActivity extends Activity {
 
+	private static final int VIEW_TYPE_USER = 0;
+	private static final int VIEW_TYPE_DEV = 1;
+	private static final int VIEW_TYPE_COUNT = 2;
+
 	private ListView mListView;
-	private Conversation mComversation;
+	private Conversation mConversation;
 	private Context mContext;
 	private ReplyAdapter adapter;
-	private Button sendBtn;
 	private EditText inputEdit;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private final int VIEW_TYPE_COUNT = 2;
-	private final int VIEW_TYPE_USER = 0;
-	private final int VIEW_TYPE_DEV = 1;
 
 	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
@@ -65,7 +66,7 @@ public class CustomActivity extends Activity {
 		mContext = this;
 
 		initView();
-		mComversation = new FeedbackAgent(this).getDefaultConversation();
+		mConversation = new FeedbackAgent(this).getDefaultConversation();
 		adapter = new ReplyAdapter();
 		mListView.setAdapter(adapter);
 		sync();
@@ -87,9 +88,9 @@ public class CustomActivity extends Activity {
 		});
 
 		mListView = (ListView) findViewById(R.id.fb_reply_list);
-		sendBtn = (Button) findViewById(R.id.fb_send_btn);
+		Button sendBtn = (Button) findViewById(R.id.fb_send_btn);
 		inputEdit = (EditText) findViewById(R.id.fb_send_content);
-		// 下拉刷新组件
+
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.fb_reply_refresh);
 		sendBtn.setOnClickListener(new OnClickListener() {
 
@@ -99,7 +100,7 @@ public class CustomActivity extends Activity {
 				inputEdit.getEditableText().clear();
 				if (!TextUtils.isEmpty(content)) {
 					// 将内容添加到会话列表
-					mComversation.addUserReply(content);
+					mConversation.addUserReply(content);
 					// 刷新新ListView
 					mHandler.sendMessage(new Message());
 					// 数据同步
@@ -108,56 +109,53 @@ public class CustomActivity extends Activity {
 			}
 		});
 
-		// 下拉刷新
 		mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
 				sync();
 			}
 		});
-
-		// 顶部刷新的样式
 		mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light,
 				android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
 	}
 
-	// 数据同步
+	/**
+	 * 数据同步
+	 */
 	private void sync() {
-
-		mComversation.sync(new SyncListener() {
+		mConversation.sync(new SyncListener() {
 
 			@Override
 			public void onSendUserReply(List<Reply> replyList) {
+
 			}
 
 			@Override
 			public void onReceiveDevReply(List<Reply> replyList) {
-				// SwipeRefreshLayout停止刷新
 				mSwipeRefreshLayout.setRefreshing(false);
-				// 发送消息，刷新ListView
+
 				mHandler.sendMessage(new Message());
-				// 如果开发者没有新的回复数据，则返回
-				if (replyList == null || replyList.size() < 1) {
-					return;
+
+				if (replyList == null || replyList.size() == 0) {
+					LogUtils.log("onReceiveDevReply empty");
 				}
 			}
 		});
-		// 更新adapter，刷新ListView
+
 		adapter.notifyDataSetChanged();
-		mListView.smoothScrollToPosition(mComversation.getReplyList().size());
+		mListView.smoothScrollToPosition(mConversation.getReplyList().size());
 	}
 
-	// adapter
 	class ReplyAdapter extends BaseAdapter {
 
 		@Override
 		public int getCount() {
-			return mComversation.getReplyList().size();
+			return mConversation.getReplyList().size();
 		}
 
 		@Override
 		public Object getItem(int arg0) {
-			return mComversation.getReplyList().get(arg0);
+			return mConversation.getReplyList().get(arg0);
 		}
 
 		@Override
@@ -167,39 +165,30 @@ public class CustomActivity extends Activity {
 
 		@Override
 		public int getViewTypeCount() {
-			// 两种不同的Tiem布局
 			return VIEW_TYPE_COUNT;
 		}
 
 		@Override
 		public int getItemViewType(int position) {
-			// 获取单条回复
-			Reply reply = mComversation.getReplyList().get(position);
+			Reply reply = mConversation.getReplyList().get(position);
 			if (Reply.TYPE_DEV_REPLY.equals(reply.type)) {
-				// 开发者回复Item布局
 				return VIEW_TYPE_DEV;
 			} else {
-				// 用户反馈、回复Item布局
 				return VIEW_TYPE_USER;
 			}
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder = null;
-			// 获取单条回复
-			Reply reply = mComversation.getReplyList().get(position);
+			ViewHolder holder;
+			Reply reply = mConversation.getReplyList().get(position);
 			if (convertView == null) {
-				// 根据Type的类型来加载不同的Item布局
 				if (Reply.TYPE_DEV_REPLY.equals(reply.type)) {
-					// 开发者的回复
 					convertView = LayoutInflater.from(mContext).inflate(R.layout.umeng_fb_custom_dev_reply, null);
 				} else {
-					// 用户的反馈、回复
 					convertView = LayoutInflater.from(mContext).inflate(R.layout.umeng_fb_custom_user_reply, null);
 				}
 
-				// 创建ViewHolder并获取各种View
 				holder = new ViewHolder();
 				holder.replyContent = (TextView) convertView.findViewById(R.id.fb_reply_content);
 				holder.replyProgressBar = (ProgressBar) convertView.findViewById(R.id.fb_reply_progressBar);
@@ -210,19 +199,14 @@ public class CustomActivity extends Activity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			// 以下是填充数据
-			// 设置Reply的内容
 			holder.replyContent.setText(reply.content);
-			// 在App应用界面，对于开发者的Reply来讲status没有意义
 			if (!Reply.TYPE_DEV_REPLY.equals(reply.type)) {
-				// 根据Reply的状态来设置replyStateFailed的状态
 				if (Reply.STATUS_NOT_SENT.equals(reply.status)) {
 					holder.replyStateFailed.setVisibility(View.VISIBLE);
 				} else {
 					holder.replyStateFailed.setVisibility(View.GONE);
 				}
 
-				// 根据Reply的状态来设置replyProgressBar的状态
 				if (Reply.STATUS_SENDING.equals(reply.status)) {
 					holder.replyProgressBar.setVisibility(View.VISIBLE);
 				} else {
@@ -230,9 +214,8 @@ public class CustomActivity extends Activity {
 				}
 			}
 
-			// 回复的时间数据，这里仿照QQ两条Reply之间相差100000ms则展示时间
-			if ((position + 1) < mComversation.getReplyList().size()) {
-				Reply nextReply = mComversation.getReplyList().get(position + 1);
+			if ((position + 1) < mConversation.getReplyList().size()) {
+				Reply nextReply = mConversation.getReplyList().get(position + 1);
 				if (nextReply.created_at - reply.created_at > 100000) {
 					Date replyTime = new Date(reply.created_at);
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

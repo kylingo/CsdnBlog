@@ -16,67 +16,48 @@ public interface BloggerDao {
 
 	/**
 	 * 插入博主
-	 * 
-	 * @param blogger
 	 */
-	public void insert(Blogger blogger);
+	void insert(Blogger blogger);
 
 	/**
 	 * 插入博主列表
-	 * 
-	 * @param list
 	 */
-	public void insert(List<Blogger> list);
+	void insert(List<Blogger> list);
 
 	/**
 	 * 查询某个博主是否存在
-	 * 
-	 * @param userId
-	 * @return
 	 */
-	public Blogger query(String userId);
+	Blogger query(String userId);
 
 	/**
 	 * 查询所有博主
-	 * 
-	 * @return
 	 */
-	public List<Blogger> queryAll();
+	List<Blogger> queryAll();
 
 	/**
 	 * 查询博主（分页）
-	 * 
-	 * @param type
-	 * @param page
-	 * @return
 	 */
 	List<Blogger> query(int pageIndex, int pageSize);
 
 	/**
 	 * 删除博主
-	 * 
-	 * @param blogger
 	 */
-	public void delete(Blogger blogger);
+	void delete(Blogger blogger);
 
 	/**
 	 * 删除博主列表
-	 * 
-	 * @param list
 	 */
-	public void deleteAll(List<Blogger> list);
+	@SuppressWarnings("unused")
+	void deleteAll(List<Blogger> list);
 
 	/***
 	 * 删除所有博主
-	 * 
-	 * @param type
 	 */
-	public void deleteAll();
+	void deleteAll();
 
 	/**
 	 * 初始化博客数据库
-	 * @param type
 	 */
-	public void init(String type);
+	void init(String type);
 
 }

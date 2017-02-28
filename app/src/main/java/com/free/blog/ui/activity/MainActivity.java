@@ -45,12 +45,6 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	private ListView mDrawerList;
 	private RelativeLayout mRl;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private DrawerArrowDrawable mDrawerArrow;
-	private CircleImageView mIvMainLeftHead;
-	private RelativeLayout mRlTop;
-	private ImageView mTvLogin;
-	private LinearLayout mllAnimllId;
-	private TextView mUserName;
 
 	public static FragmentManager mFragmentManager;
 	private Boolean isOpen = false;
@@ -72,11 +66,11 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 		setContentView(R.layout.activity_main);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mRlTop = (RelativeLayout) findViewById(R.id.toprl);
-		mllAnimllId = (LinearLayout) findViewById(R.id.animll_id);
-		mTvLogin = (ImageView) findViewById(R.id.login_tv);
-		mUserName = (TextView) findViewById(R.id.user_name);
-		mIvMainLeftHead = (CircleImageView) findViewById(R.id.iv_main_left_head);
+		RelativeLayout mRlTop = (RelativeLayout) findViewById(R.id.toprl);
+		LinearLayout mllAnimllId = (LinearLayout) findViewById(R.id.animll_id);
+		ImageView mTvLogin = (ImageView) findViewById(R.id.login_tv);
+		TextView mUserName = (TextView) findViewById(R.id.user_name);
+		CircleImageView mIvMainLeftHead = (CircleImageView) findViewById(R.id.iv_main_left_head);
 		mRl = (RelativeLayout) findViewById(R.id.rl);
 
 		mRlTop.setOnClickListener(this);
@@ -123,13 +117,15 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	 */
 	private void initDrawerLayout() {
 		ActionBar ab = getActionBar();
-		ab.setDisplayHomeAsUpEnabled(true);
-		ab.setHomeButtonEnabled(true);
+		if (ab != null) {
+			ab.setDisplayHomeAsUpEnabled(true);
+			ab.setHomeButtonEnabled(true);
+		}
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.navdrawer);
 
-		mDrawerArrow = new DrawerArrowDrawable(this) {
+		DrawerArrowDrawable mDrawerArrow = new DrawerArrowDrawable(this) {
 			@Override
 			public boolean isLayoutRtl() {
 				return false;
@@ -258,6 +254,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	}
 
 	// 切換Fragment
+	@SuppressWarnings("unused")
 	public void changeFragment(Fragment f) {
 		changeFragment(f, false);
 	}
@@ -284,7 +281,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 
-			if (isOpen == false) {
+			if (!isOpen) {
 				if ((System.currentTimeMillis() - mExitTime) > TIME_DIFF) {
 					ToastUtil.show(MainActivity.this, "再按一次退出程序");
 					mExitTime = System.currentTimeMillis();

@@ -15,10 +15,10 @@ import com.free.blog.domain.task.FileDeleteAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
 import com.free.blog.domain.umeng.CustomActivity;
 import com.free.blog.domain.util.FileUtils;
-import com.free.blog.domain.util.NetUtil;
+import com.free.blog.domain.util.NetUtils;
 import com.free.blog.domain.util.ToastUtil;
-import com.free.blog.domain.util.VersionUtil;
-import com.free.blog.ui.BaseApplication;
+import com.free.blog.domain.util.VersionUtils;
+import com.free.blog.MyApplication;
 import com.free.blog.ui.view.dialog.BaseDialog;
 import com.free.blog.ui.view.dialog.LoadingDialog;
 import com.free.blog.ui.view.dialog.SelectionDialog;
@@ -74,7 +74,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		LinearLayout llSettingsExit = (LinearLayout) findViewById(R.id.ll_settings_exit);
 
 		tvTitle.setText(R.string.settings);
-		tvVersionName.setText(getString(R.string.setttings_now_version) + VersionUtil.getVersionName(this));
+		tvVersionName.setText(String.format("%s%s", getString(R.string.setttings_now_version),
+				VersionUtils.getVersionName(this)));
 		btnBack.setOnClickListener(this);
 		btnBack.setVisibility(View.VISIBLE);
 		llCheckUpgrade.setOnClickListener(this);
@@ -141,7 +142,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 更新数据
 	 */
 	private void updateData() {
-		FileCalculateAsyncTask task = new FileCalculateAsyncTask(this);
+		FileCalculateAsyncTask task = new FileCalculateAsyncTask();
 		mExternalCacheFile = new File(CacheManager.getExternalCachePath(SettingsActivity.this));
 		task.execute(mExternalCacheFile);
 		task.setOnResponseListener(new OnResponseListener() {
@@ -163,7 +164,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	 * 检查更新
 	 */
 	private void checkUpgrade() {
-		if (NetUtil.isNetAvailable(this)) {
+		if (NetUtils.isNetAvailable(this)) {
 			UmengUpdateAgent.forceUpdate(this);
 			UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
 				@Override
@@ -202,7 +203,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 				final LoadingDialog dialog = new LoadingDialog(SettingsActivity.this, "正在清理缓存");
 				dialog.show();
 				
-				FileDeleteAsyncTask task = new FileDeleteAsyncTask(SettingsActivity.this);
+				FileDeleteAsyncTask task = new FileDeleteAsyncTask();
 				task.execute(mExternalCacheFile);
 				task.setOnResponseListener(new OnResponseListener() {
 
@@ -267,7 +268,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onConfirm(String result) {
-				BaseApplication.getInstance().onTerminate();
+				MyApplication.getInstance().onTerminate();
 			}
 		});
 		dialog.show();
@@ -275,8 +276,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	/**
 	 * 启动Activity
-	 * 
-	 * @param cls
 	 */
 	private void startActivity(Class<?> cls) {
 		Intent intent = new Intent(this, cls);

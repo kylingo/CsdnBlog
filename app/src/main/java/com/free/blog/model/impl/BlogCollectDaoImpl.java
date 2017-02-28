@@ -1,4 +1,3 @@
-/** Copyright © 2015-2020 100msh.com All Rights Reserved */
 package com.free.blog.model.impl;
 
 
@@ -18,7 +17,7 @@ import java.util.List;
  * 博客收藏-数据库实现
  * 
  * @author Frank
- * @date 2015年8月13日下午12:58:51
+ * @since 2015年8月13日下午12:58:51
  */
 
 public class BlogCollectDaoImpl implements BlogCollectDao {
@@ -29,6 +28,7 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 		db = DbUtils.create(context, CacheManager.getBloggerCollectDbPath(context), "collect_blog");
 	}
 
+	@Override
 	public void insert(List<BlogItem> list) {
 		try {
 			for (int i = 0; i < list.size(); i++) {

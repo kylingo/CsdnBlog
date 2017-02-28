@@ -86,8 +86,6 @@ public class MeFragment extends BaseFragment implements OnClickListener {
 
         if (intent != null) {
             startActivity(intent);
-        } else {
-//            ToastUtil.showCenter(getActivity(), getActivity().getString(R.string.coming_soon));
         }
     }
 }

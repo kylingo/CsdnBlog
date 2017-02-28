@@ -1,6 +1,5 @@
 package com.free.blog.domain.task;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.free.blog.domain.util.FileUtils;
@@ -16,7 +15,7 @@ import java.io.File;
  */
 public class FileCalculateAsyncTask extends AsyncTask<File, Void, Long> {
 
-	public FileCalculateAsyncTask(Context context) {
+	public FileCalculateAsyncTask() {
 
 	}
 
@@ -39,10 +38,6 @@ public class FileCalculateAsyncTask extends AsyncTask<File, Void, Long> {
 		if (null != onResponseListener) {
 			onResponseListener.onResponse(String.valueOf(result));
 		}
-	}
-
-	public OnResponseListener getResponseListener() {
-		return onResponseListener;
 	}
 
 	public void setOnResponseListener(OnResponseListener onResponseListener) {
