@@ -74,7 +74,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		LinearLayout llSettingsExit = (LinearLayout) findViewById(R.id.ll_settings_exit);
 
 		tvTitle.setText(R.string.settings);
-		tvVersionName.setText(String.format("%s%s", getString(R.string.setttings_now_version),
+		tvVersionName.setText(String.format("%s%s", getString(R.string.settings_now_version),
 				VersionUtils.getVersionName(this)));
 		btnBack.setOnClickListener(this);
 		btnBack.setVisibility(View.VISIBLE);

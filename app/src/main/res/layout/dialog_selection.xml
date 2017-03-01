@@ -47,7 +47,7 @@
             android:background="@drawable/selector_btn_cancle"
             android:gravity="center"
             android:padding="10dip"
-            android:text="@string/cancle"
+            android:text="@string/cancel"
             android:textColor="@color/black_text"
             android:textSize="18sp" />
 

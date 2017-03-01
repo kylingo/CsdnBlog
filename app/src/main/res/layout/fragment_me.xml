@@ -43,7 +43,7 @@
                 android:layout_marginTop="5dip"
                 android:gravity="left"
                 android:singleLine="true"
-                android:text="@string/wechat_name"
+                android:text="@string/concat_name"
                 android:textColor="@color/list_decs_color" />
         </LinearLayout>
 

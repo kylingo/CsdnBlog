@@ -34,7 +34,7 @@
         android:maxLength="20"
         android:gravity="center"
         android:singleLine="true"
-        android:text="@string/bogger_title"
+        android:text="@string/actionbar_title"
         android:textColor="@color/white"
         android:textSize="@dimen/title_size" />
 

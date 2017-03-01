@@ -31,7 +31,7 @@
                     style="@style/settings_text_style"
                     android:layout_width="match_parent"
                     android:gravity="right"
-                    android:text="@string/setttings_now_version"
+                    android:text="@string/settings_now_version"
                     android:textColor="@color/list_decs_color"
                     android:textSize="15sp" />
             </LinearLayout>
