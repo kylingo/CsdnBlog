@@ -8,8 +8,8 @@ android {
         applicationId "com.free.blog"
         minSdkVersion 15
         targetSdkVersion 19
-        versionCode 109
-        versionName "1.0.9"
+        versionCode 2000
+        versionName "2.0.00"
     }
     buildTypes {
         release {

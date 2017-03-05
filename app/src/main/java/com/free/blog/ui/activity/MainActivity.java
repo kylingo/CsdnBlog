@@ -58,7 +58,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 	private final static long TIME_DIFF = 2 * 1000;
 
 	private BloggerFragment mBloggerFragment = null;
-	// private ChannelFragment channelFragment = null;
+	// private ColumnFragment channelFragment = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +181,7 @@ public class MainActivity extends BaseFragmentActivity implements OnClickListene
 
 				// case 1:
 				// if (channelFragment == null) {
-				// channelFragment = new ChannelFragment();
+				// channelFragment = new ColumnFragment();
 				// }
 				// initFragment(channelFragment);
 				// setTitle(mMenuTitles[position]);

@@ -248,7 +248,7 @@ public class BloggerFragment extends BaseFragment
      */
     private void requestData(String result) {
         HttpAsyncTask httpAsyncTask = new HttpAsyncTask(getActivity());
-        httpAsyncTask.execute(AppConstants.CSDN_BASE_URL + result);
+        httpAsyncTask.execute(AppConstants.CSDN_BASE_URL + "/" + result);
         httpAsyncTask.setOnResponseListener(new OnResponseListener() {
             @Override
             public void onResponse(String resultString) {
@@ -271,7 +271,7 @@ public class BloggerFragment extends BaseFragment
         blogger.setTitle(mAddBloggerItem.get("title"));
         blogger.setDescription(mAddBloggerItem.get("description"));
         blogger.setImgUrl(mAddBloggerItem.get("imgUrl"));
-        blogger.setLink(AppConstants.CSDN_BASE_URL + mNewUserId);
+        blogger.setLink(AppConstants.CSDN_BASE_URL + "/" + mNewUserId);
         blogger.setType(mType);
         String mCategory = CategoryManager.CategoryName.MOBILE;
         blogger.setCategory(mCategory);

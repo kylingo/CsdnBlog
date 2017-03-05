@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.free.blog.R;
 import com.free.blog.ui.fragment.BloggerFragment;
-import com.free.blog.ui.fragment.ChannelFragment;
+import com.free.blog.ui.fragment.ColumnFragment;
 import com.free.blog.ui.fragment.HotFragment;
 import com.free.blog.ui.fragment.MeFragment;
 import com.umeng.analytics.MobclickAgent;
@@ -31,7 +31,7 @@ import com.umeng.update.UmengUpdateAgent;
 public class HomeActivity extends BaseFragmentActivity implements OnCheckedChangeListener {
 
 	private BloggerFragment mFirstFragment;
-	private ChannelFragment mSecondFragment;
+	private ColumnFragment mSecondFragment;
 	private HotFragment mThirdFragment;
 	private MeFragment mFourthFragment;
 
@@ -51,7 +51,7 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 
 		RadioGroup mGroup = (RadioGroup) findViewById(R.id.main_radio);
 		mFirstFragment = new BloggerFragment();
-		mSecondFragment = new ChannelFragment();
+		mSecondFragment = new ColumnFragment();
 		mThirdFragment = new HotFragment();
 		mFourthFragment = new MeFragment();
 		mFormerTag = FIRST_TAG;

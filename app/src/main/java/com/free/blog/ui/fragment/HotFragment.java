@@ -41,7 +41,7 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (rootView == null) {
 			// 防止Fragment的View被多次初始化
-			rootView = inflater.inflate(R.layout.fragment_channel, container, false);
+			rootView = inflater.inflate(R.layout.fragment_column, container, false);
 			initView(rootView);
 		}
 		ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -62,7 +62,8 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 		list.remove(0);
 		
 		mListView = (XListView) view.findViewById(R.id.listView);
-		ChannelListAdapter mAdapter = new ChannelListAdapter(getActivity(), list);
+		ChannelListAdapter mAdapter = new ChannelListAdapter(getActivity());
+		mAdapter.setList(list);
 //		mListView.setPullRefreshEnable(this);// 设置可下拉刷新
 //		mListView.setPullLoadEnable(this);
 		mListView.NotRefreshAtBegin();

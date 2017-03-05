@@ -8,6 +8,7 @@ import com.free.blog.domain.bean.BlogCategory;
 import com.free.blog.domain.bean.BlogItem;
 import com.free.blog.domain.bean.Blogger;
 import com.free.blog.domain.bean.BloggerDetail;
+import com.free.blog.domain.bean.Channel;
 import com.free.blog.domain.bean.Comment;
 import com.free.blog.domain.config.AppConstants;
 
@@ -53,7 +54,7 @@ public class JsoupUtils {
             Element localElement1 = localDocument.getElementsByClass("panel").get(0).select("ul" +
                     ".panel_body.profile").get(0);
             str = localElement1.getElementById("blog_userface").select("a").select("img").attr
-					("src");
+                    ("src");
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class JsoupUtils {
      * 获取博客列表
      */
     public static List<BlogItem> getBlogItemList(String category, String str, List<BlogCategory>
-			blogCategoryList) {
+            blogCategoryList) {
         List<BlogItem> list = new ArrayList<BlogItem>();
         Document doc = Jsoup.parse(str);
         Elements blogList = doc.getElementsByClass("article_item");
@@ -121,7 +122,7 @@ public class JsoupUtils {
                         for (Element typeElement : typeElements) {
                             BlogCategory blogCategory = new BlogCategory();
                             String name = typeElement.select("a").text().trim().replace("【", "")
-									.replace("】", "");
+                                    .replace("】", "");
                             String link = typeElement.select("a").attr("href");
                             blogCategory.setName(name.trim());
                             blogCategory.setLink(link.trim());
@@ -250,14 +251,14 @@ public class JsoupUtils {
             for (Element element : liElements) {
                 Blogger blogger = new Blogger();
                 Element bloggerElement = element.select("dl").get(0).select("dt").get(0).select
-						("a").get(0);
+                        ("a").get(0);
                 String url = bloggerElement.attr("href");
 
                 Element imgElement = bloggerElement.select("img").get(0);
                 String title = imgElement.attr("alt");
                 String imgUrl = imgElement.attr("src");
 
-                blogger.setUserId(url.replace(AppConstants.CSDN_BASE_URL, ""));
+                blogger.setUserId(url.replace(AppConstants.CSDN_BASE_URL + "/", ""));
                 blogger.setLink(url);
                 blogger.setTitle(title);
                 blogger.setImgUrl(imgUrl);
@@ -498,6 +499,47 @@ public class JsoupUtils {
         }
 
         return list;
+    }
+
+    public static List<Channel> getColumnList(String html) {
+        if (html == null) {
+            return null;
+        }
+
+        List<Channel> channelList = new ArrayList<Channel>();
+        Document doc = Jsoup.parse(html);
+        try {
+            Element columnElement = doc
+                    .getElementsByClass("blog_home_main").get(0)
+                    .getElementsByClass("column_index").get(0);
+
+            Elements columnWrap = columnElement.getElementsByClass("column_wrap");
+            for (Element element : columnWrap) {
+                Elements columnList = element.getElementsByClass("column_list");
+
+                for (Element column : columnList) {
+                    Channel channel = new Channel();
+                    Element bgElement = column.getElementsByClass("column_bg").get(0);
+                    String bgUrl = bgElement.attr("style").replace("background-image:url(", "")
+                            .replace(")", "");
+
+                    Element aElement = column.getElementsByClass("column_list_link").get(0);
+                    String href = AppConstants.CSDN_BASE_URL + aElement.attr("href");
+                    String title = aElement.getElementsByClass("column_c").get(0)
+                            .getElementsByClass("column_list_p").get(0)
+                            .text();
+
+                    channel.setImgUrl(bgUrl);
+                    channel.setChannelName(title);
+                    channelList.add(channel);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return channelList;
     }
 
     /**

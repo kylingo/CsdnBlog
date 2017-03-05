@@ -51,7 +51,7 @@
             style="@style/main_tab_bottom"
             android:drawableTop="@drawable/selector_tab_channel"
             android:tag="radio_btn_channel"
-            android:text="@string/channel"
+            android:text="@string/column"
             android:textColor="@drawable/selector_tab_textcolor"/>
 
         <RadioButton

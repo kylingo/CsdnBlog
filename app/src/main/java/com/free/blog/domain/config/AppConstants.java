@@ -11,7 +11,7 @@ public class AppConstants {
 	/**
 	 * CSDN博客基础地址
 	 */
-	public final static String CSDN_BASE_URL = "http://blog.csdn.net/";
+	public final static String CSDN_BASE_URL = "http://blog.csdn.net";
 
 	/**
 	 * 预加载数据--消息类型

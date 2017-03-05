@@ -12,6 +12,9 @@
     <!-- 内容大小 -->
     <dimen name="content_size">16sp</dimen>
 
+    <!-- 专栏分类 -->
+    <dimen name="column_size">15sp</dimen>
+
     <!-- 博主列表 -->
     <dimen name="listitem_blogger_height">50dip</dimen>
     <dimen name="desc_size">13sp</dimen>
