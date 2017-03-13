@@ -26,7 +26,7 @@ import java.util.List;
 public class ChannelListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Channel> list;
+    private List<Channel> mData;
     private String checkType = null;
 
     public ChannelListAdapter(Context context) {
@@ -35,18 +35,25 @@ public class ChannelListAdapter extends BaseAdapter {
     }
 
     public void setList(List<Channel> list) {
-        this.list = list;
+        this.mData = list;
+        notifyDataSetChanged();
+    }
+
+    public void addList(List<Channel> list) {
+        if (mData != null && list != null) {
+            this.mData.addAll(list);
+        }
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return list != null ? list.size() : 0;
+        return mData != null ? mData.size() : 0;
     }
 
     @Override
     public Channel getItem(int position) {
-        return list.get(position);
+        return mData.get(position);
     }
 
     public long getItemId(int position) {

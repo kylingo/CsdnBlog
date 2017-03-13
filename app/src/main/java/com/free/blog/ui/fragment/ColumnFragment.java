@@ -2,7 +2,6 @@ package com.free.blog.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +71,6 @@ public class ColumnFragment extends BaseFragment
         mListView = (XListView) view.findViewById(R.id.listView);
         mAdapter = new ChannelListAdapter(getActivity());
         mListView.setPullRefreshEnable(this);
-        mListView.setPullLoadEnable(this);
         mListView.NotRefreshAtBegin();
         mListView.setRefreshTime(DateUtils.getDate());
         mListView.setAdapter(mAdapter);
@@ -102,7 +100,13 @@ public class ColumnFragment extends BaseFragment
             }
 
             List<Channel> channelList = JsoupUtils.getColumnList(resultString);
-            mAdapter.setList(channelList);
+            if (mPage == 1) {
+                mAdapter.setList(channelList);
+                mListView.setPullLoadEnable(ColumnFragment.this);
+            } else {
+                mAdapter.addList(channelList);
+                mListView.setPullLoadEnable(ColumnFragment.this);
+            }
         }
     };
 
@@ -120,26 +124,14 @@ public class ColumnFragment extends BaseFragment
 
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                mListView.stopRefresh(DateUtils.getDate());
-                ToastUtil.showCenter(getActivity(), getActivity().getString(R.string
-                        .refresh_complete));
-            }
-        }, 1000);
+        mPage = 1;
+        getData(mPage);
     }
 
     @Override
     public void onLoadMore() {
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                mListView.stopLoadMore("暂无更多数据");
-            }
-        }, 1000);
+        mPage++;
+        getData(mPage);
     }
 
     @Override
