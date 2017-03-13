@@ -19,6 +19,11 @@ public class ExtraString {
     public final static String CHANNEL = "channel";
 
     /**
+     * 频道
+     */
+    public final static String COLUMN = "column";
+
+    /**
      * 博客类型
      */
     public final static String BLOG_TYPE = "blog_type";

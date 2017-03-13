@@ -1,6 +1,5 @@
 package com.free.blog.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.SpfUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.domain.util.UrlUtils;
-import com.free.blog.ui.activity.ChannelDetailActivity;
 import com.free.blog.ui.adapter.ChannelListAdapter;
 import com.free.blog.ui.view.dialog.BaseDialog;
 import com.free.blog.ui.view.dialog.SelectionDialog;
@@ -95,18 +93,19 @@ public class ColumnFragment extends BaseFragment
 
         @Override
         public void onResponse(String resultString) {
-            if (resultString == null) {
-                return;
+            if (resultString != null) {
+                List<Channel> channelList = JsoupUtils.getColumnList(resultString);
+                if (mPage == 1) {
+                    mAdapter.setList(channelList);
+                    mListView.setPullLoadEnable(ColumnFragment.this);
+                } else {
+                    mAdapter.addList(channelList);
+                    mListView.setPullLoadEnable(ColumnFragment.this);
+                }
             }
 
-            List<Channel> channelList = JsoupUtils.getColumnList(resultString);
-            if (mPage == 1) {
-                mAdapter.setList(channelList);
-                mListView.setPullLoadEnable(ColumnFragment.this);
-            } else {
-                mAdapter.addList(channelList);
-                mListView.setPullLoadEnable(ColumnFragment.this);
-            }
+            mListView.stopRefresh(DateUtils.getDate());
+            mListView.stopLoadMore();
         }
     };
 
@@ -154,11 +153,13 @@ public class ColumnFragment extends BaseFragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Channel channel = (Channel) parent.getAdapter().getItem(position);
+        ToastUtil.show(getActivity(), "即将退出，敬请期待");
 
-        Intent intent = new Intent(getActivity(), ChannelDetailActivity.class);
-        intent.putExtra(ExtraString.CHANNEL, channel);
-        startActivity(intent);
+//        Channel channel = (Channel) parent.getAdapter().getItem(position);
+//
+//        Intent intent = new Intent(getActivity(), ColumnDetailActivity.class);
+//        intent.putExtra(ExtraString.COLUMN, channel);
+//        startActivity(intent);
     }
 
 }

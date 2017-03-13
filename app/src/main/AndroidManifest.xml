@@ -75,6 +75,10 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name="com.free.blog.ui.activity.ColumnDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name="com.free.blog.ui.activity.ChannelDetailActivity"
             android:screenOrientation="portrait">
         </activity>

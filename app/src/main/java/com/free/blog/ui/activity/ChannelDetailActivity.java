@@ -39,7 +39,7 @@ import me.maxwin.view.XListView;
  * @author Frank
  * @since 2015年9月18日下午5:27:58
  */
-
+@SuppressWarnings("unused")
 public class ChannelDetailActivity extends BaseActivity
         implements OnClickListener, OnItemClickListener, OnItemLongClickListener, IXListViewRefreshListener {
 
