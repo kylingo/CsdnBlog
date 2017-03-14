@@ -12,8 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.Comment;
-import com.free.blog.domain.bean.CommentComparator;
+import com.free.blog.data.entity.Comment;
+import com.free.blog.data.entity.CommentComparator;
 import com.free.blog.domain.config.AppConstants;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
@@ -21,8 +21,8 @@ import com.free.blog.domain.util.DateUtils;
 import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.domain.util.UrlUtils;
-import com.free.blog.model.BlogCommentDao;
-import com.free.blog.model.DaoFactory;
+import com.free.blog.data.dao.BlogCommentDao;
+import com.free.blog.data.dao.DaoFactory;
 import com.free.blog.ui.adapter.CommentAdapter;
 
 import java.util.Collections;

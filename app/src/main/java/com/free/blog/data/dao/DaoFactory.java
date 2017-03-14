@@ -1,14 +1,14 @@
-package com.free.blog.model;
+package com.free.blog.data.dao;
 
 import android.content.Context;
 
-import com.free.blog.domain.bean.Channel;
-import com.free.blog.model.impl.BlogCollectDaoImpl;
-import com.free.blog.model.impl.BlogCommentDaoImpl;
-import com.free.blog.model.impl.BlogContentDaoImpl;
-import com.free.blog.model.impl.BlogItemDaoImpl;
-import com.free.blog.model.impl.BloggerDaoImpl;
-import com.free.blog.model.impl.ChannelBloggerDaoImpl;
+import com.free.blog.data.entity.Channel;
+import com.free.blog.data.dao.impl.BlogCollectDaoImpl;
+import com.free.blog.data.dao.impl.BlogCommentDaoImpl;
+import com.free.blog.data.dao.impl.BlogContentDaoImpl;
+import com.free.blog.data.dao.impl.BlogItemDaoImpl;
+import com.free.blog.data.dao.impl.BloggerDaoImpl;
+import com.free.blog.data.dao.impl.ChannelBloggerDaoImpl;
 
 
 /**

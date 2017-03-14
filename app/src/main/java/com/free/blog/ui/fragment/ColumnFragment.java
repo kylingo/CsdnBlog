@@ -10,7 +10,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.Channel;
+import com.free.blog.data.entity.Channel;
 import com.free.blog.domain.config.CategoryManager;
 import com.free.blog.domain.config.ExtraString;
 import com.free.blog.domain.task.HttpAsyncTask;

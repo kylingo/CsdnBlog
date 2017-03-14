@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.BlogCategory;
+import com.free.blog.data.entity.BlogCategory;
 
 import java.util.List;
 

@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.DrawerInfo;
+import com.free.blog.data.entity.DrawerInfo;
 import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.ui.adapter.DrawerAdapter;
 import com.free.blog.ui.fragment.BloggerFragment;

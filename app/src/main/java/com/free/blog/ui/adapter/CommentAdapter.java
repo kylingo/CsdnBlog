@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.Comment;
+import com.free.blog.data.entity.Comment;
 import com.free.blog.domain.config.AppConstants;
 import com.free.blog.domain.util.ImageLoaderUtils;
 

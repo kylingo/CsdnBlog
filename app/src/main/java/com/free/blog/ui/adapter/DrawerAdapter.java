@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.DrawerInfo;
+import com.free.blog.data.entity.DrawerInfo;
 
 import java.util.List;
 

@@ -12,8 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.BlogItem;
-import com.free.blog.domain.bean.Channel;
+import com.free.blog.data.entity.BlogItem;
+import com.free.blog.data.entity.Channel;
 import com.free.blog.domain.config.AppConstants;
 import com.free.blog.domain.config.CategoryManager;
 import com.free.blog.domain.config.ExtraString;
@@ -23,8 +23,8 @@ import com.free.blog.domain.util.DateUtils;
 import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.NetUtils;
 import com.free.blog.domain.util.ToastUtil;
-import com.free.blog.model.BlogItemDao;
-import com.free.blog.model.DaoFactory;
+import com.free.blog.data.dao.BlogItemDao;
+import com.free.blog.data.dao.DaoFactory;
 import com.free.blog.ui.adapter.BlogListAdapter;
 
 import java.util.List;

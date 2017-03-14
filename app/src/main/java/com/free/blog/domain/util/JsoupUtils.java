@@ -3,13 +3,13 @@ package com.free.blog.domain.util;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.free.blog.domain.bean.Blog;
-import com.free.blog.domain.bean.BlogCategory;
-import com.free.blog.domain.bean.BlogItem;
-import com.free.blog.domain.bean.Blogger;
-import com.free.blog.domain.bean.BloggerDetail;
-import com.free.blog.domain.bean.Channel;
-import com.free.blog.domain.bean.Comment;
+import com.free.blog.data.entity.Blog;
+import com.free.blog.data.entity.BlogCategory;
+import com.free.blog.data.entity.BlogItem;
+import com.free.blog.data.entity.Blogger;
+import com.free.blog.data.entity.BloggerDetail;
+import com.free.blog.data.entity.Channel;
+import com.free.blog.data.entity.Comment;
 import com.free.blog.domain.config.AppConstants;
 
 import org.json.JSONArray;

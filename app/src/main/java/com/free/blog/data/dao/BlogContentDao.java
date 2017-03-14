@@ -1,6 +1,6 @@
-package com.free.blog.model;
+package com.free.blog.data.dao;
 
-import com.free.blog.domain.bean.BlogHtml;
+import com.free.blog.data.entity.BlogHtml;
 
 /**
  * 博客内容-数据库

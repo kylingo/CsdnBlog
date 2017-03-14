@@ -1,7 +1,7 @@
-package com.free.blog.model;
+package com.free.blog.data.dao;
 
 
-import com.free.blog.domain.bean.Comment;
+import com.free.blog.data.entity.Comment;
 
 import java.util.List;
 

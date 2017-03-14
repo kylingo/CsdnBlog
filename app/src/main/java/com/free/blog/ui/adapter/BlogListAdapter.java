@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.BlogItem;
+import com.free.blog.data.entity.BlogItem;
 import com.free.blog.domain.config.AppConstants.BLOG_ICO_TYPE;
 
 import java.util.ArrayList;

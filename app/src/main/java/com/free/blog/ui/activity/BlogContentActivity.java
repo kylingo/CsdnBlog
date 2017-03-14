@@ -22,15 +22,15 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.BlogHtml;
-import com.free.blog.domain.bean.BlogItem;
+import com.free.blog.data.entity.BlogHtml;
+import com.free.blog.data.entity.BlogItem;
 import com.free.blog.domain.task.HttpAsyncTask;
 import com.free.blog.domain.task.OnResponseListener;
 import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.ToastUtil;
-import com.free.blog.model.BlogCollectDao;
-import com.free.blog.model.BlogContentDao;
-import com.free.blog.model.DaoFactory;
+import com.free.blog.data.dao.BlogCollectDao;
+import com.free.blog.data.dao.BlogContentDao;
+import com.free.blog.data.dao.DaoFactory;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;

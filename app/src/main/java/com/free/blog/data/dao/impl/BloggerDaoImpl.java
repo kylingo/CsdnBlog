@@ -1,11 +1,9 @@
-package com.free.blog.model.impl;
+package com.free.blog.data.dao.impl;
 
 import android.content.Context;
 
-import com.free.blog.domain.bean.Blogger;
-import com.free.blog.domain.bean.Channel;
-import com.free.blog.domain.config.CacheManager;
-import com.free.blog.model.ChannelBloggerDao;
+import com.free.blog.data.entity.Blogger;
+import com.free.blog.data.dao.BloggerDao;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -15,24 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 某频道博客专家-数据库实现
- * 
+ * 博主-数据库实现
+ *
  * @author tangqi
- * @since 2015年9月25日下午16:50:35
+ * @since 2015年8月8日下午12:17:35
  */
 
-public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
+public class BloggerDaoImpl implements BloggerDao {
 
 	private DbUtils db;
 	private Context context;
 
-	public ChannelBloggerDaoImpl(Context context, Channel channel) {
+	public BloggerDaoImpl(Context context, String type) {
 		this.context = context;
-		init(channel);
+		init(type);
 	}
 
-	public void init(Channel channel) {
-		this.db = DbUtils.create(context, CacheManager.getChannelBloggerDbPath(context), channel.getChannelName());
+	public void init(String type) {
+		this.db = DbUtils.create(context, "blogger_" + type);
 	}
 
 	@Override

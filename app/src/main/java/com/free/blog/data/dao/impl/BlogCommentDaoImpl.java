@@ -1,10 +1,10 @@
-package com.free.blog.model.impl;
+package com.free.blog.data.dao.impl;
 
 import android.content.Context;
 
-import com.free.blog.domain.bean.Comment;
+import com.free.blog.data.entity.Comment;
 import com.free.blog.domain.config.CacheManager;
-import com.free.blog.model.BlogCommentDao;
+import com.free.blog.data.dao.BlogCommentDao;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.free.blog.domain.bean.Blogger;
+import com.free.blog.data.entity.Blogger;
 
 import java.util.ArrayList;
 import java.util.List;

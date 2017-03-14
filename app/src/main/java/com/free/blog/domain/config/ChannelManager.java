@@ -1,7 +1,7 @@
 package com.free.blog.domain.config;
 
 import com.free.blog.R;
-import com.free.blog.domain.bean.Channel;
+import com.free.blog.data.entity.Channel;
 import com.free.blog.domain.config.CategoryManager.CategoryName;
 import com.free.blog.domain.config.CategoryManager.CategoryUrl;
 

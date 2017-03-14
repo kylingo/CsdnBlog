@@ -2,6 +2,7 @@ package com.free.blog;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 import com.free.blog.domain.config.CacheManager;
 import com.free.blog.domain.util.CrashHandler;
@@ -25,16 +26,18 @@ public class MyApplication extends Application {
 
 	// 单例模式中获取唯一的ExitApplication 实例
 	public static MyApplication getInstance() {
-		if (null == mInstance) {
-			mInstance = new MyApplication();
-		}
 		return mInstance;
 
+	}
+
+	public static Context getContext() {
+		return mInstance;
 	}
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		mInstance = this;
 		init();
 	}
 

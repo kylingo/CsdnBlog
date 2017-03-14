@@ -1,9 +1,8 @@
-package com.free.blog.model;
+package com.free.blog.data.dao;
 
-import com.free.blog.domain.bean.Blogger;
+import com.free.blog.data.entity.Blogger;
 
 import java.util.List;
-
 
 /**
  * 博主数据库
@@ -12,7 +11,7 @@ import java.util.List;
  * @since 2015年8月8日下午12:59:26
  */
 
-public interface BloggerDao {
+public interface ChannelBloggerDao {
 
 	/**
 	 * 插入博主
@@ -32,6 +31,7 @@ public interface BloggerDao {
 	/**
 	 * 查询所有博主
 	 */
+	@SuppressWarnings("unused")
 	List<Blogger> queryAll();
 
 	/**
@@ -50,14 +50,9 @@ public interface BloggerDao {
 	@SuppressWarnings("unused")
 	void deleteAll(List<Blogger> list);
 
-	/***
+	/**
 	 * 删除所有博主
 	 */
+	@SuppressWarnings("unused")
 	void deleteAll();
-
-	/**
-	 * 初始化博客数据库
-	 */
-	void init(String type);
-
 }

@@ -1,4 +1,4 @@
-package com.free.blog.domain.bean;
+package com.free.blog.data.entity;
 
 import java.io.Serializable;
 

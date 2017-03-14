@@ -1,4 +1,4 @@
-package com.free.blog.domain.bean;
+package com.free.blog.data.entity;
 
 /**
  * 评论实体类
