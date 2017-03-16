@@ -1,10 +1,11 @@
 package com.free.blog.data.network;
 
-import com.free.blog.domain.config.AppConstants;
+import com.free.blog.domain.config.Config;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * @author tangqi on 17-3-14.
@@ -19,9 +20,10 @@ public class RetrofitClient {
 
     public RetrofitClient() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(AppConstants.CSDN_BASE_URL)
+                .baseUrl(Config.CSDN_HOST)
                 .client(OkHttpFactory.getsInstance().getOkHttpClient())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

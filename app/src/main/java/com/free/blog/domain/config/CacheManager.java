@@ -69,13 +69,13 @@ public class CacheManager {
      * 获取WebView缓存目录
      */
     public static String getAppCachePath(Context context) {
-        return getExternalCachePath(context) + File.separator + "MyApplication" + File.separator + "Cache";
+        return getExternalCachePath(context) + File.separator + "App" + File.separator + "Cache";
     }
 
     /**
      * 获取WebView数据库目录
      */
     public static String getAppDatabasePath(Context context) {
-        return getExternalCachePath(context) + File.separator + "MyApplication" + File.separator + "DataBase";
+        return getExternalCachePath(context) + File.separator + "App" + File.separator + "DataBase";
     }
 }

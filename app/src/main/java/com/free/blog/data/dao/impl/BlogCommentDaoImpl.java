@@ -44,7 +44,6 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 				}
 			}
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -55,7 +54,6 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 			return db.findAll(Selector.from(Comment.class).limit(
 					20 * page));
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

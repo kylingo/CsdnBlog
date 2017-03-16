@@ -43,7 +43,6 @@ public class BloggerDaoImpl implements BloggerDao {
 				db.save(blogger);
 			}
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -53,7 +52,6 @@ public class BloggerDaoImpl implements BloggerDao {
 		try {
 			db.saveOrUpdateAll(list);
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -63,7 +61,6 @@ public class BloggerDaoImpl implements BloggerDao {
 		try {
 			return db.findFirst(Selector.from(Blogger.class).where("userId", "=", userId));
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -91,7 +88,6 @@ public class BloggerDaoImpl implements BloggerDao {
 			}
 			return list;
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -105,7 +101,6 @@ public class BloggerDaoImpl implements BloggerDao {
 			list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true).limit(pageSize).offset(pageIndex * pageSize));
 			return list;
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -117,7 +112,6 @@ public class BloggerDaoImpl implements BloggerDao {
 		try {
 			db.delete(blogger);
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -127,7 +121,6 @@ public class BloggerDaoImpl implements BloggerDao {
 		try {
 			db.delete(list);
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

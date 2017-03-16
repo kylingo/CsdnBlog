@@ -63,7 +63,7 @@ public class LogUtils {
 	@SuppressWarnings("unused")
 	public static void log(String tag, String msg) {
 		if (isLog) {
-			log(tag, Log.ERROR, msg, null);
+			log(tag, Log.DEBUG, msg, null);
 		}
 
 	}

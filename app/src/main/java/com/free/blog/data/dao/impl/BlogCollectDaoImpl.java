@@ -24,7 +24,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 	private DbUtils db;
 
 	public BlogCollectDaoImpl(Context context) {
-		// TODO Auto-generated constructor stub
 		db = DbUtils.create(context, CacheManager.getBloggerCollectDbPath(context), "collect_blog");
 	}
 
@@ -41,7 +40,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 				}
 			}
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -56,7 +54,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 				db.save(blogItem);
 			}
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -69,7 +66,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 				db.delete(findItem);
 			}
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -79,7 +75,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 		try {
 			return db.findFirst(Selector.from(BlogItem.class).where("link", "=", link));
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -90,7 +85,6 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
 		try {
 			return db.findAll(Selector.from(BlogItem.class).orderBy("updateTime", true).limit(page * pageSize));
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -89,7 +89,6 @@ public class VersionUtils {
                     0);
             return packInfo.versionName;
         } catch (NameNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return "";
         }

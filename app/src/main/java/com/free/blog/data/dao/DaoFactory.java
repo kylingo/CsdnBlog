@@ -53,8 +53,8 @@ public class DaoFactory {
 	/**
 	 * 获取博客内容数据库
 	 */
-	public BlogContentDao getBlogContentDao(Context context, String url) {
-		return new BlogContentDaoImpl(context, url);
+	public BlogContentDao getBlogContentDao(Context context) {
+		return new BlogContentDaoImpl(context);
 	}
 
 	/**

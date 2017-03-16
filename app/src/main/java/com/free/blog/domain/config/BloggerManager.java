@@ -50,8 +50,9 @@ public class BloggerManager {
 	 */
 	@SuppressWarnings("ConstantConditions")
 	public void init(Context context, BloggerDao bloggerDb, String type) {
-		if (!((Boolean) SpfUtils.get(context, ExtraString.IS_FIRST, true)))
+		if (!((Boolean) SpfUtils.get(context, ExtraString.IS_FIRST, true))){
 			return;
+		}
 
 		deleteAllBlogger(bloggerDb);
 		bloggerDb.init(type);

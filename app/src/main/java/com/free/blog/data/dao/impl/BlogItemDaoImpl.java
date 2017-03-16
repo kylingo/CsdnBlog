@@ -26,7 +26,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
     private DbUtils db;
 
     public BlogItemDaoImpl(Context context, String userId) {
-        // TODO Auto-generated constructor stub
         db = DbUtils.create(context, CacheManager.getBlogListDbPath(context), userId + "_blog");
     }
 
@@ -43,7 +42,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
                 }
             }
         } catch (DbException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -68,7 +66,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
                 list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).orderBy("date", true).limit(page * 20));
             }
         } catch (DbException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -81,7 +78,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
         try {
             list = db.findAll(BlogItem.class);
         } catch (DbException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return list;
@@ -100,7 +96,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
                 }
             }
         } catch (DbException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -111,7 +106,6 @@ public class BlogItemDaoImpl implements BlogItemDao {
         try {
             list = db.findAll(Selector.from(BlogCategory.class));
         } catch (DbException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return list;

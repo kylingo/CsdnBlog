@@ -2,10 +2,9 @@ package com.free.blog.data.dao.impl;
 
 import android.content.Context;
 
+import com.free.blog.data.dao.BlogContentDao;
 import com.free.blog.data.entity.BlogHtml;
 import com.free.blog.domain.config.CacheManager;
-import com.free.blog.domain.util.Md5Utils;
-import com.free.blog.data.dao.BlogContentDao;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -22,17 +21,8 @@ public class BlogContentDaoImpl implements BlogContentDao {
 
 	private DbUtils db;
 
-	public BlogContentDaoImpl(Context context, String url) {
-		// TODO Auto-generated constructor stub
-		String urlMD5 = "url-md5";
-		try {
-			urlMD5 = Md5Utils.getMD5(url);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		db = DbUtils.create(context,
-				CacheManager.getBlogContentDbPath(context), urlMD5);
+	public BlogContentDaoImpl(Context context) {
+		db = DbUtils.create(context, CacheManager.getBlogContentDbPath(context), "blog_content");
 	}
 
 	@Override
@@ -49,7 +39,6 @@ public class BlogContentDaoImpl implements BlogContentDao {
 				db.save(blogHtml);
 			}
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -61,7 +50,6 @@ public class BlogContentDaoImpl implements BlogContentDao {
 			blogHtml = db.findFirst(Selector.from(BlogHtml.class).where("url",
 					"=", url));
 		} catch (DbException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return blogHtml;

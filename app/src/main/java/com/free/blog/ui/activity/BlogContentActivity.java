@@ -293,7 +293,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 		blogHtml.setUpdateTime(System.currentTimeMillis());
 		blogHtml.setReserve("");
 
-		BlogContentDao blogContentDb = DaoFactory.getInstance().getBlogContentDao(this, mUrl);
+		BlogContentDao blogContentDb = DaoFactory.getInstance().getBlogContentDao(this);
 		blogContentDb.insert(blogHtml);
 	}
 
@@ -315,7 +315,7 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	}
 
 	private void getData(String url) {
-		BlogContentDao blogContentDb = DaoFactory.getInstance().getBlogContentDao(this, url);
+		BlogContentDao blogContentDb = DaoFactory.getInstance().getBlogContentDao(this);
 		BlogHtml blogHtml = blogContentDb.query(url);
 		if (blogHtml != null) {
 			mTitle = blogHtml.getTitle();

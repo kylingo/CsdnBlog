@@ -20,19 +20,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.free.blog.R;
+import com.free.blog.data.dao.BloggerDao;
+import com.free.blog.data.dao.DaoFactory;
 import com.free.blog.data.entity.Blogger;
+import com.free.blog.data.network.NetEngine;
 import com.free.blog.domain.config.AppConstants;
 import com.free.blog.domain.config.BloggerManager;
 import com.free.blog.domain.config.CategoryManager;
 import com.free.blog.domain.config.ExtraString;
-import com.free.blog.domain.task.HttpAsyncTask;
-import com.free.blog.domain.task.OnResponseListener;
 import com.free.blog.domain.util.DateUtils;
 import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.SpfUtils;
 import com.free.blog.domain.util.ToastUtil;
-import com.free.blog.data.dao.BloggerDao;
-import com.free.blog.data.dao.DaoFactory;
 import com.free.blog.ui.activity.BlogListActivity;
 import com.free.blog.ui.adapter.BloggerListAdapter;
 import com.free.blog.ui.view.dialog.BaseDialog;
@@ -47,6 +46,7 @@ import java.util.List;
 import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.IXListViewRefreshListener;
 import me.maxwin.view.XListView;
+import rx.Subscriber;
 
 /**
  * 博主列表
@@ -247,19 +247,44 @@ public class BloggerFragment extends BaseFragment
      * 请求博主数据
      */
     private void requestData(String result) {
-        HttpAsyncTask httpAsyncTask = new HttpAsyncTask(getActivity());
-        httpAsyncTask.execute(AppConstants.CSDN_BASE_URL + "/" + result);
-        httpAsyncTask.setOnResponseListener(new OnResponseListener() {
-            @Override
-            public void onResponse(String resultString) {
-                if (TextUtils.isEmpty(resultString)) {
-                    mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
-                } else {
-                    mAddBloggerItem = JsoupUtils.getBloggerItem(resultString);
-                    mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
-                }
-            }
-        });
+        NetEngine.getInstance().getBloggerInfo(result)
+                .compose(NetEngine.<String>getErrAndIOSchedulerTransformer())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        if (TextUtils.isEmpty(s)) {
+                            mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
+                        } else {
+                            mAddBloggerItem = JsoupUtils.getBloggerItem(s);
+                            mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
+                        }
+
+                    }
+                });
+
+//        HttpAsyncTask httpAsyncTask = new HttpAsyncTask(getActivity());
+//        httpAsyncTask.execute(AppConstants.CSDN_BASE_URL + "/" + result);
+//        httpAsyncTask.setOnResponseListener(new OnResponseListener() {
+//            @Override
+//            public void onResponse(String resultString) {
+//                if (TextUtils.isEmpty(resultString)) {
+//                    mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
+//                } else {
+//                    mAddBloggerItem = JsoupUtils.getBloggerItem(resultString);
+//                    mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
+//                }
+//            }
+//        });
     }
 
     /**
