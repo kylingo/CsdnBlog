@@ -22,15 +22,15 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.free.blog.R;
-import com.free.blog.data.entity.BlogHtml;
-import com.free.blog.data.entity.BlogItem;
-import com.free.blog.domain.task.HttpAsyncTask;
-import com.free.blog.domain.task.OnResponseListener;
-import com.free.blog.domain.util.JsoupUtils;
-import com.free.blog.domain.util.ToastUtil;
 import com.free.blog.data.dao.BlogCollectDao;
 import com.free.blog.data.dao.BlogContentDao;
 import com.free.blog.data.dao.DaoFactory;
+import com.free.blog.data.entity.BlogHtml;
+import com.free.blog.data.entity.BlogItem;
+import com.free.blog.data.network.NetEngine;
+import com.free.blog.domain.task.OnResponseListener;
+import com.free.blog.domain.util.JsoupUtils;
+import com.free.blog.domain.util.ToastUtil;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -38,6 +38,8 @@ import org.jsoup.nodes.Element;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import rx.Subscriber;
 
 /**
  * 博客详细内容界面
@@ -248,9 +250,25 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	 */
 	private void requestData(String url) {
 		mProgressBar.setVisibility(View.VISIBLE);
-		HttpAsyncTask httpAsyncTask = new HttpAsyncTask(this);
-		httpAsyncTask.execute(url);
-		httpAsyncTask.setOnResponseListener(this);
+		NetEngine.getInstance().getBlogContent(url)
+				.compose(NetEngine.<String>getErrAndIOSchedulerTransformer())
+				.subscribe(new Subscriber<String>() {
+					@Override
+					public void onCompleted() {
+
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						onResponse(null);
+
+					}
+
+					@Override
+					public void onNext(String s) {
+						onResponse(s);
+					}
+				});
 	}
 
 	/**

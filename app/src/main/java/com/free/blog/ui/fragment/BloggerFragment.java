@@ -271,20 +271,6 @@ public class BloggerFragment extends BaseFragment
 
                     }
                 });
-
-//        HttpAsyncTask httpAsyncTask = new HttpAsyncTask(getActivity());
-//        httpAsyncTask.execute(AppConstants.CSDN_BASE_URL + "/" + result);
-//        httpAsyncTask.setOnResponseListener(new OnResponseListener() {
-//            @Override
-//            public void onResponse(String resultString) {
-//                if (TextUtils.isEmpty(resultString)) {
-//                    mHandler.sendEmptyMessage(MSG_ADD_FAILURE);
-//                } else {
-//                    mAddBloggerItem = JsoupUtils.getBloggerItem(resultString);
-//                    mHandler.sendEmptyMessage(MSG_ADD_SUCCESS);
-//                }
-//            }
-//        });
     }
 
     /**

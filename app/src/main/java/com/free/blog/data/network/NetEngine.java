@@ -17,12 +17,24 @@ public class NetEngine {
         return sInstance;
     }
 
-    public NetEngine() {
+    private NetEngine() {
         mNetApi = RetrofitClient.getInstance().getNetApi();
     }
 
     public Observable<String> getBloggerInfo(String userId) {
         return mNetApi.getBloggerInfo(userId);
+    }
+
+    public Observable<String> getBlogList(String userId, int page) {
+        return mNetApi.getBlogList(userId, page);
+    }
+
+    public Observable<String> getBlogCategoryList(String category, int page) {
+        return mNetApi.getBlogCategoryList(category, page);
+    }
+
+    public Observable<String> getBlogContent(String url) {
+        return mNetApi.getBlogContent(url);
     }
 
     public static <T> Observable.Transformer<T, T> getErrAndIOSchedulerTransformer() {
