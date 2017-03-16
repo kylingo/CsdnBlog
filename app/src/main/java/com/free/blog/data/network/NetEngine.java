@@ -29,19 +29,23 @@ public class NetEngine {
         return mNetApi.getBlogList(userId, page);
     }
 
-    public Observable<String> getBlogCategoryList(String category, int page) {
-        return mNetApi.getBlogCategoryList(category, page);
+    public Observable<String> getCategoryBlogList(String category, int page) {
+        return mNetApi.getCategoryBlogList(category, page);
     }
 
     public Observable<String> getBlogContent(String url) {
         return mNetApi.getBlogContent(url);
     }
 
+    public Observable<String> getBlogComment(String blogId, int page) {
+        return mNetApi.getBlogComment(blogId, page);
+    }
+
     public static <T> Observable.Transformer<T, T> getErrAndIOSchedulerTransformer() {
         return new Observable.Transformer<T, T>() {
             @Override
             public Observable<T> call(Observable<T> tObservable) {
-                return tObservable.onErrorResumeNext(NetEngine.<T>getErrRetuunFunc())
+                return tObservable.onErrorResumeNext(NetEngine.<T>getErrReturnFunc())
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
@@ -49,10 +53,10 @@ public class NetEngine {
         };
     }
 
-    private static <T> Func1<Throwable, Observable<T>> getErrRetuunFunc() {
+    private static <T> Func1<Throwable, Observable<T>> getErrReturnFunc() {
         return new Func1<Throwable, Observable<T>>() {
             @Override
-            public Observable call(Throwable throwable) {
+            public Observable<T> call(Throwable throwable) {
                 return Observable.error(throwable);
             }
         };

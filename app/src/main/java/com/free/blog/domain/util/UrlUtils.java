@@ -33,7 +33,7 @@ public class UrlUtils {
      * 返回博文评论列表链接
      */
     public static String getCommentListURL(String filename, String pageIndex) {
-        return "http://blog.csdn.net/wwj_748/comment/list/" + filename + "?page=" + pageIndex;
+        return "http://blog.csdn.net/studiotang/comment/list/" + filename + "?page=" + pageIndex;
     }
 
     public static String getColumnList(String type, int page) {

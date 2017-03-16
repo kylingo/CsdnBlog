@@ -291,7 +291,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
             return NetEngine.getInstance().getBlogList(mUserId, page);
         }
 
-        return NetEngine.getInstance().getBlogCategoryList(mCategoryLink, page);
+        return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
     }
 
     private void handleData(String resultString) {

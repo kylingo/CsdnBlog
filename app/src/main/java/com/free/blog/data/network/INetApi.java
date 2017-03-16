@@ -2,6 +2,7 @@ package com.free.blog.data.network;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -17,8 +18,11 @@ interface INetApi {
     Observable<String> getBlogList(@Path("userId") String userId, @Path("page") int page);
 
     @GET("{category}/{page}")
-    Observable<String> getBlogCategoryList(@Path("category") String category, @Path("page") int page);
+    Observable<String> getCategoryBlogList(@Path("category") String category, @Path("page") int page);
 
-    @GET()
+    @GET
     Observable<String> getBlogContent(@Url String url);
+
+    @GET("me/comment/list/{blogId}")
+    Observable<String> getBlogComment(@Path("blogId") String blogId, @Query("page") int page);
 }

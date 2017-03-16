@@ -330,6 +330,7 @@ public class JsoupUtils {
     /**
      * 获得博主个人详情资料
      */
+    @SuppressWarnings("unused")
     public static BloggerDetail getBloggerInfo(String str) {
 
         if (str == null) {
@@ -375,7 +376,7 @@ public class JsoupUtils {
     /**
      * 扒取传入url地址的博客详细内容
      */
-    @Deprecated
+    @SuppressWarnings("unused")
     public static List<Blog> getDetail(String url, String str) {
         List<Blog> list = new ArrayList<Blog>();
 
