@@ -11,15 +11,13 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 import com.free.blog.data.entity.Channel;
+import com.free.blog.data.network.NetEngine;
 import com.free.blog.domain.config.CategoryManager;
 import com.free.blog.domain.config.ExtraString;
-import com.free.blog.domain.task.HttpAsyncTask;
-import com.free.blog.domain.task.OnResponseListener;
 import com.free.blog.domain.util.DateUtils;
 import com.free.blog.domain.util.JsoupUtils;
 import com.free.blog.domain.util.SpfUtils;
 import com.free.blog.domain.util.ToastUtil;
-import com.free.blog.domain.util.UrlUtils;
 import com.free.blog.ui.adapter.ChannelListAdapter;
 import com.free.blog.ui.view.dialog.BaseDialog;
 import com.free.blog.ui.view.dialog.SelectionDialog;
@@ -29,6 +27,7 @@ import java.util.List;
 import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.IXListViewRefreshListener;
 import me.maxwin.view.XListView;
+import rx.Subscriber;
 
 /**
  * 专栏
@@ -44,7 +43,7 @@ public class ColumnFragment extends BaseFragment
     private View rootView;
     private XListView mListView;
     private ChannelListAdapter mAdapter;
-    private HttpAsyncTask mAsyncTask;
+    private String mKeywords = "android";
     private int mPage = 1;
 
     @Override
@@ -79,35 +78,42 @@ public class ColumnFragment extends BaseFragment
     }
 
     private void getData(int page) {
-        if (mAsyncTask != null) {
-            mAsyncTask.cancel(true);
-        }
+        NetEngine.getInstance().getColumnList(mKeywords, page)
+                .compose(NetEngine.<String>getErrAndIOSchedulerTransformer())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
 
-        mAsyncTask = new HttpAsyncTask(getActivity());
-        String url = UrlUtils.getColumnList("android", page);
-        mAsyncTask.execute(url);
-        mAsyncTask.setOnResponseListener(mOnResponseListener);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        onResponse(null);
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        onResponse(s);
+                    }
+                });
     }
 
-    private OnResponseListener mOnResponseListener = new OnResponseListener() {
-
-        @Override
-        public void onResponse(String resultString) {
-            if (resultString != null) {
-                List<Channel> channelList = JsoupUtils.getColumnList(resultString);
-                if (mPage == 1) {
-                    mAdapter.setList(channelList);
-                    mListView.setPullLoadEnable(ColumnFragment.this);
-                } else {
-                    mAdapter.addList(channelList);
-                    mListView.setPullLoadEnable(ColumnFragment.this);
-                }
+    public void onResponse(String resultString) {
+        if (resultString != null) {
+            List<Channel> channelList = JsoupUtils.getColumnList(resultString);
+            if (mPage == 1) {
+                mAdapter.setList(channelList);
+                mListView.setPullLoadEnable(ColumnFragment.this);
+            } else {
+                mAdapter.addList(channelList);
+                mListView.setPullLoadEnable(ColumnFragment.this);
             }
-
-            mListView.stopRefresh(DateUtils.getDate());
-            mListView.stopLoadMore();
         }
-    };
+
+        mListView.stopRefresh(DateUtils.getDate());
+        mListView.stopLoadMore();
+    }
 
     @Override
     public void onResume() {

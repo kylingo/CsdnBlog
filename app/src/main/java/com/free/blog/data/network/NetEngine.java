@@ -41,6 +41,10 @@ public class NetEngine {
         return mNetApi.getBlogComment(blogId, page);
     }
 
+    public Observable<String> getColumnList(String keywords, int page) {
+        return mNetApi.getColumnList(keywords, page);
+    }
+
     public static <T> Observable.Transformer<T, T> getErrAndIOSchedulerTransformer() {
         return new Observable.Transformer<T, T>() {
             @Override

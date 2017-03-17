@@ -25,4 +25,7 @@ interface INetApi {
 
     @GET("me/comment/list/{blogId}")
     Observable<String> getBlogComment(@Path("blogId") String blogId, @Query("page") int page);
+
+    @GET("column/list.html")
+    Observable<String> getColumnList(@Query("q") String keywords, @Query("page") int page);
 }
