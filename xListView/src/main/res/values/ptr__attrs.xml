@@ -397,7 +397,7 @@
              alpha property of the view, as a value between 0 (completely transparent) and 1
              (completely opaque).
         -->
-        <attr name="alpha" format="float" />
+        <!--<attr name="alpha" format="float" />-->
 
         <!--
              translation in x of the view. This value is added post-layout to the left
