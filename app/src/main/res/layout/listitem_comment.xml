@@ -8,7 +8,7 @@
     android:paddingRight="16dp"
     android:paddingTop="8dp" >
 
-    <com.free.blog.ui.view.CircleImageView
+    <com.free.blog.library.view.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/userface"
         android:layout_width="40dip"
