@@ -4,10 +4,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.free.blog.R;
 
 import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
@@ -17,7 +18,9 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 /**
  * @author studiotang on 17/3/18
  */
-public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
+public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+
+    protected int mPage = 1;
 
     protected PtrFrameLayout mPtrFrameLayout;
     protected RecyclerView mRecyclerView;
@@ -30,7 +33,9 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
 
     protected abstract void prepareData();
 
-    protected abstract void loadData();
+    protected abstract void loadInitData();
+
+    protected abstract void loadMoreData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +52,16 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BaseRefreshActivity.this.onSimpleItemClick(adapter, view, position);
+            }
+        });
 
         mAdapter = getAdapter();
         mAdapter.bindToRecyclerView(mRecyclerView);
+        mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         setEmptyView();
 
         PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
@@ -58,7 +70,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
         mPtrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                loadData();
+                loadInitData();
             }
         });
 
@@ -86,9 +98,18 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
         mTvTitle.setText(title);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+    protected void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        loadMoreData();
+    }
+
+    protected void refresh() {
+        mPage = 1;
+        mPtrFrameLayout.autoRefresh(false);
     }
 
     @Override
@@ -113,10 +134,6 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
 
     protected void showMenu(View view) {
 
-    }
-
-    protected void refresh() {
-        mPtrFrameLayout.autoRefresh(false);
     }
 
     protected void onRefreshComplete() {

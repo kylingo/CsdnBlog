@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.free.blog.R;
 import com.free.blog.data.entity.BlogCategory;
 import com.free.blog.data.entity.BlogItem;
@@ -37,7 +36,6 @@ public class BlogListRxActivity extends BaseRefreshActivity {
     private PopupWindow mPopupWindow;
 
     private String mUserId;
-    private int mPage = 1;
     private Blogger mBlogger;
     private BlogListRxAdapter mAdapter;
     private List<BlogCategory> mBlogCategoryList = new ArrayList<>();
@@ -58,35 +56,53 @@ public class BlogListRxActivity extends BaseRefreshActivity {
 
     @Override
     protected BlogListRxAdapter getAdapter() {
-        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                BlogItem item = mAdapter.getItem(position);
-                Intent i = new Intent();
-                i.setClass(BlogListRxActivity.this, BlogContentActivity.class);
-                i.putExtra("blogItem", item);
-                startActivity(i);
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
-            }
-        });
         return mAdapter;
     }
 
     @Override
-    protected void loadData() {
+    protected void loadInitData() {
         getBlogListObserver(mPage)
                 .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
                 .subscribe(new RxSubscriber<String>() {
                     @Override
                     public void onError(Throwable e) {
-                        handleData(null);
+                        onRefreshUI(null);
                     }
 
                     @Override
                     public void onNext(String s) {
-                        handleData(s);
+                        mPage++;
+                        onRefreshUI(s);
                     }
                 });
+    }
+
+    @Override
+    protected void loadMoreData() {
+        getBlogListObserver(mPage)
+                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<String>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        onRefreshMoreUI(null);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mPage++;
+                        onRefreshMoreUI(s);
+                    }
+                });
+    }
+
+    @Override
+    protected void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+        BlogItem item = (BlogItem) adapter.getItem(position);
+        Intent i = new Intent();
+        i.setClass(this, BlogContentActivity.class);
+        i.putExtra("blogItem", item);
+        startActivity(i);
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
     }
 
     private Observable<String> getBlogListObserver(int page) {
@@ -97,13 +113,29 @@ public class BlogListRxActivity extends BaseRefreshActivity {
         return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
     }
 
-    private void handleData(String result) {
-        if (!TextUtils.isEmpty(result)) {
-            List<BlogItem> list = JsoupUtils.getBlogItemList(mCategory, result, mBlogCategoryList);
-            mAdapter.setNewData(list);
-        }
+    private void onRefreshUI(String result) {
+        List<BlogItem> list = parseData(result);
+        mAdapter.setNewData(list);
 
         onRefreshComplete();
+    }
+
+    private void onRefreshMoreUI(String result) {
+        List<BlogItem> list = parseData(result);
+        if (list != null) {
+            mAdapter.addData(list);
+            mAdapter.loadMoreComplete();
+        } else {
+            mAdapter.loadMoreFail();
+        }
+    }
+
+    private List<BlogItem> parseData(String result) {
+        if (!TextUtils.isEmpty(result)) {
+            return JsoupUtils.getBlogItemList(mCategory, result, mBlogCategoryList);
+        }
+
+        return null;
     }
 
     /**
@@ -144,7 +176,7 @@ public class BlogListRxActivity extends BaseRefreshActivity {
                     mCategoryLink = null;
 
                     mAdapter.setNewData(null);
-                    loadData();
+                    loadInitData();
                 } else {
                     BlogCategory blogCategory = ((BlogCategoryAdapter) parent.getAdapter()).getItem(position);
                     setActionBarTitle(blogCategory.getName());
@@ -152,7 +184,7 @@ public class BlogListRxActivity extends BaseRefreshActivity {
                     mCategoryLink = blogCategory.getLink();
 
                     mAdapter.setNewData(null);
-                    loadData();
+                    loadInitData();
                 }
             }
         });
