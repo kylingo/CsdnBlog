@@ -25,7 +25,7 @@ import com.free.blog.data.entity.Blogger;
 import com.free.blog.data.local.dao.BlogItemDao;
 import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.remote.NetEngine;
-import com.free.blog.library.config.AppConstants;
+import com.free.blog.library.config.Config;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.DisplayUtils;
 import com.free.blog.library.util.JsoupUtils;
@@ -64,7 +64,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
     private Blogger mBlogger;
     private BlogItemDao mBlogItemDao;
     private List<BlogCategory> mBlogCategoryList = new ArrayList<BlogCategory>();
-    private String mCategory = AppConstants.BLOG_CATEGORY_ALL;
+    private String mCategory = Config.BLOG_CATEGORY_ALL;
     private String mCategoryLink;
 
     @Override
@@ -137,7 +137,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
         mListView.setOnItemClickListener(this);
 
         // 先预加载数据，再请求最新数据
-        mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
+        mHandler.sendEmptyMessage(Config.MSG_PRELOAD_DATA);
     }
 
     @Override
@@ -189,7 +189,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
                 mPopupWindow.dismiss();
                 if (position == 0) {
                     setDefaultTitle();
-                    mCategory = AppConstants.BLOG_CATEGORY_ALL;
+                    mCategory = Config.BLOG_CATEGORY_ALL;
                     mCategoryLink = null;
 
                     mAdapter.clearList();
@@ -256,7 +256,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
         if (NetUtils.isNetAvailable(this)) {
             getData(mPage);
         } else {
-            mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
+            mHandler.sendEmptyMessage(Config.MSG_PRELOAD_DATA);
         }
     }
 
@@ -282,7 +282,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
     }
 
     private Observable<String> getBlogListObserver(int page) {
-        if (AppConstants.BLOG_CATEGORY_ALL.equals(mCategory)) {
+        if (Config.BLOG_CATEGORY_ALL.equals(mCategory)) {
             return NetEngine.getInstance().getBlogList(mUserId, page);
         }
 
@@ -363,7 +363,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case AppConstants.MSG_PRELOAD_DATA:
+                case Config.MSG_PRELOAD_DATA:
                     List<BlogItem> list = mBlogItemDao.query(mCategory, mPage);
 
                     if (list != null && list.size() != 0) {

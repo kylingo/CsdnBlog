@@ -2,7 +2,6 @@ package com.free.blog.ui.home.hot;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -14,22 +13,17 @@ import android.widget.TextView;
 import com.free.blog.R;
 import com.free.blog.data.entity.BlogItem;
 import com.free.blog.data.entity.Channel;
-import com.free.blog.library.config.AppConstants;
-import com.free.blog.library.config.CategoryManager;
-import com.free.blog.library.config.ExtraString;
-import com.free.blog.library.task.HttpAsyncTask;
-import com.free.blog.library.task.OnResponseListener;
-import com.free.blog.library.util.DateUtils;
-import com.free.blog.library.util.JsoupUtils;
-import com.free.blog.library.util.NetUtils;
-import com.free.blog.library.util.ToastUtil;
 import com.free.blog.data.local.dao.BlogItemDao;
 import com.free.blog.data.local.dao.DaoFactory;
-import com.free.blog.ui.list.BlogListAdapter;
+import com.free.blog.library.config.CategoryManager;
+import com.free.blog.library.config.ExtraKey;
+import com.free.blog.library.util.DateUtils;
 import com.free.blog.ui.base.BaseActivity;
 import com.free.blog.ui.detail.BlogContentActivity;
+import com.free.blog.ui.list.BlogListAdapter;
 
 import java.util.List;
+
 import me.maxwin.view.IXListViewRefreshListener;
 import me.maxwin.view.XListView;
 
@@ -64,7 +58,7 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	}
 
 	private void initData() {
-		Channel mChannel = (Channel) getIntent().getSerializableExtra(ExtraString.CHANNEL);
+		Channel mChannel = (Channel) getIntent().getSerializableExtra(ExtraKey.CHANNEL);
 		if (mChannel != null) {
 			mChannelName = mChannel.getChannelName();
 			mUrl = mChannel.getUrl().replace("experts.html", "hot.html");
@@ -166,31 +160,31 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 	 * 请求数据
 	 */
 	protected void requestData() {
-		HttpAsyncTask mAsyncTask = new HttpAsyncTask(this);
-		mAsyncTask.execute(mUrl);
-		mAsyncTask.setOnResponseListener(new OnResponseListener() {
-
-			@Override
-			public void onResponse(String resultString) {
-				mPbLoading.setVisibility(View.GONE);
-				mReLoadImageView.setVisibility(View.GONE);
-				mListView.stopRefresh(DateUtils.getDate());
-
-				if (!TextUtils.isEmpty(resultString)) {
-					mBlogList = JsoupUtils.getHotBlogList(AppConstants.BLOG_CATEGORY_ALL,
-							resultString);
-					mAdapter.setList(mBlogList);
-					saveDb(mBlogList);
-				} else {
-					if (NetUtils.isNetAvailable(HotListActivity.this)) {
-						ToastUtil.show(HotListActivity.this, "暂无最新数据");
-					} else {
-						ToastUtil.show(HotListActivity.this, "网络已断开");
-						mReLoadImageView.setVisibility(View.VISIBLE);
-					}
-				}
-			}
-		});
+//		HttpAsyncTask mAsyncTask = new HttpAsyncTask(this);
+//		mAsyncTask.execute(mUrl);
+//		mAsyncTask.setOnResponseListener(new OnResponseListener() {
+//
+//			@Override
+//			public void onResponse(String resultString) {
+//				mPbLoading.setVisibility(View.GONE);
+//				mReLoadImageView.setVisibility(View.GONE);
+//				mListView.stopRefresh(DateUtils.getDate());
+//
+//				if (!TextUtils.isEmpty(resultString)) {
+//					mBlogList = JsoupUtils.getHotBlogList(Config.BLOG_CATEGORY_ALL,
+//							resultString);
+//					mAdapter.setList(mBlogList);
+//					saveDb(mBlogList);
+//				} else {
+//					if (NetUtils.isNetAvailable(HotListActivity.this)) {
+//						ToastUtil.show(HotListActivity.this, "暂无最新数据");
+//					} else {
+//						ToastUtil.show(HotListActivity.this, "网络已断开");
+//						mReLoadImageView.setVisibility(View.VISIBLE);
+//					}
+//				}
+//			}
+//		});
 	}
 
 	/**

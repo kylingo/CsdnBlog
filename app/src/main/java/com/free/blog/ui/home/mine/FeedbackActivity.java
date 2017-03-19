@@ -1,4 +1,4 @@
-package com.free.blog.library.umeng;
+package com.free.blog.ui.home.mine;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -38,7 +38,7 @@ import java.util.List;
  *
  */
 @SuppressLint({ "InflateParams", "SimpleDateFormat" })
-public class CustomActivity extends Activity {
+public class FeedbackActivity extends Activity {
 
 	private static final int VIEW_TYPE_USER = 0;
 	private static final int VIEW_TYPE_DEV = 1;

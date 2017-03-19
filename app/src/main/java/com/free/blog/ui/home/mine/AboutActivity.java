@@ -1,4 +1,4 @@
-package com.free.blog.ui.home.hot;
+package com.free.blog.ui.home.mine;
 
 import android.os.Bundle;
 import android.view.View;

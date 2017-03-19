@@ -11,10 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.library.umeng.CustomActivity;
-import com.free.blog.ui.home.hot.AboutActivity;
-import com.free.blog.ui.home.hot.BlogCollectActivity;
-import com.free.blog.ui.home.hot.SettingsActivity;
 import com.free.blog.ui.base.BaseFragment;
 
 /**
@@ -70,7 +66,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
                 break;
 
             case R.id.ll_me_03:
-                intent = new Intent(getActivity(), CustomActivity.class);
+                intent = new Intent(getActivity(), FeedbackActivity.class);
                 break;
 
             case R.id.ll_me_04:

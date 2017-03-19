@@ -1,4 +1,4 @@
-package com.free.blog.ui.home.hot;
+package com.free.blog.ui.home.mine;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 import com.free.blog.data.entity.BlogItem;
-import com.free.blog.library.config.AppConstants;
+import com.free.blog.library.config.Config;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.data.local.dao.BlogCollectDao;
 import com.free.blog.data.local.dao.DaoFactory;
@@ -95,7 +95,7 @@ public class BlogCollectActivity extends BaseActivity
 		mListView.setOnItemClickListener(this);
 
 		// 先预加载数据，再请求最新数据
-		mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessage(Config.MSG_PRELOAD_DATA);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class BlogCollectActivity extends BaseActivity
 	@Override
 	public void onLoadMore() {
 		mPage++;
-		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA, AppConstants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessageDelayed(Config.MSG_PRELOAD_DATA, Config.MSG_PRELOAD_DATA);
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class BlogCollectActivity extends BaseActivity
 
 	private void refresh() {
 		mPage = 1;
-		mHandler.sendEmptyMessageDelayed(AppConstants.MSG_PRELOAD_DATA, AppConstants.MSG_PRELOAD_DATA);
+		mHandler.sendEmptyMessageDelayed(Config.MSG_PRELOAD_DATA, Config.MSG_PRELOAD_DATA);
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -146,7 +146,7 @@ public class BlogCollectActivity extends BaseActivity
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case AppConstants.MSG_PRELOAD_DATA:
+			case Config.MSG_PRELOAD_DATA:
 				List<BlogItem> list = mBlogCollectDao.query(mPage, mPageSize);
 				if (list != null && list.size() != 0) {
 					mAdapter.setList(list);

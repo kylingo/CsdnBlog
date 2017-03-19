@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 import com.free.blog.data.entity.BlogItem;
-import com.free.blog.library.config.AppConstants.BLOG_ICO_TYPE;
+import com.free.blog.library.config.Config.BLOG_ICO_TYPE;
 
 import java.util.ArrayList;
 import java.util.List;

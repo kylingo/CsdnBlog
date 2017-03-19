@@ -20,7 +20,7 @@ public class RetrofitClient {
 
     public RetrofitClient() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Config.CSDN_HOST)
+                .baseUrl(Config.HOST_BLOG)
                 .client(OkHttpFactory.getsInstance().getOkHttpClient())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())

@@ -7,7 +7,7 @@ package com.free.blog.library.config;
  * @since 2015年9月18日下午5:31:46
  */
 
-public class ExtraString {
+public class ExtraKey {
     /**
      * 首次登录
      */

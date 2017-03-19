@@ -22,17 +22,16 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.free.blog.R;
+import com.free.blog.data.entity.BlogHtml;
+import com.free.blog.data.entity.BlogItem;
 import com.free.blog.data.local.dao.BlogCollectDao;
 import com.free.blog.data.local.dao.BlogContentDao;
 import com.free.blog.data.local.dao.DaoFactory;
-import com.free.blog.data.entity.BlogHtml;
-import com.free.blog.data.entity.BlogItem;
 import com.free.blog.data.remote.NetEngine;
-import com.free.blog.library.task.OnResponseListener;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.detail.comment.BlogCommentActivity;
 import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.detail.comment.BlogCommentActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -51,7 +50,7 @@ import rx.Subscriber;
  *
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class BlogContentActivity extends BaseActivity implements OnResponseListener, OnClickListener,
+public class BlogContentActivity extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener {
 	private WebView mWebView = null;
 	private ProgressBar mProgressBar; // 进度条
@@ -276,7 +275,6 @@ public class BlogContentActivity extends BaseActivity implements OnResponseListe
 	/**
 	 * 数据请求完成
 	 */
-	@Override
 	public void onResponse(String resultString) {
 		mTitle = JsoupUtils.getTitle(resultString);
 		String content = JsoupUtils.getContent(resultString);

@@ -24,10 +24,10 @@ import com.free.blog.data.local.dao.BloggerDao;
 import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.entity.Blogger;
 import com.free.blog.data.remote.NetEngine;
-import com.free.blog.library.config.AppConstants;
+import com.free.blog.library.config.Config;
 import com.free.blog.library.config.BloggerManager;
 import com.free.blog.library.config.CategoryManager;
-import com.free.blog.library.config.ExtraString;
+import com.free.blog.library.config.ExtraKey;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.SpfUtils;
@@ -93,7 +93,7 @@ public class BloggerFragment extends BaseFragment
     }
 
     private void initData() {
-        mType = (String) SpfUtils.get(getActivity(), ExtraString.BLOG_TYPE, CategoryManager
+        mType = (String) SpfUtils.get(getActivity(), ExtraKey.BLOG_TYPE, CategoryManager
                 .CategoryName.ANDROID);
         mBloggerDao = DaoFactory.getInstance().getBloggerDao(getActivity(), mType);
         new BloggerManager().init(getActivity(), mBloggerDao, mType);
@@ -282,7 +282,7 @@ public class BloggerFragment extends BaseFragment
         blogger.setTitle(mAddBloggerItem.get("title"));
         blogger.setDescription(mAddBloggerItem.get("description"));
         blogger.setImgUrl(mAddBloggerItem.get("imgUrl"));
-        blogger.setLink(AppConstants.CSDN_BASE_URL + "/" + mNewUserId);
+        blogger.setLink(Config.HOST_BLOG + mNewUserId);
         blogger.setType(mType);
         String mCategory = CategoryManager.CategoryName.MOBILE;
         blogger.setCategory(mCategory);

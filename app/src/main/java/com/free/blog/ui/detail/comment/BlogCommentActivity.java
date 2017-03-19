@@ -17,7 +17,7 @@ import com.free.blog.data.entity.CommentComparator;
 import com.free.blog.data.local.dao.BlogCommentDao;
 import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.remote.NetEngine;
-import com.free.blog.library.config.AppConstants;
+import com.free.blog.library.config.Config;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.ToastUtil;
@@ -94,7 +94,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
         mListView.setPullRefreshEnable(this);
 
         // 先预加载数据，再请求最新数据
-        mHandler.sendEmptyMessage(AppConstants.MSG_PRELOAD_DATA);
+        mHandler.sendEmptyMessage(Config.MSG_PRELOAD_DATA);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case AppConstants.MSG_PRELOAD_DATA:
+                case Config.MSG_PRELOAD_DATA:
                     mListView.setRefreshTime(DateUtils.getDate());
                     List<Comment> list = mBlogCommentDao.query(mPage);
 

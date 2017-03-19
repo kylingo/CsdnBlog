@@ -34,7 +34,7 @@ public class NetEngine {
     }
 
     public Observable<String> getBlogContent(String url) {
-        return mBlogApi.getBlogContent(url);
+        return mBlogApi.getHtml(url);
     }
 
     public Observable<String> getBlogComment(String blogId, int page) {

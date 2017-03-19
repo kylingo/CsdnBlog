@@ -15,19 +15,16 @@ import com.free.blog.data.entity.Blogger;
 import com.free.blog.data.entity.Channel;
 import com.free.blog.data.local.dao.BloggerDao;
 import com.free.blog.data.local.dao.DaoFactory;
-import com.free.blog.library.config.ExtraString;
-import com.free.blog.library.task.HttpAsyncTask;
-import com.free.blog.library.task.OnResponseListener;
+import com.free.blog.library.config.ExtraKey;
 import com.free.blog.library.util.DateUtils;
-import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.SpfUtils;
 import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.home.blog.BloggerListAdapter;
-import com.free.blog.ui.base.BaseActivity;
-import com.free.blog.ui.list.BlogListActivity;
 import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.BloggerOperationDialog;
 import com.free.blog.library.view.dialog.SelectionDialog;
+import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.home.blog.BloggerListAdapter;
+import com.free.blog.ui.list.BlogListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +59,7 @@ public class ChannelDetailActivity extends BaseActivity
     }
 
     private void initData() {
-        mChannel = (Channel) getIntent().getSerializableExtra(ExtraString.CHANNEL);
+        mChannel = (Channel) getIntent().getSerializableExtra(ExtraKey.CHANNEL);
         mBloggerDao = DaoFactory.getInstance().getBloggerDao(this, mChannel.getChannelName());
     }
 
@@ -115,7 +112,7 @@ public class ChannelDetailActivity extends BaseActivity
 
             @Override
             public void onConfirm(String result) {
-                SpfUtils.put(ChannelDetailActivity.this, ExtraString.BLOG_TYPE, mChannel
+                SpfUtils.put(ChannelDetailActivity.this, ExtraKey.BLOG_TYPE, mChannel
                         .getChannelName());
                 ToastUtil.show(ChannelDetailActivity.this, "设置成功");
                 finish();
@@ -188,26 +185,26 @@ public class ChannelDetailActivity extends BaseActivity
     private void requestData() {
         if (mChannel != null) {
             String url = mChannel.getUrl();
-            HttpAsyncTask asyncTask = new HttpAsyncTask(this);
-            asyncTask.execute(url);
-            asyncTask.setOnResponseListener(new OnResponseListener() {
-
-                @Override
-                public void onResponse(String resultString) {
-                    if (resultString != null) {
-                        List<Blogger> bloggerList = JsoupUtils.getBloggerList(mChannel
-                                .getChannelName(), resultString);
-                        if (bloggerList != null) {
-                            mAdapter.setList(bloggerList);
-                            saveDB(bloggerList);
-                        }
-                    } else {
-                        ToastUtil.show(ChannelDetailActivity.this, "数据请求失败");
-                    }
-
-                    updateListView();
-                }
-            });
+//            HttpAsyncTask asyncTask = new HttpAsyncTask(this);
+//            asyncTask.execute(url);
+//            asyncTask.setOnResponseListener(new OnResponseListener() {
+//
+//                @Override
+//                public void onResponse(String resultString) {
+//                    if (resultString != null) {
+//                        List<Blogger> bloggerList = JsoupUtils.getBloggerList(mChannel
+//                                .getChannelName(), resultString);
+//                        if (bloggerList != null) {
+//                            mAdapter.setList(bloggerList);
+//                            saveDB(bloggerList);
+//                        }
+//                    } else {
+//                        ToastUtil.show(ChannelDetailActivity.this, "数据请求失败");
+//                    }
+//
+//                    updateListView();
+//                }
+//            });
         }
     }
 

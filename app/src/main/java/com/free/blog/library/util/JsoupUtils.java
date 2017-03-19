@@ -10,7 +10,7 @@ import com.free.blog.data.entity.Blogger;
 import com.free.blog.data.entity.BloggerDetail;
 import com.free.blog.data.entity.Channel;
 import com.free.blog.data.entity.Comment;
-import com.free.blog.library.config.AppConstants;
+import com.free.blog.library.config.Config;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -164,7 +164,7 @@ public class JsoupUtils {
             item.setDate(date);
             item.setLink(link);
             item.setCategory(category);
-            item.setIcoType(AppConstants.BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL);
+            item.setIcoType(Config.BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL);
 
             // 没有图片
             item.setImgLink(null);
@@ -258,7 +258,7 @@ public class JsoupUtils {
                 String title = imgElement.attr("alt");
                 String imgUrl = imgElement.attr("src");
 
-                blogger.setUserId(url.replace(AppConstants.CSDN_BASE_URL + "/", ""));
+                blogger.setUserId(url.replace(Config.HOST_BLOG, ""));
                 blogger.setLink(url);
                 blogger.setTitle(title);
                 blogger.setImgUrl(imgUrl);
@@ -314,9 +314,9 @@ public class JsoupUtils {
 
                 if (parentId.equals("0")) {
                     // 如果parentId为0的话，表示它是评论的topic
-                    comment.setType(AppConstants.DEF_COMMENT_TYPE.PARENT);
+                    comment.setType(Config.DEF_COMMENT_TYPE.PARENT);
                 } else {
-                    comment.setType(AppConstants.DEF_COMMENT_TYPE.CHILD);
+                    comment.setType(Config.DEF_COMMENT_TYPE.CHILD);
                 }
                 list.add(comment);
             }
@@ -392,7 +392,7 @@ public class JsoupUtils {
         // 获取标题
         Element title = detail.getElementsByClass("article_title").get(0);
         Blog blogTitle = new Blog();
-        blogTitle.setState(AppConstants.DEF_BLOG_ITEM_TYPE.TITLE); // 设置状态
+        blogTitle.setState(Config.DEF_BLOG_ITEM_TYPE.TITLE); // 设置状态
         blogTitle.setContent(ToDBC(title.text())); // 设置标题内容
 
         // 获取文章内容
@@ -464,7 +464,7 @@ public class JsoupUtils {
                         blogImgs.setContent(img.attr("src"));
                         blogImgs.setImgLink(img.attr("src"));
                         System.out.println(blogImgs.getContent());
-                        blogImgs.setState(AppConstants.DEF_BLOG_ITEM_TYPE.IMG);
+                        blogImgs.setState(Config.DEF_BLOG_ITEM_TYPE.IMG);
                         list.add(blogImgs);
                     }
                 }
@@ -473,7 +473,7 @@ public class JsoupUtils {
 
             // 获取博客内容
             Blog blogContent = new Blog();
-            blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.CONTENT);
+            blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.CONTENT);
 
             if (c.text().equals("")) {
                 continue;
@@ -481,17 +481,17 @@ public class JsoupUtils {
                 if (c.child(0).tagName().equals("bold") || c.child(0).tagName().equals("span")) {
                     if (c.ownText().equals("")) {
                         // 小标题，咖啡色
-                        blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.BOLD_TITLE);
+                        blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.BOLD_TITLE);
                     }
                 }
             }
 
             // 代码
             if (c.select("pre").attr("name").equals("code")) {
-                blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.CODE);
+                blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.CODE);
                 blogContent.setContent(ToDBC(c.outerHtml()));
             } else if ((c.select("pre").attr("class").equals("prettyprint"))) {
-                blogContent.setState(AppConstants.DEF_BLOG_ITEM_TYPE.CODE);
+                blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.CODE);
                 blogContent.setContent(ToDBC(c.outerHtml()));
             } else {
                 blogContent.setContent(ToDBC(c.outerHtml()));
@@ -525,7 +525,7 @@ public class JsoupUtils {
                             .replace(")", "");
 
                     Element aElement = column.getElementsByClass("column_list_link").get(0);
-                    String href = AppConstants.CSDN_BASE_URL + aElement.attr("href");
+                    String href = StringUtils.trimLastChar(Config.HOST_BLOG) + aElement.attr("href");
                     String title = aElement.getElementsByClass("column_c").get(0)
                             .getElementsByClass("column_list_p").get(0)
                             .text();

@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.free.blog.data.entity.BlogCategory;
 import com.free.blog.data.entity.BlogItem;
-import com.free.blog.library.config.AppConstants;
+import com.free.blog.library.config.Config;
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.data.local.dao.BlogItemDao;
 import com.lidroid.xutils.DbUtils;
@@ -50,7 +50,7 @@ public class BlogItemDaoImpl implements BlogItemDao {
     public List<BlogItem> query(String category, int page) {
         List<BlogItem> list = null;
         try {
-            if (AppConstants.BLOG_CATEGORY_ALL.equals(category)) {
+            if (Config.BLOG_CATEGORY_ALL.equals(category)) {
                 // 全部分类
                 list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).and("isTop", "=", 1));
                 // 加上这句，可把置顶的文章在后面的地方不显示

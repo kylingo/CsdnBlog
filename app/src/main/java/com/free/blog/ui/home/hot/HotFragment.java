@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.free.blog.R;
 import com.free.blog.data.entity.Channel;
 import com.free.blog.library.config.ChannelManager;
-import com.free.blog.library.config.ExtraString;
+import com.free.blog.library.config.ExtraKey;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.ui.home.column.ChannelListAdapter;
@@ -101,7 +101,7 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 		Channel channel = (Channel) parent.getAdapter().getItem(position);
 
 		Intent intent = new Intent(getActivity(), HotListActivity.class);
-		intent.putExtra(ExtraString.CHANNEL, channel);
+		intent.putExtra(ExtraKey.CHANNEL, channel);
 		startActivity(intent);
 	}
 }

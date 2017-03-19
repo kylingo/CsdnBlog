@@ -50,7 +50,7 @@ public class BloggerManager {
 	 */
 	@SuppressWarnings("ConstantConditions")
 	public void init(Context context, BloggerDao bloggerDb, String type) {
-		if (!((Boolean) SpfUtils.get(context, ExtraString.IS_FIRST, true))){
+		if (!((Boolean) SpfUtils.get(context, ExtraKey.IS_FIRST, true))){
 			return;
 		}
 
@@ -508,6 +508,6 @@ public class BloggerManager {
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
-		SpfUtils.put(context, ExtraString.IS_FIRST, false);
+		SpfUtils.put(context, ExtraKey.IS_FIRST, false);
 	}
 }

@@ -98,7 +98,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity
-            android:name="com.free.blog.library.umeng.CustomActivity"
+            android:name="com.free.blog.ui.home.mine.FeedbackActivity"
             android:screenOrientation="portrait">
         </activity>
 

@@ -21,7 +21,7 @@ interface IBlogApi {
     Observable<String> getCategoryBlogList(@Path("category") String category, @Path("page") int page);
 
     @GET
-    Observable<String> getBlogContent(@Url String url);
+    Observable<String> getHtml(@Url String url);
 
     @GET("me/comment/list/{blogId}")
     Observable<String> getBlogComment(@Path("blogId") String blogId, @Query("page") int page);
