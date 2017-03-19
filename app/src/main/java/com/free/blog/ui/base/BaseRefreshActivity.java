@@ -1,7 +1,11 @@
 package com.free.blog.ui.base;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.free.blog.R;
 
@@ -12,22 +16,34 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 /**
  * @author studiotang on 17/3/18
  */
-public class BaseRefreshActivity extends BaseActivity {
+public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener{
 
     protected PtrFrameLayout mPtrFrameLayout;
     protected RecyclerView mRecyclerView;
+    protected TextView mTvTitle;
+
+    protected abstract String getActionBarTitle();
+    protected abstract RecyclerView.Adapter getAdapter();
+    protected abstract void prepareData();
+    protected abstract void loadData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_refresh);
 
+        prepareData();
         initView();
+        loadData();
     }
 
     private void initView() {
+        initActionBar();
+
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(getAdapter());
 
         PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
         mPtrFrameLayout.addPtrUIHandler(header);
@@ -36,8 +52,44 @@ public class BaseRefreshActivity extends BaseActivity {
         mPtrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-
+                frame.refreshComplete();
             }
         });
+    }
+
+    private void initActionBar() {
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
+        ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
+        mBackBtn.setOnClickListener(this);
+        mMenuBtn.setOnClickListener(this);
+        mMenuBtn.setVisibility(View.VISIBLE);
+        mMenuBtn.setImageResource(R.drawable.ic_menu);
+
+        setActionBarTitle(getActionBarTitle());
+    }
+
+    protected void setActionBarTitle(String title) {
+        mTvTitle.setText(title);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_back:
+                finish();
+                break;
+
+            case R.id.btn_menu:
+                showMenu(view);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    protected void showMenu(View view) {
+
     }
 }

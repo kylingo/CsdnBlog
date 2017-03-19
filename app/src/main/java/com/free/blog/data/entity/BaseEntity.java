@@ -1,8 +1,8 @@
 package com.free.blog.data.entity;
 
-import java.io.Serializable;
-
 import com.lidroid.xutils.db.annotation.Column;
+
+import java.io.Serializable;
 
 /**
  * 实体类--基类
@@ -24,5 +24,4 @@ public abstract class BaseEntity implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
 }

@@ -13,8 +13,8 @@ public class RxHelper {
     public static <T> Observable.Transformer<T, T> getErrAndIOSchedulerTransformer() {
         return new Observable.Transformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return tObservable.onErrorResumeNext(RxHelper.<T>getErrReturnFunc())
+            public Observable<T> call(Observable<T> observable) {
+                return observable.onErrorResumeNext(RxHelper.<T>getErrReturnFunc())
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());

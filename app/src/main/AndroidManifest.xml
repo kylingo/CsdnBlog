@@ -34,44 +34,42 @@
         <activity
             android:name="com.free.blog.ui.home.HomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.free.blog.ui.home.HomeDrawerActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/ActionBarTheme">
-        </activity>
+            android:theme="@style/ActionBarTheme"/>
         <activity
             android:name="com.free.blog.ui.list.BlogListActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.free.blog.ui.list.BlogListRxActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.free.blog.ui.detail.BlogContentActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.free.blog.ui.detail.comment.BlogCommentActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.home.mine.AboutActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.home.hot.AboutActivity"
+            android:name=".ui.home.mine.ContactUsActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.home.hot.ContactUsActivity"
+            android:name=".ui.home.mine.UpdateLogActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.home.hot.UpdateLogActivity"
+            android:name=".ui.home.mine.SettingsActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.home.hot.SettingsActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".ui.home.hot.BlogCollectActivity"
+            android:name=".ui.home.mine.BlogCollectActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
