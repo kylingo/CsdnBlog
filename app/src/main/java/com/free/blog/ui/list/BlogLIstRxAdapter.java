@@ -41,6 +41,7 @@ public class BlogListRxAdapter extends BaseViewAdapter<BlogItem, BlogListRxAdapt
             holder.content.setText(String.format("\b\b\b\b\b\b\b%s", item.getContent()));
             holder.date.setText(item.getDate());
             holder.img.setVisibility(View.VISIBLE);
+            holder.convertView.setOnClickListener(this);
 
             String icoType = item.getIcoType();
             if (Config.BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL.equals(icoType)) {

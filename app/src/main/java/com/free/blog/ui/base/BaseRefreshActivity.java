@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 
 import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
@@ -17,16 +17,16 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 /**
  * @author studiotang on 17/3/18
  */
-public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener {
+public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     protected PtrFrameLayout mPtrFrameLayout;
     protected RecyclerView mRecyclerView;
     protected TextView mTvTitle;
-    protected BaseQuickAdapter mAdapter;
+    protected BaseViewAdapter mAdapter;
 
     protected abstract String getActionBarTitle();
 
-    protected abstract BaseQuickAdapter getAdapter();
+    protected abstract BaseViewAdapter getAdapter();
 
     protected abstract void prepareData();
 
@@ -84,6 +84,11 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
 
     protected void setActionBarTitle(String title) {
         mTvTitle.setText(title);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
     }
 
     @Override

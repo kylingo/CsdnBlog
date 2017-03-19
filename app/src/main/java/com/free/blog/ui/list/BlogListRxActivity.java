@@ -1,5 +1,6 @@
 package com.free.blog.ui.list;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.free.blog.R;
 import com.free.blog.data.entity.BlogCategory;
 import com.free.blog.data.entity.BlogItem;
@@ -19,6 +22,7 @@ import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.DisplayUtils;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.BaseRefreshActivity;
+import com.free.blog.ui.detail.BlogContentActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +58,17 @@ public class BlogListRxActivity extends BaseRefreshActivity {
 
     @Override
     protected BlogListRxAdapter getAdapter() {
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                BlogItem item = mAdapter.getItem(position);
+                Intent i = new Intent();
+                i.setClass(BlogListRxActivity.this, BlogContentActivity.class);
+                i.putExtra("blogItem", item);
+                startActivity(i);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
+            }
+        });
         return mAdapter;
     }
 
