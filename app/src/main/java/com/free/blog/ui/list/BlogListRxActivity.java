@@ -87,6 +87,8 @@ public class BlogListRxActivity extends BaseRefreshActivity {
             List<BlogItem> list = JsoupUtils.getBlogItemList(mCategory, result, mBlogCategoryList);
             mAdapter.setNewData(list);
         }
+
+        onRefreshComplete();
     }
 
     /**

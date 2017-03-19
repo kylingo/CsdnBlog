@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 
 import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
@@ -16,15 +17,19 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 /**
  * @author studiotang on 17/3/18
  */
-public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener{
+public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener {
 
     protected PtrFrameLayout mPtrFrameLayout;
     protected RecyclerView mRecyclerView;
     protected TextView mTvTitle;
+    protected BaseQuickAdapter mAdapter;
 
     protected abstract String getActionBarTitle();
-    protected abstract RecyclerView.Adapter getAdapter();
+
+    protected abstract BaseQuickAdapter getAdapter();
+
     protected abstract void prepareData();
+
     protected abstract void loadData();
 
     @Override
@@ -34,7 +39,6 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
 
         prepareData();
         initView();
-        loadData();
     }
 
     private void initView() {
@@ -43,18 +47,27 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(getAdapter());
+
+        mAdapter = getAdapter();
+        mAdapter.bindToRecyclerView(mRecyclerView);
+        setEmptyView();
 
         PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
         mPtrFrameLayout.addPtrUIHandler(header);
         mPtrFrameLayout.setHeaderView(header);
-
         mPtrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                frame.refreshComplete();
+                loadData();
             }
         });
+
+        mPtrFrameLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refresh();
+            }
+        }, 0);
     }
 
     private void initActionBar() {
@@ -84,6 +97,10 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
                 showMenu(view);
                 break;
 
+            case R.id.iv_reload:
+                refresh();
+                break;
+
             default:
                 break;
         }
@@ -91,5 +108,24 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
 
     protected void showMenu(View view) {
 
+    }
+
+    protected void refresh() {
+        mPtrFrameLayout.autoRefresh(false);
+    }
+
+    protected void onRefreshComplete() {
+        mPtrFrameLayout.refreshComplete();
+
+        if (mAdapter.getItemCount() == 0) {
+            mAdapter.isUseEmpty(true);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    protected void setEmptyView() {
+        mAdapter.setEmptyView(R.layout.empty_view_list);
+        mAdapter.getEmptyView().findViewById(R.id.iv_reload).setOnClickListener(this);
+        mAdapter.isUseEmpty(false);
     }
 }

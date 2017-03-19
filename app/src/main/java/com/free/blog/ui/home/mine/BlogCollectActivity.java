@@ -69,7 +69,7 @@ public class BlogCollectActivity extends BaseActivity
 		mBackBtn.setOnClickListener(this);
 
 		tvTitle.setText("博客收藏");
-		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+		mReLoadImageView = (ImageView) findViewById(R.id.iv_reload);
 		mReLoadImageView.setOnClickListener(new OnClickListener() {
 
 			@Override

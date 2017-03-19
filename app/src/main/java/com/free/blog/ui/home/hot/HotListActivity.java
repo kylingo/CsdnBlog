@@ -77,7 +77,7 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 		tvTitle.setText(mChannelName);
 
 		mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+		mReLoadImageView = (ImageView) findViewById(R.id.iv_reload);
 		mReLoadImageView.setOnClickListener(new OnClickListener() {
 
 			@Override

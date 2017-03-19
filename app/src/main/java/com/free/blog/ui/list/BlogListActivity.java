@@ -105,7 +105,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
             setDefaultTitle();
         }
 
-        mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+        mReLoadImageView = (ImageView) findViewById(R.id.iv_reload);
         mReLoadImageView.setOnClickListener(new OnClickListener() {
 
             @Override

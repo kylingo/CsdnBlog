@@ -99,7 +99,7 @@ public class BlogContentActivity extends BaseActivity implements OnClickListener
 		mTitleView.setText(R.string.blog_detail);
 
 		mProgressBar = (ProgressBar) findViewById(R.id.blogContentPro);
-		mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+		mReLoadImageView = (ImageView) findViewById(R.id.iv_reload);
 		ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
 		mBackBtn.setVisibility(View.VISIBLE);
 		ImageView mCommemtBtn = (ImageView) findViewById(R.id.iv_comment);
@@ -160,7 +160,7 @@ public class BlogContentActivity extends BaseActivity implements OnClickListener
 			finish();
 			break;
 
-		case R.id.reLoadImage:
+		case R.id.iv_reload:
 			reload();
 			break;
 

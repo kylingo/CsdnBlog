@@ -69,7 +69,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 
     private void initComponent() {
         mPbLoading = (ProgressBar) findViewById(R.id.pb_loading);
-        mReLoadImageView = (ImageView) findViewById(R.id.reLoadImage);
+        mReLoadImageView = (ImageView) findViewById(R.id.iv_reload);
         mReLoadImageView.setOnClickListener(new OnClickListener() {
 
             @Override

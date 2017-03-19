@@ -15,14 +15,14 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
-        android:name="com.free.blog.BlogApplication"
+        android:name=".BlogApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar"
         tools:replace="android:theme">
         <activity
-            android:name="com.free.blog.ui.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -32,25 +32,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.free.blog.ui.home.HomeActivity"
+            android:name=".ui.home.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.free.blog.ui.home.HomeDrawerActivity"
+            android:name=".ui.home.HomeDrawerActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/ActionBarTheme"/>
         <activity
-            android:name="com.free.blog.ui.list.BlogListActivity"
+            android:name=".ui.list.BlogListActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.free.blog.ui.list.BlogListRxActivity"
+            android:name=".ui.list.BlogListRxActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.free.blog.ui.detail.BlogContentActivity"
+            android:name=".ui.detail.BlogContentActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.free.blog.ui.detail.comment.BlogCommentActivity"
+            android:name=".ui.detail.comment.BlogCommentActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.mine.AboutActivity"
@@ -73,15 +73,15 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="com.free.blog.ui.home.column.ColumnDetailActivity"
+            android:name=".ui.home.column.ColumnDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="com.free.blog.ui.home.column.ChannelDetailActivity"
+            android:name=".ui.home.column.ChannelDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="com.free.blog.ui.home.hot.HotListActivity"
+            android:name=".ui.home.hot.HotListActivity"
             android:screenOrientation="portrait">
         </activity>
 
@@ -96,7 +96,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <activity
-            android:name="com.free.blog.ui.home.mine.FeedbackActivity"
+            android:name=".ui.home.mine.FeedbackActivity"
             android:screenOrientation="portrait">
         </activity>
 

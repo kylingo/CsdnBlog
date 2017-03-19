@@ -30,6 +30,9 @@ public class BlogListRxAdapter extends BaseViewAdapter<BlogItem, BlogListRxAdapt
     @Override
     public void onBindViewHolder(BlogListViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        if (position <= 0) {
+            return;
+        }
 
         BlogItem item = getItem(position); // 获取当前数据
         if (null != item) {
