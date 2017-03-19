@@ -28,6 +28,8 @@ import com.free.blog.data.local.dao.BlogCollectDao;
 import com.free.blog.data.local.dao.BlogContentDao;
 import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.remote.NetEngine;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.ui.base.BaseActivity;
@@ -39,8 +41,6 @@ import org.jsoup.nodes.Element;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import rx.Subscriber;
 
 /**
  * 博客详细内容界面
@@ -251,13 +251,9 @@ public class BlogContentActivity extends BaseActivity implements OnClickListener
 	 */
 	private void requestData(String url) {
 		mProgressBar.setVisibility(View.VISIBLE);
-		NetEngine.getInstance().getBlogContent(url)
-				.compose(NetEngine.<String>getErrAndIOSchedulerTransformer())
-				.subscribe(new Subscriber<String>() {
-					@Override
-					public void onCompleted() {
-
-					}
+		NetEngine.getInstance().getHtml(url)
+				.compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
+				.subscribe(new RxSubscriber<String>() {
 
 					@Override
 					public void onError(Throwable e) {

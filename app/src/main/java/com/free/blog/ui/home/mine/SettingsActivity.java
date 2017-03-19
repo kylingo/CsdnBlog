@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.free.blog.BlogApplication;
 import com.free.blog.R;
-import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.CacheManager;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.FileUtils;
 import com.free.blog.library.util.NetUtils;
 import com.free.blog.library.util.ToastUtil;
@@ -31,7 +32,6 @@ import java.io.File;
 
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.functions.Func1;
 
 /**
@@ -154,7 +154,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
                         return FileUtils.getFileSize(file);
                     }
                 })
-                .compose(NetEngine.<Long>getErrAndIOSchedulerTransformer())
+                .compose(RxHelper.<Long>getErrAndIOSchedulerTransformer())
                 .subscribe(new Observer<Long>() {
                     @Override
                     public void onCompleted() {
@@ -231,13 +231,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
                         return FileUtils.delete(file);
                     }
                 })
-                .compose(NetEngine.<Boolean>getErrAndIOSchedulerTransformer())
-                .subscribe(new Subscriber<Boolean>() {
-                    @Override
-                    public void onCompleted() {
-                        dialog.dismiss();
-                    }
-
+                .compose(RxHelper.<Boolean>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<Boolean>() {
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
@@ -249,6 +244,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
                             ToastUtil.showCenter(SettingsActivity.this, "清理成功");
                             updateData();
                         }
+
+                        dialog.dismiss();
                     }
                 });
     }

@@ -26,6 +26,8 @@ import com.free.blog.data.local.dao.BlogItemDao;
 import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.Config;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.DisplayUtils;
 import com.free.blog.library.util.JsoupUtils;
@@ -41,7 +43,6 @@ import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.IXListViewRefreshListener;
 import me.maxwin.view.XListView;
 import rx.Observable;
-import rx.Subscriber;
 
 /**
  * 博客列表
@@ -262,13 +263,8 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
 
     private void getData(int page) {
         getBlogListObserver(page)
-                .compose(NetEngine.<String>getErrAndIOSchedulerTransformer())
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
+                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<String>() {
                     @Override
                     public void onError(Throwable e) {
                         handleData(null);

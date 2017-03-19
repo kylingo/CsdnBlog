@@ -1,9 +1,6 @@
 package com.free.blog.data.remote;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * @author tangqi on 17-3-14.
@@ -33,7 +30,7 @@ public class NetEngine {
         return mBlogApi.getCategoryBlogList(category, page);
     }
 
-    public Observable<String> getBlogContent(String url) {
+    public Observable<String> getHtml(String url) {
         return mBlogApi.getHtml(url);
     }
 
@@ -44,26 +41,4 @@ public class NetEngine {
     public Observable<String> getColumnList(String keywords, int page) {
         return mBlogApi.getColumnList(keywords, page);
     }
-
-    public static <T> Observable.Transformer<T, T> getErrAndIOSchedulerTransformer() {
-        return new Observable.Transformer<T, T>() {
-            @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return tObservable.onErrorResumeNext(NetEngine.<T>getErrReturnFunc())
-                        .subscribeOn(Schedulers.io())
-                        .unsubscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
-    }
-
-    private static <T> Func1<Throwable, Observable<T>> getErrReturnFunc() {
-        return new Func1<Throwable, Observable<T>>() {
-            @Override
-            public Observable<T> call(Throwable throwable) {
-                return Observable.error(throwable);
-            }
-        };
-    }
-
 }

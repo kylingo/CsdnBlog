@@ -14,20 +14,21 @@ import com.free.blog.data.entity.Channel;
 import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.CategoryManager;
 import com.free.blog.library.config.ExtraKey;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.SpfUtils;
 import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.base.BaseFragment;
 import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.SelectionDialog;
+import com.free.blog.ui.base.BaseFragment;
 
 import java.util.List;
 
 import me.maxwin.view.IXListViewLoadMore;
 import me.maxwin.view.IXListViewRefreshListener;
 import me.maxwin.view.XListView;
-import rx.Subscriber;
 
 /**
  * 专栏
@@ -79,13 +80,8 @@ public class ColumnFragment extends BaseFragment
 
     private void getData(int page) {
         NetEngine.getInstance().getColumnList(mKeywords, page)
-                .compose(NetEngine.<String>getErrAndIOSchedulerTransformer())
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
+                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<String>() {
                     @Override
                     public void onError(Throwable e) {
                         onResponse(null);
