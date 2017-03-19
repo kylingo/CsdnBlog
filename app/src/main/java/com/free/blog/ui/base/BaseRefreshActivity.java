@@ -18,7 +18,8 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 /**
  * @author studiotang on 17/3/18
  */
-public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener,
+        BaseQuickAdapter.RequestLoadMoreListener {
 
     protected int mPage = 1;
 
@@ -77,7 +78,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
         mPtrFrameLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                refresh();
+                onRefresh();
             }
         }, 0);
     }
@@ -107,8 +108,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
         loadMoreData();
     }
 
-    protected void refresh() {
-        mPage = 1;
+    protected void onRefresh() {
         mPtrFrameLayout.autoRefresh(false);
     }
 
@@ -124,7 +124,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
                 break;
 
             case R.id.iv_reload:
-                refresh();
+                onRefresh();
                 break;
 
             default:
