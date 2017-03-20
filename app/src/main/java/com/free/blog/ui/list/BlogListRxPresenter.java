@@ -22,7 +22,8 @@ import rx.functions.Func1;
 /**
  * @author tangqi on 17-3-20.
  */
-public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implements BlogListRxContract.Presenter {
+public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
+        implements BlogListRxContract.Presenter {
 
     private BlogItemDao mBlogItemDao;
     private List<BlogCategory> mCategoryList;
@@ -30,11 +31,13 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implem
     private String mCategory;
     private String mCategoryLink;
 
-    public BlogListRxPresenter(String userId, String category, IBaseRefreshView<List<BlogItem>, IBaseRefreshPresenter> viewDelegate) {
+    public BlogListRxPresenter(String userId, String category, IBaseRefreshView<List<BlogItem>,
+            IBaseRefreshPresenter> viewDelegate) {
         super(viewDelegate);
         this.mUserId = userId;
         this.mCategory = category;
-        this.mBlogItemDao = DaoFactory.getInstance().getBlogItemDao(BlogApplication.getContext(), userId);
+        this.mBlogItemDao = DaoFactory.getInstance()
+                .getBlogItemDao(BlogApplication.getContext(), userId);
     }
 
     @Override
@@ -60,7 +63,8 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implem
                     .map(new Func1<String, List<BlogItem>>() {
                         @Override
                         public List<BlogItem> call(String s) {
-                            List<BlogItem> list = JsoupUtils.getBlogItemList(mCategory, s, mCategoryList);
+                            List<BlogItem> list = JsoupUtils
+                                    .getBlogItemList(mCategory, s, mCategoryList);
                             mBlogItemDao.insertCategory(mCategoryList);
                             mBlogItemDao.insert(mCategory, list);
                             return list;
