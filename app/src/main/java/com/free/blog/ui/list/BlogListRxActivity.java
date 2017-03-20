@@ -16,8 +16,6 @@ import com.free.blog.data.entity.BlogItem;
 import com.free.blog.data.entity.Blogger;
 import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.Config;
-import com.free.blog.library.rx.RxHelper;
-import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.DisplayUtils;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.BaseRefreshActivity;
@@ -31,7 +29,7 @@ import rx.Observable;
 /**
  * @author studiotang on 17/3/19
  */
-public class BlogListRxActivity extends BaseRefreshActivity {
+public class BlogListRxActivity extends BaseRefreshActivity<BlogItem> {
 
     private PopupWindow mPopupWindow;
 
@@ -60,39 +58,21 @@ public class BlogListRxActivity extends BaseRefreshActivity {
     }
 
     @Override
-    protected void loadInitData() {
-        getBlogListObserver(mPage)
-                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
-                .subscribe(new RxSubscriber<String>() {
-                    @Override
-                    public void onError(Throwable e) {
-                        onRefreshUI(null);
-                    }
+    protected Observable<String> getObservable(int page) {
+        if (Config.BLOG_CATEGORY_ALL.equals(mCategory)) {
+            return NetEngine.getInstance().getBlogList(mUserId, page);
+        }
 
-                    @Override
-                    public void onNext(String s) {
-                        mPage++;
-                        onRefreshUI(s);
-                    }
-                });
+        return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
     }
 
     @Override
-    protected void loadMoreData() {
-        getBlogListObserver(mPage)
-                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
-                .subscribe(new RxSubscriber<String>() {
-                    @Override
-                    public void onError(Throwable e) {
-                        onRefreshMoreUI(null);
-                    }
+    protected List<BlogItem> parseHtml(String result) {
+        if (!TextUtils.isEmpty(result)) {
+            return JsoupUtils.getBlogItemList(mCategory, result, mBlogCategoryList);
+        }
 
-                    @Override
-                    public void onNext(String s) {
-                        mPage++;
-                        onRefreshMoreUI(s);
-                    }
-                });
+        return null;
     }
 
     @Override
@@ -105,42 +85,6 @@ public class BlogListRxActivity extends BaseRefreshActivity {
         overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
     }
 
-    private Observable<String> getBlogListObserver(int page) {
-        if (Config.BLOG_CATEGORY_ALL.equals(mCategory)) {
-            return NetEngine.getInstance().getBlogList(mUserId, page);
-        }
-
-        return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
-    }
-
-    private void onRefreshUI(String result) {
-        List<BlogItem> list = parseData(result);
-        mAdapter.setNewData(list);
-
-        onRefreshComplete();
-    }
-
-    private void onRefreshMoreUI(String result) {
-        List<BlogItem> list = parseData(result);
-        if (list != null) {
-            mAdapter.addData(list);
-            mAdapter.loadMoreComplete();
-        } else {
-            mAdapter.loadMoreFail();
-        }
-    }
-
-    private List<BlogItem> parseData(String result) {
-        if (!TextUtils.isEmpty(result)) {
-            return JsoupUtils.getBlogItemList(mCategory, result, mBlogCategoryList);
-        }
-
-        return null;
-    }
-
-    /**
-     * 显示PopWindow
-     */
     @Override
     protected void showMenu(View view) {
         if (mPopupWindow == null) {
@@ -151,9 +95,6 @@ public class BlogListRxActivity extends BaseRefreshActivity {
         mPopupWindow.showAsDropDown(view, (-1) * xOffset, 0);
     }
 
-    /**
-     * 初始化PopupWindow
-     */
     private void getPopupWindow() {
         View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_bloglist, null);
 

@@ -10,15 +10,20 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.free.blog.R;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
+
+import java.util.List;
 
 import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import rx.Observable;
 
 /**
  * @author studiotang on 17/3/18
  */
-public abstract class BaseRefreshActivity extends BaseActivity implements View.OnClickListener,
+public abstract class BaseRefreshActivity<T> extends BaseActivity implements View.OnClickListener,
         BaseQuickAdapter.RequestLoadMoreListener {
 
     protected int mPage = 1;
@@ -26,17 +31,17 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
     protected PtrFrameLayout mPtrFrameLayout;
     protected RecyclerView mRecyclerView;
     protected TextView mTvTitle;
-    protected BaseViewAdapter mAdapter;
+    protected BaseViewAdapter<T> mAdapter;
 
     protected abstract String getActionBarTitle();
 
-    protected abstract BaseViewAdapter getAdapter();
-
     protected abstract void prepareData();
 
-    protected abstract void loadInitData();
+    protected abstract BaseViewAdapter<T> getAdapter();
 
-    protected abstract void loadMoreData();
+    protected abstract Observable<String> getObservable(int page);
+
+    protected abstract List<T> parseHtml(String result);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
         initView();
     }
 
-    private void initView() {
+    protected void initView() {
         initActionBar();
 
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
@@ -110,6 +115,58 @@ public abstract class BaseRefreshActivity extends BaseActivity implements View.O
 
     protected void onRefresh() {
         mPtrFrameLayout.autoRefresh(false);
+    }
+
+    protected void loadInitData() {
+        mPage = 1;
+        getObservable(mPage)
+                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<String>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        onRefreshUI(null);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mPage++;
+                        onRefreshUI(s);
+                    }
+                });
+    }
+
+    protected void loadMoreData() {
+        getObservable(mPage)
+                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<String>() {
+                    @Override
+                    public void onError(Throwable e) {
+                        onRefreshMoreUI(null);
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mPage++;
+                        onRefreshMoreUI(s);
+                    }
+                });
+    }
+
+    private void onRefreshUI(String result) {
+        List<T> list = parseHtml(result);
+        mAdapter.setNewData(list);
+
+        onRefreshComplete();
+    }
+
+    private void onRefreshMoreUI(String result) {
+        List<T> list = parseHtml(result);
+        if (list != null) {
+            mAdapter.addData(list);
+            mAdapter.loadMoreComplete();
+        } else {
+            mAdapter.loadMoreFail();
+        }
     }
 
     @Override
