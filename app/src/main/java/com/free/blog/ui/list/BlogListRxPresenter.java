@@ -1,7 +1,10 @@
 package com.free.blog.ui.list;
 
+import com.free.blog.BlogApplication;
 import com.free.blog.data.entity.BlogCategory;
 import com.free.blog.data.entity.BlogItem;
+import com.free.blog.data.local.dao.BlogItemDao;
+import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.rx.RxHelper;
@@ -18,8 +21,9 @@ import rx.functions.Func1;
 /**
  * @author tangqi on 17-3-20.
  */
-public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implements BlogListRxContract.Presenter{
+public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implements BlogListRxContract.Presenter {
 
+    private BlogItemDao mBlogItemDao;
     private List<BlogCategory> mCategoryList;
     private String mUserId;
     private String mCategory;
@@ -29,6 +33,7 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implem
         super(viewDelegate);
         this.mUserId = userId;
         this.mCategory = category;
+        this.mBlogItemDao = DaoFactory.getInstance().getBlogItemDao(BlogApplication.getContext(), userId);
     }
 
     @Override
@@ -48,11 +53,25 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implem
 
     @Override
     protected Observable<? extends List<BlogItem>> getObservable(int page) {
-        return getObservableString(page)
-                .map(new Func1<String, List<BlogItem>>() {
+        if (isNetWorkAvailable()) {
+            return getObservableString(page)
+                    .map(new Func1<String, List<BlogItem>>() {
+                        @Override
+                        public List<BlogItem> call(String s) {
+                            List<BlogItem> list = JsoupUtils.getBlogItemList(mCategory, s, mCategoryList);
+                            mBlogItemDao.insertCategory(mCategoryList);
+                            mBlogItemDao.insert(mCategory, list);
+                            return list;
+                        }
+                    })
+                    .compose(RxHelper.<List<BlogItem>>getErrAndIOSchedulerTransformer());
+        }
+
+        return Observable.just(page)
+                .map(new Func1<Integer, List<BlogItem>>() {
                     @Override
-                    public List<BlogItem> call(String s) {
-                        return JsoupUtils.getBlogItemList(mCategory, s, mCategoryList);
+                    public List<BlogItem> call(Integer page) {
+                        return mBlogItemDao.query(mCategory, page);
                     }
                 })
                 .compose(RxHelper.<List<BlogItem>>getErrAndIOSchedulerTransformer());
@@ -65,6 +84,4 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implem
 
         return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
     }
-
-
 }

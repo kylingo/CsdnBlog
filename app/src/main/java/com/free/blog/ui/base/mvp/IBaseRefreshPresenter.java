@@ -5,6 +5,8 @@ package com.free.blog.ui.base.mvp;
  */
 public interface IBaseRefreshPresenter extends IBasePresenter {
 
+    boolean isNetWorkAvailable();
+
     void loadRefreshData();
 
     void loadMoreData();

@@ -85,6 +85,10 @@ public class BlogItemDaoImpl implements BlogItemDao {
 
     @Override
     public void insertCategory(List<BlogCategory> blogCategoryList) {
+        if (blogCategoryList == null) {
+            return;
+        }
+
         try {
             for (int i = 0; i < blogCategoryList.size(); i++) {
                 BlogCategory blogCategory = blogCategoryList.get(i);
