@@ -52,18 +52,20 @@ public class BlogItemDaoImpl implements BlogItemDao {
         try {
             if (Config.BLOG_CATEGORY_ALL.equals(category)) {
                 // 全部分类
-                list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).and("isTop", "=", 1));
+//                list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).and("isTop", "=", 1));
                 // 加上这句，可把置顶的文章在后面的地方不显示
                 List<BlogItem> normalList = db.findAll(
-                        Selector.from(BlogItem.class).where("category", "=", category).and("isTop", "!=", 1).orderBy("date", true).limit(page * 20));
-                if (list != null) {
-                    list.addAll(normalList);
-                } else {
+                        Selector.from(BlogItem.class).where("category", "=", category)
+                                .orderBy("isTop", true)
+                                .limit(page * 20).offset((page - 1) * 20));
+//                if (list != null) {
+//                    list.addAll(normalList);
+//                } else {
                     list = normalList;
-                }
+//                }
             } else {
                 // 其他分类
-                list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).orderBy("date", true).limit(page * 20));
+                list = db.findAll(Selector.from(BlogItem.class).where("category", "=", category).orderBy("date", true).limit(page * 20).offset((page - 1) * 20));
             }
         } catch (DbException e) {
             e.printStackTrace();

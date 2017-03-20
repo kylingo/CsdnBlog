@@ -8,6 +8,7 @@ import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.mvp.IBaseRefreshPresenter;
 import com.free.blog.ui.base.mvp.IBaseRefreshView;
@@ -49,6 +50,7 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implem
     @Override
     public void setCategoryList(List<BlogCategory> categoryList) {
         mCategoryList = categoryList;
+        queryCategory(mCategoryList);
     }
 
     @Override
@@ -83,5 +85,33 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>> implem
         }
 
         return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
+    }
+
+    private void queryCategory(List<BlogCategory> list) {
+        Observable.just(list)
+                .map(new Func1<List<BlogCategory>, Boolean>() {
+                    @Override
+                    public Boolean call(List<BlogCategory> blogCategories) {
+                        List<BlogCategory> queryList = mBlogItemDao.queryCategory();
+                        if (blogCategories != null && queryList != null) {
+                            blogCategories.clear();
+                            blogCategories.addAll(queryList);
+                            return true;
+                        }
+                        return false;
+                    }
+                })
+                .compose(RxHelper.<Boolean>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<Boolean>() {
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+
+                    }
+                });
     }
 }
