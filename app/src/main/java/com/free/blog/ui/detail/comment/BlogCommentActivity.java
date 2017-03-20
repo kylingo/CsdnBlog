@@ -23,7 +23,7 @@ import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 
 import java.util.Collections;
 import java.util.List;

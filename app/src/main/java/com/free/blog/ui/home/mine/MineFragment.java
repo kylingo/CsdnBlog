@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.ui.base.BaseFragment;
+import com.free.blog.ui.base.fragment.BaseFragment;
 
 /**
  * 个人中心

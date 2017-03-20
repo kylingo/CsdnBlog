@@ -32,7 +32,7 @@ import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.detail.comment.BlogCommentActivity;
 
 import org.jsoup.Jsoup;
@@ -52,6 +52,7 @@ import java.util.List;
 @SuppressLint("SetJavaScriptEnabled")
 public class BlogContentActivity extends BaseActivity implements OnClickListener,
 		OnCheckedChangeListener {
+	public static final String EXTRA_BLOG_ITEM = "blog_item";
 	private WebView mWebView = null;
 	private ProgressBar mProgressBar; // 进度条
 	private ImageView mReLoadImageView; // 重新加载的图片
@@ -85,7 +86,7 @@ public class BlogContentActivity extends BaseActivity implements OnClickListener
 		mBlogCollectDao = DaoFactory.getInstance().getBlogCollectDao(this);
 		mHistoryUrlList = new ArrayList<String>();
 
-		mBlogItem = (BlogItem) getIntent().getSerializableExtra("blogItem");
+		mBlogItem = (BlogItem) getIntent().getSerializableExtra(EXTRA_BLOG_ITEM);
 		if (mBlogItem != null) {
 			mUrl = mBlogItem.getLink();
 			mTitle = mBlogItem.getTitle();

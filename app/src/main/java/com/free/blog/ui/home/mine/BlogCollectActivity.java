@@ -20,7 +20,7 @@ import com.free.blog.library.util.DateUtils;
 import com.free.blog.data.local.dao.BlogCollectDao;
 import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.ui.list.BlogListAdapter;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.detail.BlogContentActivity;
 
 import java.util.List;
@@ -118,7 +118,7 @@ public class BlogCollectActivity extends BaseActivity
 		BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
 		Intent i = new Intent();
 		i.setClass(BlogCollectActivity.this, BlogContentActivity.class);
-		i.putExtra("blogItem", item);
+		i.putExtra(BlogContentActivity.EXTRA_BLOG_ITEM, item);
 		startActivity(i);
 
 		// 动画过渡

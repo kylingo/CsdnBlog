@@ -18,7 +18,7 @@ import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.library.config.CategoryManager;
 import com.free.blog.library.config.ExtraKey;
 import com.free.blog.library.util.DateUtils;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.detail.BlogContentActivity;
 import com.free.blog.ui.list.BlogListAdapter;
 
@@ -120,7 +120,7 @@ public class HotListActivity extends BaseActivity implements OnClickListener, On
 		BlogItem item = (BlogItem) arg0.getAdapter().getItem(position);
 		Intent i = new Intent();
 		i.setClass(HotListActivity.this, BlogContentActivity.class);
-		i.putExtra("blogItem", item);
+		i.putExtra(BlogContentActivity.EXTRA_BLOG_ITEM, item);
 		startActivity(i);
 		overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
 	}

@@ -56,7 +56,6 @@ public class JsoupUtils {
             str = localElement1.getElementById("blog_userface").select("a").select("img").attr
                     ("src");
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
             str = "";
         }
@@ -134,7 +133,6 @@ public class JsoupUtils {
                     break;
                 }
             } catch (Exception e) {
-                // TODO: handle exception
                 e.printStackTrace();
             }
 
@@ -231,7 +229,6 @@ public class JsoupUtils {
         try {
             return titleElement.select("h1").get(0).select("span").get(0).select("a").get(0).text();
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
         return null;

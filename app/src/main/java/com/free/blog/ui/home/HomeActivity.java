@@ -1,14 +1,15 @@
 package com.free.blog.ui.home;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.free.blog.R;
-import com.free.blog.ui.base.BaseFragmentActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.blog.BloggerFragment;
 import com.free.blog.ui.home.column.ColumnFragment;
 import com.free.blog.ui.home.hot.HotFragment;
@@ -29,7 +30,7 @@ import com.umeng.update.UmengUpdateAgent;
  * @author smile
  * 
  */
-public class HomeActivity extends BaseFragmentActivity implements OnCheckedChangeListener {
+public class HomeActivity extends BaseActivity implements OnCheckedChangeListener {
 
 	private BloggerFragment mFirstFragment;
 	private ColumnFragment mSecondFragment;
@@ -56,7 +57,7 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 		mThirdFragment = new HotFragment();
 		mFourthFragment = new MineFragment();
 		mFormerTag = FIRST_TAG;
-		getSupportFragmentManager().beginTransaction()
+		getFragmentManager().beginTransaction()
 				.add(R.id.main_content, mFirstFragment, FIRST_TAG).commit();
 		mGroup.setOnCheckedChangeListener(this);
 
@@ -90,8 +91,9 @@ public class HomeActivity extends BaseFragmentActivity implements OnCheckedChang
 	 */
 	@Override
 	public void onCheckedChanged(RadioGroup arg0, int checkedId) {
-		FragmentTransaction mTransaction = getSupportFragmentManager().beginTransaction();
-		mTransaction.hide(getSupportFragmentManager().findFragmentByTag(mFormerTag));
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction mTransaction = fragmentManager.beginTransaction();
+		mTransaction.hide(fragmentManager.findFragmentByTag(mFormerTag));
 
 		switch (checkedId) {
 

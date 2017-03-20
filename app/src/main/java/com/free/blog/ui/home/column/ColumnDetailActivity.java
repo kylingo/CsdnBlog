@@ -1,6 +1,6 @@
 package com.free.blog.ui.home.column;
 
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 
 /**
  * @author tangqi on 17-3-13.

@@ -17,7 +17,7 @@ import com.free.blog.library.config.ExtraKey;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.ui.home.column.ChannelListAdapter;
-import com.free.blog.ui.base.BaseFragment;
+import com.free.blog.ui.base.fragment.BaseFragment;
 
 import java.util.List;
 

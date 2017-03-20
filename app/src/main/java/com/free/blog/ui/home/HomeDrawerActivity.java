@@ -2,12 +2,12 @@ package com.free.blog.ui.home;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -26,7 +26,7 @@ import com.free.blog.library.util.ToastUtil;
 import com.free.blog.library.view.CircleImageView;
 import com.free.blog.library.view.drawerlayout.ActionBarDrawerToggle;
 import com.free.blog.library.view.drawerlayout.DrawerArrowDrawable;
-import com.free.blog.ui.base.BaseFragmentActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.blog.BloggerFragment;
 import com.free.blog.ui.home.mine.AboutActivity;
 import com.free.blog.ui.home.mine.BlogCollectActivity;
@@ -42,7 +42,7 @@ import java.util.List;
  * @author tangqi
  * @since 2015年8月12日下午10:46:07
  */
-public class HomeDrawerActivity extends BaseFragmentActivity implements OnClickListener {
+public class HomeDrawerActivity extends BaseActivity implements OnClickListener {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -247,7 +247,7 @@ public class HomeDrawerActivity extends BaseFragmentActivity implements OnClickL
 	}
 
 	private void initFragment() {
-		mFragmentManager = getSupportFragmentManager();
+		mFragmentManager = getFragmentManager();
 		// 只當容器，主要內容已Fragment呈現
 		if (mBloggerFragment == null) {
 			mBloggerFragment = new BloggerFragment();

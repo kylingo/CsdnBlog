@@ -22,7 +22,7 @@ import com.free.blog.library.util.ToastUtil;
 import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.BloggerOperationDialog;
 import com.free.blog.library.view.dialog.SelectionDialog;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.blog.BloggerListAdapter;
 import com.free.blog.ui.list.BlogListActivity;
 
@@ -125,7 +125,7 @@ public class ChannelDetailActivity extends BaseActivity
     public void onItemClick(AdapterView<?> parent, View arg1, int position, long arg3) {
         Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
         Intent intent = new Intent(this, BlogListActivity.class);
-        intent.putExtra("blogger", blogger);
+        intent.putExtra(BlogListActivity.EXTRA_BLOGGER, blogger);
         startActivity(intent);
     }
 

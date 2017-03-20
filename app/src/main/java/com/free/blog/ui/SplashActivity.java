@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 import com.free.blog.library.util.VersionUtils;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.HomeActivity;
 
 /**

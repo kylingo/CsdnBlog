@@ -22,7 +22,7 @@ import com.free.blog.library.util.SpfUtils;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.SelectionDialog;
-import com.free.blog.ui.base.BaseFragment;
+import com.free.blog.ui.base.fragment.BaseFragment;
 
 import java.util.List;
 

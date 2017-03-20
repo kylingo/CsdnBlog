@@ -1,4 +1,4 @@
-package com.free.blog.ui.base;
+package com.free.blog.ui.base.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,45 +10,44 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.free.blog.R;
-import com.free.blog.library.rx.RxHelper;
-import com.free.blog.library.rx.RxSubscriber;
+import com.free.blog.ui.base.adapter.BaseViewAdapter;
+import com.free.blog.ui.base.mvp.IBaseRefreshPresenter;
+import com.free.blog.ui.base.mvp.RefreshPresenter;
+import com.free.blog.ui.list.BlogListRxContract;
 
 import java.util.List;
 
 import in.srain.cube.views.ptr.PtrClassicDefaultHeader;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import rx.Observable;
 
 /**
  * @author studiotang on 17/3/18
  */
-public abstract class BaseRefreshActivity<T> extends BaseActivity implements View.OnClickListener,
+@SuppressWarnings("unchecked")
+public abstract class BaseRefreshActivity<T> extends BaseActivity implements
+        BlogListRxContract.View<T, IBaseRefreshPresenter>, IBaseRefreshPage, View.OnClickListener,
         BaseQuickAdapter.RequestLoadMoreListener {
 
-    protected int mPage = 1;
+    protected RefreshPresenter mPresenter;
 
     protected PtrFrameLayout mPtrFrameLayout;
     protected RecyclerView mRecyclerView;
     protected TextView mTvTitle;
-    protected BaseViewAdapter<T> mAdapter;
+    protected BaseViewAdapter mAdapter;
 
     protected abstract String getActionBarTitle();
 
-    protected abstract void prepareData();
+    protected abstract void beforeInitView();
 
-    protected abstract BaseViewAdapter<T> getAdapter();
-
-    protected abstract Observable<String> getObservable(int page);
-
-    protected abstract List<T> parseHtml(String result);
+    protected abstract BaseViewAdapter getAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_refresh);
 
-        prepareData();
+        beforeInitView();
         initView();
     }
 
@@ -83,7 +82,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements Vie
         mPtrFrameLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-                onRefresh();
+                doRefresh();
             }
         }, 0);
     }
@@ -104,8 +103,16 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements Vie
         mTvTitle.setText(title);
     }
 
-    protected void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unSubscribe();
+    }
 
+    @Override
+    public void setPresenter(IBaseRefreshPresenter presenter) {
+        mPresenter = (RefreshPresenter) presenter;
+        mPresenter.subscribe();
     }
 
     @Override
@@ -113,60 +120,47 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements Vie
         loadMoreData();
     }
 
-    protected void onRefresh() {
+    protected void doRefresh() {
         mPtrFrameLayout.autoRefresh(false);
+        mAdapter.isUseEmpty(false);
     }
 
-    protected void loadInitData() {
-        mPage = 1;
-        getObservable(mPage)
-                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
-                .subscribe(new RxSubscriber<String>() {
-                    @Override
-                    public void onError(Throwable e) {
-                        onRefreshUI(null);
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        mPage++;
-                        onRefreshUI(s);
-                    }
-                });
+    @Override
+    public void loadInitData() {
+        mPresenter.loadRefreshData();
     }
 
-    protected void loadMoreData() {
-        getObservable(mPage)
-                .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
-                .subscribe(new RxSubscriber<String>() {
-                    @Override
-                    public void onError(Throwable e) {
-                        onRefreshMoreUI(null);
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-                        mPage++;
-                        onRefreshMoreUI(s);
-                    }
-                });
+    @Override
+    public void loadMoreData() {
+        mPresenter.loadMoreData();
     }
 
-    private void onRefreshUI(String result) {
-        List<T> list = parseHtml(result);
-        mAdapter.setNewData(list);
-
+    @Override
+    public void onRefreshUI(T data) {
+        mAdapter.setNewData((List<T>) data);
         onRefreshComplete();
     }
 
-    private void onRefreshMoreUI(String result) {
-        List<T> list = parseHtml(result);
+    @Override
+    public void onRefreshFailure(int errNo) {
+        onRefreshComplete();
+    }
+
+    @Override
+    public void onMoreUI(T data) {
+        List<T> list = (List<T>) data;
         if (list != null) {
             mAdapter.addData(list);
             mAdapter.loadMoreComplete();
         } else {
             mAdapter.loadMoreFail();
         }
+    }
+
+    @Override
+    public void onMoreFailure(int errNo) {
+        mAdapter.loadMoreFail();
+        mAdapter.setEnableLoadMore(false);
     }
 
     @Override
@@ -181,7 +175,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements Vie
                 break;
 
             case R.id.iv_reload:
-                onRefresh();
+                doRefresh();
                 break;
 
             default:
@@ -206,5 +200,9 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements Vie
         mAdapter.setEmptyView(R.layout.empty_view_list);
         mAdapter.getEmptyView().findViewById(R.id.iv_reload).setOnClickListener(this);
         mAdapter.isUseEmpty(false);
+    }
+
+    protected void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+
     }
 }

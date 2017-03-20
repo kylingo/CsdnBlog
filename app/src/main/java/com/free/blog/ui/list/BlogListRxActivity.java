@@ -1,7 +1,6 @@
 package com.free.blog.ui.list;
 
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,37 +13,37 @@ import com.free.blog.R;
 import com.free.blog.data.entity.BlogCategory;
 import com.free.blog.data.entity.BlogItem;
 import com.free.blog.data.entity.Blogger;
-import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.util.DisplayUtils;
-import com.free.blog.library.util.JsoupUtils;
-import com.free.blog.ui.base.BaseRefreshActivity;
+import com.free.blog.ui.base.activity.BaseRefreshActivity;
+import com.free.blog.ui.base.mvp.IBaseRefreshPresenter;
 import com.free.blog.ui.detail.BlogContentActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-
 /**
  * @author studiotang on 17/3/19
  */
-public class BlogListRxActivity extends BaseRefreshActivity<BlogItem> {
+public class BlogListRxActivity extends BaseRefreshActivity<List<BlogItem>> {
 
-    private PopupWindow mPopupWindow;
+    public static final String EXTRA_BLOGGER = "blogger";
 
-    private String mUserId;
+    protected BlogListRxPresenter mPresenter;
     private Blogger mBlogger;
     private BlogListRxAdapter mAdapter;
-    private List<BlogCategory> mBlogCategoryList = new ArrayList<>();
-    private String mCategory = Config.BLOG_CATEGORY_ALL;
-    private String mCategoryLink;
+
+    private String mCategory;
+    private List<BlogCategory> mBlogCategoryList;
+    private PopupWindow mPopupWindow;
 
     @Override
-    protected void prepareData() {
-        mBlogger = (Blogger) getIntent().getSerializableExtra("blogger");
-        mUserId = mBlogger.getUserId();
+    protected void beforeInitView() {
+        mBlogger = (Blogger) getIntent().getSerializableExtra(EXTRA_BLOGGER);
         mAdapter = new BlogListRxAdapter();
+        mBlogCategoryList = new ArrayList<>();
+        mCategory = Config.BLOG_CATEGORY_ALL;
+        new BlogListRxPresenter(mBlogger.getUserId(), mCategory, this);
     }
 
     @Override
@@ -58,21 +57,10 @@ public class BlogListRxActivity extends BaseRefreshActivity<BlogItem> {
     }
 
     @Override
-    protected Observable<String> getObservable(int page) {
-        if (Config.BLOG_CATEGORY_ALL.equals(mCategory)) {
-            return NetEngine.getInstance().getBlogList(mUserId, page);
-        }
-
-        return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
-    }
-
-    @Override
-    protected List<BlogItem> parseHtml(String result) {
-        if (!TextUtils.isEmpty(result)) {
-            return JsoupUtils.getBlogItemList(mCategory, result, mBlogCategoryList);
-        }
-
-        return null;
+    public void setPresenter(IBaseRefreshPresenter presenter) {
+        super.setPresenter(presenter);
+        mPresenter = (BlogListRxPresenter) presenter;
+        mPresenter.setCategoryList(mBlogCategoryList);
     }
 
     @Override
@@ -80,7 +68,7 @@ public class BlogListRxActivity extends BaseRefreshActivity<BlogItem> {
         BlogItem item = (BlogItem) adapter.getItem(position);
         Intent i = new Intent();
         i.setClass(this, BlogContentActivity.class);
-        i.putExtra("blogItem", item);
+        i.putExtra(BlogContentActivity.EXTRA_BLOG_ITEM, item);
         startActivity(i);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
     }
@@ -114,18 +102,20 @@ public class BlogListRxActivity extends BaseRefreshActivity<BlogItem> {
                 if (position == 0) {
                     setActionBarTitle(getActionBarTitle());
                     mCategory = Config.BLOG_CATEGORY_ALL;
-                    mCategoryLink = null;
+                    mPresenter.setCategoryName(mCategory);
+                    mPresenter.setCategoryLink(null);
 
                     mAdapter.setNewData(null);
-                    loadInitData();
+                    doRefresh();
                 } else {
                     BlogCategory blogCategory = ((BlogCategoryAdapter) parent.getAdapter()).getItem(position);
                     setActionBarTitle(blogCategory.getName());
                     mCategory = blogCategory.getName();
-                    mCategoryLink = blogCategory.getLink();
+                    mPresenter.setCategoryName(mCategory);
+                    mPresenter.setCategoryLink(blogCategory.getLink());
 
                     mAdapter.setNewData(null);
-                    loadInitData();
+                    doRefresh();
                 }
             }
         });

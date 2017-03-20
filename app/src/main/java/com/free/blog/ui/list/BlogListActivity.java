@@ -33,7 +33,7 @@ import com.free.blog.library.util.DisplayUtils;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.library.util.NetUtils;
 import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.detail.BlogContentActivity;
 
 import java.util.ArrayList;
@@ -52,6 +52,8 @@ import rx.Observable;
  */
 @SuppressLint("InflateParams")
 public class BlogListActivity extends BaseActivity implements OnItemClickListener, OnClickListener, IXListViewRefreshListener, IXListViewLoadMore {
+
+    public static final String EXTRA_BLOGGER = "blogger";
 
     private XListView mListView;
     private BlogListAdapter mAdapter;
@@ -83,7 +85,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
     }
 
     private void initData() {
-        mBlogger = (Blogger) getIntent().getSerializableExtra("blogger");
+        mBlogger = (Blogger) getIntent().getSerializableExtra(EXTRA_BLOGGER);
         mUserId = mBlogger.getUserId();
         mBlogItemDao = DaoFactory.getInstance().getBlogItemDao(this, mUserId);
 
@@ -226,7 +228,7 @@ public class BlogListActivity extends BaseActivity implements OnItemClickListene
         BlogItem item = (BlogItem) mAdapter.getItem(position - 1);
         Intent i = new Intent();
         i.setClass(BlogListActivity.this, BlogContentActivity.class);
-        i.putExtra("blogItem", item);
+        i.putExtra(BlogContentActivity.EXTRA_BLOG_ITEM, item);
         startActivity(i);
         overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
     }

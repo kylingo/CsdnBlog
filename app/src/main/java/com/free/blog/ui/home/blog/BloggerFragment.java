@@ -38,7 +38,7 @@ import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.BloggerAddDialog;
 import com.free.blog.library.view.dialog.BloggerOperationDialog;
 import com.free.blog.library.view.dialog.LoadingDialog;
-import com.free.blog.ui.base.BaseFragment;
+import com.free.blog.ui.base.fragment.BaseFragment;
 import com.free.blog.ui.list.BlogListRxActivity;
 
 import java.lang.reflect.Method;
@@ -177,7 +177,7 @@ public class BloggerFragment extends BaseFragment
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Blogger blogger = (Blogger) parent.getAdapter().getItem(position);
         Intent intent = new Intent(getActivity(), BlogListRxActivity.class);
-        intent.putExtra("blogger", blogger);
+        intent.putExtra(BlogListRxActivity.EXTRA_BLOGGER, blogger);
         startActivity(intent);
     }
 

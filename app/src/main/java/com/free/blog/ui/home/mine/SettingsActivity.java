@@ -21,7 +21,7 @@ import com.free.blog.library.util.VersionUtils;
 import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.LoadingDialog;
 import com.free.blog.library.view.dialog.SelectionDialog;
-import com.free.blog.ui.base.BaseActivity;
+import com.free.blog.ui.base.activity.BaseActivity;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 import com.umeng.update.UmengUpdateListener;
