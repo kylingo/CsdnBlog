@@ -44,9 +44,6 @@
             android:name=".ui.list.BlogListActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.list.BlogListRxActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.detail.BlogContentActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -68,10 +65,10 @@
             android:name=".ui.home.mine.SettingsActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".ui.home.mine.BlogCollectActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <!--<activity-->
+            <!--android:name=".ui.home.mine.BlogCollectActivity"-->
+            <!--android:screenOrientation="portrait">-->
+        <!--</activity>-->
         <activity
             android:name=".ui.home.column.ColumnDetailActivity"
             android:screenOrientation="portrait">
@@ -80,10 +77,10 @@
             android:name=".ui.home.column.ChannelDetailActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".ui.home.hot.HotListActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <!--<activity-->
+            <!--android:name=".ui.home.hot.HotListActivity"-->
+            <!--android:screenOrientation="portrait">-->
+        <!--</activity>-->
 
         <!-- umeng auto upgrade start -->
         <service

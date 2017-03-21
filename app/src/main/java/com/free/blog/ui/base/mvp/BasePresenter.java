@@ -1,5 +1,8 @@
 package com.free.blog.ui.base.mvp;
 
+import com.free.blog.BlogApplication;
+import com.free.blog.library.util.NetUtils;
+
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -10,6 +13,11 @@ public class BasePresenter implements IBasePresenter {
 
     private CompositeSubscription compositeSubscription;
     private boolean mIsSub = false;
+
+    @Override
+    public boolean isNetWorkAvailable() {
+        return NetUtils.isNetAvailable(BlogApplication.getContext());
+    }
 
     @Override
     public void subscribe() {

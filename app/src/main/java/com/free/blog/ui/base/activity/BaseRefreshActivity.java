@@ -11,9 +11,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.free.blog.R;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
-import com.free.blog.ui.base.mvp.IBaseRefreshPresenter;
-import com.free.blog.ui.base.mvp.IBaseRefreshView;
-import com.free.blog.ui.base.mvp.RefreshPresenter;
+import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
+import com.free.blog.ui.base.mvp.refresh.IRefreshView;
+import com.free.blog.ui.base.mvp.refresh.RefreshPresenter;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 @SuppressWarnings("unchecked")
 public abstract class BaseRefreshActivity<T> extends BaseActivity implements
-        IBaseRefreshView<T, IBaseRefreshPresenter>, IBaseRefreshPage, View.OnClickListener,
+        IRefreshView<T, IRefreshPresenter>, IBaseRefreshPage, View.OnClickListener,
         BaseQuickAdapter.RequestLoadMoreListener {
 
     protected RefreshPresenter mPresenter;
@@ -110,7 +110,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     }
 
     @Override
-    public void setPresenter(IBaseRefreshPresenter presenter) {
+    public void setPresenter(IRefreshPresenter presenter) {
         mPresenter = (RefreshPresenter) presenter;
         mPresenter.subscribe();
     }

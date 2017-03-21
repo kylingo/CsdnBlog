@@ -29,7 +29,6 @@ import com.free.blog.library.view.drawerlayout.DrawerArrowDrawable;
 import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.blog.BloggerFragment;
 import com.free.blog.ui.home.mine.AboutActivity;
-import com.free.blog.ui.home.mine.BlogCollectActivity;
 import com.free.blog.ui.home.mine.SettingsActivity;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -192,7 +191,7 @@ public class HomeDrawerActivity extends BaseActivity implements OnClickListener 
 				// break;
 
 				case 1:
-					intent = new Intent(HomeDrawerActivity.this, BlogCollectActivity.class);
+//					intent = new Intent(HomeDrawerActivity.this, BlogCollectActivity.class);
 					break;
 
 				case 2:

@@ -5,6 +5,8 @@ package com.free.blog.ui.base.mvp;
  */
 public interface IBasePresenter {
 
+    boolean isNetWorkAvailable();
+
     void subscribe();
 
     void unSubscribe();

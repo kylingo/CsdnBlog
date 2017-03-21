@@ -1,6 +1,5 @@
 package com.free.blog.ui.home.hot;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -13,11 +12,10 @@ import android.widget.TextView;
 import com.free.blog.R;
 import com.free.blog.data.entity.Channel;
 import com.free.blog.library.config.ChannelManager;
-import com.free.blog.library.config.ExtraKey;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.home.column.ChannelListAdapter;
 import com.free.blog.ui.base.fragment.BaseFragment;
+import com.free.blog.ui.home.column.ChannelListAdapter;
 
 import java.util.List;
 
@@ -98,10 +96,10 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Channel channel = (Channel) parent.getAdapter().getItem(position);
-
-		Intent intent = new Intent(getActivity(), HotListActivity.class);
-		intent.putExtra(ExtraKey.CHANNEL, channel);
-		startActivity(intent);
+//		Channel channel = (Channel) parent.getAdapter().getItem(position);
+//
+//		Intent intent = new Intent(getActivity(), HotListActivity.class);
+//		intent.putExtra(ExtraKey.CHANNEL, channel);
+//		startActivity(intent);
 	}
 }

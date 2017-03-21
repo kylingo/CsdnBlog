@@ -1,6 +1,7 @@
-package com.free.blog.ui.base.mvp;
+package com.free.blog.ui.base.mvp.refresh;
 
 import com.free.blog.library.rx.RxSubscriber;
+import com.free.blog.ui.base.mvp.BasePresenter;
 
 import rx.Observable;
 import rx.Subscription;
@@ -8,13 +9,13 @@ import rx.Subscription;
 /**
  * @author tangqi on 17-3-20.
  */
-public abstract class RefreshPresenter<T> extends BaseRefreshPresenter {
+public abstract class RefreshPresenter<T> extends BasePresenter implements IRefreshPresenter{
     private int mPage = 1;
-    private IBaseRefreshView<T, IBaseRefreshPresenter> mViewDelegate;
+    private IRefreshView<T, IRefreshPresenter> mViewDelegate;
     private boolean isLoadRefresh;
     private boolean isLoadMore;
 
-    public RefreshPresenter(IBaseRefreshView<T, IBaseRefreshPresenter> viewDelegate) {
+    public RefreshPresenter(IRefreshView<T, IRefreshPresenter> viewDelegate) {
         mViewDelegate = viewDelegate;
         mViewDelegate.setPresenter(this);
     }
@@ -22,7 +23,20 @@ public abstract class RefreshPresenter<T> extends BaseRefreshPresenter {
     protected abstract Observable<? extends T> getObservable(int page);
 
     @Override
-    protected Subscription loadRefreshSub() {
+    public void loadRefreshData() {
+        if (isSubscribed()) {
+            addSubscription(loadRefreshSub());
+        }
+    }
+
+    @Override
+    public void loadMoreData() {
+        if (isSubscribed()) {
+            addSubscription(loadMoreSub());
+        }
+    }
+
+    private Subscription loadRefreshSub() {
         if (isLoadRefresh) {
             return null;
         }
@@ -49,8 +63,7 @@ public abstract class RefreshPresenter<T> extends BaseRefreshPresenter {
                 });
     }
 
-    @Override
-    protected Subscription loadMoreSub() {
+    private Subscription loadMoreSub() {
         if (isLoadMore) {
             return null;
         }

@@ -10,9 +10,9 @@ import com.free.blog.library.config.Config;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
-import com.free.blog.ui.base.mvp.IBaseRefreshPresenter;
-import com.free.blog.ui.base.mvp.IBaseRefreshView;
-import com.free.blog.ui.base.mvp.RefreshPresenter;
+import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
+import com.free.blog.ui.base.mvp.refresh.IRefreshView;
+import com.free.blog.ui.base.mvp.refresh.RefreshPresenter;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ import rx.functions.Func1;
 /**
  * @author tangqi on 17-3-20.
  */
-class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
-        implements BlogListRxContract.Presenter {
+class BlogListPresenter extends RefreshPresenter<List<BlogItem>>
+        implements BlogListContract.Presenter {
 
     private BlogItemDao mBlogItemDao;
     private List<BlogCategory> mCategoryList;
@@ -31,9 +31,8 @@ class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
     private String mCategory;
     private String mCategoryLink;
 
-    BlogListRxPresenter(String userId, String category, List<BlogCategory> categoryList,
-                        IBaseRefreshView<List<BlogItem>,
-                                IBaseRefreshPresenter> viewDelegate) {
+    BlogListPresenter(String userId, String category, List<BlogCategory> categoryList,
+                      IRefreshView<List<BlogItem>, IRefreshPresenter> viewDelegate) {
         super(viewDelegate);
         this.mUserId = userId;
         this.mCategory = category;
