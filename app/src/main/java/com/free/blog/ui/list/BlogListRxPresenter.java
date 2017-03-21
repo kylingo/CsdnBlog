@@ -22,7 +22,7 @@ import rx.functions.Func1;
 /**
  * @author tangqi on 17-3-20.
  */
-public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
+class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
         implements BlogListRxContract.Presenter {
 
     private BlogItemDao mBlogItemDao;
@@ -31,13 +31,16 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
     private String mCategory;
     private String mCategoryLink;
 
-    public BlogListRxPresenter(String userId, String category, IBaseRefreshView<List<BlogItem>,
-            IBaseRefreshPresenter> viewDelegate) {
+    BlogListRxPresenter(String userId, String category, List<BlogCategory> categoryList,
+                        IBaseRefreshView<List<BlogItem>,
+                                IBaseRefreshPresenter> viewDelegate) {
         super(viewDelegate);
         this.mUserId = userId;
         this.mCategory = category;
+        this.mCategoryList = categoryList;
         this.mBlogItemDao = DaoFactory.getInstance()
                 .getBlogItemDao(BlogApplication.getContext(), userId);
+        queryCategory();
     }
 
     @Override
@@ -48,12 +51,6 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
     @Override
     public void setCategoryLink(String categoryLink) {
         mCategoryLink = categoryLink;
-    }
-
-    @Override
-    public void setCategoryList(List<BlogCategory> categoryList) {
-        mCategoryList = categoryList;
-        queryCategory(mCategoryList);
     }
 
     @Override
@@ -91,29 +88,27 @@ public class BlogListRxPresenter extends RefreshPresenter<List<BlogItem>>
         return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
     }
 
-    private void queryCategory(List<BlogCategory> list) {
-        Observable.just(list)
-                .map(new Func1<List<BlogCategory>, Boolean>() {
+    private void queryCategory() {
+        Observable.just(mBlogItemDao)
+                .map(new Func1<BlogItemDao, List<BlogCategory>>() {
                     @Override
-                    public Boolean call(List<BlogCategory> blogCategories) {
-                        List<BlogCategory> queryList = mBlogItemDao.queryCategory();
-                        if (blogCategories != null && queryList != null) {
-                            blogCategories.clear();
-                            blogCategories.addAll(queryList);
-                            return true;
-                        }
-                        return false;
+                    public List<BlogCategory> call(BlogItemDao blogItemDao) {
+                        return blogItemDao.queryCategory();
                     }
                 })
-                .compose(RxHelper.<Boolean>getErrAndIOSchedulerTransformer())
-                .subscribe(new RxSubscriber<Boolean>() {
+                .compose(RxHelper.<List<BlogCategory>>getErrAndIOSchedulerTransformer())
+                .subscribe(new RxSubscriber<List<BlogCategory>>() {
                     @Override
                     public void onError(Throwable e) {
 
                     }
 
                     @Override
-                    public void onNext(Boolean aBoolean) {
+                    public void onNext(List<BlogCategory> blogCategories) {
+                        if (mCategoryList != null && blogCategories != null) {
+                            mCategoryList.clear();
+                            mCategoryList.addAll(blogCategories);
+                        }
 
                     }
                 });

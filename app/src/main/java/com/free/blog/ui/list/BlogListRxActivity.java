@@ -43,7 +43,7 @@ public class BlogListRxActivity extends BaseRefreshActivity<List<BlogItem>> {
         mAdapter = new BlogListRxAdapter();
         mBlogCategoryList = new ArrayList<>();
         mCategory = Config.BLOG_CATEGORY_ALL;
-        new BlogListRxPresenter(mBlogger.getUserId(), mCategory, this);
+        new BlogListRxPresenter(mBlogger.getUserId(), mCategory, mBlogCategoryList, this);
     }
 
     @Override
@@ -60,7 +60,6 @@ public class BlogListRxActivity extends BaseRefreshActivity<List<BlogItem>> {
     public void setPresenter(IBaseRefreshPresenter presenter) {
         super.setPresenter(presenter);
         mPresenter = (BlogListRxPresenter) presenter;
-        mPresenter.setCategoryList(mBlogCategoryList);
     }
 
     @Override

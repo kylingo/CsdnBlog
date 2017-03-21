@@ -12,8 +12,8 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.free.blog.R;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.mvp.IBaseRefreshPresenter;
+import com.free.blog.ui.base.mvp.IBaseRefreshView;
 import com.free.blog.ui.base.mvp.RefreshPresenter;
-import com.free.blog.ui.list.BlogListRxContract;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  */
 @SuppressWarnings("unchecked")
 public abstract class BaseRefreshActivity<T> extends BaseActivity implements
-        BlogListRxContract.View<T, IBaseRefreshPresenter>, IBaseRefreshPage, View.OnClickListener,
+        IBaseRefreshView<T, IBaseRefreshPresenter>, IBaseRefreshPage, View.OnClickListener,
         BaseQuickAdapter.RequestLoadMoreListener {
 
     protected RefreshPresenter mPresenter;
