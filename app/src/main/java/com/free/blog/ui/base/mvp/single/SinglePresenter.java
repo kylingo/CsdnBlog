@@ -16,6 +16,7 @@ public abstract class SinglePresenter<T> extends BasePresenter implements ISingl
 
     public SinglePresenter(ISingleView<T, ISinglePresenter> viewDelegate) {
         this.mViewDelegate = viewDelegate;
+        mViewDelegate.setPresenter(this);
     }
 
     protected abstract Observable<T> getObservable();

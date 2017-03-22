@@ -22,9 +22,9 @@ public class BlogCommentDaoImpl implements BlogCommentDao {
 
 	private DbUtils db;
 
-	public BlogCommentDaoImpl(Context context, String filename) {
+	public BlogCommentDaoImpl(Context context, String blogId) {
 		db = DbUtils.create(context, CacheManager.getBlogCommentDbPath(context),
-				filename + "_comment");
+				blogId + "_comment");
 	}
 
 	@Override

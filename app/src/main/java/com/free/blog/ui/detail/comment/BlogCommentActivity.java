@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,19 +39,20 @@ import me.maxwin.view.XListView;
  */
 public class BlogCommentActivity extends BaseActivity implements IXListViewRefreshListener, IXListViewLoadMore {
 
+    public static final String EXTRA_BLOG_ID = "blog_id";
+
     private XListView mListView;
     private BlogCommentAdapter mAdapter;
     private ImageView mReLoadImageView;
     private TextView mTvComment;
     private ProgressBar mPbLoading;
 
-    private String mFileName;
+    private String mBlogId;
     private int mPage = 1;
     private BlogCommentDao mBlogCommentDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment);
 
@@ -61,10 +61,10 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
     }
 
     private void initData() {
-        mFileName = getIntent().getExtras().getString("filename"); // 获得文件名
+        mBlogId = getIntent().getExtras().getString(EXTRA_BLOG_ID); // 获得文件名
         mAdapter = new BlogCommentAdapter(this);
 
-        mBlogCommentDao = DaoFactory.getInstance().getBlogCommentDao(this, mFileName);
+        mBlogCommentDao = DaoFactory.getInstance().getBlogCommentDao(this, mBlogId);
     }
 
     private void initComponent() {
@@ -125,7 +125,7 @@ public class BlogCommentActivity extends BaseActivity implements IXListViewRefre
 //		String url = UrlUtils.getCommentListURL(mFileName, String.valueOf(page));
 //		mAsyncTask.execute(url);
 //		mAsyncTask.setOnResponseListener(onResponseListener);
-        NetEngine.getInstance().getBlogComment(mFileName, page)
+        NetEngine.getInstance().getBlogComment(mBlogId, page)
                 .compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
                 .subscribe(new RxSubscriber<String>() {
                     @Override

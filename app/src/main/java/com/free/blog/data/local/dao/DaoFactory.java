@@ -67,8 +67,8 @@ public class DaoFactory {
 	/**
 	 * 获取博客评论数据库
 	 */
-	public BlogCommentDao getBlogCommentDao(Context context, String filename) {
-		return new BlogCommentDaoImpl(context, filename);
+	public BlogCommentDao getBlogCommentDao(Context context, String blogId) {
+		return new BlogCommentDaoImpl(context, blogId);
 	}
 
 	/**

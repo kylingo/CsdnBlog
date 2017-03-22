@@ -1,5 +1,6 @@
 package com.free.blog.ui.list;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,10 +83,13 @@ public class BlogListActivity extends BaseRefreshActivity<List<BlogItem>> {
         mPopupWindow.showAsDropDown(view, (-1) * xOffset, 0);
     }
 
+    @SuppressWarnings("deprecation")
     private void getPopupWindow() {
+        @SuppressLint("InflateParams")
         View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_bloglist, null);
 
-        mPopupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        mPopupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setTouchable(true);
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));

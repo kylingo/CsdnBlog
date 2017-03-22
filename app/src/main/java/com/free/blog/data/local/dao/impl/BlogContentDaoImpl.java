@@ -47,8 +47,7 @@ public class BlogContentDaoImpl implements BlogContentDao {
 	public BlogHtml query(String url) {
 		BlogHtml blogHtml = null;
 		try {
-			blogHtml = db.findFirst(Selector.from(BlogHtml.class).where("url",
-					"=", url));
+			blogHtml = db.findFirst(Selector.from(BlogHtml.class).where("url", "=", url));
 		} catch (DbException e) {
 			e.printStackTrace();
 		}
