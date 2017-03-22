@@ -53,7 +53,7 @@ public class BlogListActivity extends BaseRefreshActivity<List<BlogItem>> {
     }
 
     @Override
-    protected BlogListAdapter getAdapter() {
+    protected BlogListAdapter onCreateAdapter() {
         return mAdapter;
     }
 

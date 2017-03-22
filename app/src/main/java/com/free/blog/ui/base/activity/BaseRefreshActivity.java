@@ -40,7 +40,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
 
     protected abstract void beforeInitView();
 
-    protected abstract BaseViewAdapter getAdapter();
+    protected abstract BaseViewAdapter onCreateAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
             }
         });
 
-        mAdapter = getAdapter();
+        mAdapter = onCreateAdapter();
         mAdapter.bindToRecyclerView(mRecyclerView);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         setEmptyView();

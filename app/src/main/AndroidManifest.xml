@@ -50,33 +50,30 @@
             android:name=".ui.detail.comment.BlogCommentActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.detail.comment.BlogCommentRxActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.home.mine.AboutActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.mine.ContactUsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.mine.UpdateLogActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.mine.SettingsActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <!--<activity-->
             <!--android:name=".ui.home.mine.BlogCollectActivity"-->
             <!--android:screenOrientation="portrait">-->
         <!--</activity>-->
         <activity
             android:name=".ui.home.column.ColumnDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.column.ChannelDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <!--<activity-->
             <!--android:name=".ui.home.hot.HotListActivity"-->
             <!--android:screenOrientation="portrait">-->
@@ -85,17 +82,14 @@
         <!-- umeng auto upgrade start -->
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService">
-        </service>
+            android:process=":DownloadingService"/>
 
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".ui.home.mine.FeedbackActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="UMENG_APPKEY"
