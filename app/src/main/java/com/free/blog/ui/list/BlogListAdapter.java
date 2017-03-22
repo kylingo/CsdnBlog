@@ -11,7 +11,7 @@ import com.free.blog.ui.base.adapter.BaseViewAdapter;
 /**
  * @author studiotang on 17/3/19
  */
-class BlogListAdapter extends BaseViewAdapter<BlogItem> {
+public class BlogListAdapter extends BaseViewAdapter<BlogItem> {
 
     @Override
     protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {

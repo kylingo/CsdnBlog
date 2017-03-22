@@ -60,7 +60,7 @@ public class ChannelDetailActivity extends BaseActivity
 
     private void initData() {
         mChannel = (Channel) getIntent().getSerializableExtra(ExtraKey.CHANNEL);
-        mBloggerDao = DaoFactory.getInstance().getBloggerDao(this, mChannel.getChannelName());
+        mBloggerDao = DaoFactory.create().getBloggerDao(this, mChannel.getChannelName());
     }
 
     private void initView() {

@@ -96,7 +96,7 @@ public class BloggerFragment extends BaseFragment
     private void initData() {
         mType = (String) SpfUtils.get(getActivity(), ExtraKey.BLOG_TYPE, CategoryManager
                 .CategoryName.ANDROID);
-        mBloggerDao = DaoFactory.getInstance().getBloggerDao(getActivity(), mType);
+        mBloggerDao = DaoFactory.create().getBloggerDao(getActivity(), mType);
         new BloggerManager().init(getActivity(), mBloggerDao, mType);
         mBloggerList = mBloggerDao.queryAll();
     }

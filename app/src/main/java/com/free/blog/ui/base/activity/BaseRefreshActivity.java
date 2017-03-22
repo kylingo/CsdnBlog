@@ -93,7 +93,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
         mBackBtn.setOnClickListener(this);
         mMenuBtn.setOnClickListener(this);
-        mMenuBtn.setVisibility(View.VISIBLE);
+        mMenuBtn.setVisibility(isShowMenu() ? View.VISIBLE : View.GONE);
         mMenuBtn.setImageResource(R.drawable.ic_menu);
 
         setActionBarTitle(getActionBarTitle());
@@ -101,6 +101,10 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
 
     protected void setActionBarTitle(String title) {
         mTvTitle.setText(title);
+    }
+
+    protected boolean isShowMenu() {
+        return false;
     }
 
     @Override
@@ -120,7 +124,8 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         loadMoreData();
     }
 
-    protected void doRefresh() {
+    @Override
+    public void doRefresh() {
         mPtrFrameLayout.autoRefresh(false);
         mAdapter.isUseEmpty(false);
     }
@@ -137,7 +142,9 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
 
     @Override
     public void onRefreshUI(T data) {
-        mAdapter.setNewData((List<T>) data);
+        List<T> list = (List<T>) data;
+        mAdapter.setNewData(list);
+        mAdapter.setEnableLoadMore(mPresenter.hasMore(list != null ? list.size() : 0));
         onRefreshComplete();
     }
 
@@ -200,7 +207,6 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     protected void setEmptyView() {
         mAdapter.setEmptyView(R.layout.empty_view_list);
         mAdapter.getEmptyView().findViewById(R.id.iv_reload).setOnClickListener(this);
-        mAdapter.isUseEmpty(false);
     }
 
     protected void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {

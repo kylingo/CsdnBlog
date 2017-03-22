@@ -25,7 +25,7 @@ public class DaoFactory {
 	/**
 	 * 获取DaoFactory的实例
 	 */
-	public static DaoFactory getInstance() {
+	public static DaoFactory create() {
 		if (mInstance == null) {
 			synchronized (DaoFactory.class) {
 				if (mInstance == null) {

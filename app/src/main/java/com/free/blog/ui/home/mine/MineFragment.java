@@ -62,7 +62,7 @@ public class MineFragment extends BaseFragment implements OnClickListener {
                 break;
 
             case R.id.ll_me_02:
-//                intent = new Intent(getActivity(), BlogCollectActivity.class);
+                intent = new Intent(getActivity(), BlogCollectActivity.class);
                 break;
 
             case R.id.ll_me_03:

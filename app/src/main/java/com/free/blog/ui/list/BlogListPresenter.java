@@ -31,14 +31,13 @@ class BlogListPresenter extends RefreshPresenter<List<BlogItem>> implements
     private String mCategory;
     private String mCategoryLink;
 
-    BlogListPresenter(String userId, String category, List<BlogCategory> categoryList,
-                      IRefreshView<List<BlogItem>, IRefreshPresenter> viewDelegate) {
+    BlogListPresenter(IRefreshView<List<BlogItem>, IRefreshPresenter> viewDelegate,
+                      String userId, String category, List<BlogCategory> categoryList) {
         super(viewDelegate);
-        this.mUserId = userId;
-        this.mCategory = category;
-        this.mCategoryList = categoryList;
-        this.mBlogItemDao = DaoFactory.getInstance()
-                .getBlogItemDao(BlogApplication.getContext(), userId);
+        mUserId = userId;
+        mCategory = category;
+        mCategoryList = categoryList;
+        mBlogItemDao = DaoFactory.create().getBlogItemDao(BlogApplication.getContext(), userId);
         queryCategory();
     }
 

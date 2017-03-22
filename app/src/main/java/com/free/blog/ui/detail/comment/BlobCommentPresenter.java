@@ -21,15 +21,15 @@ import rx.functions.Func1;
 /**
  * @author tangqi on 17-3-22.
  */
-public class BlobCommentPresenter extends RefreshPresenter<List<Comment>> {
+class BlobCommentPresenter extends RefreshPresenter<List<Comment>> {
 
     private BlogCommentDao mBlogCommentDao;
     private String mBlogId;
 
-    public BlobCommentPresenter(IRefreshView<List<Comment>, IRefreshPresenter> viewDelegate, String blogId) {
+    BlobCommentPresenter(IRefreshView<List<Comment>, IRefreshPresenter> viewDelegate, String blogId) {
         super(viewDelegate);
         mBlogId = blogId;
-        mBlogCommentDao = DaoFactory.getInstance().getBlogCommentDao(BlogApplication.getContext(), blogId);
+        mBlogCommentDao = DaoFactory.create().getBlogCommentDao(BlogApplication.getContext(), blogId);
     }
 
     @Override

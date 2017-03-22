@@ -26,26 +26,16 @@ import java.util.List;
 /**
  * @author studiotang on 17/3/19
  */
-public class BlogListActivity extends BaseRefreshActivity<List<BlogItem>> {
+public class BlogListActivity extends BaseRefreshActivity<List<BlogItem>> implements
+        BlogListContract.View<List<BlogItem>, IRefreshPresenter> {
 
     public static final String EXTRA_BLOGGER = "blogger";
 
     protected BlogListPresenter mPresenter;
     private Blogger mBlogger;
-    private BlogListAdapter mAdapter;
-
     private String mCategory;
     private List<BlogCategory> mBlogCategoryList;
     private PopupWindow mPopupWindow;
-
-    @Override
-    protected void beforeInitView() {
-        mBlogger = (Blogger) getIntent().getSerializableExtra(EXTRA_BLOGGER);
-        mAdapter = new BlogListAdapter();
-        mBlogCategoryList = new ArrayList<>();
-        mCategory = Config.BLOG_CATEGORY_ALL;
-        new BlogListPresenter(mBlogger.getUserId(), mCategory, mBlogCategoryList, this);
-    }
 
     @Override
     protected String getActionBarTitle() {
@@ -53,8 +43,21 @@ public class BlogListActivity extends BaseRefreshActivity<List<BlogItem>> {
     }
 
     @Override
+    protected void beforeInitView() {
+        mBlogger = (Blogger) getIntent().getSerializableExtra(EXTRA_BLOGGER);
+        mBlogCategoryList = new ArrayList<>();
+        mCategory = Config.BLOG_CATEGORY_ALL;
+        new BlogListPresenter(this, mBlogger.getUserId(), mCategory, mBlogCategoryList);
+    }
+
+    @Override
     protected BlogListAdapter onCreateAdapter() {
-        return mAdapter;
+        return new BlogListAdapter();
+    }
+
+    @Override
+    protected boolean isShowMenu() {
+        return true;
     }
 
     @Override
@@ -99,6 +102,7 @@ public class BlogListActivity extends BaseRefreshActivity<List<BlogItem>> {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @SuppressWarnings("unchecked")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mPopupWindow.dismiss();

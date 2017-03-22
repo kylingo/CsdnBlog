@@ -66,7 +66,7 @@
 //			mChannelName = CategoryManager.CategoryName.ANDROID;
 //		}
 //
-//		mBlogItemDao = DaoFactory.getInstance().getBlogItemDao(this, mChannelName);
+//		mBlogItemDao = DaoFactory.create().getBlogItemDao(this, mChannelName);
 //	}
 //
 //	private void initView() {

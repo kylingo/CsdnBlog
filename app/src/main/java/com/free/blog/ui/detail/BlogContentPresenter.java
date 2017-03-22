@@ -19,7 +19,6 @@ import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.mvp.single.ISinglePresenter;
 import com.free.blog.ui.base.mvp.single.SinglePresenter;
 import com.free.blog.ui.detail.comment.BlogCommentActivity;
-import com.free.blog.ui.detail.comment.BlogCommentRxActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -46,8 +45,8 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
         mViewDelegate = viewDelegate;
         mBlogItem = blogItem;
         mUrl = url;
-        mBlogContentDao = DaoFactory.getInstance().getBlogContentDao(BlogApplication.getContext());
-        mBlogCollectDao = DaoFactory.getInstance().getBlogCollectDao(BlogApplication.getContext());
+        mBlogContentDao = DaoFactory.create().getBlogContentDao(BlogApplication.getContext());
+        mBlogCollectDao = DaoFactory.create().getBlogCollectDao(BlogApplication.getContext());
     }
 
     @Override
@@ -106,7 +105,7 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
     @Override
     public void comment(Activity activity, String blogId) {
         Intent i = new Intent();
-        i.setClass(activity, BlogCommentRxActivity.class);
+        i.setClass(activity, BlogCommentActivity.class);
         i.putExtra(BlogCommentActivity.EXTRA_BLOG_ID, blogId);
         activity.startActivity(i);
         activity.overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
