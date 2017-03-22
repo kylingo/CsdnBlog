@@ -9,7 +9,9 @@ import rx.Subscription;
 /**
  * @author tangqi on 17-3-20.
  */
-public abstract class RefreshPresenter<T> extends BasePresenter implements IRefreshPresenter{
+public abstract class RefreshPresenter<T> extends BasePresenter implements IRefreshPresenter {
+
+    private static final int DEFAULT_PAGE_SIZE = 20;
     private int mPage = 1;
     private IRefreshView<T, IRefreshPresenter> mViewDelegate;
     private boolean isLoadRefresh;
@@ -34,6 +36,16 @@ public abstract class RefreshPresenter<T> extends BasePresenter implements IRefr
         if (isSubscribed()) {
             addSubscription(loadMoreSub());
         }
+    }
+
+    @Override
+    public int getPageSize() {
+        return DEFAULT_PAGE_SIZE;
+    }
+
+    @Override
+    public boolean hasMore(int fetchCount) {
+        return fetchCount >= getPageSize();
     }
 
     private Subscription loadRefreshSub() {
@@ -86,7 +98,6 @@ public abstract class RefreshPresenter<T> extends BasePresenter implements IRefr
                     @Override
                     public void onNext(T t) {
                         mViewDelegate.onMoreUI(t);
-
                     }
                 });
     }

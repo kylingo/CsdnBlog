@@ -10,4 +10,8 @@ public interface IRefreshPresenter extends IBasePresenter {
     void loadRefreshData();
 
     void loadMoreData();
+
+    int getPageSize();
+
+    boolean hasMore(int fetchCount);
 }

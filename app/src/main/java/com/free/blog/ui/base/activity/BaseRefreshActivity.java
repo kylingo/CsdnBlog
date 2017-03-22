@@ -152,15 +152,16 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         if (list != null) {
             mAdapter.addData(list);
             mAdapter.loadMoreComplete();
+            mAdapter.setEnableLoadMore(mPresenter.hasMore(list.size()));
         } else {
             mAdapter.loadMoreFail();
+            mAdapter.setEnableLoadMore(false);
         }
     }
 
     @Override
     public void onMoreFailure(int errNo) {
         mAdapter.loadMoreFail();
-        mAdapter.setEnableLoadMore(false);
     }
 
     @Override

@@ -22,8 +22,8 @@ import rx.functions.Func1;
 /**
  * @author tangqi on 17-3-20.
  */
-class BlogListPresenter extends RefreshPresenter<List<BlogItem>>
-        implements BlogListContract.Presenter {
+class BlogListPresenter extends RefreshPresenter<List<BlogItem>> implements
+        BlogListContract.Presenter {
 
     private BlogItemDao mBlogItemDao;
     private List<BlogCategory> mCategoryList;
