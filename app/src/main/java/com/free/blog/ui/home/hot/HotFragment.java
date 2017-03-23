@@ -10,12 +10,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.data.entity.Channel;
+import com.free.blog.model.entity.Channel;
 import com.free.blog.library.config.ChannelManager;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.ui.base.fragment.BaseFragment;
-import com.free.blog.ui.home.column.ChannelListAdapter;
+import com.free.blog.ui.home.ChannelListAdapter;
 
 import java.util.List;
 

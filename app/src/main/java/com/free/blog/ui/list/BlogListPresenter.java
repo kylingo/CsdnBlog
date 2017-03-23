@@ -1,11 +1,11 @@
 package com.free.blog.ui.list;
 
 import com.free.blog.BlogApplication;
-import com.free.blog.data.entity.BlogCategory;
-import com.free.blog.data.entity.BlogItem;
-import com.free.blog.data.local.dao.BlogItemDao;
-import com.free.blog.data.local.dao.DaoFactory;
-import com.free.blog.data.remote.NetEngine;
+import com.free.blog.model.entity.BlogCategory;
+import com.free.blog.model.entity.BlogItem;
+import com.free.blog.model.local.dao.BlogItemDao;
+import com.free.blog.model.local.dao.DaoFactory;
+import com.free.blog.model.remote.NetEngine;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;

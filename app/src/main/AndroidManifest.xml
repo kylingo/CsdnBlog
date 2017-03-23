@@ -68,7 +68,7 @@
             android:name=".ui.home.column.ColumnDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.home.column.ChannelDetailActivity"
+            android:name=".ui.home.ChannelDetailActivity"
             android:screenOrientation="portrait"/>
         <!--<activity-->
         <!--android:name=".ui.home.hot.HotListActivity"-->

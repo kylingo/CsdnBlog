@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.free.blog.R;
-import com.free.blog.data.entity.Comment;
+import com.free.blog.model.entity.Comment;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.util.ImageLoaderUtils;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;

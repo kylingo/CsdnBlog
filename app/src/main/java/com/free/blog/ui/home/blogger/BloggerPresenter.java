@@ -1,16 +1,16 @@
 package com.free.blog.ui.home.blogger;
 
 import com.free.blog.BlogApplication;
-import com.free.blog.data.entity.Blogger;
-import com.free.blog.data.local.dao.BloggerDao;
-import com.free.blog.data.local.dao.DaoFactory;
-import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.BloggerManager;
 import com.free.blog.library.config.CategoryManager;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
+import com.free.blog.model.entity.Blogger;
+import com.free.blog.model.local.dao.BloggerDao;
+import com.free.blog.model.local.dao.DaoFactory;
+import com.free.blog.model.remote.NetEngine;
 import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.mvp.refresh.RefreshPresenter;
 
@@ -48,7 +48,8 @@ class BloggerPresenter extends RefreshPresenter<List<Blogger>> implements
                         BloggerManager.init(BlogApplication.getContext(), mBloggerDao, mType);
                         return mBloggerDao.queryAll();
                     }
-                });
+                })
+                .compose(RxHelper.<List<Blogger>>getErrAndIOSchedulerTransformer());
     }
 
     @Override
@@ -145,19 +146,7 @@ class BloggerPresenter extends RefreshPresenter<List<Blogger>> implements
                     @Override
                     public Blogger call(String html) {
                         Blogger blogger = JsoupUtils.getBloggerItem(html);
-
-                        if (blogger != null) {
-                            blogger.setUserId(userId);
-                            blogger.setLink(Config.HOST_BLOG + userId);
-                            blogger.setType(mType);
-                            String mCategory = CategoryManager.CategoryName.MOBILE;
-                            blogger.setCategory(mCategory);
-                            blogger.setIsTop(0);
-                            blogger.setIsNew(1);
-                            blogger.setUpdateTime(System.currentTimeMillis());
-
-                            mBloggerDao.insert(blogger);
-                        }
+                        initBlogger(blogger, userId);
                         return blogger;
                     }
                 })
@@ -177,5 +166,20 @@ class BloggerPresenter extends RefreshPresenter<List<Blogger>> implements
                         }
                     }
                 });
+    }
+
+    private void initBlogger(Blogger blogger, String userId) {
+        if (blogger != null) {
+            blogger.setUserId(userId);
+            blogger.setLink(Config.HOST_BLOG + userId);
+            blogger.setType(mType);
+            String mCategory = CategoryManager.CategoryName.MOBILE;
+            blogger.setCategory(mCategory);
+            blogger.setIsTop(0);
+            blogger.setIsNew(1);
+            blogger.setUpdateTime(System.currentTimeMillis());
+
+            mBloggerDao.insert(blogger);
+        }
     }
 }

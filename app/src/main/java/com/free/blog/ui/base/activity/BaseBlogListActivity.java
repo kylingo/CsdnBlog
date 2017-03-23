@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
-import com.free.blog.data.entity.BlogItem;
+import com.free.blog.model.entity.BlogItem;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.content.BlogContentActivity;
 import com.free.blog.ui.list.BlogListAdapter;

@@ -11,9 +11,9 @@ import android.widget.PopupWindow;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
-import com.free.blog.data.entity.BlogCategory;
-import com.free.blog.data.entity.BlogItem;
-import com.free.blog.data.entity.Blogger;
+import com.free.blog.model.entity.BlogCategory;
+import com.free.blog.model.entity.BlogItem;
+import com.free.blog.model.entity.Blogger;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.util.DisplayUtils;
 import com.free.blog.ui.base.activity.BaseRefreshActivity;

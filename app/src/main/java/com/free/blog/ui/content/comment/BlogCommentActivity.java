@@ -1,7 +1,7 @@
 package com.free.blog.ui.content.comment;
 
 import com.free.blog.R;
-import com.free.blog.data.entity.Comment;
+import com.free.blog.model.entity.Comment;
 import com.free.blog.ui.base.activity.BaseRefreshActivity;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 

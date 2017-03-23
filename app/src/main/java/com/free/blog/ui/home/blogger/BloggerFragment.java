@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
-import com.free.blog.data.entity.Blogger;
+import com.free.blog.model.entity.Blogger;
 import com.free.blog.library.config.CategoryManager;
 import com.free.blog.library.config.KeyConfig;
 import com.free.blog.library.util.SpfUtils;

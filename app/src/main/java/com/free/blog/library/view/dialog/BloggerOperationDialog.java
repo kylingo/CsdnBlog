@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.data.entity.Blogger;
+import com.free.blog.model.entity.Blogger;
 
 /**
  * 博主相关操作

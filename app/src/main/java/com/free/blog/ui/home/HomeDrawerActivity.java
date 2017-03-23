@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.data.entity.DrawerInfo;
+import com.free.blog.model.entity.DrawerInfo;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.library.view.CircleImageView;
 import com.free.blog.library.view.drawerlayout.ActionBarDrawerToggle;

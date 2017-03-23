@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.free.blog.R;
-import com.free.blog.data.entity.BlogHtml;
-import com.free.blog.data.entity.BlogItem;
+import com.free.blog.model.entity.BlogHtml;
+import com.free.blog.model.entity.BlogItem;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.base.mvp.single.ISinglePresenter;

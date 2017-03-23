@@ -2,9 +2,9 @@ package com.free.blog.library.config;
 
 import android.content.Context;
 
-import com.free.blog.data.entity.Blogger;
+import com.free.blog.model.entity.Blogger;
 import com.free.blog.library.util.SpfUtils;
-import com.free.blog.data.local.dao.BloggerDao;
+import com.free.blog.model.local.dao.BloggerDao;
 
 
 /**

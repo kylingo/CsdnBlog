@@ -4,7 +4,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.free.blog.R;
-import com.free.blog.data.entity.BlogItem;
+import com.free.blog.model.entity.BlogItem;
 import com.free.blog.library.config.Config;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 

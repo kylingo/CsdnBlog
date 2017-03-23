@@ -1,7 +1,7 @@
 package com.free.blog.library.config;
 
 import com.free.blog.R;
-import com.free.blog.data.entity.Channel;
+import com.free.blog.model.entity.Channel;
 import com.free.blog.library.config.CategoryManager.CategoryName;
 import com.free.blog.library.config.CategoryManager.CategoryUrl;
 
