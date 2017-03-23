@@ -1,4 +1,4 @@
-package com.free.blog.ui.detail.comment;
+package com.free.blog.ui.content.comment;
 
 import android.text.Html;
 import android.view.ViewGroup;

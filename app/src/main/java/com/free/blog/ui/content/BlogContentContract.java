@@ -1,4 +1,4 @@
-package com.free.blog.ui.detail;
+package com.free.blog.ui.content;
 
 import android.app.Activity;
 
@@ -8,7 +8,7 @@ import com.free.blog.ui.base.mvp.single.ISingleView;
 /**
  * @author studiotang on 17/3/21
  */
-public interface BlogContentContract {
+interface BlogContentContract {
     interface View<T, P> extends ISingleView<T, P> {
         void onUpdateCollectUI(boolean isCollect);
         void onCollectSuccess(boolean isCollect);
@@ -24,6 +24,8 @@ public interface BlogContentContract {
         void share(Activity activity, String title, String url);
 
         void queryCollect();
+
+        void saveHistory();
 
         void collect(boolean isCollect);
     }

@@ -33,18 +33,18 @@
                 style="@style/find_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:singleLine="true"
-                android:text="@string/user_name" />
+                android:gravity="start"
+                android:text="@string/user_name"
+                android:maxLines="1"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
-                android:gravity="left"
-                android:singleLine="true"
+                android:gravity="start"
                 android:text="@string/concat_name"
-                android:textColor="@color/list_decs_color" />
+                android:textColor="@color/list_decs_color"
+                android:maxLines="1"/>
         </LinearLayout>
 
         <ImageView
@@ -106,7 +106,7 @@
                 style="@style/find_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/feedback" />
+                android:text="@string/history" />
         </LinearLayout>
     </LinearLayout>
 
@@ -151,15 +151,4 @@
             android:layout_height="wrap_content"
             android:text="@string/settings" />
     </LinearLayout>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dip"
-        android:background="@drawable/shap_rect_bg_white"
-        android:hint="测试输入法的问题"
-        android:inputType="text"
-        android:padding="10dip" 
-        android:visibility="gone"/>
-
 </LinearLayout>

@@ -18,7 +18,7 @@ import com.free.blog.library.config.Config;
 import com.free.blog.library.util.DisplayUtils;
 import com.free.blog.ui.base.activity.BaseRefreshActivity;
 import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
-import com.free.blog.ui.detail.BlogContentActivity;
+import com.free.blog.ui.content.BlogContentActivity;
 
 import java.util.ArrayList;
 import java.util.List;

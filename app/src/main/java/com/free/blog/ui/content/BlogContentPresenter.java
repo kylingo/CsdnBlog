@@ -1,4 +1,4 @@
-package com.free.blog.ui.detail;
+package com.free.blog.ui.content;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import com.free.blog.data.entity.BlogHtml;
 import com.free.blog.data.entity.BlogItem;
 import com.free.blog.data.local.dao.BlogCollectDao;
 import com.free.blog.data.local.dao.BlogContentDao;
+import com.free.blog.data.local.dao.BlogHistoryDao;
 import com.free.blog.data.local.dao.DaoFactory;
 import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.rx.RxHelper;
@@ -18,7 +19,7 @@ import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.mvp.single.ISinglePresenter;
 import com.free.blog.ui.base.mvp.single.SinglePresenter;
-import com.free.blog.ui.detail.comment.BlogCommentActivity;
+import com.free.blog.ui.content.comment.BlogCommentActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -36,6 +37,7 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
     private BlogContentContract.View<BlogHtml, ISinglePresenter> mViewDelegate;
     private BlogContentDao mBlogContentDao;
     private BlogCollectDao mBlogCollectDao;
+    private BlogHistoryDao mBlogHistoryDao;
     private BlogItem mBlogItem;
     private String mUrl;
 
@@ -47,6 +49,7 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
         mUrl = url;
         mBlogContentDao = DaoFactory.create().getBlogContentDao(BlogApplication.getContext());
         mBlogCollectDao = DaoFactory.create().getBlogCollectDao(BlogApplication.getContext());
+        mBlogHistoryDao = DaoFactory.create().getBlogHistoryDao(BlogApplication.getContext());
     }
 
     @Override
@@ -176,6 +179,14 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
                 });
     }
 
+    @Override
+    public void saveHistory() {
+        if (mBlogItem != null) {
+            mBlogItem.setUpdateTime(System.currentTimeMillis());
+            mBlogHistoryDao.insert(mBlogItem);
+        }
+    }
+
     /**
      * 适应页面
      */
@@ -187,7 +198,14 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
         Iterator<?> localIterator = localElement.getElementsByTag("img").iterator();
         while (true) {
             if (!localIterator.hasNext())
-                return "<script type=\"text/javascript\" src=\"file:///android_asset/shCore.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushCpp.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushXml.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushJScript.js\"></script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushJava.js\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shThemeDefault.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shCore.css\"><script type=\"text/javascript\">SyntaxHighlighter.all();</script>"
+                return "<script type=\"text/javascript\" " + "src=\"file:///android_asset/shCore.js\">" +
+                        "</script><script type=\"text/javascript\" src=\"file:///android_asset/shBrushCpp.js\"></script>" +
+                        "<script type=\"text/javascript\" src=\"file:///android_asset/shBrushXml.js\"></script>" +
+                        "<script type=\"text/javascript\" src=\"file:///android_asset/shBrushJScript.js\"></script>" +
+                        "<script type=\"text/javascript\" src=\"file:///android_asset/shBrushJava.js\"></script>" +
+                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shThemeDefault.css\">" +
+                        "<link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/shCore.css\">" +
+                        "<script type=\"text/javascript\">SyntaxHighlighter.all();</script>"
                         + localElement.toString();
             ((Element) localIterator.next()).attr("width", "100%");
         }

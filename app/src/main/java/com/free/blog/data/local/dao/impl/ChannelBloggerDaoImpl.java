@@ -3,9 +3,8 @@ package com.free.blog.data.local.dao.impl;
 import android.content.Context;
 
 import com.free.blog.data.entity.Blogger;
-import com.free.blog.data.entity.Channel;
-import com.free.blog.library.config.CacheManager;
 import com.free.blog.data.local.dao.ChannelBloggerDao;
+import com.free.blog.library.config.CacheManager;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
 import com.lidroid.xutils.db.sqlite.WhereBuilder;
@@ -24,15 +23,9 @@ import java.util.List;
 public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 
 	private DbUtils db;
-	private Context context;
 
-	public ChannelBloggerDaoImpl(Context context, Channel channel) {
-		this.context = context;
-		init(channel);
-	}
-
-	public void init(Channel channel) {
-		this.db = DbUtils.create(context, CacheManager.getChannelBloggerDbPath(context), channel.getChannelName());
+	public ChannelBloggerDaoImpl(Context context, String channelName) {
+		this.db = DbUtils.create(context, CacheManager.getChannelBloggerDbPath(context), channelName);
 	}
 
 	@Override
@@ -72,7 +65,7 @@ public class ChannelBloggerDaoImpl implements ChannelBloggerDao {
 	public List<Blogger> queryAll() {
 		try {
 			// // 最新的排最前面
-			List<Blogger> list = new ArrayList<Blogger>();
+			List<Blogger> list = new ArrayList<>();
 			List<Blogger> toplist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 1).orderBy("updateTime", true));
 			List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0).and("isNew", "=", 1).orderBy("updateTime", true));
 			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0).and("isNew", "=", 0));

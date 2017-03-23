@@ -41,9 +41,10 @@
     <string name="blog_post">博客专栏</string>
     <string name="settings">设置</string>
     <string name="collect">收藏</string>
+    <string name="history">历史</string>
     <string name="feedback">用户反馈</string>
     <string name="about">关于</string>
-    <string name="user_name">东风解冻</string>
+    <string name="user_name">天外飞仙</string>
     <string name="concat_name">QQ号：820012865</string>
     <string name="user_center">个人中心</string>
     <string name="comment_date">2013–10–11</string>

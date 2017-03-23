@@ -3,16 +3,17 @@ package com.free.blog.ui.home.mine;
 import com.free.blog.ui.base.activity.BaseBlogListActivity;
 
 /**
- * @author studiotang on 17/3/22
+ * @author tangqi on 17-3-23.
  */
-public class BlogCollectActivity extends BaseBlogListActivity {
+public class BlogHistoryActivity extends BaseBlogListActivity {
+
     @Override
     protected String getActionBarTitle() {
-        return "博客收藏";
+        return "博客历史";
     }
 
     @Override
     protected void beforeInitView() {
-        new BlogCollectPresenter(this);
+        new BlogHistoryPresenter(this);
     }
 }

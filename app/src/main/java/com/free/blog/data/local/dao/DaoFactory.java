@@ -2,10 +2,10 @@ package com.free.blog.data.local.dao;
 
 import android.content.Context;
 
-import com.free.blog.data.entity.Channel;
 import com.free.blog.data.local.dao.impl.BlogCollectDaoImpl;
 import com.free.blog.data.local.dao.impl.BlogCommentDaoImpl;
 import com.free.blog.data.local.dao.impl.BlogContentDaoImpl;
+import com.free.blog.data.local.dao.impl.BlogHistoryDaoImpl;
 import com.free.blog.data.local.dao.impl.BlogItemDaoImpl;
 import com.free.blog.data.local.dao.impl.BloggerDaoImpl;
 import com.free.blog.data.local.dao.impl.ChannelBloggerDaoImpl;
@@ -65,6 +65,13 @@ public class DaoFactory {
 	}
 
 	/**
+	 * 获取博客收藏数据库
+	 */
+	public BlogHistoryDao getBlogHistoryDao(Context context) {
+		return new BlogHistoryDaoImpl(context);
+	}
+
+	/**
 	 * 获取博客评论数据库
 	 */
 	public BlogCommentDao getBlogCommentDao(Context context, String blogId) {
@@ -75,7 +82,7 @@ public class DaoFactory {
 	 * 获取某频道-博客专家数据库
 	 */
 	@SuppressWarnings("unused")
-	public ChannelBloggerDao getChannelBloggerDao(Context context, Channel channel) {
-		return new ChannelBloggerDaoImpl(context, channel);
+	public ChannelBloggerDao getChannelBloggerDao(Context context, String channelName) {
+		return new ChannelBloggerDaoImpl(context, channelName);
 	}
 }

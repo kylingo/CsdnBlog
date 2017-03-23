@@ -1,4 +1,4 @@
-package com.free.blog.ui.detail.comment;
+package com.free.blog.ui.content.comment;
 
 import com.free.blog.BlogApplication;
 import com.free.blog.data.entity.Comment;

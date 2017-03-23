@@ -4,9 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk
-        android:minSdkVersion="14"/>
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -44,10 +41,10 @@
             android:name=".ui.list.BlogListActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.detail.BlogContentActivity"
+            android:name=".ui.content.BlogContentActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.detail.comment.BlogCommentActivity"
+            android:name=".ui.content.comment.BlogCommentActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.mine.AboutActivity"
@@ -63,6 +60,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.mine.BlogCollectActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.home.mine.BlogHistoryActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.column.ColumnDetailActivity"

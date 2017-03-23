@@ -1,4 +1,4 @@
-package com.free.blog.ui.detail;
+package com.free.blog.ui.content;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -94,6 +94,7 @@ public class BlogContentActivity extends BaseActivity implements
         initWebView();
         mPresenter.loadData();
         mPresenter.queryCollect();
+        mPresenter.saveHistory();
     }
 
     private void initWebView() {
