@@ -16,7 +16,7 @@
 //import com.free.blog.data.local.dao.BlogItemDao;
 //import com.free.blog.data.local.dao.DaoFactory;
 //import com.free.blog.library.config.CategoryManager;
-//import com.free.blog.library.config.ExtraKey;
+//import com.free.blog.library.config.KeyConfig;
 //import com.free.blog.library.util.DateUtils;
 //import com.free.blog.ui.base.activity.BaseActivity;
 //import com.free.blog.ui.detail.BlogContentActivity;
@@ -58,7 +58,7 @@
 //	}
 //
 //	private void initData() {
-//		Channel mChannel = (Channel) getIntent().getSerializableExtra(ExtraKey.CHANNEL);
+//		Channel mChannel = (Channel) getIntent().getSerializableExtra(KeyConfig.CHANNEL);
 //		if (mChannel != null) {
 //			mChannelName = mChannel.getChannelName();
 //			mUrl = mChannel.getUrl().replace("experts.html", "hot.html");

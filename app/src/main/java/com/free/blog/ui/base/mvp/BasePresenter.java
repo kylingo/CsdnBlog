@@ -9,7 +9,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * @author tangqi on 17-3-20.
  */
-public class BasePresenter implements IBasePresenter {
+public abstract class BasePresenter implements IBasePresenter {
 
     private CompositeSubscription compositeSubscription;
     private boolean mIsSub = false;

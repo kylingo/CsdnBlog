@@ -15,7 +15,7 @@ import com.free.blog.data.entity.Blogger;
 import com.free.blog.data.entity.Channel;
 import com.free.blog.data.local.dao.BloggerDao;
 import com.free.blog.data.local.dao.DaoFactory;
-import com.free.blog.library.config.ExtraKey;
+import com.free.blog.library.config.KeyConfig;
 import com.free.blog.library.util.DateUtils;
 import com.free.blog.library.util.SpfUtils;
 import com.free.blog.library.util.ToastUtil;
@@ -23,7 +23,7 @@ import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.BloggerOperationDialog;
 import com.free.blog.library.view.dialog.SelectionDialog;
 import com.free.blog.ui.base.activity.BaseActivity;
-import com.free.blog.ui.home.blog.BloggerListAdapter;
+import com.free.blog.ui.home.BloggerListAdapter;
 import com.free.blog.ui.list.BlogListActivity;
 
 import java.util.ArrayList;
@@ -42,6 +42,7 @@ import me.maxwin.view.XListView;
 public class ChannelDetailActivity extends BaseActivity
         implements OnClickListener, OnItemClickListener, OnItemLongClickListener, IXListViewRefreshListener {
 
+    public static final String EXTRA_CHANNEL = "channel";
     private XListView mListView;
 
     private BloggerListAdapter mAdapter;
@@ -59,7 +60,7 @@ public class ChannelDetailActivity extends BaseActivity
     }
 
     private void initData() {
-        mChannel = (Channel) getIntent().getSerializableExtra(ExtraKey.CHANNEL);
+        mChannel = (Channel) getIntent().getSerializableExtra(EXTRA_CHANNEL);
         mBloggerDao = DaoFactory.create().getBloggerDao(this, mChannel.getChannelName());
     }
 
@@ -112,7 +113,7 @@ public class ChannelDetailActivity extends BaseActivity
 
             @Override
             public void onConfirm(String result) {
-                SpfUtils.put(ChannelDetailActivity.this, ExtraKey.BLOG_TYPE, mChannel
+                SpfUtils.put(ChannelDetailActivity.this, KeyConfig.BLOG_TYPE, mChannel
                         .getChannelName());
                 ToastUtil.show(ChannelDetailActivity.this, "设置成功");
                 finish();

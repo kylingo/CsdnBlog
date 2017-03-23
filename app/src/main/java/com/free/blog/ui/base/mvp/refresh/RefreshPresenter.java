@@ -12,14 +12,18 @@ import rx.Subscription;
 public abstract class RefreshPresenter<T> extends BasePresenter implements IRefreshPresenter {
 
     private static final int DEFAULT_PAGE_SIZE = 20;
+    protected IRefreshView<T, IRefreshPresenter> mViewDelegate;
     private int mPage = 1;
-    private IRefreshView<T, IRefreshPresenter> mViewDelegate;
     private boolean isLoadRefresh;
     private boolean isLoadMore;
 
     public RefreshPresenter(IRefreshView<T, IRefreshPresenter> viewDelegate) {
         mViewDelegate = viewDelegate;
         mViewDelegate.setPresenter(this);
+    }
+
+    protected IRefreshView<T, IRefreshPresenter> getViewDelegate() {
+        return mViewDelegate;
     }
 
     protected abstract Observable<? extends T> getObservable(int page);

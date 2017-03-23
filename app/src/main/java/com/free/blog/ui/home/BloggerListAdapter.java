@@ -1,4 +1,4 @@
-package com.free.blog.ui.home.blog;
+package com.free.blog.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

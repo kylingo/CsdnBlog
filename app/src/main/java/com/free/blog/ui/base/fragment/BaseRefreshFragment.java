@@ -1,9 +1,12 @@
-package com.free.blog.ui.base.activity;
+package com.free.blog.ui.base.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,12 +25,12 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
- * @author studiotang on 17/3/18
+ * @author tangqi on 17-3-23.
  */
-public abstract class BaseRefreshActivity<T> extends BaseActivity implements
-        IRefreshView<T, IRefreshPresenter>, IBaseRefresh,
+public abstract class BaseRefreshFragment<T> extends BaseFragment implements
+        IRefreshView<T, IRefreshPresenter>, IBaseRefreshFragment,
         BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener,
-        BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener{
 
     protected RefreshPresenter mPresenter;
     protected PtrFrameLayout mPtrFrameLayout;
@@ -42,31 +45,36 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     protected abstract BaseViewAdapter onCreateAdapter();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_refresh);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         beforeInitView();
-        initView();
+        return inflater.inflate(R.layout.fragment_base_refresh, container, false);
     }
 
-    protected void initView() {
-        initActionBar();
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        initView(view);
+    }
 
-        mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
-        mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    protected void initView(View view) {
+        initActionBar(view);
+
+        mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.base_ptr_frame);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.base_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mAdapter = onCreateAdapter();
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setOnItemLongClickListener(this);
         mAdapter.bindToRecyclerView(mRecyclerView);
+        mAdapter.setEnableLoadMore(enableLoadMore());
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         setEmptyView();
 
-        PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
+        PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getActivity());
         header.setLastUpdateTimeKey(KeyConfig.UPDATE_TIME);
         mPtrFrameLayout.addPtrUIHandler(header);
         mPtrFrameLayout.setHeaderView(header);
+        mPtrFrameLayout.setPullToRefresh(enableRefresh());
         mPtrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
@@ -82,14 +90,14 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         }, 0);
     }
 
-    private void initActionBar() {
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
-        ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
-        ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
-        mBackBtn.setOnClickListener(this);
+    private void initActionBar(View view) {
+        mTvTitle = (TextView) view.findViewById(R.id.tv_title);
+        ImageView mBackBtn = (ImageView) view.findViewById(R.id.btn_back);
+        ImageView mMenuBtn = (ImageView) view.findViewById(R.id.btn_menu);
+        mBackBtn.setVisibility(View.GONE);
         mMenuBtn.setOnClickListener(this);
         mMenuBtn.setVisibility(isShowMenu() ? View.VISIBLE : View.GONE);
-        mMenuBtn.setImageResource(R.drawable.ic_menu);
+        mMenuBtn.setImageResource((getMenuResId() == -1) ? R.drawable.ic_menu : getMenuResId());
 
         setActionBarTitle(getActionBarTitle());
     }
@@ -103,13 +111,13 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         mPresenter.unSubscribe();
     }
 
     @Override
-    public IRefreshPresenter getPresenter() {
+    public RefreshPresenter getPresenter() {
         return mPresenter;
     }
 
@@ -122,6 +130,24 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     @Override
     public void onLoadMoreRequested() {
         loadMoreData();
+    }
+
+    @Override
+    public boolean enableRefresh() {
+        return true;
+    }
+
+    @Override
+    public boolean enableLoadMore() {
+        return false;
+    }
+
+    public void setEnableLoadMore(boolean enable) {
+        if (enableLoadMore()) {
+            mAdapter.setEnableLoadMore(enable);
+        } else {
+            mAdapter.setEnableLoadMore(false);
+        }
     }
 
     @Override
@@ -145,7 +171,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     public void onRefreshUI(T data) {
         List<T> list = (List<T>) data;
         mAdapter.setNewData(list);
-        mAdapter.setEnableLoadMore(mPresenter.hasMore(list != null ? list.size() : 0));
+        setEnableLoadMore(mPresenter.hasMore(list != null ? list.size() : 0));
         onRefreshComplete();
     }
 
@@ -161,10 +187,10 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         if (list != null) {
             mAdapter.addData(list);
             mAdapter.loadMoreComplete();
-            mAdapter.setEnableLoadMore(mPresenter.hasMore(list.size()));
+            setEnableLoadMore(mPresenter.hasMore(list.size()));
         } else {
             mAdapter.loadMoreFail();
-            mAdapter.setEnableLoadMore(false);
+            setEnableLoadMore(false);
         }
     }
 
@@ -176,10 +202,6 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_back:
-                finish();
-                break;
-
             case R.id.btn_menu:
                 showMenu(view);
                 break;
@@ -207,6 +229,12 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         mAdapter.getEmptyView().findViewById(R.id.iv_reload).setOnClickListener(this);
     }
 
+    protected
+    @DrawableRes
+    int getMenuResId() {
+        return -1;
+    }
+
     protected void showMenu(View view) {
 
     }
@@ -215,4 +243,10 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
     }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        return false;
+    }
+
 }

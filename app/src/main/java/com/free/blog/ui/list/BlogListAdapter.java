@@ -26,11 +26,11 @@ public class BlogListAdapter extends BaseViewAdapter<BlogItem> {
 
         String icoType = item.getIcoType();
         int imageResource = R.drawable.ic_original;
-        if (Config.BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL.equals(icoType)) {
+        if (Config.BLOG_TYPE.BLOG_TYPE_ORIGINAL.equals(icoType)) {
             imageResource = R.drawable.ic_original;
-        } else if (Config.BLOG_ICO_TYPE.BLOG_TYPE_REPOST.equals(icoType)) {
+        } else if (Config.BLOG_TYPE.BLOG_TYPE_REPOST.equals(icoType)) {
             imageResource = R.drawable.ic_repost;
-        } else if (Config.BLOG_ICO_TYPE.BLOG_TYPE_TRANSLATED.equals(icoType)) {
+        } else if (Config.BLOG_TYPE.BLOG_TYPE_TRANSLATED.equals(icoType)) {
             imageResource = R.drawable.ic_translate;
         }
         holder.setImageResource(R.id.blogImg, imageResource);

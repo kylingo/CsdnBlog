@@ -7,6 +7,8 @@ import com.free.blog.ui.base.mvp.IBaseView;
  */
 public interface IRefreshView<T, P> extends IBaseView<P> {
 
+    P getPresenter();
+
     void onRefreshUI(T data);
 
     void onRefreshFailure(int errNo);

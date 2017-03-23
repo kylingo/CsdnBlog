@@ -27,7 +27,7 @@ import com.free.blog.library.view.CircleImageView;
 import com.free.blog.library.view.drawerlayout.ActionBarDrawerToggle;
 import com.free.blog.library.view.drawerlayout.DrawerArrowDrawable;
 import com.free.blog.ui.base.activity.BaseActivity;
-import com.free.blog.ui.home.blog.BloggerFragment;
+import com.free.blog.ui.home.blogger.BloggerFragment;
 import com.free.blog.ui.home.mine.AboutActivity;
 import com.free.blog.ui.home.mine.SettingsActivity;
 import com.umeng.analytics.MobclickAgent;

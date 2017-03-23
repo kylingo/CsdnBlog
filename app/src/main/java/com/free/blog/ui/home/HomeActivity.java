@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.free.blog.R;
 import com.free.blog.ui.base.activity.BaseActivity;
-import com.free.blog.ui.home.blog.BloggerFragment;
+import com.free.blog.ui.home.blogger.BloggerFragment;
 import com.free.blog.ui.home.column.ColumnFragment;
 import com.free.blog.ui.home.hot.HotFragment;
 import com.free.blog.ui.home.mine.MineFragment;

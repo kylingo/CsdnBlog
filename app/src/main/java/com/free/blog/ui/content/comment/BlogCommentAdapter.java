@@ -18,9 +18,9 @@ class BlogCommentAdapter extends BaseViewAdapter<Comment> {
 
     @Override
     protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == Config.DEF_COMMENT_TYPE.PARENT) {
+        if (viewType == Config.COMMENT_TYPE.PARENT) {
             return new BaseViewHolder(getItemView(R.layout.listitem_comment, null));
-        } else if (viewType == Config.DEF_COMMENT_TYPE.CHILD) {
+        } else if (viewType == Config.COMMENT_TYPE.CHILD) {
             return new BaseViewHolder(getItemView(R.layout.listitem_comment_child, null));
         }
 
@@ -36,11 +36,11 @@ class BlogCommentAdapter extends BaseViewAdapter<Comment> {
     @Override
     protected void convert(BaseViewHolder helper, Comment item) {
         switch (helper.getItemViewType()) {
-            case Config.DEF_COMMENT_TYPE.PARENT:
+            case Config.COMMENT_TYPE.PARENT:
                 updateParentItem(helper, item);
                 break;
 
-            case Config.DEF_COMMENT_TYPE.CHILD:
+            case Config.COMMENT_TYPE.CHILD:
                 updateChildItem(helper, item);
                 break;
         }

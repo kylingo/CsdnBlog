@@ -13,7 +13,7 @@ import com.free.blog.R;
 import com.free.blog.data.entity.Channel;
 import com.free.blog.data.remote.NetEngine;
 import com.free.blog.library.config.CategoryManager;
-import com.free.blog.library.config.ExtraKey;
+import com.free.blog.library.config.KeyConfig;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.DateUtils;
@@ -118,7 +118,7 @@ public class ColumnFragment extends BaseFragment
     }
 
     private void refresh() {
-        String type = (String) SpfUtils.get(getActivity(), ExtraKey.BLOG_TYPE, CategoryManager
+        String type = (String) SpfUtils.get(getActivity(), KeyConfig.BLOG_TYPE, CategoryManager
                 .CategoryName.ANDROID);
         mAdapter.setCheckType(type);
     }
@@ -145,7 +145,7 @@ public class ColumnFragment extends BaseFragment
             @Override
             public void onConfirm(String result) {
                 ToastUtil.show(getActivity(), "设置成功");
-                SpfUtils.put(getActivity(), ExtraKey.BLOG_TYPE, channel.getChannelName());
+                SpfUtils.put(getActivity(), KeyConfig.BLOG_TYPE, channel.getChannelName());
                 refresh();
             }
         });
@@ -160,7 +160,7 @@ public class ColumnFragment extends BaseFragment
 //        Channel channel = (Channel) parent.getAdapter().getItem(position);
 //
 //        Intent intent = new Intent(getActivity(), ColumnDetailActivity.class);
-//        intent.putExtra(ExtraKey.COLUMN, channel);
+//        intent.putExtra(KeyConfig.COLUMN, channel);
 //        startActivity(intent);
     }
 

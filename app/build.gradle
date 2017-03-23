@@ -8,8 +8,8 @@ android {
         applicationId "com.free.blog.beta"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 2000
-        versionName "2.0.00"
+        versionCode 200
+        versionName "2.0.0"
     }
     buildTypes {
         release {
@@ -44,7 +44,7 @@ dependencies {
 
     // doRefresh
     compile 'in.srain.cube:ultra-ptr:1.0.11'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.8.7'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.0'
 
 
 }

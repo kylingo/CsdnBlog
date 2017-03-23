@@ -67,7 +67,7 @@ public class BlogListActivity extends BaseRefreshActivity<List<BlogItem>> implem
     }
 
     @Override
-    protected void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         BlogItem item = (BlogItem) adapter.getItem(position);
         Intent i = new Intent();
         i.setClass(this, BlogContentActivity.class);

@@ -21,7 +21,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class JsoupUtils {
     /**
      * 获取博主简易信息
      */
-    public static HashMap<String, String> getBloggerItem(String paramString) {
+    public static Blogger getBloggerItem(String paramString) {
         Document localDocument = Jsoup.parse(paramString);
         Elements localElements = localDocument.getElementsByClass("header");
 
@@ -60,11 +59,18 @@ public class JsoupUtils {
             str = "";
         }
 
-        HashMap<String, String> localHashMap = new HashMap<String, String>();
-        localHashMap.put("title", localElements.select("h2").text());
-        localHashMap.put("description", localElements.select("h3").text());
-        localHashMap.put("imgUrl", str);
-        return localHashMap;
+        Blogger blogger = new Blogger();
+        String title = localElements.select("h2").text();
+        String description = localElements.select("h3").text();
+        String imgUrl = str;
+
+        if (TextUtils.isEmpty(title)) {
+            return null;
+        }
+        blogger.setTitle(title);
+        blogger.setDescription(description);
+        blogger.setImgUrl(imgUrl);
+        return blogger;
     }
 
     /**
@@ -72,7 +78,7 @@ public class JsoupUtils {
      */
     public static List<BlogItem> getBlogItemList(String category, String str, List<BlogCategory>
             blogCategoryList) {
-        List<BlogItem> list = new ArrayList<BlogItem>();
+        List<BlogItem> list = new ArrayList<>();
         Document doc = Jsoup.parse(str);
         Elements blogList = doc.getElementsByClass("article_item");
 
@@ -145,7 +151,7 @@ public class JsoupUtils {
      * 获取热门博客列表
      */
     public static List<BlogItem> getHotBlogList(String category, String str) {
-        List<BlogItem> list = new ArrayList<BlogItem>();
+        List<BlogItem> list = new ArrayList<>();
         Document doc = Jsoup.parse(str);
         Elements blogList = doc.getElementsByClass("blog_list");
 
@@ -162,7 +168,7 @@ public class JsoupUtils {
             item.setDate(date);
             item.setLink(link);
             item.setCategory(category);
-            item.setIcoType(Config.BLOG_ICO_TYPE.BLOG_TYPE_ORIGINAL);
+            item.setIcoType(Config.BLOG_TYPE.BLOG_TYPE_ORIGINAL);
 
             // 没有图片
             item.setImgLink(null);
@@ -238,7 +244,7 @@ public class JsoupUtils {
      * 获取博主列表(各大分类)
      */
     public static List<Blogger> getBloggerList(String category, String str) {
-        List<Blogger> list = new ArrayList<Blogger>();
+        List<Blogger> list = new ArrayList<>();
         Document doc = Jsoup.parse(str);
         Elements bloggerList = doc.getElementsByClass("list_3");
 
@@ -272,7 +278,7 @@ public class JsoupUtils {
      * 获取博文评论列表
      */
     public static List<Comment> getBlogCommentList(String str, int pageIndex, int pageSize) {
-        List<Comment> list = new ArrayList<Comment>();
+        List<Comment> list = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(str);
             JSONArray jsonArray = jsonObject.getJSONArray("list");
@@ -311,9 +317,9 @@ public class JsoupUtils {
 
                 if (parentId.equals("0")) {
                     // 如果parentId为0的话，表示它是评论的topic
-                    comment.setType(Config.DEF_COMMENT_TYPE.PARENT);
+                    comment.setType(Config.COMMENT_TYPE.PARENT);
                 } else {
-                    comment.setType(Config.DEF_COMMENT_TYPE.CHILD);
+                    comment.setType(Config.COMMENT_TYPE.CHILD);
                 }
                 list.add(comment);
             }
@@ -375,7 +381,7 @@ public class JsoupUtils {
      */
     @SuppressWarnings("unused")
     public static List<Blog> getDetail(String url, String str) {
-        List<Blog> list = new ArrayList<Blog>();
+        List<Blog> list = new ArrayList<>();
 
         // 获取文档内容
         Document doc = Jsoup.parse(str);
@@ -504,7 +510,7 @@ public class JsoupUtils {
             return null;
         }
 
-        List<Channel> channelList = new ArrayList<Channel>();
+        List<Channel> channelList = new ArrayList<>();
         Document doc = Jsoup.parse(html);
         try {
             Element columnElement = doc

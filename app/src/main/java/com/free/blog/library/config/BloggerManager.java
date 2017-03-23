@@ -19,7 +19,7 @@ public class BloggerManager {
 	/**
 	 * 执行插入数据库操作
 	 */
-	private void insertBlogger(BloggerDao bloggerDb, Blogger blogger, String[] array) {
+	private static void insertBlogger(BloggerDao bloggerDb, Blogger blogger, String[] array) {
 		if (array == null || array.length < 6 || blogger == null || bloggerDb == null) {
 			return;
 		}
@@ -41,7 +41,7 @@ public class BloggerManager {
 	/**
 	 * 删除所有博客
 	 */
-	private void deleteAllBlogger(BloggerDao bloggerDb) {
+	private static void deleteAllBlogger(BloggerDao bloggerDb) {
 		bloggerDb.deleteAll();
 	}
 
@@ -49,8 +49,8 @@ public class BloggerManager {
 	 * 初始化博主信息
 	 */
 	@SuppressWarnings("ConstantConditions")
-	public void init(Context context, BloggerDao bloggerDb, String type) {
-		if (!((Boolean) SpfUtils.get(context, ExtraKey.IS_FIRST, true))){
+	public static void init(Context context, BloggerDao bloggerDb, String type) {
+		if (!((Boolean) SpfUtils.get(context, KeyConfig.IS_FIRST_INIT, true))){
 			return;
 		}
 
@@ -508,6 +508,6 @@ public class BloggerManager {
 		array[5] = type;
 		insertBlogger(bloggerDb, blogger, array);
 
-		SpfUtils.put(context, ExtraKey.IS_FIRST, false);
+		SpfUtils.put(context, KeyConfig.IS_FIRST_INIT, false);
 	}
 }

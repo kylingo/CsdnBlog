@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="7dip"
-    android:orientation="horizontal" >
+              style="@style/ItemClickStyle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="7dip">
 
     <com.free.blog.library.view.CircleImageView
         android:id="@+id/imv_blogger"
         android:layout_width="@dimen/listitem_blogger_height"
         android:layout_height="@dimen/listitem_blogger_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_default" >
+        android:src="@drawable/ic_default">
     </com.free.blog.library.view.CircleImageView>
 
     <LinearLayout
@@ -18,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dip"
         android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_blog_title"
@@ -27,7 +28,7 @@
             android:singleLine="true"
             android:text="@string/blog_title"
             android:textColor="@color/black_text"
-            android:textSize="@dimen/title_size" />
+            android:textSize="@dimen/title_size"/>
 
         <TextView
             android:id="@+id/tv_blog_desc"
@@ -37,7 +38,7 @@
             android:singleLine="true"
             android:text="@string/blog_desc"
             android:textColor="@color/list_decs_color"
-            android:textSize="@dimen/desc_size" />
+            android:textSize="@dimen/desc_size"/>
     </LinearLayout>
 
 </LinearLayout>

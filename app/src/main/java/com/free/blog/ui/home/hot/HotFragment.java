@@ -99,7 +99,7 @@ public class HotFragment extends BaseFragment implements OnItemClickListener, IX
 //		Channel channel = (Channel) parent.getAdapter().getItem(position);
 //
 //		Intent intent = new Intent(getActivity(), HotListActivity.class);
-//		intent.putExtra(ExtraKey.CHANNEL, channel);
+//		intent.putExtra(KeyConfig.CHANNEL, channel);
 //		startActivity(intent);
 	}
 }
