@@ -145,7 +145,7 @@ class BloggerPresenter extends RefreshPresenter<List<Blogger>> implements
                 .map(new Func1<String, Blogger>() {
                     @Override
                     public Blogger call(String html) {
-                        Blogger blogger = JsoupUtils.getBloggerItem(html);
+                        Blogger blogger = JsoupUtils.getBlogger(html);
                         initBlogger(blogger, userId);
                         return blogger;
                     }

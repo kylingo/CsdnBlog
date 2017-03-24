@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              style="@style/ItemClickStyle"
+<LinearLayout style="@style/ItemClickStyle"
+              xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
@@ -25,7 +25,7 @@
             android:id="@+id/tv_blog_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="@string/blog_title"
             android:textColor="@color/black_text"
             android:textSize="@dimen/title_size"/>
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dip"
-            android:singleLine="true"
+            android:maxLines="1"
             android:text="@string/blog_desc"
             android:textColor="@color/list_decs_color"
             android:textSize="@dimen/desc_size"/>

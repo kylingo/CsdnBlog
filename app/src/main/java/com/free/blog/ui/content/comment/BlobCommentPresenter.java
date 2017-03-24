@@ -39,7 +39,7 @@ class BlobCommentPresenter extends RefreshPresenter<List<Comment>> {
                     .map(new Func1<String, List<Comment>>() {
                         @Override
                         public List<Comment> call(String s) {
-                            List<Comment> list = JsoupUtils.getBlogCommentList(s, page, getPageSize());
+                            List<Comment> list = JsoupUtils.getCommentList(s, page, getPageSize());
                             CommentComparator comparator = new CommentComparator();
                             Collections.sort(list, comparator);
 

@@ -65,7 +65,7 @@
             android:name=".ui.home.mine.BlogHistoryActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.home.column.ColumnDetailActivity"
+            android:name=".ui.home.column.detail.ColumnDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.ChannelDetailActivity"

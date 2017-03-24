@@ -59,7 +59,7 @@ class BlogListPresenter extends RefreshPresenter<List<BlogItem>> implements
                         @Override
                         public List<BlogItem> call(String s) {
                             List<BlogItem> list = JsoupUtils
-                                    .getBlogItemList(mCategory, s, mCategoryList);
+                                    .getBlogList(mCategory, s, mCategoryList);
                             mBlogItemDao.insertCategory(mCategoryList);
                             mBlogItemDao.insert(mCategory, list);
                             return list;

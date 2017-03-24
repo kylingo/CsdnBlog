@@ -32,7 +32,7 @@ public class ColumnPresenter extends RefreshPresenter<List<Channel>> {
                 .map(new Func1<String, List<Channel>>() {
                     @Override
                     public List<Channel> call(String s) {
-                        return JsoupUtils.getColumnList(s);
+                        return JsoupUtils.getColumnList(s, mKeywords);
                     }
                 })
                 .compose(RxHelper.<List<Channel>>getErrAndIOSchedulerTransformer());

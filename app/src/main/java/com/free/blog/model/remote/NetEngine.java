@@ -34,6 +34,10 @@ public class NetEngine {
         return mBlogApi.getHtml(url);
     }
 
+    public Observable<String> getHtmlByPage(String url, int page) {
+        return mBlogApi.getHtmlByPage(url, page);
+    }
+
     public Observable<String> getBlogComment(String blogId, int page) {
         return mBlogApi.getBlogComment(blogId, page);
     }

@@ -1,6 +1,7 @@
 package com.free.blog.ui.home.column;
 
 
+import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -9,6 +10,7 @@ import com.free.blog.library.util.ToastUtil;
 import com.free.blog.model.entity.Channel;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.fragment.BaseRefreshFragment;
+import com.free.blog.ui.home.column.detail.ColumnDetailActivity;
 
 import java.util.List;
 
@@ -43,10 +45,10 @@ public class ColumnFragment extends BaseRefreshFragment<List<Channel>> {
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ToastUtil.show(getActivity(), "即将退出，敬请期待");
 
-//        Channel channel = (Channel) adapter.getItem(position);
-//        Intent intent = new Intent(getActivity(), ColumnDetailActivity.class);
-//        intent.putExtra(ColumnDetailActivity.EXTRA_COLUMN, channel);
-//        startActivity(intent);
+        Channel channel = (Channel) adapter.getItem(position);
+        Intent intent = new Intent(getActivity(), ColumnDetailActivity.class);
+        intent.putExtra(ColumnDetailActivity.EXTRA_COLUMN, channel);
+        startActivity(intent);
     }
 
     @Override

@@ -3,14 +3,12 @@ package com.free.blog.library.util;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.free.blog.model.entity.Blog;
+import com.free.blog.library.config.Config;
 import com.free.blog.model.entity.BlogCategory;
 import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.entity.Blogger;
-import com.free.blog.model.entity.BloggerDetail;
 import com.free.blog.model.entity.Channel;
 import com.free.blog.model.entity.Comment;
-import com.free.blog.library.config.Config;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,22 +28,20 @@ import java.util.List;
  * @author tangqi
  * @since 2015年8月9日下午08:09:57
  */
-@SuppressWarnings({"deprecation", "unused"})
+@SuppressWarnings("deprecation")
 public class JsoupUtils {
 
     private static final String BLOG_URL = "http://blog.csdn.net";
 
-    public static void resetPages() {
-        boolean contentFirstPage = true;
-        boolean contentLastPage = true;
-        boolean multiPages = false;
-    }
-
     /**
      * 获取博主简易信息
      */
-    public static Blogger getBloggerItem(String paramString) {
-        Document localDocument = Jsoup.parse(paramString);
+    public static Blogger getBlogger(String html) {
+        if (TextUtils.isEmpty(html)) {
+            return null;
+        }
+
+        Document localDocument = Jsoup.parse(html);
         Elements localElements = localDocument.getElementsByClass("header");
 
         String str;
@@ -76,10 +72,10 @@ public class JsoupUtils {
     /**
      * 获取博客列表
      */
-    public static List<BlogItem> getBlogItemList(String category, String str, List<BlogCategory>
+    public static List<BlogItem> getBlogList(String category, String html, List<BlogCategory>
             blogCategoryList) {
         List<BlogItem> list = new ArrayList<>();
-        Document doc = Jsoup.parse(str);
+        Document doc = Jsoup.parse(html);
         Elements blogList = doc.getElementsByClass("article_item");
 
         for (Element blogItem : blogList) {
@@ -148,47 +144,15 @@ public class JsoupUtils {
     }
 
     /**
-     * 获取热门博客列表
-     */
-    public static List<BlogItem> getHotBlogList(String category, String str) {
-        List<BlogItem> list = new ArrayList<>();
-        Document doc = Jsoup.parse(str);
-        Elements blogList = doc.getElementsByClass("blog_list");
-
-        for (Element blogItem : blogList) {
-            BlogItem item = new BlogItem();
-            String title = blogItem.select("h1").text();
-
-            String description = blogItem.select("dd").text();
-            String date = blogItem.getElementsByClass("about_info").get(0).text();
-            String link = blogItem.select("h1").select("a").attr("href");
-
-            item.setTitle(title);
-            item.setContent(description);
-            item.setDate(date);
-            item.setLink(link);
-            item.setCategory(category);
-            item.setIcoType(Config.BLOG_TYPE.BLOG_TYPE_ORIGINAL);
-
-            // 没有图片
-            item.setImgLink(null);
-            list.add(item);
-        }
-
-        return list;
-
-    }
-
-    /**
      * 获取博客详情内容
      */
-    public static String getContent(String paramString) {
-        if (TextUtils.isEmpty(paramString)) {
+    public static String getContent(String html) {
+        if (TextUtils.isEmpty(html)) {
             return null;
         }
 
         // 获取详情
-        Element localElement1 = Jsoup.parse(paramString).getElementsByClass("details").get(0);
+        Element localElement1 = Jsoup.parse(html).getElementsByClass("details").get(0);
 
         // 删除所有script标签
         localElement1.select("script").remove();
@@ -241,46 +205,12 @@ public class JsoupUtils {
     }
 
     /**
-     * 获取博主列表(各大分类)
-     */
-    public static List<Blogger> getBloggerList(String category, String str) {
-        List<Blogger> list = new ArrayList<>();
-        Document doc = Jsoup.parse(str);
-        Elements bloggerList = doc.getElementsByClass("list_3");
-
-        Elements ulElements = bloggerList.select("ul");
-        for (Element ulElement : ulElements) {
-            Elements liElements = ulElement.select("li");
-            for (Element element : liElements) {
-                Blogger blogger = new Blogger();
-                Element bloggerElement = element.select("dl").get(0).select("dt").get(0).select
-                        ("a").get(0);
-                String url = bloggerElement.attr("href");
-
-                Element imgElement = bloggerElement.select("img").get(0);
-                String title = imgElement.attr("alt");
-                String imgUrl = imgElement.attr("src");
-
-                blogger.setUserId(url.replace(Config.HOST_BLOG, ""));
-                blogger.setLink(url);
-                blogger.setTitle(title);
-                blogger.setImgUrl(imgUrl);
-                blogger.setType(category);
-                blogger.setCategory(category);
-                list.add(blogger);
-            }
-        }
-
-        return list;
-    }
-
-    /**
      * 获取博文评论列表
      */
-    public static List<Comment> getBlogCommentList(String str, int pageIndex, int pageSize) {
+    public static List<Comment> getCommentList(String json, int pageIndex, int pageSize) {
         List<Comment> list = new ArrayList<>();
         try {
-            JSONObject jsonObject = new JSONObject(str);
+            JSONObject jsonObject = new JSONObject(json);
             JSONArray jsonArray = jsonObject.getJSONArray("list");
             int index = 0;
             int len = jsonArray.length();
@@ -330,183 +260,8 @@ public class JsoupUtils {
         return list;
     }
 
-    /**
-     * 获得博主个人详情资料
-     */
-    @SuppressWarnings("unused")
-    public static BloggerDetail getBloggerInfo(String str) {
-
-        if (str == null) {
-            return null;
-        }
-        Document doc = Jsoup.parse(str);
-        Element profile = doc.getElementsByClass("panel").get(0);
-
-        Element profileBody = profile.select("ul.panel_body.profile").get(0);
-        Element userface = profileBody.getElementById("blog_userface");
-        String userfaceLink = userface.select("a").select("img").attr("src"); // 得到头像链接
-        String username = userface.getElementsByTag("a").get(1).text(); // 用户名
-
-        Element blog_rank = profileBody.getElementById("blog_rank");
-        Element blog_statistics = profileBody.getElementById("blog_statistics");
-
-        Elements rankLi = blog_rank.select("li");
-        StringBuilder sb = new StringBuilder();
-        String rankStr;
-        for (Element rank : rankLi) {
-            sb.append(rank.text()).append("|");
-        }
-        rankStr = sb.toString();
-
-        String statistics;
-        StringBuilder sb2 = new StringBuilder();
-        Elements blogLi = blog_statistics.select("li");
-        for (Element info : blogLi) {
-            sb2.append(info.text()).append("|");
-        }
-        statistics = sb2.toString();
-
-        BloggerDetail blogger = new BloggerDetail();
-
-        blogger.setUserface(userfaceLink);
-        blogger.setUsername(username);
-        blogger.setRank(rankStr);
-        blogger.setStatistics(statistics);
-
-        return blogger;
-    }
-
-    /**
-     * 扒取传入url地址的博客详细内容
-     */
-    @SuppressWarnings("unused")
-    public static List<Blog> getDetail(String url, String str) {
-        List<Blog> list = new ArrayList<>();
-
-        // 获取文档内容
-        Document doc = Jsoup.parse(str);
-
-        // 这里可以优化，取出所有details的元素即可，不用区分这么细
-
-        // 获取class="details"的元素
-        Element detail = doc.getElementsByClass("details").get(0);
-        detail.select("script").remove(); // 删除每个匹配元素的DOM。
-
-        // 获取标题
-        Element title = detail.getElementsByClass("article_title").get(0);
-        Blog blogTitle = new Blog();
-        blogTitle.setState(Config.DEF_BLOG_ITEM_TYPE.TITLE); // 设置状态
-        blogTitle.setContent(ToDBC(title.text())); // 设置标题内容
-
-        // 获取文章内容
-        Element content = detail.select("div.article_content").get(0);
-
-        // 获取所有标签为<a的元素
-        Elements as = detail.getElementsByTag("a");
-        for (int b = 0; b < as.size(); b++) {
-            Element blockquote = as.get(b);
-            // 改变这个元素的标记。例如,<span>转换为<div> 如el.tagName("div");。
-            blockquote.tagName("bold"); // 转为粗体
-        }
-
-        Elements ss = detail.getElementsByTag("strong");
-        for (int b = 0; b < ss.size(); b++) {
-            Element blockquote = ss.get(b);
-            blockquote.tagName("bold");
-        }
-
-        // 获取所有标签为<p的元素
-        Elements ps = detail.getElementsByTag("p");
-        for (int b = 0; b < ps.size(); b++) {
-            Element blockquote = ps.get(b);
-            blockquote.tagName("body");
-        }
-
-        // 获取所有引用元素
-        Elements blockquotes = detail.getElementsByTag("blockquote");
-        for (int b = 0; b < blockquotes.size(); b++) {
-            Element blockquote = blockquotes.get(b);
-            blockquote.tagName("body");
-        }
-
-        // 获取所有标签为<ul的元素
-        Elements uls = detail.getElementsByTag("ul");
-        for (int b = 0; b < uls.size(); b++) {
-            Element blockquote = uls.get(b);
-            blockquote.tagName("body");
-        }
-
-        // 找出粗体
-        Elements bs = detail.getElementsByTag("b");
-        for (int b = 0; b < bs.size(); b++) {
-            Element bold = bs.get(b);
-            bold.tagName("bold");
-        }
-
-        // 遍历博客内容中的所有元素
-        for (int j = 0; j < content.children().size(); j++) {
-            Element c = content.child(j); // 获取每个元素
-
-            // 抽取出图片
-            if (c.select("img").size() > 0) {
-                Elements imgs = c.getElementsByTag("img");
-                System.out.println("img");
-                for (Element img : imgs) {
-                    if (!img.attr("src").equals("")) {
-                        Blog blogImgs = new Blog();
-                        // 大图链接
-                        if (!img.parent().attr("href").equals("")) {
-                            blogImgs.setImgLink(img.parent().attr("href"));
-                            System.out.println("href=" + img.parent().attr("href"));
-                            //noinspection StatementWithEmptyBody
-                            if (img.parent().parent().tagName().equals("p")) {
-                                // img.parent().parent().remove();
-                            }
-                            img.parent().remove();
-                        }
-                        blogImgs.setContent(img.attr("src"));
-                        blogImgs.setImgLink(img.attr("src"));
-                        System.out.println(blogImgs.getContent());
-                        blogImgs.setState(Config.DEF_BLOG_ITEM_TYPE.IMG);
-                        list.add(blogImgs);
-                    }
-                }
-            }
-            c.select("img").remove();
-
-            // 获取博客内容
-            Blog blogContent = new Blog();
-            blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.CONTENT);
-
-            if (c.text().equals("")) {
-                continue;
-            } else if (c.children().size() == 1) {
-                if (c.child(0).tagName().equals("bold") || c.child(0).tagName().equals("span")) {
-                    if (c.ownText().equals("")) {
-                        // 小标题，咖啡色
-                        blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.BOLD_TITLE);
-                    }
-                }
-            }
-
-            // 代码
-            if (c.select("pre").attr("name").equals("code")) {
-                blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.CODE);
-                blogContent.setContent(ToDBC(c.outerHtml()));
-            } else if ((c.select("pre").attr("class").equals("prettyprint"))) {
-                blogContent.setState(Config.DEF_BLOG_ITEM_TYPE.CODE);
-                blogContent.setContent(ToDBC(c.outerHtml()));
-            } else {
-                blogContent.setContent(ToDBC(c.outerHtml()));
-            }
-            list.add(blogContent);
-        }
-
-        return list;
-    }
-
-    public static List<Channel> getColumnList(String html) {
-        if (html == null) {
+    public static List<Channel> getColumnList(String html, String category) {
+        if (TextUtils.isEmpty(html)) {
             return null;
         }
 
@@ -528,13 +283,15 @@ public class JsoupUtils {
                             .replace(")", "");
 
                     Element aElement = column.getElementsByClass("column_list_link").get(0);
-                    String href = StringUtils.trimLastChar(Config.HOST_BLOG) + aElement.attr("href");
+                    String url = StringUtils.trimLastChar(Config.HOST_BLOG) + aElement.attr("href");
                     String title = aElement.getElementsByClass("column_c").get(0)
                             .getElementsByClass("column_list_p").get(0)
                             .text();
 
                     channel.setImgUrl(bgUrl);
+                    channel.setUrl(url);
                     channel.setChannelName(title);
+                    channel.setCategory(category);
                     channelList.add(channel);
                 }
             }
@@ -546,20 +303,40 @@ public class JsoupUtils {
         return channelList;
     }
 
-    /**
-     * 半角转换为全角 全角---指一个字符占用两个标准字符位置。 半角---指一字符占用一个标准的字符位置。
-     */
-    private static String ToDBC(String input) {
-        char[] c = input.toCharArray();
-        for (int i = 0; i < c.length; i++) {
-            if (c[i] == 12288) {
-                c[i] = (char) 32;
-                continue;
-            }
-            if (c[i] > 65280 && c[i] < 65375)
-                c[i] = (char) (c[i] - 65248);
+    public static List<BlogItem> getColumnBlogList(String html, String category) {
+        if (TextUtils.isEmpty(html)) {
+            return null;
         }
-        return new String(c);
-    }
 
+        List<BlogItem> blogList = new ArrayList<>();
+        Document doc = Jsoup.parse(html);
+        try {
+            Elements blogDiv = doc.getElementsByClass("blog_l");
+            Element detailListUl = blogDiv.select("ul").get(0);
+            Elements detailListLi = detailListUl.select("li");
+            for (Element element : detailListLi) {
+                Element h4 = element.select("h4").get(0);
+                String title = h4.text();
+                String link = h4.attr("href");
+                String decs = element.getElementsByClass("detail_p").get(0).text();
+                Element detailBDiv = element.getElementsByClass("detail_b").get(0);
+                String date = detailBDiv.select("span").text();
+                String times = detailBDiv.select("em").text();
+
+                BlogItem blogItem = new BlogItem();
+                blogItem.setTitle(title);
+                blogItem.setLink(link);
+                blogItem.setContent(decs);
+                blogItem.setCategory(category);
+                blogItem.setDate(date + " " + "阅读" + "(" + times + ")");
+                blogItem.setIcoType(Config.BLOG_TYPE.BLOG_TYPE_ORIGINAL);
+                blogList.add(blogItem);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return blogList;
+    }
 }
