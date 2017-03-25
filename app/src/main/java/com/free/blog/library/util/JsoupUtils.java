@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.free.blog.library.config.Config;
 import com.free.blog.model.entity.BlogCategory;
+import com.free.blog.model.entity.BlogColumn;
 import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.entity.Blogger;
-import com.free.blog.model.entity.Channel;
 import com.free.blog.model.entity.Comment;
 
 import org.json.JSONArray;
@@ -260,42 +260,39 @@ public class JsoupUtils {
         return list;
     }
 
-    public static List<Channel> getColumnList(String html, String category) {
+    public static List<BlogColumn> getColumnList(String html, String category) {
         if (TextUtils.isEmpty(html)) {
             return null;
         }
 
-        List<Channel> channelList = new ArrayList<>();
+        List<BlogColumn> channelList = new ArrayList<>();
         Document doc = Jsoup.parse(html);
         try {
-            Element columnElement = doc
-                    .getElementsByClass("blog_home_main").get(0)
-                    .getElementsByClass("column_index").get(0);
-
-            Elements columnWrap = columnElement.getElementsByClass("column_wrap");
+            Elements columnWrap = doc.getElementsByClass("column_wrap");
             for (Element element : columnWrap) {
                 Elements columnList = element.getElementsByClass("column_list");
 
                 for (Element column : columnList) {
-                    Channel channel = new Channel();
+                    BlogColumn channel = new BlogColumn();
                     Element bgElement = column.getElementsByClass("column_bg").get(0);
                     String bgUrl = bgElement.attr("style").replace("background-image:url(", "")
                             .replace(")", "");
 
                     Element aElement = column.getElementsByClass("column_list_link").get(0);
                     String url = StringUtils.trimLastChar(Config.HOST_BLOG) + aElement.attr("href");
+
                     String title = aElement.getElementsByClass("column_c").get(0)
                             .getElementsByClass("column_list_p").get(0)
                             .text();
 
-                    channel.setImgUrl(bgUrl);
+
+                    channel.setIcon(bgUrl);
                     channel.setUrl(url);
-                    channel.setChannelName(title);
+                    channel.setName(title);
                     channel.setCategory(category);
                     channelList.add(channel);
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

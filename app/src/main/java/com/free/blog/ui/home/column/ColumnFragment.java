@@ -13,7 +13,7 @@ import android.widget.PopupWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 import com.free.blog.model.entity.BlogCategory;
-import com.free.blog.model.entity.Channel;
+import com.free.blog.model.entity.BlogColumn;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.fragment.BaseRefreshFragment;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
@@ -25,8 +25,8 @@ import java.util.List;
 /**
  * @author studiotang on 17/3/23
  */
-public class ColumnFragment extends BaseRefreshFragment<List<Channel>> implements
-        ColumnContract.View<List<Channel>, IRefreshPresenter> {
+public class ColumnFragment extends BaseRefreshFragment<List<BlogColumn>> implements
+        ColumnContract.View<List<BlogColumn>, IRefreshPresenter> {
 
     private PopupWindow mPopupWindow;
 
@@ -97,7 +97,7 @@ public class ColumnFragment extends BaseRefreshFragment<List<Channel>> implement
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        Channel channel = (Channel) adapter.getItem(position);
+        BlogColumn channel = (BlogColumn) adapter.getItem(position);
         Intent intent = new Intent(getActivity(), ColumnDetailActivity.class);
         intent.putExtra(ColumnDetailActivity.EXTRA_COLUMN, channel);
         startActivity(intent);
