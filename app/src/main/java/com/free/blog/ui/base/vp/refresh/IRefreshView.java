@@ -1,6 +1,6 @@
-package com.free.blog.ui.base.mvp.refresh;
+package com.free.blog.ui.base.vp.refresh;
 
-import com.free.blog.ui.base.mvp.IBaseView;
+import com.free.blog.ui.base.vp.IBaseView;
 
 /**
  * @author tangqi on 17-3-20.

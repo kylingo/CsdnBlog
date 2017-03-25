@@ -4,9 +4,9 @@ import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.model.entity.Channel;
 import com.free.blog.model.remote.NetEngine;
-import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
-import com.free.blog.ui.base.mvp.refresh.IRefreshView;
-import com.free.blog.ui.base.mvp.refresh.RefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshView;
+import com.free.blog.ui.base.vp.refresh.RefreshPresenter;
 
 import java.util.List;
 

@@ -2,8 +2,8 @@ package com.free.blog.ui.content;
 
 import android.app.Activity;
 
-import com.free.blog.ui.base.mvp.single.ISinglePresenter;
-import com.free.blog.ui.base.mvp.single.ISingleView;
+import com.free.blog.ui.base.vp.single.ISinglePresenter;
+import com.free.blog.ui.base.vp.single.ISingleView;
 
 /**
  * @author studiotang on 17/3/21

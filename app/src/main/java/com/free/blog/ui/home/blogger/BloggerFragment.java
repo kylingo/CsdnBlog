@@ -18,7 +18,7 @@ import com.free.blog.library.view.dialog.BloggerOperationDialog;
 import com.free.blog.library.view.dialog.LoadingDialog;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.fragment.BaseRefreshFragment;
-import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.list.BlogListActivity;
 
 import java.util.List;

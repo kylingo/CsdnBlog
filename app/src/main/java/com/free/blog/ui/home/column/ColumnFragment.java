@@ -42,6 +42,16 @@ public class ColumnFragment extends BaseRefreshFragment<List<Channel>> {
     }
 
     @Override
+    protected boolean isShowMenu() {
+        return false;
+    }
+
+    @Override
+    protected void showMenu(View view) {
+        ToastUtil.show(getActivity(), "即将退出，敬请期待");
+    }
+
+    @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ToastUtil.show(getActivity(), "即将退出，敬请期待");
 
@@ -53,18 +63,6 @@ public class ColumnFragment extends BaseRefreshFragment<List<Channel>> {
 
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-//        final Channel channel = (Channel) adapter.getItem(position);
-//        SelectionDialog dialog = new SelectionDialog(getActivity(), "设置【" + channel
-//                .getChannelName() + "】为默认频道？");
-//        dialog.setOnConfirmListener(new BaseDialog.OnConfirmListener() {
-//
-//            @Override
-//            public void onConfirm(String result) {
-//                ToastUtil.show(getActivity(), "设置成功");
-//                SpfUtils.put(getActivity(), KeyConfig.BLOG_TYPE, channel.getChannelName());
-//            }
-//        });
-//        dialog.show();
         return true;
     }
 }

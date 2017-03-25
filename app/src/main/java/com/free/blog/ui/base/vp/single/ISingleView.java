@@ -1,6 +1,6 @@
-package com.free.blog.ui.base.mvp.single;
+package com.free.blog.ui.base.vp.single;
 
-import com.free.blog.ui.base.mvp.IBaseView;
+import com.free.blog.ui.base.vp.IBaseView;
 
 /**
  * @author studiotang on 17/3/21

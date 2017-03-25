@@ -11,9 +11,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 import com.free.blog.library.config.KeyConfig;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
-import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
-import com.free.blog.ui.base.mvp.refresh.IRefreshView;
-import com.free.blog.ui.base.mvp.refresh.RefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshView;
+import com.free.blog.ui.base.vp.refresh.RefreshPresenter;
 
 import java.util.List;
 

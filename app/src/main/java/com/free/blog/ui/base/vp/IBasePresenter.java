@@ -1,4 +1,4 @@
-package com.free.blog.ui.base.mvp;
+package com.free.blog.ui.base.vp;
 
 /**
  * @author tangqi on 17-3-20.

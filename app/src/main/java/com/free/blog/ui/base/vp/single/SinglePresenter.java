@@ -1,8 +1,8 @@
-package com.free.blog.ui.base.mvp.single;
+package com.free.blog.ui.base.vp.single;
 
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
-import com.free.blog.ui.base.mvp.BasePresenter;
+import com.free.blog.ui.base.vp.BasePresenter;
 
 import rx.Observable;
 import rx.Subscription;

@@ -1,4 +1,4 @@
-package com.free.blog.ui.base.mvp;
+package com.free.blog.ui.base.vp;
 
 import com.free.blog.BlogApplication;
 import com.free.blog.library.util.NetUtils;

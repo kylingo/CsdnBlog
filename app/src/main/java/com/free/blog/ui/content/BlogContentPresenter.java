@@ -17,8 +17,8 @@ import com.free.blog.model.remote.NetEngine;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
-import com.free.blog.ui.base.mvp.single.ISinglePresenter;
-import com.free.blog.ui.base.mvp.single.SinglePresenter;
+import com.free.blog.ui.base.vp.single.ISinglePresenter;
+import com.free.blog.ui.base.vp.single.SinglePresenter;
 import com.free.blog.ui.content.comment.BlogCommentActivity;
 
 import org.jsoup.Jsoup;

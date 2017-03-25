@@ -22,7 +22,7 @@ import com.free.blog.model.entity.BlogHtml;
 import com.free.blog.model.entity.BlogItem;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.ui.base.activity.BaseActivity;
-import com.free.blog.ui.base.mvp.single.ISinglePresenter;
+import com.free.blog.ui.base.vp.single.ISinglePresenter;
 
 import java.util.ArrayList;
 import java.util.List;

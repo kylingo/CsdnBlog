@@ -5,9 +5,9 @@ import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.local.dao.BlogHistoryDao;
 import com.free.blog.model.local.dao.DaoFactory;
 import com.free.blog.library.rx.RxHelper;
-import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
-import com.free.blog.ui.base.mvp.refresh.IRefreshView;
-import com.free.blog.ui.base.mvp.refresh.RefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshView;
+import com.free.blog.ui.base.vp.refresh.RefreshPresenter;
 
 import java.util.List;
 

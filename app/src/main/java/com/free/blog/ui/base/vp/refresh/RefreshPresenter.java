@@ -1,7 +1,7 @@
-package com.free.blog.ui.base.mvp.refresh;
+package com.free.blog.ui.base.vp.refresh;
 
 import com.free.blog.library.rx.RxSubscriber;
-import com.free.blog.ui.base.mvp.BasePresenter;
+import com.free.blog.ui.base.vp.BasePresenter;
 
 import rx.Observable;
 import rx.Subscription;

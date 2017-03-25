@@ -1,8 +1,8 @@
 package com.free.blog.ui.home.blogger;
 
 import com.free.blog.model.entity.Blogger;
-import com.free.blog.ui.base.mvp.refresh.IRefreshPresenter;
-import com.free.blog.ui.base.mvp.refresh.IRefreshView;
+import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
+import com.free.blog.ui.base.vp.refresh.IRefreshView;
 
 /**
  * @author tangqi on 17-3-23.
