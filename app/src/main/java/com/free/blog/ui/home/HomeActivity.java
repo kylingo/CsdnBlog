@@ -12,7 +12,7 @@ import com.free.blog.R;
 import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.blogger.BloggerFragment;
 import com.free.blog.ui.home.column.ColumnFragment;
-import com.free.blog.ui.home.hot.HotFragment;
+import com.free.blog.ui.home.find.FindFragment;
 import com.free.blog.ui.home.mine.MineFragment;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
@@ -34,7 +34,7 @@ public class HomeActivity extends BaseActivity implements OnCheckedChangeListene
 
 	private BloggerFragment mFirstFragment;
 	private ColumnFragment mSecondFragment;
-	private HotFragment mThirdFragment;
+	private FindFragment mThirdFragment;
 	private MineFragment mFourthFragment;
 
 	private String mFormerTag;
@@ -54,7 +54,7 @@ public class HomeActivity extends BaseActivity implements OnCheckedChangeListene
 		RadioGroup mGroup = (RadioGroup) findViewById(R.id.main_radio);
 		mFirstFragment = new BloggerFragment();
 		mSecondFragment = new ColumnFragment();
-		mThirdFragment = new HotFragment();
+		mThirdFragment = new FindFragment();
 		mFourthFragment = new MineFragment();
 		mFormerTag = FIRST_TAG;
 		getFragmentManager().beginTransaction()

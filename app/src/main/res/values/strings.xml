@@ -36,9 +36,9 @@
     <string name="refresh_complete">数据已更新</string>
     <string name="rank">排行榜</string>
     <string name="hot_blog">热门博客</string>
-    <string name="subscription">订阅</string>
-    <string name="blog_expert">博客专家</string>
-    <string name="blog_post">博客专栏</string>
+    <string name="new_blog">最新博客</string>
+    <string name="blog_expert">行家</string>
+    <string name="blog_pk">观点</string>
     <string name="settings">设置</string>
     <string name="collect">收藏</string>
     <string name="history">历史</string>

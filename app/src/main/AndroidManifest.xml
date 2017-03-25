@@ -47,6 +47,21 @@
             android:name=".ui.content.comment.BlogCommentActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.home.find.rank.RankActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.home.find.expert.ExpertActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.home.find.pk.PkActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.home.find.last.LastBlogActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.home.find.hot.HotBlogActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.home.mine.AboutActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -67,12 +82,6 @@
         <activity
             android:name=".ui.home.column.detail.ColumnDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.home.ChannelDetailActivity"
-            android:screenOrientation="portrait"/>
-        <!--<activity-->
-        <!--android:name=".ui.home.hot.HotListActivity"-->
-        <!--android:screenOrientation="portrait"/>-->
 
         <!-- umeng auto upgrade start -->
         <service
