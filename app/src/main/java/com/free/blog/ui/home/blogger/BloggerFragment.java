@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
-import com.free.blog.model.entity.Blogger;
 import com.free.blog.library.config.CategoryManager;
 import com.free.blog.library.config.KeyConfig;
 import com.free.blog.library.util.SpfUtils;
@@ -16,6 +15,7 @@ import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.BloggerAddDialog;
 import com.free.blog.library.view.dialog.BloggerOperationDialog;
 import com.free.blog.library.view.dialog.LoadingDialog;
+import com.free.blog.model.entity.Blogger;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.fragment.BaseRefreshFragment;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;

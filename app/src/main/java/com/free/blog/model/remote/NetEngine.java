@@ -41,8 +41,4 @@ public class NetEngine {
     public Observable<String> getBlogComment(String blogId, int page) {
         return mBlogApi.getBlogComment(blogId, page);
     }
-
-    public Observable<String> getColumnList(String keywords, int page) {
-        return mBlogApi.getColumnList(keywords, page);
-    }
 }

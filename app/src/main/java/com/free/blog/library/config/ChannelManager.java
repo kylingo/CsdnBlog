@@ -3,7 +3,7 @@ package com.free.blog.library.config;
 import com.free.blog.R;
 import com.free.blog.model.entity.Channel;
 import com.free.blog.library.config.CategoryManager.CategoryName;
-import com.free.blog.library.config.CategoryManager.CategoryUrl;
+import com.free.blog.library.config.CategoryManager.ColumnUrl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +42,16 @@ public class ChannelManager {
             R.drawable.logo_yixin};
 
     private String[] mUrls = {
-            CategoryUrl.ANDROID,
-            CategoryUrl.MOBILE,
-            CategoryUrl.WEB,
-            CategoryUrl.ENTERPRISE,
-            CategoryUrl.CODE,
-            CategoryUrl.WWW,
-            CategoryUrl.DATABASE,
-            CategoryUrl.SYSTEM,
-            CategoryUrl.CLOUD,
-            CategoryUrl.SOFTWARE,};
+            ColumnUrl.ANDROID,
+            ColumnUrl.MOBILE,
+            ColumnUrl.WEB,
+            ColumnUrl.ENTERPRISE,
+            ColumnUrl.CODE,
+            ColumnUrl.WWW,
+            ColumnUrl.DATABASE,
+            ColumnUrl.SYSTEM,
+            ColumnUrl.CLOUD,
+            ColumnUrl.SOFTWARE,};
 
     public List<Channel> getChannelList() {
         List<Channel> list = new ArrayList<Channel>();

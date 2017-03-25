@@ -22,4 +22,9 @@ public class KeyConfig {
      * 刷新时间
      */
     public final static String UPDATE_TIME = "update_time";
+
+    /**
+     * 专栏类型
+     */
+    public final static String COLUMN_TYPE = "column_type";
 }

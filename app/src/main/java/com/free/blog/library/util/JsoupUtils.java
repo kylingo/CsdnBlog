@@ -317,7 +317,7 @@ public class JsoupUtils {
             for (Element element : detailListLi) {
                 Element h4 = element.select("h4").get(0);
                 String title = h4.text();
-                String link = h4.attr("href");
+                String link = h4.select("a").attr("href");
                 String decs = element.getElementsByClass("detail_p").get(0).text();
                 Element detailBDiv = element.getElementsByClass("detail_b").get(0);
                 String date = detailBDiv.select("span").text();
