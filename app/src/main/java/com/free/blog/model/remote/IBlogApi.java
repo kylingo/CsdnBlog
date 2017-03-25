@@ -31,4 +31,7 @@ interface IBlogApi {
 
     @GET("ranking.html")
     Observable<String> getBlogRank();
+
+    @GET("PK.html")
+    Observable<String> getBlogPk();
 }

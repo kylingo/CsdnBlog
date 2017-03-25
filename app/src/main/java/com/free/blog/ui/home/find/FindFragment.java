@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 import com.free.blog.library.util.ToastUtil;
+import com.free.blog.model.remote.NetEngine;
+import com.free.blog.ui.base.activity.WebActivity;
 import com.free.blog.ui.base.fragment.BaseFragment;
 import com.free.blog.ui.home.find.expert.ExpertActivity;
 import com.free.blog.ui.home.find.hot.HotBlogActivity;
@@ -70,6 +72,8 @@ public class FindFragment extends BaseFragment implements OnClickListener {
 
             case R.id.ll_find_03:
                 intent = new Intent(getActivity(), PkActivity.class);
+                intent.putExtra(WebActivity.NAME, getString(R.string.blog_pk));
+                intent.putExtra(WebActivity.LINK, NetEngine.getInstance().getBlogPkUrl());
                 break;
 
             case R.id.ll_find_04:
