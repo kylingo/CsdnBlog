@@ -79,8 +79,8 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
                 .flatMap(new Func1<String, Observable<BlogHtml>>() {
                     @Override
                     public Observable<BlogHtml> call(String result) {
-                        String title = JsoupUtils.getTitle(result);
-                        String content = JsoupUtils.getContent(result);
+                        String title = JsoupUtils.getBlogTitle(result);
+                        String content = JsoupUtils.getBlogContent(result);
                         String html = adjustPicSize(content);
 
                         if (TextUtils.isEmpty(html)) {

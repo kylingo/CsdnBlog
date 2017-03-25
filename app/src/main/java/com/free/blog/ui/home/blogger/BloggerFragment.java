@@ -124,6 +124,7 @@ public class BloggerFragment extends BaseRefreshFragment<List<Blogger>> implemen
     public void addBloggerSuccess(Blogger blogger) {
         ToastUtil.show(getActivity(), "博客ID添加成功");
         mAdapter.addData(0, blogger);
+        mRecyclerView.scrollToPosition(0);
         dismissProgressDialog();
     }
 

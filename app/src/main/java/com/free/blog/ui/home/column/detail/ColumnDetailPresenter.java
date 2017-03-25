@@ -32,7 +32,7 @@ class ColumnDetailPresenter extends RefreshPresenter<List<BlogItem>> {
                 .map(new Func1<String, List<BlogItem>>() {
                     @Override
                     public List<BlogItem> call(String s) {
-                        return JsoupUtils.getColumnBlogList(s, mBlogColumn.getName());
+                        return JsoupUtils.getColumnDetail(s, mBlogColumn.getName());
                     }
                 })
                 .compose(RxHelper.<List<BlogItem>>getErrAndIOSchedulerTransformer());

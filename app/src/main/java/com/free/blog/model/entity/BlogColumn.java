@@ -25,10 +25,10 @@ public class BlogColumn extends BaseEntity {
     private String url;
 
     @Column(column = "size")
-    private int size;
+    private String size;
 
     @Column(column = "viewCount")
-    private int viewCount;
+    private String viewCount;
 
     @Column(column = "reserve")
     private String reserve;
@@ -65,19 +65,19 @@ public class BlogColumn extends BaseEntity {
         this.url = url;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
-    public int getViewCount() {
+    public String getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(int viewCount) {
+    public void setViewCount(String viewCount) {
         this.viewCount = viewCount;
     }
 
