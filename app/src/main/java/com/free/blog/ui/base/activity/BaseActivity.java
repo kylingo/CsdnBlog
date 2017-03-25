@@ -12,9 +12,7 @@ import com.umeng.analytics.MobclickAgent;
  * @since 2015年7月8日下午9:20:10
  */
 
-public class BaseActivity extends Activity {
-
-	protected static final int mPageSize = 20;
+public abstract class BaseActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

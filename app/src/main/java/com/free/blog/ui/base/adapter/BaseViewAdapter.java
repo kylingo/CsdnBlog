@@ -10,10 +10,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 public abstract class BaseViewAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
     public BaseViewAdapter() {
-        this(0);
-    }
-
-    public BaseViewAdapter(int layoutResId) {
-        super(layoutResId);
+        super(0);
     }
 }

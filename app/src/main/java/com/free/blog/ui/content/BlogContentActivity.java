@@ -2,7 +2,6 @@ package com.free.blog.ui.content;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,10 +17,10 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.free.blog.R;
+import com.free.blog.library.util.ToastUtil;
 import com.free.blog.model.entity.BlogHtml;
 import com.free.blog.model.entity.BlogItem;
-import com.free.blog.library.util.ToastUtil;
-import com.free.blog.ui.base.activity.BaseActivity;
+import com.free.blog.ui.base.activity.BaseSingleActivity;
 import com.free.blog.ui.base.vp.single.ISinglePresenter;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ import java.util.List;
  * @since 2015年7月20日下午9:20:20
  */
 @SuppressLint("SetJavaScriptEnabled")
-public class BlogContentActivity extends BaseActivity implements
+public class BlogContentActivity extends BaseSingleActivity implements
         BlogContentContract.View<BlogHtml, ISinglePresenter>, OnClickListener, OnCheckedChangeListener {
     public static final String EXTRA_BLOG_ITEM = "blog_item";
 
@@ -51,15 +50,12 @@ public class BlogContentActivity extends BaseActivity implements
     private ImageView mReLoadImageView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article_detail);
-
-        beforeInitView();
-        initView();
+    protected int getContentView() {
+        return R.layout.activity_article_detail;
     }
 
-    private void beforeInitView() {
+    @Override
+    protected void beforeInitView() {
         BlogItem blogItem = (BlogItem) getIntent().getSerializableExtra(EXTRA_BLOG_ITEM);
         if (blogItem != null) {
             mHistoryUrlList = new ArrayList<>();
@@ -73,7 +69,8 @@ public class BlogContentActivity extends BaseActivity implements
 
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         TextView mTitleView = (TextView) findViewById(R.id.tv_title);
         mTitleView.setText(R.string.blog_detail);
 

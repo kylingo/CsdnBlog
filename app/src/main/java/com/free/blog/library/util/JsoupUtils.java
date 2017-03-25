@@ -6,8 +6,10 @@ import com.free.blog.library.config.Config;
 import com.free.blog.model.entity.BlogCategory;
 import com.free.blog.model.entity.BlogColumn;
 import com.free.blog.model.entity.BlogItem;
+import com.free.blog.model.entity.BlogRank;
 import com.free.blog.model.entity.Blogger;
 import com.free.blog.model.entity.Comment;
+import com.free.blog.model.entity.RankItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -295,5 +297,52 @@ public class JsoupUtils {
         }
 
         return blogList;
+    }
+
+    public static List<BlogRank> getBlogRank(String html) {
+        if (TextUtils.isEmpty(html)) {
+            return null;
+        }
+
+        List<BlogRank> list = new ArrayList<>();
+        try {
+            Document doc = Jsoup.parse(html);
+            Elements blogRanks = doc.getElementsByClass("ranking");
+            for (Element rank : blogRanks) {
+                BlogRank blogRank = new BlogRank();
+                String RankTitle = rank.getElementsByClass("rank_t").text();
+
+                Elements liList = rank.select("ul").select("li");
+                List<RankItem> ranks = new ArrayList<>();
+                for (Element li : liList) {
+                    Element aElement = li.select("label").select("a").get(0);
+                    String url = aElement.attr("href");
+                    String icon = aElement.select("img").attr("src");
+                    String title = aElement.attr("title");
+                    if (TextUtils.isEmpty(title)) {
+                        title = li.getElementsByClass("blog_a").text();
+                    }
+                    if (TextUtils.isEmpty(title)) {
+                        title = li.getElementsByClass("star_name").text();
+                    }
+                    String viewCount = li.select("label").select("span").select("b").text();
+
+                    RankItem rankItem = new RankItem();
+                    rankItem.setIcon(icon);
+                    rankItem.setUrl(url);
+                    rankItem.setName(title);
+                    rankItem.setViewCount(viewCount);
+                    ranks.add(rankItem);
+                }
+
+                blogRank.setName(RankTitle);
+                blogRank.setData(ranks);
+                list.add(blogRank);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

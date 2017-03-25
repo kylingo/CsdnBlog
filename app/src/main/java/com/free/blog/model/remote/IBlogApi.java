@@ -28,4 +28,7 @@ interface IBlogApi {
 
     @GET
     Observable<String> getHtmlByPage(@Url String url, @Query("page") int page);
+
+    @GET("ranking.html")
+    Observable<String> getBlogRank();
 }

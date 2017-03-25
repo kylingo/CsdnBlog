@@ -41,4 +41,8 @@ public class NetEngine {
     public Observable<String> getBlogComment(String blogId, int page) {
         return mBlogApi.getBlogComment(blogId, page);
     }
+
+    public Observable<String> getBlogRank() {
+        return mBlogApi.getBlogRank();
+    }
 }
