@@ -186,7 +186,6 @@ public class BlogContentActivity extends BaseActivity implements
                 break;
 
             case R.id.iv_comment:
-            case R.id.comment:
                 mPresenter.comment(this, mBlogId);
                 break;
 

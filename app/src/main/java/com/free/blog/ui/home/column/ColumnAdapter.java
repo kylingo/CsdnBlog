@@ -16,7 +16,7 @@ class ColumnAdapter extends BaseViewAdapter<BlogColumn> {
 
     @Override
     protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
-        return new BaseViewHolder(getItemView(R.layout.listitem_channel, null));
+        return new BaseViewHolder(getItemView(R.layout.listitem_column, null));
     }
 
     @Override
