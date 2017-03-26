@@ -2,7 +2,7 @@ package com.free.blog.ui.home.blogger;
 
 import com.free.blog.BlogApplication;
 import com.free.blog.library.config.BloggerManager;
-import com.free.blog.library.config.UrlManager;
+import com.free.blog.library.config.UrlFactory;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
@@ -173,7 +173,7 @@ class BloggerPresenter extends RefreshPresenter<List<Blogger>> implements
             blogger.setUserId(userId);
             blogger.setLink(Config.BLOG_HOST + userId);
             blogger.setType(mType);
-            String mCategory = UrlManager.CategoryName.MOBILE;
+            String mCategory = UrlFactory.CategoryName.MOBILE;
             blogger.setCategory(mCategory);
             blogger.setIsTop(0);
             blogger.setIsNew(1);

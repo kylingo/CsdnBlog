@@ -18,7 +18,7 @@ import com.free.blog.ui.base.fragment.BaseFragment;
 import com.free.blog.ui.home.column.detail.ColumnDetailActivity;
 import com.free.blog.ui.home.find.expert.DailyActivity;
 import com.free.blog.ui.home.find.hot.HotBlogActivity;
-import com.free.blog.ui.home.find.last.LastBlogActivity;
+import com.free.blog.ui.home.find.last.NewBlogActivity;
 import com.free.blog.ui.home.find.pk.PkActivity;
 import com.free.blog.ui.home.find.rank.RankActivity;
 
@@ -83,7 +83,7 @@ public class FindFragment extends BaseFragment implements OnClickListener {
                 break;
 
             case R.id.ll_find_04:
-                intent = new Intent(getActivity(), LastBlogActivity.class);
+                intent = new Intent(getActivity(), NewBlogActivity.class);
                 break;
 
             case R.id.ll_find_05:

@@ -32,7 +32,7 @@ public class BloggerManager {
 		blogger.setType(array[5]);
 		blogger.setIsTop(0);
 		blogger.setIsNew(0);
-		blogger.setCategory(UrlManager.CategoryName.MOBILE);
+		blogger.setCategory(UrlFactory.CategoryName.MOBILE);
 		blogger.setUpdateTime(System.currentTimeMillis());
 
 		bloggerDb.insert(blogger);

@@ -3,7 +3,7 @@ package com.free.blog.library.config;
 /**
  * @author studiotang on 17/3/26
  */
-public class NewBlogManager extends BaseUrlManger {
+public class NewBlogManager extends UrlManager {
 
     @Override
     protected int getFirstIndex() {
@@ -21,16 +21,16 @@ public class NewBlogManager extends BaseUrlManger {
     }
 
     private static String[] mUrls = {
-            UrlManager.NewBlogUrl.ANDROID,
-            UrlManager.NewBlogUrl.MOBILE,
-            UrlManager.NewBlogUrl.WEB,
-            UrlManager.NewBlogUrl.ENTERPRISE,
-            UrlManager.NewBlogUrl.CODE,
-            UrlManager.NewBlogUrl.WWW,
-            UrlManager.NewBlogUrl.DATABASE,
-            UrlManager.NewBlogUrl.SYSTEM,
-            UrlManager.NewBlogUrl.CLOUD,
-            UrlManager.NewBlogUrl.SOFTWARE,
-            UrlManager.NewBlogUrl.OTHER
+            UrlFactory.NewBlogUrl.ANDROID,
+            UrlFactory.NewBlogUrl.MOBILE,
+            UrlFactory.NewBlogUrl.WEB,
+            UrlFactory.NewBlogUrl.ENTERPRISE,
+            UrlFactory.NewBlogUrl.CODE,
+            UrlFactory.NewBlogUrl.WWW,
+            UrlFactory.NewBlogUrl.DATABASE,
+            UrlFactory.NewBlogUrl.SYSTEM,
+            UrlFactory.NewBlogUrl.CLOUD,
+            UrlFactory.NewBlogUrl.SOFTWARE,
+            UrlFactory.NewBlogUrl.OTHER
     };
 }

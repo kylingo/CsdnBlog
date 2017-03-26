@@ -20,8 +20,8 @@ import rx.functions.Func1;
 class ColumnPresenter extends RefreshPresenter<List<BlogColumn>> implements
         ColumnContract.Presenter {
 
-    private BlogCategory mBlogCategory;
     private ColumnManager mColumnManager;
+    private BlogCategory mBlogCategory;
 
     ColumnPresenter(ColumnContract.View<List<BlogColumn>, IRefreshPresenter> viewDelegate) {
         super(viewDelegate);

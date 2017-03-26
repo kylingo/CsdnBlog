@@ -3,7 +3,7 @@ package com.free.blog.library.config;
 /**
  * @author studiotang on 17/3/26
  */
-public class HotBlogManager extends BaseUrlManger {
+public class HotBlogManager extends UrlManager {
 
     public HotBlogManager() {
         super();
@@ -25,16 +25,16 @@ public class HotBlogManager extends BaseUrlManger {
     }
 
     private static String[] mUrls = {
-            UrlManager.HotBlogUrl.ANDROID,
-            UrlManager.HotBlogUrl.MOBILE,
-            UrlManager.HotBlogUrl.WEB,
-            UrlManager.HotBlogUrl.ENTERPRISE,
-            UrlManager.HotBlogUrl.CODE,
-            UrlManager.HotBlogUrl.WWW,
-            UrlManager.HotBlogUrl.DATABASE,
-            UrlManager.HotBlogUrl.SYSTEM,
-            UrlManager.HotBlogUrl.CLOUD,
-            UrlManager.HotBlogUrl.SOFTWARE,
-            UrlManager.HotBlogUrl.OTHER
+            UrlFactory.HotBlogUrl.ANDROID,
+            UrlFactory.HotBlogUrl.MOBILE,
+            UrlFactory.HotBlogUrl.WEB,
+            UrlFactory.HotBlogUrl.ENTERPRISE,
+            UrlFactory.HotBlogUrl.CODE,
+            UrlFactory.HotBlogUrl.WWW,
+            UrlFactory.HotBlogUrl.DATABASE,
+            UrlFactory.HotBlogUrl.SYSTEM,
+            UrlFactory.HotBlogUrl.CLOUD,
+            UrlFactory.HotBlogUrl.SOFTWARE,
+            UrlFactory.HotBlogUrl.OTHER
     };
 }

@@ -3,7 +3,7 @@ package com.free.blog.library.config;
 /**
  * @author studiotang on 17/3/25
  */
-public class ColumnManager extends BaseUrlManger {
+public class ColumnManager extends UrlManager {
 
     public ColumnManager() {
         super();
@@ -25,16 +25,16 @@ public class ColumnManager extends BaseUrlManger {
     }
 
     private static String[] mUrls = {
-            UrlManager.ColumnUrl.ANDROID,
-            UrlManager.ColumnUrl.MOBILE,
-            UrlManager.ColumnUrl.WEB,
-            UrlManager.ColumnUrl.ENTERPRISE,
-            UrlManager.ColumnUrl.CODE,
-            UrlManager.ColumnUrl.WWW,
-            UrlManager.ColumnUrl.DATABASE,
-            UrlManager.ColumnUrl.SYSTEM,
-            UrlManager.ColumnUrl.CLOUD,
-            UrlManager.ColumnUrl.SOFTWARE,
-            UrlManager.ColumnUrl.OTHER
+            UrlFactory.ColumnUrl.ANDROID,
+            UrlFactory.ColumnUrl.MOBILE,
+            UrlFactory.ColumnUrl.WEB,
+            UrlFactory.ColumnUrl.ENTERPRISE,
+            UrlFactory.ColumnUrl.CODE,
+            UrlFactory.ColumnUrl.WWW,
+            UrlFactory.ColumnUrl.DATABASE,
+            UrlFactory.ColumnUrl.SYSTEM,
+            UrlFactory.ColumnUrl.CLOUD,
+            UrlFactory.ColumnUrl.SOFTWARE,
+            UrlFactory.ColumnUrl.OTHER
     };
 }

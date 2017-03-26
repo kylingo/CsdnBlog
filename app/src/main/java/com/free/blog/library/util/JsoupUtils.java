@@ -148,33 +148,38 @@ public class JsoupUtils {
             return null;
         }
 
-        Element detailElement = Jsoup.parse(html).getElementsByClass("details").get(0);
+        try {
+            Element detailElement = Jsoup.parse(html).getElementsByClass("details").get(0);
+            detailElement.select("script").remove();
 
-        detailElement.select("script").remove();
+            if (detailElement.getElementById("digg") != null) {
+                detailElement.getElementById("digg").remove();
+            }
 
-        if (detailElement.getElementById("digg") != null) {
-            detailElement.getElementById("digg").remove();
+            if (detailElement.getElementsByClass("tag2box") != null) {
+                detailElement.getElementsByClass("tag2box").remove();
+            }
+
+            if (detailElement.getElementsByClass("category") != null) {
+                detailElement.getElementsByClass("category").remove();
+            }
+
+            if (detailElement.getElementsByClass("bog_copyright") != null) {
+                detailElement.getElementsByClass("bog_copyright").remove();
+            }
+
+            detailElement.getElementsByClass("article_manage").remove();
+            detailElement.getElementsByTag("h1").tagName("h2");
+            for (Element element : detailElement.select("pre[name=code]")) {
+                element.attr("class", "brush: java; gutter: false;");
+            }
+
+            return detailElement.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (detailElement.getElementsByClass("tag2box") != null) {
-            detailElement.getElementsByClass("tag2box").remove();
-        }
-
-        if (detailElement.getElementsByClass("category") != null) {
-            detailElement.getElementsByClass("category").remove();
-        }
-
-        if (detailElement.getElementsByClass("bog_copyright") != null) {
-            detailElement.getElementsByClass("bog_copyright").remove();
-        }
-
-        detailElement.getElementsByClass("article_manage").remove();
-        detailElement.getElementsByTag("h1").tagName("h2");
-        for (Element element : detailElement.select("pre[name=code]")) {
-            element.attr("class", "brush: java; gutter: false;");
-        }
-
-        return detailElement.toString();
+        return null;
     }
 
     public static String getBlogTitle(String html) {
@@ -360,6 +365,46 @@ public class JsoupUtils {
                 blogRank.setName(RankTitle);
                 blogRank.setData(ranks);
                 list.add(blogRank);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public static List<BlogItem> getHotBlog(String html, String category) {
+        if (TextUtils.isEmpty(html)) {
+            return null;
+        }
+
+        List<BlogItem> list = new ArrayList<>();
+        try {
+            Document doc = Jsoup.parse(html);
+            String page = doc.getElementsByClass("page_nav").select("span").text();
+            int totalPage = getBlogTotalPage(page);
+
+            Elements blogElements = doc.getElementsByClass("blog_list");
+            for (Element blogElement : blogElements) {
+                Element h3 = blogElement.getElementsByClass("tracking-ad").first();
+                String title = h3.select("a").text();
+                String url = h3.select("a").attr("href");
+                String desc = blogElement.getElementsByClass("blog_list_c").text();
+
+                Element detailBDiv = blogElement.getElementsByClass("blog_list_b_r").first();
+                String date = detailBDiv.select("label").text();
+                String times = detailBDiv.select("span").select("em").text();
+
+                BlogItem blogItem = new BlogItem();
+                blogItem.setTitle(title);
+                blogItem.setLink(url);
+                blogItem.setContent(desc);
+                blogItem.setTotalPage(totalPage);
+                blogItem.setDate(date + " " + "阅读" + "(" + times + ")");
+                blogItem.setCategory(category);
+                blogItem.setIcoType(Config.BLOG_TYPE.BLOG_TYPE_ORIGINAL);
+
+                list.add(blogItem);
             }
         } catch (Exception e) {
             e.printStackTrace();

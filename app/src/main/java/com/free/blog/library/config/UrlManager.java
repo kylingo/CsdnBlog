@@ -1,81 +1,86 @@
 package com.free.blog.library.config;
 
+import android.text.TextUtils;
+
+import com.free.blog.BlogApplication;
+import com.free.blog.library.util.SpfUtils;
+import com.free.blog.model.entity.BlogCategory;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 分类管理
- *
- * @author tangqi
- * @since 2015年8月19日下午9:53:12
+ * @author studiotang on 17/3/26
  */
+public abstract class UrlManager {
+    private List<BlogCategory> mBlogCategories;
 
-public class UrlManager {
+    protected abstract int getFirstIndex();
 
-    private static final String HOST = Config.BLOG_HOST;
+    protected abstract String getSpfKey();
 
-    /**
-     * 博客分类
-     *
-     * @author Frank
-     */
-    public class CategoryName {
-        public static final String ANDROID = "Android";
-        public static final String MOBILE = "移动开发";
-        static final String WEB = "Web前端";
-        static final String ENTERPRISE = "架构设计";
-        static final String CODE = "编程语言";
-        static final String WWW = "互联网";
-        static final String DATABASE = "数据库";
-        static final String SYSTEM = "系统运维";
-        static final String CLOUD = "云计算";
-        static final String SOFTWARE = "研发管理";
-        static final String OTHER = "综合";
+    protected abstract String[] getUrls();
+
+    UrlManager() {
+        init();
     }
 
-    /**
-     * 博客分类URL
-     *
-     * @author Frank
-     */
-
-    class ColumnUrl {
-        final static String ANDROID = HOST + "column/list.html?q=Android";
-        final static String MOBILE = HOST + "mobile/column.html";
-        final static String WEB = HOST + "web/column.html";
-        final static String ENTERPRISE = HOST + "enterprise/column.html";
-        final static String CODE = HOST + "code/column.html";
-        final static String WWW = HOST + "www/column.html";
-        final static String DATABASE = HOST + "database/column.html";
-        final static String SYSTEM = HOST + "system/column.html";
-        final static String CLOUD = HOST + "cloud/column.html";
-        final static String SOFTWARE = HOST + "software/column.html";
-        final static String OTHER = HOST + "other/column.html";
+    private void init() {
+        mBlogCategories = new ArrayList<>();
+        for (int i = getFirstIndex(); i < mNames.length; i++) {
+            BlogCategory blogCategory = new BlogCategory();
+            blogCategory.setName(mNames[i]);
+            blogCategory.setLink(getUrls()[i]);
+            mBlogCategories.add(blogCategory);
+        }
     }
 
-    class NewBlogUrl {
-        final static String ANDROID = HOST + "mobile/newarticle.html";
-        final static String MOBILE = HOST + "mobile/newarticle.html";
-        final static String WEB = HOST + "web/newarticle.html";
-        final static String ENTERPRISE = HOST + "enterprise/newarticle.html";
-        final static String CODE = HOST + "code/newarticle.htmll";
-        final static String WWW = HOST + "www/newarticle.html";
-        final static String DATABASE = HOST + "database/newarticle.html";
-        final static String SYSTEM = HOST + "system/newarticle.html";
-        final static String CLOUD = HOST + "cloud/newarticle.html";
-        final static String SOFTWARE = HOST + "software/newarticle.html";
-        final static String OTHER = HOST + "other/newarticle.html";
+    public List<BlogCategory> getCategoryList() {
+        return mBlogCategories;
     }
 
-    class HotBlogUrl {
-        final static String ANDROID = HOST + "mobile/newarticle.html";
-        final static String MOBILE = HOST + "mobile/newarticle.html";
-        final static String WEB = HOST + "web/newarticle.html";
-        final static String ENTERPRISE = HOST + "enterprise/newarticle.html";
-        final static String CODE = HOST + "code/newarticle.htmll";
-        final static String WWW = HOST + "www/newarticle.html";
-        final static String DATABASE = HOST + "database/newarticle.html";
-        final static String SYSTEM = HOST + "system/newarticle.html";
-        final static String CLOUD = HOST + "cloud/newarticle.html";
-        final static String SOFTWARE = HOST + "software/newarticle.html";
-        final static String OTHER = HOST + "other/newarticle.html";
+    public void saveType(BlogCategory blogCategory) {
+        SpfUtils.put(BlogApplication.getContext(), getSpfKey(), blogCategory.getName());
+
     }
 
+    public BlogCategory getType() {
+        String columnType = (String) SpfUtils.get(BlogApplication.getContext(), getSpfKey(),
+                getDefaultName());
+
+        if (TextUtils.isEmpty(columnType)) {
+            return getDefaultType();
+        }
+        for (BlogCategory blogCategory : mBlogCategories) {
+            if (columnType.equals(blogCategory.getName())) {
+                return blogCategory;
+            }
+        }
+        return getDefaultType();
+    }
+
+    protected String getDefaultName() {
+        return getUrls()[getFirstIndex()];
+    }
+
+    private BlogCategory getDefaultType() {
+        BlogCategory blogCategory = new BlogCategory();
+        blogCategory.setName(mNames[getFirstIndex()]);
+        blogCategory.setLink(getUrls()[getFirstIndex()]);
+        return blogCategory;
+    }
+
+    private String[] mNames = {
+            UrlFactory.CategoryName.ANDROID,
+            UrlFactory.CategoryName.MOBILE,
+            UrlFactory.CategoryName.WEB,
+            UrlFactory.CategoryName.ENTERPRISE,
+            UrlFactory.CategoryName.CODE,
+            UrlFactory.CategoryName.WWW,
+            UrlFactory.CategoryName.DATABASE,
+            UrlFactory.CategoryName.SYSTEM,
+            UrlFactory.CategoryName.CLOUD,
+            UrlFactory.CategoryName.SOFTWARE,
+            UrlFactory.CategoryName.OTHER
+    };
 }

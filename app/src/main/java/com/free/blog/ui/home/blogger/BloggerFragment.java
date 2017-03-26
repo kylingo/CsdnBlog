@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
-import com.free.blog.library.config.UrlManager;
+import com.free.blog.library.config.UrlFactory;
 import com.free.blog.library.config.KeyConfig;
 import com.free.blog.library.util.SpfUtils;
 import com.free.blog.library.util.ToastUtil;
@@ -38,7 +38,7 @@ public class BloggerFragment extends BaseRefreshFragment<List<Blogger>> implemen
 
     @Override
     protected void beforeInitView() {
-        String type = (String) SpfUtils.get(getActivity(), KeyConfig.BLOG_TYPE, UrlManager
+        String type = (String) SpfUtils.get(getActivity(), KeyConfig.BLOG_TYPE, UrlFactory
                 .CategoryName.ANDROID);
         new BloggerPresenter(this, type);
     }

@@ -59,7 +59,7 @@
             android:name=".ui.home.find.pk.PkActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.home.find.last.LastBlogActivity"
+            android:name=".ui.home.find.last.NewBlogActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.find.hot.HotBlogActivity"
