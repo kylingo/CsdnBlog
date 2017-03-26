@@ -13,7 +13,7 @@ public abstract class RefreshPresenter<T> extends BasePresenter implements IRefr
 
     private static final int DEFAULT_PAGE_SIZE = 20;
     protected IRefreshView<T, IRefreshPresenter> mViewDelegate;
-    private int mPage = 1;
+    protected int mPage = 1;
     private boolean isLoadRefresh;
     private boolean isLoadMore;
 
@@ -48,8 +48,8 @@ public abstract class RefreshPresenter<T> extends BasePresenter implements IRefr
     }
 
     @Override
-    public boolean hasMore(int fetchCount) {
-        return fetchCount >= getPageSize();
+    public boolean hasMore(int size) {
+        return size >= getPageSize();
     }
 
     private Subscription loadRefreshSub() {

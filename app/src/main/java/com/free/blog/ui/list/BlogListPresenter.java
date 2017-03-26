@@ -1,15 +1,15 @@
 package com.free.blog.ui.list;
 
 import com.free.blog.BlogApplication;
+import com.free.blog.library.config.Config;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
+import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.model.entity.BlogCategory;
 import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.local.dao.BlogItemDao;
 import com.free.blog.model.local.dao.DaoFactory;
 import com.free.blog.model.remote.NetEngine;
-import com.free.blog.library.config.Config;
-import com.free.blog.library.rx.RxHelper;
-import com.free.blog.library.rx.RxSubscriber;
-import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.vp.refresh.IRefreshView;
 import com.free.blog.ui.base.vp.refresh.RefreshPresenter;
@@ -110,5 +110,10 @@ class BlogListPresenter extends RefreshPresenter<List<BlogItem>> implements
 
                     }
                 });
+    }
+
+    @Override
+    public boolean hasMore(int size) {
+        return mPage < size;
     }
 }

@@ -13,5 +13,5 @@ public interface IRefreshPresenter extends IBasePresenter {
 
     int getPageSize();
 
-    boolean hasMore(int fetchCount);
+    boolean hasMore(int size);
 }

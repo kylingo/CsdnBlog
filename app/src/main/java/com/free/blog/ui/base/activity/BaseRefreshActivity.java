@@ -145,7 +145,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     public void onRefreshUI(T data) {
         List<T> list = (List<T>) data;
         mAdapter.setNewData(list);
-        mAdapter.setEnableLoadMore(mPresenter.hasMore(list != null ? list.size() : 0));
+        mAdapter.setEnableLoadMore(hasMore(data));
         onRefreshComplete();
     }
 
@@ -161,7 +161,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         if (list != null) {
             mAdapter.addData(list);
             mAdapter.loadMoreComplete();
-            mAdapter.setEnableLoadMore(mPresenter.hasMore(list.size()));
+            mAdapter.setEnableLoadMore(hasMore(data));
         } else {
             mAdapter.loadMoreFail();
             mAdapter.setEnableLoadMore(false);
@@ -171,6 +171,12 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     @Override
     public void onMoreFailure(int errNo) {
         mAdapter.loadMoreFail();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected boolean hasMore(T data) {
+        List<T> list = (List<T>) data;
+        return mPresenter.hasMore(list != null ? list.size() : 0);
     }
 
     @Override

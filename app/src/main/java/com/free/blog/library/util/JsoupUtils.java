@@ -67,6 +67,9 @@ public class JsoupUtils {
         Document doc = Jsoup.parse(html);
         Elements blogList = doc.getElementsByClass("article_item");
 
+        String page = doc.getElementsByClass("pagelist").select("span").text().trim();
+        int totalPage = getBlogTotalPage(page);
+
         for (Element blogItem : blogList) {
             BlogItem item = new BlogItem();
             String title = blogItem.select("h1").text();
@@ -76,15 +79,14 @@ public class JsoupUtils {
                 item.setTopFlag(1);
             }
             String description = blogItem.select("div.article_description").text();
-            String msg = blogItem.select("div.article_manage").text();
             String date = blogItem.getElementsByClass("article_manage").get(0).text();
             String link = BLOG_URL + blogItem.select("h1").select("a").attr("href");
 
             item.setTitle(title);
-            item.setMsg(msg);
             item.setContent(description);
             item.setDate(date);
             item.setLink(link);
+            item.setTotalPage(totalPage);
             item.setCategory(category);
             item.setIcoType(icoType);
             list.add(item);
@@ -123,6 +125,22 @@ public class JsoupUtils {
         }
 
         return list;
+    }
+
+    private static int getBlogTotalPage(String page) {
+        int totalPage = 0;
+        if (!TextUtils.isEmpty(page)) {
+            int pageStart = page.lastIndexOf("共");
+            int pageEnd = page.lastIndexOf("页");
+            String pageStr = page.substring(pageStart + 1, pageEnd);
+            try {
+                totalPage = Integer.parseInt(pageStr);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return totalPage;
     }
 
     public static String getBlogContent(String html) {
@@ -273,6 +291,9 @@ public class JsoupUtils {
         Document doc = Jsoup.parse(html);
         try {
             Elements detailListLi = doc.getElementsByClass("blog_l").select("ul").select("li");
+
+            String page = doc.getElementsByClass("page_nav").select("span").text();
+            int totalPage = getBlogTotalPage(page);
             for (Element element : detailListLi) {
                 Element h4 = element.select("h4").get(0);
                 String title = h4.text();
@@ -290,6 +311,7 @@ public class JsoupUtils {
                 blogItem.setCategory(category);
                 blogItem.setDate(date + " " + "阅读" + "(" + times + ")");
                 blogItem.setIcoType(Config.BLOG_TYPE.BLOG_TYPE_ORIGINAL);
+                blogItem.setTotalPage(totalPage);
                 blogList.add(blogItem);
             }
         } catch (Exception e) {

@@ -2,8 +2,8 @@ package com.free.blog.ui.home.column.detail;
 
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.util.JsoupUtils;
-import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.entity.BlogColumn;
+import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.remote.NetEngine;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.vp.refresh.IRefreshView;
@@ -36,5 +36,10 @@ class ColumnDetailPresenter extends RefreshPresenter<List<BlogItem>> {
                     }
                 })
                 .compose(RxHelper.<List<BlogItem>>getErrAndIOSchedulerTransformer());
+    }
+
+    @Override
+    public boolean hasMore(int size) {
+        return mPage < size;
     }
 }

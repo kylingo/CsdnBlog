@@ -46,7 +46,7 @@ class RankPresenter extends RefreshPresenter<List<RankItem>> implements RankCont
     }
 
     @Override
-    public boolean hasMore(int fetchCount) {
+    public boolean hasMore(int size) {
         return false;
     }
 }
