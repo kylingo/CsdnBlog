@@ -58,7 +58,8 @@ public abstract class RefreshPresenter<T> extends BasePresenter implements IRefr
         }
 
         isLoadRefresh = true;
-        return getObservable(1)
+        mPage = 1;
+        return getObservable(mPage)
                 .subscribe(new RxSubscriber<T>() {
                     @Override
                     public void onError(Throwable e) {

@@ -10,7 +10,7 @@ import java.util.List;
  * @author tangqi on 17-3-13.
  */
 public class ColumnDetailActivity extends BaseBlogListActivity {
-    public static final String EXTRA_COLUMN = "column";
+    public static final String EXTRA_BLOG_COLUMN = "blog_column";
 
     private BlogColumn mBlogColumn;
 
@@ -21,7 +21,7 @@ public class ColumnDetailActivity extends BaseBlogListActivity {
 
     @Override
     protected void beforeInitView() {
-        mBlogColumn = (BlogColumn) getIntent().getSerializableExtra(EXTRA_COLUMN);
+        mBlogColumn = (BlogColumn) getIntent().getSerializableExtra(EXTRA_BLOG_COLUMN);
         new ColumnDetailPresenter(this, mBlogColumn);
     }
 

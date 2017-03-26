@@ -53,7 +53,7 @@
             android:name=".ui.home.find.rank.RankActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.home.find.expert.ExpertActivity"
+            android:name=".ui.home.find.expert.DailyActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.find.pk.PkActivity"

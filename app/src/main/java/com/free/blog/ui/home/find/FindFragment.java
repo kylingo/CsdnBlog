@@ -11,10 +11,12 @@ import android.widget.TextView;
 
 import com.free.blog.R;
 import com.free.blog.library.util.ToastUtil;
+import com.free.blog.model.entity.BlogColumn;
 import com.free.blog.model.remote.NetEngine;
 import com.free.blog.ui.base.activity.WebActivity;
 import com.free.blog.ui.base.fragment.BaseFragment;
-import com.free.blog.ui.home.find.expert.ExpertActivity;
+import com.free.blog.ui.home.column.detail.ColumnDetailActivity;
+import com.free.blog.ui.home.find.expert.DailyActivity;
 import com.free.blog.ui.home.find.hot.HotBlogActivity;
 import com.free.blog.ui.home.find.last.LastBlogActivity;
 import com.free.blog.ui.home.find.pk.PkActivity;
@@ -63,11 +65,15 @@ public class FindFragment extends BaseFragment implements OnClickListener {
         switch (v.getId()) {
 
             case R.id.ll_find_01:
-                intent = new Intent(getActivity(), RankActivity.class);
+                intent = new Intent(getActivity(), DailyActivity.class);
+                BlogColumn blogColumn = new BlogColumn();
+                blogColumn.setName(getString(R.string.blog_daily));
+                blogColumn.setUrl(NetEngine.getInstance().getBlogDaily());
+                intent.putExtra(ColumnDetailActivity.EXTRA_BLOG_COLUMN, blogColumn);
                 break;
 
             case R.id.ll_find_02:
-                intent = new Intent(getActivity(), ExpertActivity.class);
+                intent = new Intent(getActivity(), RankActivity.class);
                 break;
 
             case R.id.ll_find_03:

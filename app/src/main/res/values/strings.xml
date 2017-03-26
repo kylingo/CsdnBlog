@@ -34,10 +34,10 @@
     <string name="channel_name">移动开发</string>
     <string name="coming_soon">即将推出，敬请期待</string>
     <string name="refresh_complete">数据已更新</string>
-    <string name="rank">排行榜</string>
+    <string name="rank">排行</string>
     <string name="hot_blog">热门博客</string>
     <string name="new_blog">最新博客</string>
-    <string name="blog_expert">行家</string>
+    <string name="blog_daily">博客圈</string>
     <string name="blog_pk">观点</string>
     <string name="settings">设置</string>
     <string name="collect">收藏</string>

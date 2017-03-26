@@ -83,7 +83,7 @@ public class RankActivity extends BaseRefreshActivity<List<RankItem>> implements
         blogColumn.setIcon(rankItem.getIcon());
 
         Intent intent = new Intent(this, ColumnDetailActivity.class);
-        intent.putExtra(ColumnDetailActivity.EXTRA_COLUMN, blogColumn);
+        intent.putExtra(ColumnDetailActivity.EXTRA_BLOG_COLUMN, blogColumn);
         startActivity(intent);
     }
 }

@@ -99,7 +99,7 @@ public class ColumnFragment extends BaseRefreshFragment<List<BlogColumn>> implem
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         BlogColumn channel = (BlogColumn) adapter.getItem(position);
         Intent intent = new Intent(getActivity(), ColumnDetailActivity.class);
-        intent.putExtra(ColumnDetailActivity.EXTRA_COLUMN, channel);
+        intent.putExtra(ColumnDetailActivity.EXTRA_BLOG_COLUMN, channel);
         startActivity(intent);
     }
 
