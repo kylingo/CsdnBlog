@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author tangqi on 17-3-22.
  */
-public class BlogCommentActivity extends BaseRefreshActivity<List<Comment>> {
+public class CommentActivity extends BaseRefreshActivity<List<Comment>> {
 
     public static final String EXTRA_BLOG_ID = "blog_id";
 
@@ -22,11 +22,11 @@ public class BlogCommentActivity extends BaseRefreshActivity<List<Comment>> {
     @Override
     protected void beforeInitView() {
         String blogId = getIntent().getExtras().getString(EXTRA_BLOG_ID);
-        new BlobCommentPresenter(this, blogId);
+        new CommentPresenter(this, blogId);
     }
 
     @Override
     protected BaseViewAdapter onCreateAdapter() {
-        return new BlogCommentAdapter();
+        return new CommentAdapter();
     }
 }

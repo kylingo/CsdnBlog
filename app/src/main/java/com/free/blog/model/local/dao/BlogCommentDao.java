@@ -22,5 +22,5 @@ public interface BlogCommentDao {
     /**
      * 获取博客评论列表
      */
-    List<Comment> query(int page);
+    List<Comment> query(int page, int pageSize);
 }

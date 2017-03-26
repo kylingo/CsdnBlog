@@ -47,7 +47,7 @@ public class BlogItemDaoImpl implements BlogItemDao {
     }
 
     @Override
-    public List<BlogItem> query(String category, int page) {
+    public List<BlogItem> query(String category, int page, int pageSize) {
         List<BlogItem> list = null;
         try {
             if (Config.BLOG_CATEGORY_ALL.equals(category)) {
@@ -57,7 +57,7 @@ public class BlogItemDaoImpl implements BlogItemDao {
                 List<BlogItem> normalList = db.findAll(
                         Selector.from(BlogItem.class).where("category", "=", category)
                                 .orderBy("isTop", true)
-                                .limit(page * 20).offset((page - 1) * 20));
+                                .limit(pageSize).offset((page - 1) * pageSize));
 //                if (list != null) {
 //                    list.addAll(normalList);
 //                } else {

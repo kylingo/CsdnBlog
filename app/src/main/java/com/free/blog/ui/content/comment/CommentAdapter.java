@@ -14,7 +14,7 @@ import com.free.blog.ui.base.adapter.BaseViewAdapter;
 /**
  * @author tangqi on 17-3-22.
  */
-class BlogCommentAdapter extends BaseViewAdapter<Comment> {
+class CommentAdapter extends BaseViewAdapter<Comment> {
 
     @Override
     protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {

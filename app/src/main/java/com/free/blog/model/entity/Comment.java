@@ -54,7 +54,7 @@ public class Comment extends BaseEntity{
 		this.content = content;
 	}
 
-	String getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 

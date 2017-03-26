@@ -44,7 +44,7 @@
             android:name=".ui.content.BlogContentActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.content.comment.BlogCommentActivity"
+            android:name=".ui.content.comment.CommentActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.base.activity.WebActivity"

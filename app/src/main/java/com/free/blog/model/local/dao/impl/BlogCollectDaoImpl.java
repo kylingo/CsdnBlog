@@ -3,8 +3,8 @@ package com.free.blog.model.local.dao.impl;
 
 import android.content.Context;
 
-import com.free.blog.model.entity.BlogItem;
 import com.free.blog.library.config.CacheManager;
+import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.local.dao.BlogCollectDao;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.sqlite.Selector;
@@ -89,7 +89,8 @@ public class BlogCollectDaoImpl implements BlogCollectDao {
     @Override
     public List<BlogItem> query(int page, int pageSize) {
         try {
-            return db.findAll(Selector.from(BlogItem.class).orderBy("updateTime", true).limit(page * pageSize));
+            return db.findAll(Selector.from(BlogItem.class).orderBy("updateTime", true)
+                    .limit(pageSize).offset((page - 1) * pageSize));
         } catch (DbException e) {
             e.printStackTrace();
         }

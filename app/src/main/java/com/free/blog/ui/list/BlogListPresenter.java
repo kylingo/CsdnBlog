@@ -72,7 +72,7 @@ class BlogListPresenter extends RefreshPresenter<List<BlogItem>> implements
                 .map(new Func1<Integer, List<BlogItem>>() {
                     @Override
                     public List<BlogItem> call(Integer page) {
-                        return mBlogItemDao.query(mCategory, page);
+                        return mBlogItemDao.query(mCategory, page, getPageSize());
                     }
                 })
                 .compose(RxHelper.<List<BlogItem>>getErrAndIOSchedulerTransformer());

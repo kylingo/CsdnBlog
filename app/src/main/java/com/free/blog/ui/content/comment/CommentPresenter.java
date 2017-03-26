@@ -1,13 +1,12 @@
 package com.free.blog.ui.content.comment;
 
 import com.free.blog.BlogApplication;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.model.entity.Comment;
-import com.free.blog.model.entity.CommentComparator;
 import com.free.blog.model.local.dao.BlogCommentDao;
 import com.free.blog.model.local.dao.DaoFactory;
 import com.free.blog.model.remote.NetEngine;
-import com.free.blog.library.rx.RxHelper;
-import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.vp.refresh.IRefreshView;
 import com.free.blog.ui.base.vp.refresh.RefreshPresenter;
@@ -21,12 +20,12 @@ import rx.functions.Func1;
 /**
  * @author tangqi on 17-3-22.
  */
-class BlobCommentPresenter extends RefreshPresenter<List<Comment>> {
+class CommentPresenter extends RefreshPresenter<List<Comment>> {
 
     private BlogCommentDao mBlogCommentDao;
     private String mBlogId;
 
-    BlobCommentPresenter(IRefreshView<List<Comment>, IRefreshPresenter> viewDelegate, String blogId) {
+    CommentPresenter(IRefreshView<List<Comment>, IRefreshPresenter> viewDelegate, String blogId) {
         super(viewDelegate);
         mBlogId = blogId;
         mBlogCommentDao = DaoFactory.create().getBlogCommentDao(BlogApplication.getContext(), blogId);
@@ -54,7 +53,7 @@ class BlobCommentPresenter extends RefreshPresenter<List<Comment>> {
                 map(new Func1<Integer, List<Comment>>() {
                     @Override
                     public List<Comment> call(Integer page) {
-                        return mBlogCommentDao.query(page);
+                        return mBlogCommentDao.query(page, getPageSize());
                     }
                 });
     }

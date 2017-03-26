@@ -1,4 +1,6 @@
-package com.free.blog.model.entity;
+package com.free.blog.ui.content.comment;
+
+import com.free.blog.model.entity.Comment;
 
 import java.util.Comparator;
 
@@ -9,7 +11,7 @@ import java.util.Comparator;
  * @since 2015年8月4日下午4:09:58
  */
 
-public class CommentComparator implements Comparator<Comment> {
+class CommentComparator implements Comparator<Comment> {
 
 	@Override
 	public int compare(Comment arg0, Comment arg1) {

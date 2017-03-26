@@ -19,7 +19,7 @@ import com.free.blog.library.rx.RxSubscriber;
 import com.free.blog.library.util.JsoupUtils;
 import com.free.blog.ui.base.vp.single.ISinglePresenter;
 import com.free.blog.ui.base.vp.single.SinglePresenter;
-import com.free.blog.ui.content.comment.BlogCommentActivity;
+import com.free.blog.ui.content.comment.CommentActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -108,8 +108,8 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
     @Override
     public void comment(Activity activity, String blogId) {
         Intent i = new Intent();
-        i.setClass(activity, BlogCommentActivity.class);
-        i.putExtra(BlogCommentActivity.EXTRA_BLOG_ID, blogId);
+        i.setClass(activity, CommentActivity.class);
+        i.putExtra(CommentActivity.EXTRA_BLOG_ID, blogId);
         activity.startActivity(i);
         activity.overridePendingTransition(R.anim.push_left_in, R.anim.push_no);
     }

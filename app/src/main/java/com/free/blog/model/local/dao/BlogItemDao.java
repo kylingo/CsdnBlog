@@ -23,7 +23,7 @@ public interface BlogItemDao {
     /**
      * 查找博客列表
      */
-    List<BlogItem> query(String category, int page);
+    List<BlogItem> query(String category, int page, int pageSize);
 
     /**
      * 查询所有

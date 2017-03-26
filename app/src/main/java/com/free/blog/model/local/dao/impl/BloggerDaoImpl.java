@@ -21,116 +21,117 @@ import java.util.List;
 
 public class BloggerDaoImpl implements BloggerDao {
 
-	private DbUtils db;
-	private Context context;
+    private DbUtils db;
+    private Context context;
 
-	public BloggerDaoImpl(Context context, String type) {
-		this.context = context;
-		init(type);
-	}
+    public BloggerDaoImpl(Context context, String type) {
+        this.context = context;
+        init(type);
+    }
 
-	public void init(String type) {
-		this.db = DbUtils.create(context, "blogger_" + type);
-	}
+    public void init(String type) {
+        this.db = DbUtils.create(context, "blogger_" + type);
+    }
 
-	@Override
-	public void insert(Blogger blogger) {
-		try {
-			Blogger findItem = db.findFirst(Selector.from(Blogger.class).where("userId", "=", blogger.getUserId()));
-			if (findItem != null) {
-				db.update(blogger, WhereBuilder.b("userId", "=", blogger.getUserId()));
-			} else {
-				db.save(blogger);
-			}
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void insert(Blogger blogger) {
+        try {
+            Blogger findItem = db.findFirst(Selector.from(Blogger.class).where("userId", "=", blogger.getUserId()));
+            if (findItem != null) {
+                db.update(blogger, WhereBuilder.b("userId", "=", blogger.getUserId()));
+            } else {
+                db.save(blogger);
+            }
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void insert(List<Blogger> list) {
-		try {
-			db.saveOrUpdateAll(list);
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void insert(List<Blogger> list) {
+        try {
+            db.saveOrUpdateAll(list);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public Blogger query(String userId) {
-		try {
-			return db.findFirst(Selector.from(Blogger.class).where("userId", "=", userId));
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+    @Override
+    public Blogger query(String userId) {
+        try {
+            return db.findFirst(Selector.from(Blogger.class).where("userId", "=", userId));
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-	@Override
-	public List<Blogger> queryAll() {
-		try {
-			// // 最新的排最前面
-			List<Blogger> list = new ArrayList<Blogger>();
-			List<Blogger> toplist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 1).orderBy("updateTime", true));
-			List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0).and("isNew", "=", 1).orderBy("updateTime", true));
-			List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0).and("isNew", "=", 0));
+    @Override
+    public List<Blogger> queryAll() {
+        try {
+            // // 最新的排最前面
+            List<Blogger> list = new ArrayList<Blogger>();
+            List<Blogger> toplist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 1).orderBy("updateTime", true));
+            List<Blogger> newlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0).and("isNew", "=", 1).orderBy("updateTime", true));
+            List<Blogger> oldlist = db.findAll(Selector.from(Blogger.class).where("isTop", "=", 0).and("isNew", "=", 0));
 
-			if (toplist != null) {
-				list.addAll(toplist);
-			}
+            if (toplist != null) {
+                list.addAll(toplist);
+            }
 
-			if (newlist != null) {
-				list.addAll(newlist);
-			}
+            if (newlist != null) {
+                list.addAll(newlist);
+            }
 
-			if (oldlist != null) {
-				list.addAll(oldlist);
-			}
-			return list;
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
+            if (oldlist != null) {
+                list.addAll(oldlist);
+            }
+            return list;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public List<Blogger> query(int pageIndex, int pageSize) {
-		List<Blogger> list;
-		try {
-			list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true).limit(pageSize).offset(pageIndex * pageSize));
-			return list;
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
+    @Override
+    public List<Blogger> query(int page, int pageSize) {
+        List<Blogger> list;
+        try {
+            list = db.findAll(Selector.from(Blogger.class).orderBy("isNew", true).
+                    limit(pageSize).offset((page - 1) * pageSize));
+            return list;
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public void delete(Blogger blogger) {
-		try {
-			db.delete(blogger);
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void delete(Blogger blogger) {
+        try {
+            db.delete(blogger);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void deleteAll(List<Blogger> list) {
-		try {
-			db.delete(list);
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void deleteAll(List<Blogger> list) {
+        try {
+            db.delete(list);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void deleteAll() {
-		try {
-			db.deleteAll(Blogger.class);
-		} catch (DbException e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void deleteAll() {
+        try {
+            db.deleteAll(Blogger.class);
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
 }
