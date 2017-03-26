@@ -44,7 +44,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_refresh);
+        setContentView(R.layout.common_base_refresh);
 
         beforeInitView();
         initView();

@@ -47,7 +47,7 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         beforeInitView();
-        return inflater.inflate(R.layout.fragment_base_refresh, container, false);
+        return inflater.inflate(R.layout.common_base_refresh, container, false);
     }
 
     @Override
