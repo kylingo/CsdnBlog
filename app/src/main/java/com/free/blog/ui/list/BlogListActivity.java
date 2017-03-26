@@ -1,17 +1,11 @@
 package com.free.blog.ui.list;
 
-import android.annotation.SuppressLint;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupWindow;
 
-import com.free.blog.R;
 import com.free.blog.library.config.Config;
-import com.free.blog.library.util.DisplayUtils;
+import com.free.blog.library.view.pop.CategoryPopupWindow;
 import com.free.blog.model.entity.BlogCategory;
 import com.free.blog.model.entity.BlogItem;
 import com.free.blog.model.entity.Blogger;
@@ -32,7 +26,6 @@ public class BlogListActivity extends BaseBlogListActivity implements
     private Blogger mBlogger;
     private String mCategory;
     private List<BlogCategory> mBlogCategoryList;
-    private PopupWindow mPopupWindow;
 
     @Override
     protected String getActionBarTitle() {
@@ -68,37 +61,9 @@ public class BlogListActivity extends BaseBlogListActivity implements
 
     @Override
     protected void showMenu(View view) {
-        if (mPopupWindow == null) {
-            getPopupWindow();
-        }
-
-        int xOffset = (int) getResources().getDimension(R.dimen.popwindow_bloglist_width) - DisplayUtils.dp2px(this, 40);
-        mPopupWindow.showAsDropDown(view, (-1) * xOffset, 0);
-    }
-
-    @SuppressWarnings("deprecation")
-    private void getPopupWindow() {
-        @SuppressLint("InflateParams")
-        View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_bloglist, null);
-
-        mPopupWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        mPopupWindow.setTouchable(true);
-        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
-        mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.transparent));
-
-        ListView listView = (ListView) contentView.findViewById(R.id.lv_blog_type);
-        BlogCategoryAdapter adapter = new BlogCategoryAdapter(this, mBlogCategoryList);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new OnCategoryItemClickListener());
-
-        contentView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mPopupWindow.dismiss();
-            }
-        });
+        CategoryPopupWindow popupWindow = new CategoryPopupWindow(this, mBlogCategoryList);
+        popupWindow.setOnItemClickListener(new OnCategoryItemClickListener());
+        popupWindow.showAsDropDown(view);
     }
 
     private class OnCategoryItemClickListener implements OnItemClickListener {
@@ -106,7 +71,6 @@ public class BlogListActivity extends BaseBlogListActivity implements
         @SuppressWarnings("unchecked")
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            mPopupWindow.dismiss();
             if (position == 0) {
                 setActionBarTitle(getActionBarTitle());
                 mCategory = Config.BLOG_CATEGORY_ALL;

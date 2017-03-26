@@ -27,4 +27,8 @@ public class KeyConfig {
      * 专栏类型
      */
     public final static String COLUMN_TYPE = "column_type";
+
+    public final static String HOT_BLOG_TYPE = "hot_blog_type";
+
+    public final static String NEW_BLOG_TYPE = "new_blog_type";
 }

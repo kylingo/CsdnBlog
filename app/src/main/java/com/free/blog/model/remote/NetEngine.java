@@ -61,10 +61,10 @@ public class NetEngine implements IBlogApi {
     }
 
     public String getBlogPkUrl() {
-        return Config.HOST_BLOG + "PK.html";
+        return Config.BLOG_HOST + "PK.html";
     }
 
     public String getBlogDaily() {
-        return Config.HOST_BLOG + "column/details/14549.html";
+        return Config.BLOG_HOST + "column/details/14549.html";
     }
 }

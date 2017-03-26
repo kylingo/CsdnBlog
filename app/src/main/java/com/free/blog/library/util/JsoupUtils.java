@@ -261,7 +261,7 @@ public class JsoupUtils {
                             .replace(")", "");
 
                     Element aElement = column.getElementsByClass("column_list_link").get(0);
-                    String url = StringUtils.trimLastChar(Config.HOST_BLOG) + aElement.attr("href");
+                    String url = StringUtils.trimLastChar(Config.BLOG_HOST) + aElement.attr("href");
                     String title = aElement.getElementsByClass("column_list_p").get(0).text();
                     String size = aElement.getElementsByClass("column_list_b_l").get(0).select("span").text();
                     String viewCount = aElement.getElementsByClass("column_list_b_r").get(0).select("span").text();

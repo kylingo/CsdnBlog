@@ -46,9 +46,9 @@ public class RankActivity extends BaseRefreshActivity<List<RankItem>> implements
 
         String url = rankItem.getUrl();
         if (!TextUtils.isEmpty(url)) {
-            if (!url.replace(Config.HOST_BLOG, "").contains("/")) {
+            if (!url.replace(Config.BLOG_HOST, "").contains("/")) {
                 gotoBlogList(rankItem);
-            } else if (url.matches(Config.HOST_BLOG + "(\\w+)/article/details/(\\d+)")) {
+            } else if (url.matches(Config.BLOG_HOST + "(\\w+)/article/details/(\\d+)")) {
                 gotoBlogContent(rankItem);
             } else if (url.matches("/column/details/.*")) {
                 gotoColumnList(rankItem);

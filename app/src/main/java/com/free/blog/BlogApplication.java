@@ -6,7 +6,6 @@ import android.content.Context;
 
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.library.util.CrashHandler;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class BlogApplication extends Application {
      * 初始化崩溃上传(腾讯BUGLY)
      */
     private void initCrashReport() {
-        CrashReport.initCrashReport(this, "900007710", false);
+//        CrashReport.initCrashReport(this, "900007710", false);
     }
 
     /**

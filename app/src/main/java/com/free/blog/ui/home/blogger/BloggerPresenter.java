@@ -2,7 +2,7 @@ package com.free.blog.ui.home.blogger;
 
 import com.free.blog.BlogApplication;
 import com.free.blog.library.config.BloggerManager;
-import com.free.blog.library.config.CategoryManager;
+import com.free.blog.library.config.UrlManager;
 import com.free.blog.library.config.Config;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
@@ -171,9 +171,9 @@ class BloggerPresenter extends RefreshPresenter<List<Blogger>> implements
     private void initBlogger(Blogger blogger, String userId) {
         if (blogger != null) {
             blogger.setUserId(userId);
-            blogger.setLink(Config.HOST_BLOG + userId);
+            blogger.setLink(Config.BLOG_HOST + userId);
             blogger.setType(mType);
-            String mCategory = CategoryManager.CategoryName.MOBILE;
+            String mCategory = UrlManager.CategoryName.MOBILE;
             blogger.setCategory(mCategory);
             blogger.setIsTop(0);
             blogger.setIsNew(1);
