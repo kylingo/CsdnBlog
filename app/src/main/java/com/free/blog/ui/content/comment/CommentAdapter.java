@@ -55,9 +55,10 @@ class CommentAdapter extends BaseViewAdapter<Comment> {
 
     private void updateChildItem(BaseViewHolder helper, Comment item) {
         helper.setText(R.id.name, item.getUsername());
-        String replyText = item.getContent().replace("[reply]", "【");
-        replyText = replyText.replace("[/reply]", "】");
+        String replyText = item.getContent().replace("[reply]", "回复");
+        replyText = replyText.replace("[/reply]", " : ");
         helper.setText(R.id.content, Html.fromHtml(replyText));
         helper.setText(R.id.date, item.getPostTime());
+        ImageLoaderUtils.displayRoundImage(item.getUserface(), (ImageView) helper.getView(R.id.userface));
     }
 }
