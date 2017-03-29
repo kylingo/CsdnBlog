@@ -7,14 +7,14 @@
     <string name="actionbar_title">Android博客</string>
     <string name="drawer_open">drawer_open</string>
     <string name="drawer_close">drawer_close</string>
-    <string name="blog_title">Cocos2d-x 3.2示例UserDefaultTest（用户默认配置）</string>
-    <string name="blog_desc">本篇博客介绍Cocos2d-x 3.2示例中的UserDefaultTest,我们在开发中可能需要用到一些默认配置，一般会以xml形式保存。Cocos2d-x为我们提供了UserDefault类来实现这样的需求。</string>
+    <string name="blog_title">标题</string>
+    <string name="blog_desc">描述</string>
     <string name="android_blog">Android博客</string>
     <string name="comment_list">评论</string>
     <string name="blog_detail">博客详情</string>
     <string name="blog_read_times">1</string>
     <string name="blog_create_date">2014–08–08 17:54|141人阅读</string>
-    <string name="blog_description">本篇博客介绍Cocos2d-x 3.2示例中的UserDefaultTest,我们在开发中可能需要用到一些默认配置，一般会以xml形式保存。Cocos2d-x为我们提供了UserDefault类来实现这样的需求。</string>
+    <string name="blog_description">描述</string>
     <string name="input_blog_id">添加博客ID</string>
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
