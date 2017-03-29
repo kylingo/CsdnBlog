@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 import com.free.blog.library.config.KeyConfig;
+import com.free.blog.library.view.recyclerview.DividerItemDecoration;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.vp.refresh.IRefreshView;
@@ -61,6 +62,8 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
         mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.base_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
+                LinearLayoutManager.VERTICAL, getResources().getColor(R.color.line)));
 
         mAdapter = onCreateAdapter();
         mAdapter.setOnItemClickListener(this);

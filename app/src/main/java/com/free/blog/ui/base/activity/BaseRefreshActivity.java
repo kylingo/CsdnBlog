@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 import com.free.blog.library.config.KeyConfig;
+import com.free.blog.library.view.recyclerview.DividerItemDecoration;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.vp.refresh.IRefreshView;
@@ -56,6 +57,8 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
+                LinearLayoutManager.VERTICAL, getResources().getColor(R.color.line)));
 
         mAdapter = onCreateAdapter();
         mAdapter.setOnItemClickListener(this);

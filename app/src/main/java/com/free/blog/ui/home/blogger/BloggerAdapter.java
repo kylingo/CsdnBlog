@@ -6,15 +6,14 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.free.blog.R;
-import com.free.blog.model.entity.Blogger;
 import com.free.blog.library.util.ImageLoaderUtils;
+import com.free.blog.model.entity.Blogger;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 
 /**
  * @author tangqi on 17-3-23.
  */
 public class BloggerAdapter extends BaseViewAdapter<Blogger> {
-
     @Override
     protected BaseViewHolder onCreateDefViewHolder(ViewGroup parent, int viewType) {
         return new BaseViewHolder(getItemView(R.layout.listitem_blogger, null));
@@ -29,13 +28,13 @@ public class BloggerAdapter extends BaseViewAdapter<Blogger> {
             helper.setImageResource(R.id.imv_blogger, R.drawable.ic_default);
         }
 
-        if (item.getIsTop() == 1) {
-            helper.setText(R.id.tv_blog_title, String.format("%s\b[顶]", item.getTitle()));
-            helper.setTextColor(R.id.tv_blog_title, R.color.blue_text);
-        } else {
+//        if (item.getIsTop() == 1) {
+//            helper.setText(R.id.tv_blog_title, String.format("%s\b[顶]", item.getTitle()));
+//            helper.setTextColor(R.id.tv_blog_title, R.color.blue_text);
+//        } else {
             helper.setText(R.id.tv_blog_title, item.getTitle());
-            helper.setTextColor(R.id.tv_blog_title, R.color.black_text);
-        }
+//            helper.setTextColor(R.id.tv_blog_title, R.color.black_text);
+//        }
 
         if (!TextUtils.isEmpty(item.getDescription())) {
             helper.setText(R.id.tv_blog_desc, item.getDescription());
