@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.free.blog.beta"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 200
         versionName "2.0.0"
@@ -44,6 +44,12 @@ dependencies {
     // doRefresh
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.0'
+
+    // ui
+    compile 'com.github.kylingo:meui:1.0.1'
+
+    // loading
+//    compile 'com.github.ybq:Android-SpinKit:1.0.5'
 
 
 }
