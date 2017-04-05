@@ -1,8 +1,13 @@
-package com.free.blog.library.view.loading;
+package com.free.blog.library.view.refresh;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
+
+import com.free.blog.R;
+import com.me.ui.widget.CircleLoadingView;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
@@ -14,7 +19,8 @@ import in.srain.cube.views.ptr.indicator.PtrIndicator;
  */
 public class CustomRefreshHeader extends FrameLayout implements PtrUIHandler {
 
-//    SpinKitView spinKitView;
+    private CircleLoadingView mCircleLoadingView;
+
     public CustomRefreshHeader(Context context) {
         this(context, null);
     }
@@ -29,18 +35,29 @@ public class CustomRefreshHeader extends FrameLayout implements PtrUIHandler {
     }
 
     private void initView() {
-//        View header = LayoutInflater.from(getContext()).inflate(R.layout.loading_refresh_header, this);
-//        header.findViewById(R.id.spin_kit);
+        View header = LayoutInflater.from(getContext()).inflate(R.layout.loading_refresh_header, this);
+        mCircleLoadingView = (CircleLoadingView) header.findViewById(R.id.custom_refresh_loading_view);
+        mCircleLoadingView.setAnimListener(new CircleLoadingView.LeLoadingAnimListener() {
+            @Override
+            public void onLoadStart() {
+
+            }
+
+            @Override
+            public void onLoadFinished() {
+
+            }
+        });
     }
 
     @Override
     public void onUIReset(PtrFrameLayout frame) {
-
+        mCircleLoadingView.disappearAnim(null);
     }
 
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
-
+        mCircleLoadingView.appearAnim();
     }
 
     @Override

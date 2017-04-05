@@ -35,4 +35,9 @@
     <dimen name="ldrawer_middleBarArrowSize">16dp</dimen>
     <dimen name="mm_up_arrow_margin">-16dp</dimen>
 
+    <!-- Refresh -->
+    <dimen name="circle_loading_view_size">35dip</dimen>
+    <dimen name="circle_loading_view_padding">12dip</dimen>
+
+
 </resources>
