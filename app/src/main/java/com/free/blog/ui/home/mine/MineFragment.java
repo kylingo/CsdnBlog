@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
+import com.free.blog.ui.base.activity.WebActivity;
 import com.free.blog.ui.base.fragment.BaseFragment;
 
 /**
@@ -70,7 +71,9 @@ public class MineFragment extends BaseFragment implements OnClickListener {
                 break;
 
             case R.id.ll_me_04:
-                intent = new Intent(getActivity(), AboutActivity.class);
+                String link = "file:///android_asset/about/about.html";
+                String name = getString(R.string.about);
+                WebActivity.showWeb(getActivity(), link, name);
                 break;
 
             case R.id.ll_me_05:

@@ -1,5 +1,6 @@
 package com.free.blog.ui.base.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -53,6 +56,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         mTitle = getIntent().getStringExtra(NAME);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initView() {
         initActionBar();
 
@@ -63,7 +67,6 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDisplayZoomControls(false);
-        mWebView.getSettings().setUseWideViewPort(true);
         mWebView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         mWebView.getSettings().setLoadWithOverviewMode(true);
         mWebView.setWebViewClient(mWebViewClient);
@@ -84,16 +87,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
     private void loadData() {
         String url = mWebView.getUrl();
         if (TextUtils.isEmpty(url)) {
-//            if (isOledMode() && needRebuild(mLink)) {
-//                mLink += HelpAndFeedbackFragment.THEME_OLED;
-//            }
             mWebView.loadUrl(mLink);
         } else {
-//            if (isOledMode() && needRebuild(url)) {
-//                url += HelpAndFeedbackFragment.THEME_OLED;
-//                mWebView.loadUrl(url);
-//                return;
-//            }
             mWebView.reload();
         }
     }
@@ -102,23 +97,23 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//            if (WebUtil.isEmailUrl(url)) {
-//                WebUtil.toEmailActivity(WebActivity.this, url);
-//            } else {
             view.loadUrl(url);
-//            }
             return true;
         }
 
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
         }
 
+        @Override
         public void onPageStarted(WebView view, String url, android.graphics.Bitmap favicon) {
             view.clearView();
             mProgressBar.setProgress(0);
             mProgressBar.setVisibility(View.VISIBLE);
         }
 
+        @Override
         public void onPageFinished(WebView view, String url) {
             mProgressBar.setProgress(0);
             mProgressBar.setVisibility(View.GONE);

@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.library.util.ToastUtil;
 import com.free.blog.model.entity.BlogColumn;
 import com.free.blog.model.remote.NetEngine;
 import com.free.blog.ui.base.activity.WebActivity;
@@ -19,7 +18,6 @@ import com.free.blog.ui.home.column.detail.ColumnDetailActivity;
 import com.free.blog.ui.home.find.expert.DailyActivity;
 import com.free.blog.ui.home.find.hot.HotBlogActivity;
 import com.free.blog.ui.home.find.last.NewBlogActivity;
-import com.free.blog.ui.home.find.pk.PkActivity;
 import com.free.blog.ui.home.find.rank.RankActivity;
 
 /**
@@ -77,9 +75,9 @@ public class FindFragment extends BaseFragment implements OnClickListener {
                 break;
 
             case R.id.ll_find_03:
-                intent = new Intent(getActivity(), PkActivity.class);
-                intent.putExtra(WebActivity.NAME, getString(R.string.blog_pk));
-                intent.putExtra(WebActivity.LINK, NetEngine.getInstance().getBlogPkUrl());
+                String link = NetEngine.getInstance().getBlogPkUrl();
+                String name = getString(R.string.blog_pk);
+                WebActivity.showWeb(getActivity(), link, name);
                 break;
 
             case R.id.ll_find_04:
@@ -96,8 +94,6 @@ public class FindFragment extends BaseFragment implements OnClickListener {
 
         if (intent != null) {
             startActivity(intent);
-        } else {
-            ToastUtil.show(getActivity(), "即将推出");
         }
     }
 }
