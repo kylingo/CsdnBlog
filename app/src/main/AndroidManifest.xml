@@ -20,6 +20,10 @@
         tools:replace="android:icon">
         <activity
             android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.home.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -29,12 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.home.HomeActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.home.HomeDrawerActivity"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/ActionBarTheme"/>
         <activity
