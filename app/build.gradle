@@ -48,6 +48,11 @@ dependencies {
     // ui
     compile 'com.github.kylingo:meui:1.0.1'
 
+    // leak canary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
     // loading
 //    compile 'com.github.ybq:Android-SpinKit:1.0.5'
 
