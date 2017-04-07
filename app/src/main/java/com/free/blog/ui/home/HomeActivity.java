@@ -9,6 +9,10 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.free.blog.R;
+import com.free.blog.library.rx.RxHelper;
+import com.free.blog.library.rx.RxSubscriber;
+import com.free.blog.library.util.LogUtils;
+import com.free.blog.model.remote.NetEngine;
 import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.blogger.BloggerFragment;
 import com.free.blog.ui.home.column.ColumnFragment;
@@ -63,6 +67,20 @@ public class HomeActivity extends BaseActivity implements OnCheckedChangeListene
 
 		initUmengStatistics();
 		initUmengUpdate();
+
+		NetEngine.getInstance().getSearchBlog("Android")
+				.compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
+				.subscribe(new RxSubscriber<String>() {
+					@Override
+					public void onError(Throwable e) {
+						LogUtils.log(e.toString());
+					}
+
+					@Override
+					public void onNext(String s) {
+						LogUtils.log(s);
+					}
+				});
 	}
 
 	/**

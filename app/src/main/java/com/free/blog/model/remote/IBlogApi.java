@@ -1,8 +1,11 @@
 package com.free.blog.model.remote;
 
+import java.util.HashMap;
+
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -32,6 +35,6 @@ interface IBlogApi {
     @GET("ranking.html")
     Observable<String> getBlogRank();
 
-    @GET("PK.html")
-    Observable<String> getBlogPk();
+    @GET("http://so.csdn.net/so/search/s.do")
+    Observable<String> getSearchBlog(@QueryMap HashMap<String, String> queryMap);
 }
