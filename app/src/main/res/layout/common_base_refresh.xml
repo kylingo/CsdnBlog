@@ -6,7 +6,8 @@
 
     <include
         android:id="@+id/rl_head"
-        layout="@layout/include_head_layout"/>
+        layout="@layout/include_head_layout"
+        android:visibility="gone"/>
 
     <in.srain.cube.views.ptr.PtrFrameLayout
         android:id="@+id/base_ptr_frame"

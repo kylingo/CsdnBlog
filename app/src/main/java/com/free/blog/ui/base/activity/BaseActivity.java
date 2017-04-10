@@ -1,7 +1,7 @@
 package com.free.blog.ui.base.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.free.blog.BlogApplication;
 import com.umeng.analytics.MobclickAgent;
@@ -12,7 +12,7 @@ import com.umeng.analytics.MobclickAgent;
  * @since 2015年7月8日下午9:20:10
  */
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package com.free.blog.ui.base.activity;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -34,6 +35,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     protected RecyclerView mRecyclerView;
     protected BaseViewAdapter mAdapter;
     protected TextView mTvTitle;
+    protected ActionBar mActionBar;
 
     protected abstract String getActionBarTitle();
 
@@ -87,15 +89,20 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     }
 
     private void initActionBar() {
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
-        ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
-        ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
-        mBackBtn.setOnClickListener(this);
-        mMenuBtn.setOnClickListener(this);
-        mMenuBtn.setVisibility(isShowMenu() ? View.VISIBLE : View.GONE);
-        mMenuBtn.setImageResource(R.drawable.ic_menu);
+        mActionBar = getSupportActionBar();
+        if(mActionBar != null) {
+            mActionBar.setCustomView(R.layout.include_head_layout);
+            View view = mActionBar.getCustomView();
+            mTvTitle = (TextView) view.findViewById(R.id.tv_title);
+            ImageView mBackBtn = (ImageView) view.findViewById(R.id.btn_back);
+            ImageView mMenuBtn = (ImageView) view.findViewById(R.id.btn_menu);
+            mBackBtn.setOnClickListener(this);
+            mMenuBtn.setOnClickListener(this);
+            mMenuBtn.setVisibility(isShowMenu() ? View.VISIBLE : View.GONE);
+            mMenuBtn.setImageResource(R.drawable.ic_menu);
 
-        setActionBarTitle(getActionBarTitle());
+            setActionBarTitle(getActionBarTitle());
+        }
     }
 
     protected void setActionBarTitle(String title) {
