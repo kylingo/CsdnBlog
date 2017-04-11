@@ -24,4 +24,8 @@ public class BaseFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
+
+	protected void setActionBarTitle(String title) {
+		getActivity().setTitle(title);
+	}
 }

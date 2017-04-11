@@ -1,35 +1,23 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     </style>
 
-    <style name="ActionBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ActionBarTheme" parent="AppBaseTheme">
         <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
 
-    <style name="ActionBar" parent="android:Widget.ActionBar">
+    <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:displayOptions">homeAsUp|showTitle|showCustom</item>
         <item name="android:background">@color/main_color</item>
-        <item name="android:icon">@android:color/transparent</item>
+        <item name="android:homeAsUpIndicator">@drawable/back</item>
+        <!--<item name="android:icon">@android:color/transparent</item>-->
         <item name="android:titleTextStyle">@style/ActionBar.TitleText</item>
     </style>
 
     <style name="ActionBar.TitleText" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">18sp</item>
-    </style>
-
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
     <style name="BaseDialog" parent="@android:style/Theme.Dialog"/>

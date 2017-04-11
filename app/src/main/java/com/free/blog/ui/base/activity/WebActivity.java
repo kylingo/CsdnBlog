@@ -14,9 +14,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.free.blog.R;
 
@@ -58,7 +56,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initView() {
-        initActionBar();
+//        initActionBar();
+        setActionBarTitle(mTitle);
 
         mProgressBar = (ProgressBar) findViewById(R.id.pb_webview);
         mWebView = (WebView) findViewById(R.id.base_webview);
@@ -73,16 +72,16 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         mWebView.setWebChromeClient(mWebChromeClient);
     }
 
-    private void initActionBar() {
-        TextView mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mTvTitle.setText(mTitle);
-        ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
-        ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
-        mBackBtn.setOnClickListener(this);
-        mMenuBtn.setOnClickListener(this);
-        mMenuBtn.setVisibility(View.GONE);
-        mMenuBtn.setImageResource(R.drawable.ic_menu);
-    }
+//    protected void initActionBar() {
+//        TextView mTvTitle = (TextView) findViewById(R.id.tv_title);
+//        mTvTitle.setText(mTitle);
+//        ImageView mBackBtn = (ImageView) findViewById(R.id.btn_back);
+//        ImageView mMenuBtn = (ImageView) findViewById(R.id.btn_menu);
+//        mBackBtn.setOnClickListener(this);
+//        mMenuBtn.setOnClickListener(this);
+//        mMenuBtn.setVisibility(View.GONE);
+//        mMenuBtn.setImageResource(R.drawable.ic_menu);
+//    }
 
     private void loadData() {
         String url = mWebView.getUrl();

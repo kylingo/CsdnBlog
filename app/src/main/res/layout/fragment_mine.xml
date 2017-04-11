@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_bg"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/gray_bg"
+              android:orientation="vertical">
 
-    <include layout="@layout/include_head_unback_layout" />
+    <include
+        layout="@layout/include_head_unback_layout"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/ll_me_01"
         style="@style/find_layout_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dip" >
+        android:layout_marginTop="20dip">
 
         <ImageView
             android:id="@+id/imvChannel"
@@ -20,31 +22,31 @@
             android:layout_height="80dip"
             android:contentDescription="@null"
             android:padding="10dip"
-            android:src="@drawable/ic_user_avater" />
+            android:src="@drawable/ic_user_avater"/>
 
         <LinearLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 style="@style/find_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                android:text="@string/user_name"
-                android:maxLines="1"/>
+                android:maxLines="1"
+                android:text="@string/user_name"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:gravity="start"
+                android:maxLines="1"
                 android:text="@string/concat_name"
-                android:textColor="@color/list_decs_color"
-                android:maxLines="1"/>
+                android:textColor="@color/list_decs_color"/>
         </LinearLayout>
 
         <ImageView
@@ -52,7 +54,7 @@
             android:layout_height="25dip"
             android:layout_marginRight="30dip"
             android:contentDescription="@null"
-            android:src="@drawable/me_scan_code" />
+            android:src="@drawable/me_scan_code"/>
     </LinearLayout>
 
     <LinearLayout
@@ -60,26 +62,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
         android:background="@color/white"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_me_02"
             style="@style/find_layout_style"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="50dip"
                 android:contentDescription="@null"
                 android:padding="10dip"
-                android:src="@drawable/me_02" />
+                android:src="@drawable/me_02"/>
 
             <TextView
                 style="@style/find_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/collect" />
+                android:text="@string/collect"/>
         </LinearLayout>
 
         <View
@@ -87,26 +89,26 @@
             android:layout_height="0.5dip"
             android:layout_marginLeft="15dip"
             android:layout_marginRight="15dip"
-            android:background="@color/line" />
+            android:background="@color/line"/>
 
         <LinearLayout
             android:id="@+id/ll_me_03"
             style="@style/find_layout_style"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="50dip"
                 android:contentDescription="@null"
                 android:padding="10dip"
-                android:src="@drawable/me_03" />
+                android:src="@drawable/me_03"/>
 
             <TextView
                 style="@style/find_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/history" />
+                android:text="@string/history"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -115,20 +117,20 @@
         style="@style/find_layout_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dip" >
+        android:layout_marginTop="20dip">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="50dip"
             android:contentDescription="@null"
             android:padding="10dip"
-            android:src="@drawable/me_04" />
+            android:src="@drawable/me_04"/>
 
         <TextView
             style="@style/find_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about" />
+            android:text="@string/about"/>
     </LinearLayout>
 
     <LinearLayout
@@ -136,19 +138,19 @@
         style="@style/find_layout_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dip" >
+        android:layout_marginTop="20dip">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="50dip"
             android:contentDescription="@null"
             android:padding="10dip"
-            android:src="@drawable/me_05" />
+            android:src="@drawable/me_05"/>
 
         <TextView
             style="@style/find_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/settings" />
+            android:text="@string/settings"/>
     </LinearLayout>
 </LinearLayout>

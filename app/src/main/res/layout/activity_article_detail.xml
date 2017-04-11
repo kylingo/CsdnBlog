@@ -7,7 +7,8 @@
 
     <include
         android:id="@+id/head"
-        layout="@layout/include_head_layout" />
+        layout="@layout/include_head_layout"
+        android:visibility="gone"/>
 
     <WebView
         android:id="@+id/webview"

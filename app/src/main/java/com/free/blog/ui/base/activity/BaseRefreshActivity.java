@@ -1,11 +1,9 @@
 package com.free.blog.ui.base.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -35,7 +33,6 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     protected RecyclerView mRecyclerView;
     protected BaseViewAdapter mAdapter;
     protected TextView mTvTitle;
-    protected ActionBar mActionBar;
 
     protected abstract String getActionBarTitle();
 
@@ -53,7 +50,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     }
 
     protected void initView() {
-        initActionBar();
+        setActionBarTitle(getActionBarTitle());
 
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
@@ -86,27 +83,6 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
                 doRefresh();
             }
         }, 0);
-    }
-
-    private void initActionBar() {
-        mActionBar = getSupportActionBar();
-        if(mActionBar != null) {
-            mActionBar.setCustomView(R.layout.include_head_layout);
-            View view = mActionBar.getCustomView();
-            mTvTitle = (TextView) view.findViewById(R.id.tv_title);
-            ImageView mBackBtn = (ImageView) view.findViewById(R.id.btn_back);
-            ImageView mMenuBtn = (ImageView) view.findViewById(R.id.btn_menu);
-            mBackBtn.setOnClickListener(this);
-            mMenuBtn.setOnClickListener(this);
-            mMenuBtn.setVisibility(isShowMenu() ? View.VISIBLE : View.GONE);
-            mMenuBtn.setImageResource(R.drawable.ic_menu);
-
-            setActionBarTitle(getActionBarTitle());
-        }
-    }
-
-    protected void setActionBarTitle(String title) {
-        mTvTitle.setText(title);
     }
 
     protected boolean isShowMenu() {

@@ -105,10 +105,6 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
         setActionBarTitle(getActionBarTitle());
     }
 
-    protected void setActionBarTitle(String title) {
-        mTvTitle.setText(title);
-    }
-
     protected boolean isShowMenu() {
         return false;
     }
