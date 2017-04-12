@@ -73,6 +73,7 @@ public class BlogContentActivity extends BaseSingleActivity implements
     protected void initView() {
         TextView mTitleView = (TextView) findViewById(R.id.tv_title);
         mTitleView.setText(R.string.blog_detail);
+        setActionBarTitle(getString(R.string.blog_detail));
 
         mProgressBar = (ProgressBar) findViewById(R.id.blogContentPro);
         mReLoadImageView = (ImageView) findViewById(R.id.iv_reload);

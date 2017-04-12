@@ -5,8 +5,7 @@
               android:background="@color/gray_bg"
               android:orientation="vertical">
 
-    <include
-        layout="@layout/include_head_unback_layout"
+    <include layout="@layout/include_head_unback_layout"
         android:visibility="gone"/>
 
     <LinearLayout
