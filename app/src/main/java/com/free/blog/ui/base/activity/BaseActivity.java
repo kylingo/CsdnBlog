@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.free.blog.BlogApplication;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -23,7 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initActionBar();
-        BlogApplication.getInstance().addActivity(this);
     }
 
     @Override

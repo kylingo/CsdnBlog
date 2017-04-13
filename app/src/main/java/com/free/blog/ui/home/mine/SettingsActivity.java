@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.free.blog.BlogApplication;
 import com.free.blog.R;
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.library.rx.RxHelper;
@@ -299,7 +298,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
             @Override
             public void onConfirm(String result) {
-                BlogApplication.getInstance().onTerminate();
+
             }
         });
         dialog.show();

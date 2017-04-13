@@ -1,6 +1,5 @@
 package com.free.blog;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -10,8 +9,6 @@ import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 应用Application类
@@ -23,11 +20,6 @@ import java.util.List;
 public class BlogApplication extends Application {
 
     private static BlogApplication mInstance;
-    private List<Activity> mActivities = new ArrayList<Activity>();
-
-    public static BlogApplication getInstance() {
-        return mInstance;
-    }
 
     public static Context getContext() {
         return mInstance;
@@ -76,20 +68,5 @@ public class BlogApplication extends Application {
     @Override
     public File getDatabasePath(String name) {
         return new File(CacheManager.getAppDatabasePath(this));
-    }
-
-    public void addActivity(Activity activity) {
-        mActivities.add(activity);
-    }
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-
-        for (Activity activity : mActivities) {
-            activity.finish();
-        }
-
-        System.exit(0);
     }
 }
