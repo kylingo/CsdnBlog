@@ -83,11 +83,6 @@ public class HomeActivity extends BaseActivity implements OnCheckedChangeListene
 				});
 	}
 
-	@Override
-	protected void initActionBar() {
-		// TODO nothing
-	}
-
 	/**
 	 * 友盟数据统计
 	 */

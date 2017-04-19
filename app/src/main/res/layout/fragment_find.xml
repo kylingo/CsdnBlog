@@ -5,9 +5,7 @@
               android:background="@color/gray_bg"
               android:orientation="vertical">
 
-    <include
-        layout="@layout/include_head_unback_layout"
-        android:visibility="gone"/>
+    <include layout="@layout/include_head_unback_layout"/>
 
     <LinearLayout
         android:id="@+id/ll_find_01"

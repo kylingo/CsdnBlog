@@ -9,8 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <include layout="@layout/include_head_layout"
-            android:visibility="gone"/>
+        <include layout="@layout/include_head_layout" />
 
         <LinearLayout
             android:layout_width="match_parent"
