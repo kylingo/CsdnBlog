@@ -40,7 +40,7 @@ public class BlogApplication extends Application {
         }
         LeakCanary.install(this);
 
-//        initCrashReport();
+        initCrashReport();
     }
 
     @SuppressWarnings("unused")
