@@ -41,12 +41,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                return true;
+                break;
 
             default:
                 break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     protected void initActionBar() {

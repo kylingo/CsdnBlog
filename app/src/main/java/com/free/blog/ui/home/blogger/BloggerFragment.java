@@ -3,15 +3,12 @@ package com.free.blog.ui.home.blogger;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
-import com.free.blog.library.config.KeyConfig;
 import com.free.blog.library.config.UrlFactory;
+import com.free.blog.library.config.KeyConfig;
 import com.free.blog.library.util.SpfUtils;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.library.view.dialog.BaseDialog;
@@ -41,7 +38,6 @@ public class BloggerFragment extends BaseRefreshFragment<List<Blogger>> implemen
 
     @Override
     protected void beforeInitView() {
-        setHasOptionsMenu(true);
         String type = (String) SpfUtils.get(getActivity(), KeyConfig.BLOG_TYPE, UrlFactory
                 .CategoryName.ANDROID);
         new BloggerPresenter(this, type);
@@ -65,23 +61,6 @@ public class BloggerFragment extends BaseRefreshFragment<List<Blogger>> implemen
     @Override
     protected int getMenuResId() {
         return R.drawable.ic_add;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add:
-                showMenu(null);
-                return true;
-        }
-
-        return true;
     }
 
     @Override
