@@ -14,6 +14,8 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        maven { url "http://dl.bintray.com/glomadrian/maven" }
+
     }
 }
 task clean(type: Delete) {

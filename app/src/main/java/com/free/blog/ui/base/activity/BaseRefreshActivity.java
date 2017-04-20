@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 import com.free.blog.library.view.recyclerview.DividerItemDecoration;
-import com.free.blog.library.view.refresh.CustomRefreshHeader;
+import com.free.blog.library.view.refresh.BallRefreshHeader;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.vp.refresh.IRefreshView;
@@ -68,7 +68,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
 
 //        PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
 //        header.setLastUpdateTimeKey(KeyConfig.UPDATE_TIME);
-        CustomRefreshHeader header = new CustomRefreshHeader(this);
+        BallRefreshHeader header = new BallRefreshHeader(this);
         mPtrFrameLayout.addPtrUIHandler(header);
         mPtrFrameLayout.setHeaderView(header);
         mPtrFrameLayout.setPtrHandler(new PtrDefaultHandler() {

@@ -61,5 +61,7 @@ dependencies {
     // loading
     compile 'com.github.ybq:Android-SpinKit:1.0.5'
 
+    compile 'com.github.glomadrian:loadingballs:1.1@aar'
+
 
 }
