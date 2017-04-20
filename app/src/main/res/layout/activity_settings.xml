@@ -119,7 +119,8 @@
 
             <LinearLayout
                 android:id="@+id/ll_settings_exit"
-                style="@style/settings_layout_style" >
+                style="@style/settings_layout_style"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/settings_text_style"

@@ -70,7 +70,6 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
         mAdapter.bindToRecyclerView(mRecyclerView);
         mAdapter.setEnableLoadMore(enableLoadMore());
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
-        setEmptyView();
 
 //        PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(getActivity());
 //        header.setLastUpdateTimeKey(KeyConfig.UPDATE_TIME);
@@ -222,6 +221,9 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
         mPtrFrameLayout.refreshComplete();
 
         if (mAdapter.getItemCount() == 0) {
+            if (mAdapter.getEmptyView() == null) {
+                setEmptyView();
+            }
             mAdapter.isUseEmpty(true);
             mAdapter.notifyDataSetChanged();
         }

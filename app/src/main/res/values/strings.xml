@@ -13,7 +13,7 @@
     <string name="comment_list">评论</string>
     <string name="blog_detail">博客详情</string>
     <string name="blog_read_times">1</string>
-    <string name="blog_create_date">2014–08–08 17:54|141人阅读</string>
+    <string name="blog_create_date">2014–08–08 17:54 阅读(374) 评论(8)</string>
     <string name="blog_description">描述</string>
     <string name="input_blog_id">添加博客ID</string>
     <string name="cancel">取消</string>
