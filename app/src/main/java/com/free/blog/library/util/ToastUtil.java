@@ -15,7 +15,6 @@ import com.free.blog.R;
 public class ToastUtil {
 
     private static Toast mToast;
-    private static TextView mMessageView;
 
     /**
      * Toast显示消息(中间位置)
@@ -27,12 +26,12 @@ public class ToastUtil {
             mToast = null;
         }
 
-        mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        mToast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT);
         View view = LayoutInflater.from(context).inflate(R.layout.toast_bg, null);
-        mMessageView = (TextView) view.findViewById(R.id.tv_message);
+        TextView messageView = (TextView) view.findViewById(R.id.tv_message);
         mToast.setView(view);
 
-        mMessageView.setText(message);
+        messageView.setText(message);
         mToast.show();
     }
 
@@ -46,12 +45,12 @@ public class ToastUtil {
             mToast = null;
         }
 
-        mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        mToast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT);
         View view = LayoutInflater.from(context).inflate(R.layout.toast_bg, null);
-        mMessageView = (TextView) view.findViewById(R.id.tv_message);
+        TextView messageView = (TextView) view.findViewById(R.id.tv_message);
         mToast.setView(view);
 
-        mMessageView.setText(message);
+        messageView.setText(message);
         mToast.setGravity(Gravity.CENTER, 0, 0);
         mToast.show();
     }

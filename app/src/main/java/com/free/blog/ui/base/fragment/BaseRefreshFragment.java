@@ -116,6 +116,7 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
     public void onDestroyView() {
         super.onDestroyView();
         mPresenter.unSubscribe();
+        mPtrFrameLayout.refreshComplete();
     }
 
     @Override

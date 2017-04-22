@@ -110,6 +110,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.unSubscribe();
+        mPtrFrameLayout.refreshComplete();
     }
 
     @Override
