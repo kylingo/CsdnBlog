@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "866966575431",
+    "project_id": "firebase-freecsdn"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866966575431:android:3ca59a7234d77282",
+        "android_client_info": {
+          "package_name": "com.free.blog"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATmFCNKUdHyDUUeqL9wOfFUzewIvzzbRg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-99039176-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
