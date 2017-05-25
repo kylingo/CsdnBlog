@@ -56,6 +56,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAnimation(null);
         //noinspection deprecation
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
                 LinearLayoutManager.VERTICAL, getResources().getColor(R.color.line)));
@@ -205,12 +206,12 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     }
 
     protected void onRefreshComplete() {
-        mPtrFrameLayout.refreshComplete();
-
         if (mAdapter.getItemCount() == 0) {
             mAdapter.isUseEmpty(true);
             mAdapter.notifyDataSetChanged();
         }
+
+        mPtrFrameLayout.refreshComplete();
     }
 
     protected void setEmptyView() {
