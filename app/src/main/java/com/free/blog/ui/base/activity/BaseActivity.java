@@ -3,8 +3,6 @@ package com.free.blog.ui.base.activity;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.umeng.analytics.MobclickAgent;
-
 /**
  * Activity-基类
  * @author tangqi
@@ -21,12 +19,10 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		MobclickAgent.onPause(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		MobclickAgent.onResume(this);
 	}
 }

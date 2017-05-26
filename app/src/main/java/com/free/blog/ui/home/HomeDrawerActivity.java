@@ -21,17 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.free.blog.R;
-import com.free.blog.model.entity.DrawerInfo;
 import com.free.blog.library.util.ToastUtil;
 import com.free.blog.library.view.CircleImageView;
 import com.free.blog.library.view.drawerlayout.ActionBarDrawerToggle;
 import com.free.blog.library.view.drawerlayout.DrawerArrowDrawable;
+import com.free.blog.model.entity.DrawerInfo;
 import com.free.blog.ui.base.activity.BaseActivity;
 import com.free.blog.ui.home.blogger.BloggerFragment;
 import com.free.blog.ui.home.mine.AboutActivity;
 import com.free.blog.ui.home.mine.SettingsActivity;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,14 +91,7 @@ public class HomeDrawerActivity extends BaseActivity implements OnClickListener 
 	 * 友盟数据统计
 	 */
 	private void initUmengStatistics() {
-		MobclickAgent.setDebugMode(true);
-		// SDK在统计Fragment时，需要关闭Activity自带的页面统计，
-		// 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
-		MobclickAgent.openActivityDurationTrack(false);
-		// MobclickAgent.setAutoLocation(true);
-		// MobclickAgent.setSessionContinueMillis(1000);
 
-		MobclickAgent.updateOnlineConfig(this);
 	}
 
 	/**
@@ -108,7 +99,7 @@ public class HomeDrawerActivity extends BaseActivity implements OnClickListener 
 	 */
 	private void initUmengUpdate() {
 		/** 静默更新 */
-		UmengUpdateAgent.silentUpdate(this);
+//		UmengUpdateAgent.silentUpdate(this);
 
 		/** 自动更新，提醒用户下载 */
 		// UmengUpdateAgent.update(this);

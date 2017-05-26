@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
+import com.free.blog.BuildConfig;
 import com.free.blog.R;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.rx.RxSubscriber;
@@ -18,8 +19,7 @@ import com.free.blog.ui.home.blogger.BloggerFragment;
 import com.free.blog.ui.home.column.ColumnFragment;
 import com.free.blog.ui.home.find.FindFragment;
 import com.free.blog.ui.home.mine.MineFragment;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.update.UmengUpdateAgent;
+import com.tencent.bugly.Bugly;
 
 /**
  * 主页
@@ -65,8 +65,7 @@ public class HomeActivity extends BaseActivity implements OnCheckedChangeListene
 				.add(R.id.main_content, mFirstFragment, FIRST_TAG).commit();
 		mGroup.setOnCheckedChangeListener(this);
 
-		initUmengStatistics();
-		initUmengUpdate();
+		checkUpdate();
 
 		NetEngine.getInstance().getSearchBlog("Android")
 				.compose(RxHelper.<String>getErrAndIOSchedulerTransformer())
@@ -86,22 +85,8 @@ public class HomeActivity extends BaseActivity implements OnCheckedChangeListene
 	/**
 	 * 友盟数据统计
 	 */
-	private void initUmengStatistics() {
-		MobclickAgent.setDebugMode(true);
-		// SDK在统计Fragment时，需要关闭Activity自带的页面统计，
-		// 然后在每个页面中重新集成页面统计的代码(包括调用了 onResume 和 onPause 的Activity)。
-		MobclickAgent.openActivityDurationTrack(false);
-		// MobclickAgent.setAutoLocation(true);
-		// MobclickAgent.setSessionContinueMillis(1000);
-
-		MobclickAgent.updateOnlineConfig(this);
-	}
-
-	/**
-	 * 友盟自动更新
-	 */
-	private void initUmengUpdate() {
-		UmengUpdateAgent.update(this);
+	private void checkUpdate() {
+		Bugly.init(getApplicationContext(), "900007710", BuildConfig.DEBUG);
 	}
 
 	/**

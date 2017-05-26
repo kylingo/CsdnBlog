@@ -65,7 +65,6 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         mAdapter.setOnItemClickListener(this);
         mAdapter.bindToRecyclerView(mRecyclerView);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
-        setEmptyView();
 
 //        PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
 //        header.setLastUpdateTimeKey(KeyConfig.UPDATE_TIME);
@@ -206,12 +205,17 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     }
 
     protected void onRefreshComplete() {
+        mPtrFrameLayout.refreshComplete();
+
         if (mAdapter.getItemCount() == 0) {
+            if (mAdapter.getEmptyView() == null) {
+                setEmptyView();
+            }
+
             mAdapter.isUseEmpty(true);
             mAdapter.notifyDataSetChanged();
         }
 
-        mPtrFrameLayout.refreshComplete();
     }
 
     protected void setEmptyView() {

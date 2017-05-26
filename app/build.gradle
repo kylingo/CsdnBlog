@@ -21,6 +21,11 @@ android {
         versionCode 200
         versionName "2.0.0"
         multiDexEnabled true
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm
+        }
     }
 
     lintOptions {
@@ -62,6 +67,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.android.support:support-v4:23.0.1'
     // rx
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.2'
@@ -88,4 +94,7 @@ dependencies {
     compile 'com.github.ybq:Android-SpinKit:1.0.5'
     compile 'com.github.glomadrian:loadingballs:1.1@aar'
     compile 'com.google.android.gms:play-services-analytics:10.2.1'
+    // bugly
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
 }

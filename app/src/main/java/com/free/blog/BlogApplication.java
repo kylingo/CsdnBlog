@@ -33,12 +33,9 @@ public class BlogApplication extends Application {
     }
 
     private void init() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
+        if (BuildConfig.DEBUG) {
+            LeakCanary.install(this);
         }
-        LeakCanary.install(this);
 
         initCrashReport();
     }
@@ -54,7 +51,7 @@ public class BlogApplication extends Application {
      * 初始化崩溃上传(腾讯BUGLY)
      */
     private void initCrashReport() {
-        CrashReport.initCrashReport(this, "900007710", false);
+//        CrashReport.initCrashReport(this, "900007710", false);
     }
 
     /**

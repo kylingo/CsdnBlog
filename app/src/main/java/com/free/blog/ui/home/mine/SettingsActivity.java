@@ -21,11 +21,7 @@ import com.free.blog.library.view.dialog.BaseDialog;
 import com.free.blog.library.view.dialog.LoadingDialog;
 import com.free.blog.library.view.dialog.SelectionDialog;
 import com.free.blog.ui.base.activity.BaseActivity;
-import com.umeng.fb.FeedbackAgent;
-import com.umeng.update.UmengUpdateAgent;
-import com.umeng.update.UmengUpdateListener;
-import com.umeng.update.UpdateResponse;
-import com.umeng.update.UpdateStatus;
+import com.tencent.bugly.beta.Beta;
 
 import java.io.File;
 
@@ -178,29 +174,30 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
      */
     private void checkUpgrade() {
         if (NetUtils.isNetAvailable(this)) {
-            UmengUpdateAgent.forceUpdate(this);
-            UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
-                @Override
-                public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
-                    switch (updateStatus) {
-                        case UpdateStatus.Yes:
-                            ToastUtil.show(SettingsActivity.this, "软件有更新");
-                            break;
-
-                        case UpdateStatus.No:
-                            ToastUtil.show(SettingsActivity.this, "没有更新");
-                            break;
-
-                        case UpdateStatus.NoneWifi:
-                            ToastUtil.show(SettingsActivity.this, "没有wifi连接， 只在wifi下更新");
-                            break;
-
-                        case UpdateStatus.Timeout:
-                            ToastUtil.show(SettingsActivity.this, "连接超时");
-                            break;
-                    }
-                }
-            });
+            Beta.checkUpgrade(true,false);
+//            UmengUpdateAgent.forceUpdate(this);
+//            UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+//                @Override
+//                public void onUpdateReturned(int updateStatus, UpdateResponse updateInfo) {
+//                    switch (updateStatus) {
+//                        case UpdateStatus.Yes:
+//                            ToastUtil.show(SettingsActivity.this, "软件有更新");
+//                            break;
+//
+//                        case UpdateStatus.No:
+//                            ToastUtil.show(SettingsActivity.this, "没有更新");
+//                            break;
+//
+//                        case UpdateStatus.NoneWifi:
+//                            ToastUtil.show(SettingsActivity.this, "没有wifi连接， 只在wifi下更新");
+//                            break;
+//
+//                        case UpdateStatus.Timeout:
+//                            ToastUtil.show(SettingsActivity.this, "连接超时");
+//                            break;
+//                    }
+//                }
+//            });
         }
     }
 
@@ -256,13 +253,14 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
         // FeedbackAgent agent = new FeedbackAgent(this);
         // agent.startFeedbackActivity();
 
-        FeedbackAgent fb = new FeedbackAgent(this);
-        // check if the app developer has replied to the feedback or not.
-        fb.sync();
-        fb.openFeedbackPush();
+//        FeedbackAgent fb = new FeedbackAgent(this);
+//        // check if the app developer has replied to the feedback or not.
+//        fb.sync();
+//        fb.openFeedbackPush();
 
-        Intent intent = new Intent(this, FeedbackActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, FeedbackActivity.class);
+//        startActivity(intent);
+        ToastUtil.show(this, "暂未开放");
     }
 
     /**
