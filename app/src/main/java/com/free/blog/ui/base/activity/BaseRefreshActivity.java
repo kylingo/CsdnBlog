@@ -148,10 +148,11 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     @SuppressWarnings("unchecked")
     @Override
     public void onRefreshUI(T data) {
+        onRefreshComplete();
+
         List<T> list = (List<T>) data;
         mAdapter.setNewData(list);
         mAdapter.setEnableLoadMore(hasMore(data));
-        onRefreshComplete();
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.content.Context;
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.library.util.CrashHandler;
 import com.squareup.leakcanary.LeakCanary;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.File;
 
@@ -36,8 +35,6 @@ public class BlogApplication extends Application {
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this);
         }
-
-        initCrashReport();
     }
 
     @SuppressWarnings("unused")
@@ -45,13 +42,6 @@ public class BlogApplication extends Application {
         CrashHandler crashHandler = CrashHandler.getInstance();
         crashHandler.init(this);
         Thread.currentThread().setUncaughtExceptionHandler(crashHandler);
-    }
-
-    /**
-     * 初始化崩溃上传(腾讯BUGLY)
-     */
-    private void initCrashReport() {
-//        CrashReport.initCrashReport(this, "900007710", false);
     }
 
     /**

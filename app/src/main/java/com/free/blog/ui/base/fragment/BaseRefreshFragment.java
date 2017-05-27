@@ -172,10 +172,11 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
     @SuppressWarnings("unchecked")
     @Override
     public void onRefreshUI(T data) {
+        onRefreshComplete();
+
         List<T> list = (List<T>) data;
         mAdapter.setNewData(list);
         setEnableLoadMore(mPresenter.hasMore(list != null ? list.size() : 0));
-        onRefreshComplete();
     }
 
     @Override

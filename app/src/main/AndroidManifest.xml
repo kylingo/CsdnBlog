@@ -88,14 +88,6 @@
             android:name=".ui.home.column.detail.ColumnDetailActivity"
             android:screenOrientation="portrait"/>
 
-        <!-- umeng auto upgrade start -->
-        <service
-            android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService"/>
-
-        <activity
-            android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".ui.home.mine.FeedbackActivity"
             android:screenOrientation="portrait"/>
@@ -120,8 +112,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
-
-        <!-- umeng auto upgrade end -->
     </application>
 
 </manifest>

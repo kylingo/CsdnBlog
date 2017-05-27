@@ -276,8 +276,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
     private void shareApp() {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "CSDN博客之星，非常好用，赶紧去各大应用市场下载吧。");
-        startActivity(Intent.createChooser(intent, "CSDN博客分享"));
+        intent.putExtra(Intent.EXTRA_TEXT, "大牛博客，欢迎下载使用：https://www.pgyer.com/csdn");
+        startActivity(Intent.createChooser(intent, "大牛博客"));
     }
 
     /**

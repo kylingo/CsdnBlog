@@ -82,27 +82,6 @@ public class HomeDrawerActivity extends BaseActivity implements OnClickListener 
 		initFragment();
 		initDrawerLayout();
 		initDrawerList();
-
-		initUmengStatistics();
-		initUmengUpdate();
-	}
-
-	/**
-	 * 友盟数据统计
-	 */
-	private void initUmengStatistics() {
-
-	}
-
-	/**
-	 * 友盟自动更新
-	 */
-	private void initUmengUpdate() {
-		/** 静默更新 */
-//		UmengUpdateAgent.silentUpdate(this);
-
-		/** 自动更新，提醒用户下载 */
-		// UmengUpdateAgent.update(this);
 	}
 
 	/**

@@ -41,7 +41,7 @@ public class BallRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIReset(PtrFrameLayout frame) {
-        mLoadingView.stop();
+
     }
 
     @Override
@@ -56,7 +56,7 @@ public class BallRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
-
+        mLoadingView.stop();
     }
 
     @Override
