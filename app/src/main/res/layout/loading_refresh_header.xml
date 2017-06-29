@@ -4,7 +4,7 @@
              android:layout_height="match_parent"
              android:padding="@dimen/circle_loading_view_padding">
 
-    <com.me.ui.widget.CircleLoadingView
+    <com.me.ui.widget.loading.MeLoadingView
         android:id="@+id/custom_refresh_loading_view"
         android:layout_width="@dimen/circle_loading_view_size"
         android:layout_height="@dimen/circle_loading_view_size"

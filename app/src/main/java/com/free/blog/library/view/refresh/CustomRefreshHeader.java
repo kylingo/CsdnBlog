@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.free.blog.R;
-import com.me.ui.widget.CircleLoadingView;
+import com.me.ui.widget.loading.MeLoadingView;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
@@ -19,7 +19,7 @@ import in.srain.cube.views.ptr.indicator.PtrIndicator;
  */
 public class CustomRefreshHeader extends FrameLayout implements PtrUIHandler {
 
-    private CircleLoadingView mCircleLoadingView;
+    private MeLoadingView mCircleLoadingView;
 
     public CustomRefreshHeader(Context context) {
         this(context, null);
@@ -36,8 +36,8 @@ public class CustomRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     private void initView() {
         View header = LayoutInflater.from(getContext()).inflate(R.layout.loading_refresh_header, this);
-        mCircleLoadingView = (CircleLoadingView) header.findViewById(R.id.custom_refresh_loading_view);
-        mCircleLoadingView.setAnimListener(new CircleLoadingView.LeLoadingAnimListener() {
+        mCircleLoadingView = (MeLoadingView) header.findViewById(R.id.custom_refresh_loading_view);
+        mCircleLoadingView.setAnimListener(new MeLoadingView.LeLoadingAnimListener() {
             @Override
             public void onLoadStart() {
 
@@ -52,7 +52,7 @@ public class CustomRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIReset(PtrFrameLayout frame) {
-        mCircleLoadingView.disappearAnim(null);
+
     }
 
     @Override
@@ -67,7 +67,7 @@ public class CustomRefreshHeader extends FrameLayout implements PtrUIHandler {
 
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
-
+        mCircleLoadingView.disappearAnim(null);
     }
 
     @Override
