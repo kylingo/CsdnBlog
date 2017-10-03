@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.library.util.CrashHandler;
+import com.squareup.leakcanary.AndroidExcludedRefs;
+import com.squareup.leakcanary.ExcludedRefs;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
@@ -37,7 +39,12 @@ public class BlogApplication extends Application {
 
     protected void setupLeakCanary() {
         if (BuildConfig.DEBUG) {
-            LeakCanary.install(this);
+            ExcludedRefs excludedRefs = AndroidExcludedRefs.createAppDefaults()
+                    .staticField("android.view.inputmethod.InputMethodManager", "sInstance")
+                    .build();
+            LeakCanary.refWatcher(this)
+                    .excludedRefs(excludedRefs)
+                    .buildAndInstall();
         }
     }
 

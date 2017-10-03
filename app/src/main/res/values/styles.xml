@@ -12,6 +12,8 @@
         -->
     </style>
 
+    <style name="AppBlogTheme" parent="android:Theme.Holo.Light.NoActionBar"/>
+
     <style name="ActionBarTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
