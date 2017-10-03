@@ -386,7 +386,7 @@ public class JsoupUtils {
 
             Elements blogElements = doc.getElementsByClass("blog_list");
             for (Element blogElement : blogElements) {
-                Element h3 = blogElement.getElementsByClass("tracking-ad").first();
+                Element h3 = blogElement.getElementsByClass("csdn-tracking-statistics").first();
                 String title = h3.select("a").text();
                 String url = h3.select("a").attr("href");
                 String desc = blogElement.getElementsByClass("blog_list_c").text();
