@@ -27,7 +27,7 @@ public class ToastUtil {
         }
 
         mToast = Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT);
-        View view = LayoutInflater.from(context).inflate(R.layout.toast_bg, null);
+        View view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.toast_bg, null);
         TextView messageView = (TextView) view.findViewById(R.id.tv_message);
         mToast.setView(view);
 
