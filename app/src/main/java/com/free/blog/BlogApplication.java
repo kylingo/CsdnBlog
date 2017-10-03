@@ -32,6 +32,10 @@ public class BlogApplication extends Application {
     }
 
     private void init() {
+        setupLeakCanary();
+    }
+
+    protected void setupLeakCanary() {
         if (BuildConfig.DEBUG) {
             LeakCanary.install(this);
         }

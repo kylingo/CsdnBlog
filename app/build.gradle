@@ -85,9 +85,9 @@ dependencies {
     // ui
     compile 'com.github.kylingo:meui:1.0.5'
     // leak canary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     // permission
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.3@aar'
     // loading
