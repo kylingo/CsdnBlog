@@ -5,11 +5,9 @@ import android.content.Context;
 
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.library.util.CrashHandler;
-import com.squareup.leakcanary.AndroidExcludedRefs;
-import com.squareup.leakcanary.ExcludedRefs;
-import com.squareup.leakcanary.LeakCanary;
 
 import java.io.File;
+import java.lang.reflect.Method;
 
 /**
  * 应用Application类
@@ -37,14 +35,37 @@ public class BlogApplication extends Application {
         setupLeakCanary();
     }
 
+    @SuppressWarnings("unchecked")
     protected void setupLeakCanary() {
         if (BuildConfig.DEBUG) {
-            ExcludedRefs excludedRefs = AndroidExcludedRefs.createAppDefaults()
-                    .staticField("android.view.inputmethod.InputMethodManager", "sInstance")
-                    .build();
-            LeakCanary.refWatcher(this)
-                    .excludedRefs(excludedRefs)
-                    .buildAndInstall();
+            try {
+                Class androidExcludedRefs = Class.forName("com.squareup.leakcanary.AndroidExcludedRefs");
+                Method createAppDefaults = androidExcludedRefs.getMethod("createAppDefaults");
+
+                Object builderWithParams = createAppDefaults.invoke(androidExcludedRefs);
+                Method clazz = builderWithParams.getClass().getMethod("clazz", String.class);
+                Method build = builderWithParams.getClass().getMethod("build");
+                clazz.invoke(builderWithParams, "android.view.inputmethod.InputMethodManager");
+                Object excludedRefs = build.invoke(builderWithParams);
+
+                Class leakCanary = Class.forName("com.squareup.leakcanary.LeakCanary");
+                Method refWatcher = leakCanary.getMethod("refWatcher", Context.class);
+                Object androidRefWatcherBuilder = refWatcher.invoke(leakCanary, this);
+                Method excludedRefs_ = androidRefWatcherBuilder.getClass().getMethod("excludedRefs", excludedRefs.getClass());
+                Method buildAndInstall = androidRefWatcherBuilder.getClass().getMethod("buildAndInstall");
+                excludedRefs_.invoke(androidRefWatcherBuilder, excludedRefs);
+                buildAndInstall.invoke(androidRefWatcherBuilder);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+//            ExcludedRefs excludedRefs = AndroidExcludedRefs.createAppDefaults()
+//                    .staticField("android.view.inputmethod.InputMethodManager", "sInstance")
+//                    .clazz("android.view.inputmethod.InputMethodManager")
+//                    .build();
+//            LeakCanary.refWatcher(this)
+//                    .excludedRefs(excludedRefs)
+//                    .buildAndInstall();
         }
     }
 
