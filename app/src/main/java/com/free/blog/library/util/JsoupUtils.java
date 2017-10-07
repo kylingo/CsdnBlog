@@ -38,61 +38,72 @@ public class JsoupUtils {
         }
 
         Document doc = Jsoup.parse(html);
-        String str;
+        String imgUrl;
         try {
-            str = doc.getElementById("blog_userface").select("a").select("img").attr("src");
+            imgUrl = doc.getElementById("blog_userface").select("a").select("img").attr("src");
         } catch (Exception e) {
             e.printStackTrace();
-            str = "";
+            imgUrl = "";
         }
 
-        Elements headerElement = doc.getElementsByClass("header");
-        String title = headerElement.select("h2").text();
-        String description = headerElement.select("h3").text();
-        String imgUrl = str;
-        if (TextUtils.isEmpty(title)) {
-            return null;
+        try {
+            Elements headerElement = doc.getElementsByClass("header");
+            String title = headerElement.select("h2").text();
+            String description = headerElement.select("h3").text();
+            if (TextUtils.isEmpty(title)) {
+                return null;
+            }
+
+            Blogger blogger = new Blogger();
+            blogger.setTitle(title);
+            blogger.setDescription(description);
+            blogger.setImgUrl(imgUrl);
+            return blogger;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        Blogger blogger = new Blogger();
-        blogger.setTitle(title);
-        blogger.setDescription(description);
-        blogger.setImgUrl(imgUrl);
-        return blogger;
+        return null;
     }
 
     public static List<BlogItem> getBlogList(String category, String html, List<BlogCategory>
             blogCategoryList) {
         List<BlogItem> list = new ArrayList<>();
         Document doc = Jsoup.parse(html);
-        Elements blogList = doc.getElementsByClass("article_item");
 
-        String page = doc.getElementsByClass("pagelist").select("span").text().trim();
-        int totalPage = getBlogTotalPage(page);
+        // blog item
+        try {
+            Elements blogList = doc.getElementsByClass("article_item");
 
-        for (Element blogItem : blogList) {
-            BlogItem item = new BlogItem();
-            String title = blogItem.select("h1").text();
+            String page = doc.getElementsByClass("pagelist").select("span").text().trim();
+            int totalPage = getBlogTotalPage(page);
 
-            String icoType = blogItem.getElementsByClass("ico").get(0).className();
-            if (title.contains("置顶")) {
-                item.setTopFlag(1);
+            for (Element blogItem : blogList) {
+                BlogItem item = new BlogItem();
+                String title = blogItem.select("h1").text();
+
+                String icoType = blogItem.getElementsByClass("ico").get(0).className();
+                if (title.contains("置顶")) {
+                    item.setTopFlag(1);
+                }
+                String description = blogItem.select("div.article_description").text();
+                String date = blogItem.getElementsByClass("article_manage").get(0).text();
+                String link = BLOG_URL + blogItem.select("h1").select("a").attr("href");
+
+                item.setTitle(title);
+                item.setContent(description);
+                item.setDate(date);
+                item.setLink(link);
+                item.setTotalPage(totalPage);
+                item.setCategory(category);
+                item.setIcoType(icoType);
+                list.add(item);
             }
-            String description = blogItem.select("div.article_description").text();
-            String date = blogItem.getElementsByClass("article_manage").get(0).text();
-            String link = BLOG_URL + blogItem.select("h1").select("a").attr("href");
-
-            item.setTitle(title);
-            item.setContent(description);
-            item.setDate(date);
-            item.setLink(link);
-            item.setTotalPage(totalPage);
-            item.setCategory(category);
-            item.setIcoType(icoType);
-            list.add(item);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        // Blog category
+        // blog category
         Elements panelElements = doc.getElementsByClass("panel");
         for (Element panelElement : panelElements) {
             try {
@@ -187,8 +198,8 @@ public class JsoupUtils {
             return null;
         }
 
-        Element titleElement = Jsoup.parse(html).getElementsByClass("article_title").get(0);
         try {
+            Element titleElement = Jsoup.parse(html).getElementsByClass("article_title").get(0);
             return titleElement.select("h1").select("span").select("a").text();
         } catch (Exception e) {
             e.printStackTrace();
