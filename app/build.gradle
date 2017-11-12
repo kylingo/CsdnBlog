@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
-        jcenter();
+        jcenter()
     }
 
     dependencies {
@@ -12,7 +12,7 @@ buildscript {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.free.blog"
