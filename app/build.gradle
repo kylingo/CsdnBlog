@@ -5,9 +5,9 @@ buildscript {
         jcenter()
     }
 
-    dependencies {
-        classpath 'com.google.gms:google-services:3.0.0'
-    }
+//    dependencies {
+//        classpath 'com.google.gms:google-services:3.0.0'
+//    }
 }
 
 android {
@@ -94,7 +94,7 @@ dependencies {
     compile 'com.github.ybq:Android-SpinKit:1.0.5'
     compile 'com.github.glomadrian:loadingballs:1.1@aar'
     // ga
-    compile 'com.google.android.gms:play-services-analytics:10.2.1'
+//    compile 'com.google.android.gms:play-services-analytics:10.2.1'
     // bugly
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
