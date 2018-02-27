@@ -1,5 +1,7 @@
 package com.free.blog.ui.home.column;
 
+import android.text.TextUtils;
+
 import com.free.blog.library.config.ColumnManager;
 import com.free.blog.library.rx.RxHelper;
 import com.free.blog.library.util.JsoupUtils;
@@ -20,6 +22,13 @@ import rx.functions.Func1;
 class ColumnPresenter extends RefreshPresenter<List<BlogColumn>> implements
         ColumnContract.Presenter {
 
+    // 浏览量
+    private static final String TYPE_COUNT = "viewcount";
+    // 最新创建
+    private static final String TYPE_NEW = "new";
+    // 最新更新
+    private static final String TYPE_UPDATE = "update";
+
     private ColumnManager mColumnManager;
     private BlogCategory mBlogCategory;
 
@@ -36,7 +45,15 @@ class ColumnPresenter extends RefreshPresenter<List<BlogColumn>> implements
 
     @Override
     protected Observable<? extends List<BlogColumn>> getObservable(int page) {
-        return NetEngine.getInstance().getHtmlByPage(mBlogCategory.getLink(), page)
+        String link = mBlogCategory.getLink();
+        if (!TextUtils.isEmpty(link) && !link.contains(getOrderType())) {
+            if (link.contains("?")) {
+                link = link + "&" + getOrderType();
+            } else {
+                link = link + "?" + getOrderType();
+            }
+        }
+        return NetEngine.getInstance().getHtmlByPage(link, page)
                 .map(new Func1<String, List<BlogColumn>>() {
                     @Override
                     public List<BlogColumn> call(String s) {
@@ -61,5 +78,12 @@ class ColumnPresenter extends RefreshPresenter<List<BlogColumn>> implements
         mBlogCategory = blogCategory;
         mColumnManager.saveType(blogCategory);
         getViewDelegate().updateTitle(blogCategory.getName());
+    }
+
+    /**
+     * 获取排序方法
+     */
+    private String getOrderType() {
+        return "type=" + TYPE_UPDATE;
     }
 }
