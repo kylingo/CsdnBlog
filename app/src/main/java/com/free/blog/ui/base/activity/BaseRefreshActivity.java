@@ -10,16 +10,14 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.free.blog.R;
 import com.free.blog.library.view.recyclerview.DividerItemDecoration;
-import com.free.blog.library.view.refresh.CustomRefreshHeader;
+import com.free.blog.library.view.refresh.PullRefreshHandler;
+import com.free.blog.library.view.refresh.PullRefreshLayout;
 import com.free.blog.ui.base.adapter.BaseViewAdapter;
 import com.free.blog.ui.base.vp.refresh.IRefreshPresenter;
 import com.free.blog.ui.base.vp.refresh.IRefreshView;
 import com.free.blog.ui.base.vp.refresh.RefreshPresenter;
 
 import java.util.List;
-
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * @author studiotang on 17/3/18
@@ -30,7 +28,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         BaseQuickAdapter.OnItemClickListener {
 
     protected RefreshPresenter mPresenter;
-    protected PtrFrameLayout mPtrFrameLayout;
+    protected PullRefreshLayout mPtrFrameLayout;
     protected RecyclerView mRecyclerView;
     protected BaseViewAdapter mAdapter;
     protected TextView mTvTitle;
@@ -53,7 +51,7 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
     protected void initView() {
         initActionBar();
 
-        mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.base_ptr_frame);
+        mPtrFrameLayout = (PullRefreshLayout) findViewById(R.id.base_ptr_frame);
         mRecyclerView = (RecyclerView) findViewById(R.id.base_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAnimation(null);
@@ -66,14 +64,10 @@ public abstract class BaseRefreshActivity<T> extends BaseActivity implements
         mAdapter.bindToRecyclerView(mRecyclerView);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
 
-//        PtrClassicDefaultHeader header = new PtrClassicDefaultHeader(this);
-//        header.setLastUpdateTimeKey(KeyConfig.UPDATE_TIME);
-        CustomRefreshHeader header = new CustomRefreshHeader(this);
-        mPtrFrameLayout.addPtrUIHandler(header);
-        mPtrFrameLayout.setHeaderView(header);
-        mPtrFrameLayout.setPtrHandler(new PtrDefaultHandler() {
+        mPtrFrameLayout.setPtrHandler(new PullRefreshHandler() {
+
             @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
+            protected void onRefresh() {
                 loadInitData();
             }
         });
