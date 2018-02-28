@@ -108,11 +108,9 @@ public class JsoupUtils {
 
         // blog item
         try {
+            int totalPage = getBlogListPage(doc);
+
             Elements blogList = doc.getElementsByClass("article_item");
-
-            String page = doc.getElementsByClass("pagelist").select("span").text().trim();
-            int totalPage = getBlogTotalPage(page);
-
             for (Element blogItem : blogList) {
                 BlogItem item = new BlogItem();
                 String title = blogItem.select("h1").text();
@@ -173,7 +171,93 @@ public class JsoupUtils {
             }
         }
 
+        if (list.size() > 0) {
+            return list;
+        } else {
+            return getBlogList2(category, html, blogCategoryList);
+        }
+    }
+
+    private static List<BlogItem> getBlogList2(String category, String html, List<BlogCategory>
+            blogCategoryList) {
+        List<BlogItem> list = new ArrayList<>();
+        Document doc = Jsoup.parse(html);
+
+        // blog item
+        try {
+            int totalPage = getBlogListPage(doc);
+
+            Elements blogList = doc.getElementsByClass("blog-unit");
+            for (Element blogItem : blogList) {
+                BlogItem item = new BlogItem();
+                String title = blogItem.select("h3").text();
+
+                if (title.contains("置顶")) {
+                    item.setTopFlag(1);
+                }
+                String description = blogItem.select("p.text").text();
+                String date = blogItem.getElementsByClass("left-dis-24").get(0).text();
+                String link = blogItem.select("a").attr("href");
+                if (!TextUtils.isEmpty(link) && !link.contains(BLOG_URL)) {
+                    link = BLOG_URL + link;
+                }
+
+                item.setTitle(title);
+                item.setContent(description);
+                item.setDate(date);
+                item.setLink(link);
+                item.setTotalPage(totalPage);
+                item.setCategory(category);
+                item.setIcoType(null);
+                list.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // blog category
+        try {
+            Elements panelElements = doc.getElementsByClass("hotArticle-list").get(0)
+                    .getElementsByClass("clearfix");
+            if (panelElements != null) {
+                blogCategoryList.clear();
+                BlogCategory allBlogCategory = new BlogCategory();
+                allBlogCategory.setName("全部");
+                blogCategoryList.add(0, allBlogCategory);
+
+                for (Element panelElement : panelElements) {
+                    if (panelElement != null) {
+                        BlogCategory blogCategory = new BlogCategory();
+                        String name = panelElement.select("a").text().trim().replace("【", "")
+                                .replace("】", "");
+                        String link = panelElement.select("a").attr("href");
+                        blogCategory.setName(name.trim());
+                        blogCategory.setLink(link.trim());
+
+                        blogCategoryList.add(blogCategory);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return list;
+    }
+
+    private static int getBlogListPage(Document doc) {
+        int totalPage = 0;
+        Elements elements = doc.getElementsByClass("page-link");
+        if (elements != null && elements.size() > 1) {
+            Element lastElement = elements.get(elements.size() - 2);
+            try {
+                String lastPage = lastElement.text();
+                totalPage = Integer.parseInt(lastPage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return totalPage;
     }
 
     private static int getBlogTotalPage(String page) {

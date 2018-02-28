@@ -83,7 +83,13 @@ class BlogListPresenter extends RefreshPresenter<List<BlogItem>> implements
             return NetEngine.getInstance().getBlogList(mUserId, page);
         }
 
-        return NetEngine.getInstance().getCategoryBlogList(mCategoryLink, page);
+        if (mCategoryLink != null) {
+            // 新版分类，直接用URL绝对路径即可
+            String url = mCategoryLink + "/" + page;
+            return NetEngine.getInstance().getHtml(url);
+        } else {
+            return NetEngine.getInstance().getCategoryBlogList(null, page);
+        }
     }
 
     private void queryCategory() {
