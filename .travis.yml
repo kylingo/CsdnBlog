@@ -2,12 +2,25 @@
 language: android
 android:
    components:
-   - tools
-   - tools #Running this twice get's the latest build tools (https://github.com/codepath/android_guides/wiki/Setting-up-Travis-CI)
-   - platform-tools
-   - android-23
-   - build-tools-23.0.3
-   - extra
+    # Uncomment the lines below if you want to
+    # use the latest revision of Android SDK Tools
+    # - tools
+    # - platform-tools
+
+    - build-tools-26.0.2
+    - android-26
+    - extra
+
+    # Additional components
+    # - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    # - addon-google_apis-google-26
+
+    licenses:
+     - 'android-sdk-preview-license-52d11cd2'
+     - 'android-sdk-license-.+'
+     - 'google-gdk-license-.+'
 
 jdk: oraclejdk8
 
