@@ -2,9 +2,9 @@
 这是一款可以随时查看CSDN博客的开源软件，欢迎Star或Fork。
 默认支持Android分类的博客，内置了五十余名Android博客专家。
 
-最新版本v2.0.0
+最新版本v2.1.0
 - [点我下载](http://www.pgyer.com/csdn)
-- [更新历史](./app/Notes.md)
+- [更新历史](./app/Release.md)
 
 ## 功能列表
 - 查看博客专家列表
