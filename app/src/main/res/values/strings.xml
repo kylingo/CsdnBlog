@@ -59,7 +59,8 @@
     <string name="about_us">关于我们</string>
     <string name="exit">退出</string>
     <string name="confirm_to_exit">确定要退出吗？</string>
-    <string name="settings_now_version">当前版本V</string>
+    <string name="settings_now_version">当前版本v%s</string>
+    <string name="settings_debug_version">测试版本v%s</string>
     <string name="cache_size">0M</string>
 
     <string name="message_image_desc">Message Image</string>

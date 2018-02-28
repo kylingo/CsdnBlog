@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.free.blog.BuildConfig;
 import com.free.blog.R;
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.library.rx.RxHelper;
@@ -73,8 +74,16 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
         LinearLayout llSettingsExit = (LinearLayout) findViewById(R.id.ll_settings_exit);
 
         tvTitle.setText(R.string.settings);
-        tvVersionName.setText(String.format("%s%s", getString(R.string.settings_now_version),
-                VersionUtils.getVersionName(this)));
+
+        String versionName = VersionUtils.getVersionName(this);
+        String mergeVersionName;
+        if(BuildConfig.DEBUG) {
+            mergeVersionName = getString(R.string.settings_debug_version, versionName);
+        } else {
+            mergeVersionName = getString(R.string.settings_now_version, versionName);
+        }
+        tvVersionName.setText(mergeVersionName);
+
         btnBack.setOnClickListener(this);
         btnBack.setVisibility(View.VISIBLE);
         llCheckUpgrade.setOnClickListener(this);

@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.free.blog"
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 202
         versionName "2.0.2"
         multiDexEnabled true
@@ -47,13 +47,12 @@ android {
             debuggable false
             minifyEnabled false
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
 
         debug {
-            // FileProvider的authorities参数不能有二个，不能同时安装debug和release的安装包
-//            applicationIdSuffix ".debug"
+            applicationIdSuffix ".debug"
             debuggable true
             shrinkResources false
         }

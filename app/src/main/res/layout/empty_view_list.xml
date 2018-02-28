@@ -8,7 +8,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
-               android:layout_marginTop="100dp"
+               android:layout_marginTop="139dp"
                android:clickable="true"
                android:src="@drawable/base_empty_view">
     </ImageView>

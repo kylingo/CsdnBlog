@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -45,6 +46,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final int right = parent.getMeasuredWidth() - parent.getPaddingRight();
         final int childSize = parent.getChildCount();
         for (int i = 0; i < childSize; i++) {
+            if (isLastRaw(parent, i, 1, childSize)) {
+                return;
+            }
+
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int top = child.getBottom() + layoutParams.bottomMargin;
@@ -58,6 +63,10 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final int bottom = parent.getMeasuredHeight() - parent.getPaddingBottom();
         final int childSize = parent.getChildCount();
         for (int i = 0; i < childSize; i++) {
+            if (isLastColumn(parent, i, 1, childSize)) {
+                return;
+            }
+
             final View child = parent.getChildAt(i);
             RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
             final int left = child.getRight() + layoutParams.rightMargin;
@@ -73,5 +82,32 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         } else {
             outRect.set(0, 0, mItemSize, 0);
         }
+    }
+
+    // 是否是最后一列
+    private boolean isLastColumn(RecyclerView parent, int pos, int spanCount, int childCount) {
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            if ((pos + 1) % spanCount == 0)
+                return true;
+        } else {
+            if (pos == childCount - 1)
+                return true;
+        }
+        return false;
+    }
+
+    // 是否是最后一行
+    private boolean isLastRaw(RecyclerView parent, int pos, int spanCount, int childCount) {
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        if (layoutManager instanceof GridLayoutManager) {
+            childCount = childCount - childCount % spanCount;
+            if (pos >= childCount)
+                return true;
+        } else {
+            if (pos == childCount - 1)
+                return true;
+        }
+        return false;
     }
 }
