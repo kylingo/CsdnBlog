@@ -51,6 +51,41 @@ public class JsoupUtils {
             String title = headerElement.select("h2").text();
             String description = headerElement.select("h3").text();
             if (TextUtils.isEmpty(title)) {
+                return getBlogger2(html);
+            }
+
+            Blogger blogger = new Blogger();
+            blogger.setTitle(title);
+            blogger.setDescription(description);
+            blogger.setImgUrl(imgUrl);
+            return blogger;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return getBlogger2(html);
+    }
+
+    /**
+     * 第2种风格博主
+     */
+    private static Blogger getBlogger2(String html) {
+        Document doc = Jsoup.parse(html);
+        String imgUrl;
+        try {
+            // 头像
+            imgUrl = doc.getElementsByClass("inf_bar").select("a").select("img").attr("src");
+        } catch (Exception e) {
+            e.printStackTrace();
+            imgUrl = "";
+        }
+
+        try {
+            // 博主名字和个性签名
+            Elements headerElement = doc.getElementsByClass("header-left");
+            String title = headerElement.select("h1").text();
+            String description = headerElement.select("div").select("span").text();
+            if (TextUtils.isEmpty(title)) {
                 return null;
             }
 
