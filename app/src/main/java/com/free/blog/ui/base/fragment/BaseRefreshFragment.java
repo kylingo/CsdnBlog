@@ -1,7 +1,6 @@
 package com.free.blog.ui.base.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +27,7 @@ import java.util.List;
 public abstract class BaseRefreshFragment<T> extends BaseFragment implements
         IRefreshView<T, IRefreshPresenter>, IBaseRefreshFragment,
         BaseQuickAdapter.RequestLoadMoreListener, View.OnClickListener,
-        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener{
+        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener {
 
     protected RefreshPresenter mPresenter;
     protected PullRefreshLayout mPtrFrameLayout;
@@ -230,9 +229,7 @@ public abstract class BaseRefreshFragment<T> extends BaseFragment implements
         mAdapter.getEmptyView().findViewById(R.id.iv_reload).setOnClickListener(this);
     }
 
-    protected
-    @DrawableRes
-    int getMenuResId() {
+    protected int getMenuResId() {
         return -1;
     }
 

@@ -17,9 +17,9 @@ android {
     defaultConfig {
         applicationId "com.free.blog"
         minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 201
-        versionName "2.0.1"
+        targetSdkVersion 21
+        versionCode 202
+        versionName "2.0.2"
         multiDexEnabled true
 
         ndk {
@@ -52,6 +52,7 @@ android {
         }
 
         debug {
+            // FileProvider的authorities参数不能有二个，不能同时安装debug和release的安装包
 //            applicationIdSuffix ".debug"
             debuggable true
             shrinkResources false
@@ -63,38 +64,49 @@ dependencies {
     // module
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+
     // support
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'com.android.support:support-v4:23.0.1'
+
     // rx
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.2'
+
     // retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.0.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
+
     // glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
     // refresh
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.0'
+
     // ui
     compile 'com.github.kylingo:meui:1.0.6'
+
     // leak canary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
     // permission
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.3@aar'
+
     // loading
     compile 'com.github.ybq:Android-SpinKit:1.0.5'
     compile 'com.github.glomadrian:loadingballs:1.1@aar'
+
     // ga
 //    compile 'com.google.android.gms:play-services-analytics:10.2.1'
+
     // bugly
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
