@@ -18,8 +18,8 @@ android {
         applicationId "com.free.blog"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 202
-        versionName "2.0.2"
+        versionCode 210
+        versionName "2.1.0"
         multiDexEnabled true
 
         ndk {
@@ -45,17 +45,39 @@ android {
     buildTypes {
         release {
             debuggable false
-            minifyEnabled false
             zipAlignEnabled true
+            shrinkResources true
+
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
 
         debug {
+            // Debug版本报名增加后缀，设备可以同时安装release和debug版本
             applicationIdSuffix ".debug"
             debuggable true
             shrinkResources false
         }
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "2g"
+    }
+}
+
+afterEvaluate {
+    tasks.matching {
+        it.name.startsWith('dex')
+    }.each { dx ->
+        if (dx.additionalParameters == null) {
+            dx.additionalParameters = []
+        }
+        dx.additionalParameters += '--multi-dex' // enable multidex
+
+        // optional
+        // dx.additionalParameters += "--main-dex-list=$projectDir/<filename>".toString() // enable the main-dex-list
     }
 }
 
@@ -69,6 +91,9 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'com.android.support:support-v4:23.0.1'
+
+    // multi dex
+    compile 'com.android.support:multidex:1.0.1'
 
     // rx
     compile 'io.reactivex:rxandroid:1.1.0'

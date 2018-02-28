@@ -2,6 +2,7 @@ package com.free.blog;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.free.blog.library.config.CacheManager;
 import com.free.blog.library.util.CrashHandler;
@@ -87,5 +88,11 @@ public class BlogApplication extends Application {
     @Override
     public File getDatabasePath(String name) {
         return new File(CacheManager.getAppDatabasePath(this));
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
