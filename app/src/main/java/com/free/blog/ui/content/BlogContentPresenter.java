@@ -23,6 +23,7 @@ import com.free.blog.ui.content.comment.CommentActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.Iterator;
 
@@ -194,7 +195,19 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
         if (TextUtils.isEmpty(paramString)) {
             return null;
         }
-        Element localElement = Jsoup.parse(paramString).getElementsByClass("details").get(0);
+
+        Element localElement;
+        Elements elements = Jsoup.parse(paramString).getElementsByClass("details");
+        localElement = getElement(elements);
+        if (localElement == null) {
+            elements = Jsoup.parse(paramString).getElementsByClass("article_content");
+            localElement = getElement(elements);
+        }
+
+        if (localElement == null) {
+            return null;
+        }
+
         Iterator<?> localIterator = localElement.getElementsByTag("img").iterator();
         while (true) {
             if (!localIterator.hasNext())
@@ -210,4 +223,13 @@ class BlogContentPresenter extends SinglePresenter<BlogHtml> implements BlogCont
             ((Element) localIterator.next()).attr("width", "100%");
         }
     }
+
+    private Element getElement(Elements elements) {
+        if (elements != null && elements.size() > 0) {
+            return elements.get(0);
+        }
+
+        return null;
+    }
 }
+

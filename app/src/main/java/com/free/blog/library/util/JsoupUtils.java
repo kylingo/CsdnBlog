@@ -123,7 +123,10 @@ public class JsoupUtils {
                 }
                 String description = blogItem.select("div.article_description").text();
                 String date = blogItem.getElementsByClass("article_manage").get(0).text();
-                String link = BLOG_URL + blogItem.select("h1").select("a").attr("href");
+                String link = blogItem.select("h1").select("a").attr("href");
+                if (!TextUtils.isEmpty(link) && !link.contains(BLOG_URL)) {
+                    link = BLOG_URL + link;
+                }
 
                 item.setTitle(title);
                 item.setContent(description);
@@ -225,6 +228,25 @@ public class JsoupUtils {
             e.printStackTrace();
         }
 
+        return getBlogContent2(html);
+    }
+
+    /**
+     * 第2种风格博客
+     */
+    private static String getBlogContent2(String html) {
+        try {
+            Element detailElement = Jsoup.parse(html).getElementsByClass("article_content").get(0);
+            detailElement.getElementsByClass("article_manage").remove();
+            detailElement.getElementsByTag("h1").tagName("h2");
+            for (Element element : detailElement.select("pre[name=code]")) {
+                element.attr("class", "brush: java; gutter: false;");
+            }
+
+            return detailElement.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -236,6 +258,20 @@ public class JsoupUtils {
         try {
             Element titleElement = Jsoup.parse(html).getElementsByClass("article_title").get(0);
             return titleElement.select("h1").select("span").select("a").text();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getBlogTitle2(html);
+    }
+
+    private static String getBlogTitle2(String html) {
+        if (TextUtils.isEmpty(html)) {
+            return null;
+        }
+
+        try {
+            Element titleElement = Jsoup.parse(html).getElementsByClass("csdn_top").get(0);
+            return titleElement.text();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -312,7 +348,11 @@ public class JsoupUtils {
                             .replace(")", "");
 
                     Element aElement = column.getElementsByClass("column_list_link").get(0);
-                    String url = StringUtils.trimLastChar(Config.BLOG_HOST) + aElement.attr("href");
+                    String hostUrl = StringUtils.trimLastChar(Config.BLOG_HOST);
+                    String url = aElement.attr("href");
+                    if (!TextUtils.isEmpty(url) && !url.contains(hostUrl)) {
+                        url = hostUrl + url;
+                    }
                     String title = aElement.getElementsByClass("column_list_p").get(0).text();
                     String size = aElement.getElementsByClass("column_list_b_l").get(0).select("span").text();
                     String viewCount = aElement.getElementsByClass("column_list_b_r").get(0).select("span").text();
