@@ -2,15 +2,12 @@
 language: android
 android:
    components:
-     - build-tools-26.0.2
-     - android-26
-     - sys-img-armeabi-v7a-android-tv-l
-     - add-on
-     - extra
-   licenses:
-     - 'android-sdk-preview-license-52d11cd2'
-     - 'android-sdk-license-.+'
-     - 'google-gdk-license-.+'
+   - tools
+   - tools #Running this twice get's the latest build tools (https://github.com/codepath/android_guides/wiki/Setting-up-Travis-CI)
+   - platform-tools
+   - android-23
+   - build-tools-23.0.3
+   - extra
 
 jdk: oraclejdk8
 

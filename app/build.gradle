@@ -12,14 +12,14 @@ buildscript {
 
 android {
     compileSdkVersion 23
-//    buildToolsVersion '23.0.3'
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "com.free.blog"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 210
-        versionName "2.1.0"
+        versionCode 211
+        versionName "2.1.1"
         multiDexEnabled true
 
         ndk {
