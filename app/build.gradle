@@ -18,7 +18,7 @@ android {
         applicationId "com.free.blog"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 211
+        versionCode 212
         versionName "2.1.2"
         multiDexEnabled true
 
