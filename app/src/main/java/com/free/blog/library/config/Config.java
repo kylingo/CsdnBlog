@@ -11,7 +11,7 @@ public class Config {
 	/**
 	 * CSDN博客基础地址
 	 */
-	public static final String BLOG_HOST = "http://blog.csdn.net/";
+	public static final String BLOG_HOST = "https://blog.csdn.net/";
 
 	/**
 	 * 博客分类--全部

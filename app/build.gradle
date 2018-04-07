@@ -19,7 +19,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 211
-        versionName "2.1.1"
+        versionName "2.1.2"
         multiDexEnabled true
 
         ndk {

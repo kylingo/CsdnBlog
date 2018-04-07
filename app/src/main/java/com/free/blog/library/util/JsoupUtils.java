@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class JsoupUtils {
 
-    private static final String BLOG_URL = "http://blog.csdn.net";
+    private static final String BLOG_URL = "https://blog.csdn.net";
 
     public static Blogger getBlogger(String html) {
         if (TextUtils.isEmpty(html)) {
@@ -282,7 +282,7 @@ public class JsoupUtils {
         }
 
         try {
-            Element detailElement = Jsoup.parse(html).getElementsByClass("details").get(0);
+            Element detailElement = Jsoup.parse(html).getElementsByClass("article_content").get(0);
             detailElement.select("script").remove();
 
             if (detailElement.getElementById("digg") != null) {

@@ -18,7 +18,7 @@
     <string name="input_blog_id">添加博客ID</string>
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
-    <string name="add_blog_notice">例如：博客地址为“http://blog.csdn.net/abc”，那么“abc”就是您的博客ID。</string>
+    <string name="add_blog_notice">例如：博客地址为“https://blog.csdn.net/abc”，那么“abc”就是您的博客ID。</string>
     <string name="loading">正在加载…</string>
     <string name="toast_message">消息提醒</string>
     <string name="hint_input_blog_id">请输入您要添加的博客ID</string>

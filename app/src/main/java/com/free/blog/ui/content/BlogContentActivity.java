@@ -228,7 +228,7 @@ public class BlogContentActivity extends BaseSingleActivity implements
 
     private void loadHtml(String html) {
         if (!TextUtils.isEmpty(html)) {
-            mWebView.loadDataWithBaseURL("http://blog.csdn.net", html, "text/html", "utf-8", null);
+            mWebView.loadDataWithBaseURL("https://blog.csdn.net", html, "text/html", "utf-8", null);
             mReLoadImageView.setVisibility(View.GONE);
         } else {
             mProgressBar.setVisibility(View.GONE);
@@ -255,7 +255,7 @@ public class BlogContentActivity extends BaseSingleActivity implements
         }
 
         public boolean shouldOverrideUrlLoading(WebView paramWebView, String paramString) {
-            if ((paramString.matches("http://blog.csdn.net/(\\w+)/article/details/(\\d+)"))) {
+            if ((paramString.matches("https://blog.csdn.net/(\\w+)/article/details/(\\d+)"))) {
                 mHistoryUrlList.add(mUrl);
 
                 mUrl = paramString;
