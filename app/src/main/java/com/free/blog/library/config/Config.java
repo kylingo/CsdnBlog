@@ -22,9 +22,9 @@ public class Config {
 	 * 博客类型
 	 */
 	public class BLOG_TYPE {
-		public static final String BLOG_TYPE_REPOST = "ico ico_type_Repost";
-		public static final String BLOG_TYPE_ORIGINAL = "ico ico_type_Original";
-		public static final String BLOG_TYPE_TRANSLATED = "ico ico_type_Translated";
+		public static final String BLOG_TYPE_REPOST = "article-type type-2";
+		public static final String BLOG_TYPE_ORIGINAL = "article-type type-1";
+		public static final String BLOG_TYPE_TRANSLATED = "article-type type-3";
 	}
 
 	/**

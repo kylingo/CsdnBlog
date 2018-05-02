@@ -40,16 +40,16 @@ public class JsoupUtils {
         Document doc = Jsoup.parse(html);
         String imgUrl;
         try {
-            imgUrl = doc.getElementById("blog_userface").select("a").select("img").attr("src");
+            imgUrl = doc.getElementsByClass("avatar_pic").attr("src");
         } catch (Exception e) {
             e.printStackTrace();
             imgUrl = "";
         }
 
         try {
-            Elements headerElement = doc.getElementsByClass("header");
-            String title = headerElement.select("h2").text();
-            String description = headerElement.select("h3").text();
+            Elements headerElement = doc.getElementsByClass("title-box");
+            String title = headerElement.select("h6").select("a").text();
+            String description = headerElement.select("p").text();
             if (TextUtils.isEmpty(title)) {
                 return getBlogger2(html);
             }
@@ -110,18 +110,18 @@ public class JsoupUtils {
         try {
             int totalPage = getBlogListPage(doc);
 
-            Elements blogList = doc.getElementsByClass("article_item");
+            Elements blogList = doc.getElementsByClass("article-item-box");
             for (Element blogItem : blogList) {
                 BlogItem item = new BlogItem();
-                String title = blogItem.select("h1").text();
+                String title = blogItem.select("h4").text();
 
-                String icoType = blogItem.getElementsByClass("ico").get(0).className();
+                String icoType = blogItem.getElementsByClass("article-type").get(0).className();
                 if (title.contains("置顶")) {
                     item.setTopFlag(1);
                 }
-                String description = blogItem.select("div.article_description").text();
-                String date = blogItem.getElementsByClass("article_manage").get(0).text();
-                String link = blogItem.select("h1").select("a").attr("href");
+                String description = blogItem.getElementsByClass("content").select("a").text();
+                String date = blogItem.getElementsByClass("info-box").get(0).text();
+                String link = blogItem.getElementsByClass("content").select("a").attr("href");
                 if (!TextUtils.isEmpty(link) && !link.contains(BLOG_URL)) {
                     link = BLOG_URL + link;
                 }
@@ -140,35 +140,30 @@ public class JsoupUtils {
         }
 
         // blog category
-        Elements panelElements = doc.getElementsByClass("panel");
-        for (Element panelElement : panelElements) {
-            try {
-                String panelHead = panelElement.select("ul.panel_head").text();
-                if ("文章分类".equals(panelHead)) {
-                    Elements categoryElements = panelElement.select("ul.panel_body").select("li");
 
-                    if (categoryElements != null) {
-                        blogCategoryList.clear();
-                        BlogCategory allBlogCategory = new BlogCategory();
-                        allBlogCategory.setName("全部");
-                        blogCategoryList.add(0, allBlogCategory);
+        try {
+            Element asideCategory = doc.getElementById("asideCategory");
+            Elements asideContent = asideCategory.getElementsByClass("aside-content");
+            Elements categoryElements = asideContent.select("ul").select("li");
+            if (categoryElements != null) {
+                blogCategoryList.clear();
+                BlogCategory allBlogCategory = new BlogCategory();
+                allBlogCategory.setName("全部");
+                blogCategoryList.add(0, allBlogCategory);
 
-                        for (Element categoryElement : categoryElements) {
-                            BlogCategory blogCategory = new BlogCategory();
-                            String name = categoryElement.select("a").text().trim().replace("【", "")
-                                    .replace("】", "");
-                            String link = categoryElement.select("a").attr("href");
-                            blogCategory.setName(name.trim());
-                            blogCategory.setLink(link.trim());
+                for (Element categoryElement : categoryElements) {
+                    BlogCategory blogCategory = new BlogCategory();
+                    String name = categoryElement.select("a").text().trim().replace("【", "")
+                            .replace("】", "");
+                    String link = categoryElement.select("a").attr("href");
+                    blogCategory.setName(name.trim());
+                    blogCategory.setLink(link.trim());
 
-                            blogCategoryList.add(blogCategory);
-                        }
-                    }
-                    break;
+                    blogCategoryList.add(blogCategory);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (list.size() > 0) {
