@@ -18,8 +18,8 @@ android {
         applicationId "com.free.blog"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 212
-        versionName "2.1.2"
+        versionCode 213
+        versionName "2.1.3"
         multiDexEnabled true
 
         ndk {
