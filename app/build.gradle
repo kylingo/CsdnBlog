@@ -18,9 +18,10 @@ android {
         applicationId "com.free.blog"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 213
-        versionName "2.1.3"
+        versionCode 214
+        versionName "2.1.4"
         multiDexEnabled true
+        project.archivesBaseName = "CsdnBlog"
 
         ndk {
             //设置支持的SO库架构
@@ -64,6 +65,19 @@ android {
     dexOptions {
         preDexLibraries = false
         javaMaxHeapSize "2g"
+    }
+
+    //修改release版本生成的apk的名字
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (output.outputFile != null &&
+                    output.outputFile.name.endsWith('.apk')) {
+                def apkFile = new File(output.outputFile.getParent(),
+                        "CsdnBlog_${variant.buildType.name}_${variant.versionName}.apk")
+                        // "CsdnBlog_${variant.versionName}.${variant.versionCode}_${variant.flavorName}.apk")
+                output.outputFile = apkFile
+            }
+        }
     }
 }
 
