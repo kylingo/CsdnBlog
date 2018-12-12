@@ -112,6 +112,11 @@ public class JsoupUtils {
 
             Elements blogList = doc.getElementsByClass("article-item-box");
             for (Element blogItem : blogList) {
+                // 不需要展示item
+                if ("display: none;".equals(blogItem.attr("style"))) {
+                    continue;
+                }
+
                 BlogItem item = new BlogItem();
                 String title = blogItem.select("h4").text();
 
